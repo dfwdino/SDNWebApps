@@ -1,0 +1,28 @@
+﻿@model SDNWebApps.Areas.Gas.Models.Auto.ListViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Auto for @Model.Person.PersonName</h2>
+
+<table id="AutoList" style="border-style:none">
+    
+    @{foreach (var item in Model.Auto)
+      {
+          <tr>
+              <td style="border-style: solid; border-width: 1px">@Html.Label(item.AutoName)</td>
+              <td style="border-style: solid; border-width: 1px">@Html.ActionLink("Add","Add","Miles",new {id = item.ID},null) </td>
+              <td style="border-style: solid; border-width: 1px">@Html.ActionLink("View Miles","List","Miles", new {id = item.ID},null)</td>
+          </tr>
+      
+      }
+    }
+
+</table>
+<br />
+<br />  
+@Html.ActionLink("Add Auto","Add","Auto",new {id = Model.Person.ID},null)
+
+@Scripts.Render("~/bundles/jquery")

@@ -1,0 +1,39 @@
+﻿@using System.Web.Mvc.Html
+@model SDNWebApps.Views.Actions
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+}
+
+<h2>Actions</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            
+            <div style="padding-bottom: 5px">
+                <span >Action: </span>
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <br/><input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")

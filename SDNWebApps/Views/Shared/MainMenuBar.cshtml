@@ -1,0 +1,10 @@
+﻿<div style="width: 100%">
+    @Html.ActionLink("Grocery", "Index", "Home", new { area = "GroceryList" }, new {@class="MenuBar"}) 
+    @Html.ActionLink("Gas", "List", "Person", new { area = "Gas" }, new {@class="MenuBar"}) 
+    @Html.ActionLink("Tasks", "Index", "Home", new { area = "Tasks" }, new {@class="MenuBar"})
+    @Html.ActionLink("Baby", "Index", "DoneThings", new { area = "Baby" }, new {@class="MenuBar"})
+</div>
+<div class="BlackLine"></div>
+
+@Styles.Render("~/Content/main")
+<br/>

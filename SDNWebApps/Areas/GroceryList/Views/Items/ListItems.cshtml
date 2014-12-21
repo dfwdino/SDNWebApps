@@ -1,0 +1,80 @@
+﻿@using System.Drawing
+@using SDNWebApps.Areas.GroceryList.Models.Home
+@model  ViewItemsVM
+
+@{
+    int colorCounter = 0;
+    string color = string.Empty;
+}
+
+@using (Html.BeginForm())
+{
+    foreach (var item in Model.Items)
+    {
+        MemoryStream stream;
+        FileContentResult test = null;
+
+        if (item.Image != null)
+        {
+            stream = new MemoryStream(item.Image);
+            test = new FileContentResult(item.Image, "image/jpeg");
+        }
+
+
+        switch (colorCounter)
+        {
+            case 0:
+                color = "lightblue";
+                colorCounter = 1;
+                break;
+            case 1:
+                color = "lightcoral";
+                colorCounter = 0;
+                break;
+
+        }
+
+
+
+        <div style="background-color: @color;width: 300px;padding-bottom: 3px;" id="FullItem{@item.ID}">
+            <a class="got-link" id=@item.ID style="alignment-adjust: central">
+                @Html.LabelForModel(item.Name,new {@class="list"})
+                
+                @if(!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
+                {
+                    @Html.LabelForModel(item.Amount, new {@class = "list"})
+                   
+                }               
+                @if (item.StoreID != null)
+                {
+                    //need to fix this
+                    if (!item.StoreID.Equals(3))
+                    {
+                        <label>- @item.Store.StoreName </label>
+                    }
+                }
+                @if (Model.ShowAll)
+                {
+                    <a href="#" id=@item.ID class="delete-link">Delete</a>
+                    @Html.ActionLink("Edit","EditItem","Items",new { itemID = @item.ID},null)
+
+                }
+                @if (item.Image != null)
+                {
+                    <br/><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
+                }
+            </a>
+            @*<p class="BlackLine"></p>*@
+        </div>
+
+
+
+        }
+
+    }
+
+@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/themes/base/css")*@

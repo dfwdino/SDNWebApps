@@ -1,0 +1,18 @@
+﻿@using SDNWebApps
+@using SDNWebApps.Views
+@model IQueryable<SDNWebApps.Views.Store>
+
+@Scripts.Render("~/bundles/jquery")
+
+@using (Html.BeginForm())
+{
+
+    foreach (Store item in Model)
+    {
+        <div id="FullItem{@item.ID}">
+            @Html.Label(@item.StoreName) - <a href="#" id=@item.ID class="delete-store-link">Delete</a>
+        </div>
+
+
+    }
+}

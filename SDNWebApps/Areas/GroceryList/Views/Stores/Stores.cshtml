@@ -1,0 +1,18 @@
+﻿@using SDNWebApps
+@using SDNWebApps.Areas.GroceryList.Models.Home
+@model IQueryable<SDNWebApps.Views.Store>
+
+@{
+    ViewBag.Title = "Stores";
+    Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("ListStores",Model)
+
+<script src="~/Scripts/jquery-2.0.3.js" type="text/javascript"></script>
+@Scripts.Render("~/bundles/grocery")
+@Styles.Render("~/Content/grocery")
+@Scripts.Render("~/bundles/jquery")

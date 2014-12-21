@@ -1,0 +1,23 @@
+﻿@using System.Web.Mvc.Html
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="padding-bottom: 8px">
+    Action Items:
+    @Html.ActionLink("Add","Add","Actions",null,new { @style="padding-right: 8px;"})
+    @Html.ActionLink("List","Index","Actions", null, new { @style = "padding-right: 8px;" }) <br />
+
+</div>
+<div style="padding-bottom: 8px">
+    Done Things:
+    @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
+    @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
+    @Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true },null)
+</div>
+
+<br/>   
+
+@RenderBody()

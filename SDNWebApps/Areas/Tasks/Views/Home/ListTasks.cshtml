@@ -1,0 +1,94 @@
+﻿@model List<SDNWebApps.Views.Task>
+
+
+@{
+    //ViewBag.Title = "List Task";
+    //Layout = "~/Areas/Tasks/Views/Shared/_TasksLayout.cshtml";
+}
+
+
+
+
+<style>
+    .TaskItem {
+        display: inline-block;
+        width: 300px;
+        text-align: center;
+    }
+    .TaskAssingedTooHeader {
+        display: inline-block;
+        width: 100px;
+        text-align: center;
+      
+    }
+    .TaskAssingedTooPerson {
+        text-align: center;
+        
+    }
+    .TaskDate {
+        display: inline-block;
+        width: 250px;
+        text-align: center;
+    }
+</style>
+
+
+<div id="TaskAdded"></div>
+@*need a better way, custom ViewModel???*@
+
+<div>
+    @Html.ActionLink("Add Task", "AddTask", "Tasks")
+
+    @if (ViewBag.Title.Equals("All Tasks"))
+            {
+        @Html.ActionLink("Undone Tasks", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("View All", "Index", new { showAll = "true" })
+
+    }
+</div>
+
+
+<br/>
+<br />
+
+
+<div style="border-bottom: thin solid black; width: 700px;">
+    <label class="TaskItem">Item</label>
+    <label class="TaskAssingedTooHeader">Assigned Too</label>
+    <label class="TaskDate">Due Date</label>
+</div>
+<div style="height: 15px"></div>
+
+@using (Html.BeginForm())
+{
+
+    foreach (var task in Model)
+    {
+        <div id="FullItem{@task.ID}" style="height: 30px;width: 750px">
+            <a href="#" id=@task.ID class="got-link TaskItem">@Html.LabelForModel(task.Title)</a>
+           @if (task.Done)
+            {//Need to fix if statement
+                <a href="#" id=@task.ID class="delete-link">Delete</a>
+            }
+
+            <label class="TaskAssingedTooHeader TaskAssingedTooPerson">
+                @Html.ActionLink(@task.Person.PersonName,"Index","Home",new { userid=task.Person.ID},new { @class="TaskAssingedTooHeader TaskAssingedTooPerson" })
+               
+            </label>
+            <label class="TaskDate">
+                @if (task.DueDate.HasValue)
+                {
+                    @task.DueDate.Value.ToShortDateString()
+                }
+            </label>
+        </div>
+        @*<div class="BlackLine"></div>*@
+    }
+
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/task")

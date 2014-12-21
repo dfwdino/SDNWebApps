@@ -1,0 +1,98 @@
+﻿@model SDNWebApps.Areas.Photos.Models.PhotoViewModel
+
+@{
+    Layout = null;
+    int fileCount = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        a:link {
+            display:inline-block;
+            padding: 3px;
+            }
+        #Folders, #Images{
+            
+            float:left;
+        }
+          #main {
+            /*width:100px;
+            height:100px;
+            border:1px solid red;*/
+            margin-right:10px;
+            float:left;
+            }
+        
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        @{
+//int i = 1;
+            <div id="Folders" style="width: 150px">
+                <p style="border-right-color: red;border-right-style: solid;">
+                    @Html.ActionLink("Up", "Index", "Photo",
+                new
+                    {
+                        addlocation = Model.CurrentLocation.Substring(0,
+                Model.CurrentLocation.LastIndexOf("\\", System.StringComparison.Ordinal)),
+                        PhotoLocationNumber = 0
+                    }, null)
+                    <br />
+
+                    @foreach (var folder in Model.Folders)
+                    {
+
+                        @Html.ActionLink(folder.Split('\\')[folder.Split('\\').Length - 1].ToString(),
+                        "Index", "Photo", new { addlocation = folder }, null)
+                        <br />
+
+                        @*if (i.Equals(3))
+                {
+                    <br />
+                    i = 0;
+                }
+                i++;*@
+
+                    }
+                    <br />
+                    <br />
+                </p>
+            </div>
+
+            <div id="Images" style="margin-left: 25px">
+
+                @foreach (var file in Model.Images)
+                {
+
+                    if (fileCount.Equals(3))
+                    {
+                        <br />
+                        fileCount = 0;
+                    }
+
+                    <img style="padding: 5px" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(file.Data))" />
+
+                    fileCount++;
+                }
+                <br/>
+                @Html.ActionLink("Back", "Index", "Photo",
+                new { addlocation = Model.CurrentLocation, PhotoLocationNumber = Model.PhotoLocationNumber - 4 }, null)
+
+                @Html.ActionLink("Next", "Index", "Photo",
+                new { addlocation = Model.CurrentLocation, PhotoLocationNumber = Model.PhotoLocationNumber + 4 }, null)
+
+            </div>
+        }
+
+    </div>
+</body>
+
+
+</html>

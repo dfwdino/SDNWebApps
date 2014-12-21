@@ -1,0 +1,14 @@
+﻿.MenuBar {
+  display: inline-block;
+  /*width: 25%;*/
+  padding-bottom: 10px;
+  padding-right: 15px;
+
+}
+
+.BlackLine {
+  background: black;
+  width: 250px;
+  height: 1px; }
+
+/*# sourceMappingURL=Main.css.map */

@@ -1,0 +1,69 @@
+﻿@using System.Data.Entity.SqlServer
+@using System.Web.Mvc.Html
+@using System.Web.WebPages.Html
+@using SDNWebApps.Views
+@model SDNWebApps.Areas.Baby.Models.EditViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
+        new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
+
+
+}
+<script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
+<script src="~/Scripts/knockout-3.2.0.js"></script>
+<script type="text/javascript">
+    function currentDateTime() {
+        var date = new Date().toLocaleDateString().trim() + " " + new Date().toLocaleTimeString().trim();
+        document.getElementById("EndTime").value = "";
+        document.getElementById("EndTime").value = date;
+        //document.getElementById("EndTime").setActive();
+    }
+
+</script>
+
+<br/>
+<br/>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.Index)
+
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.Action):
+        @Html.DropDownListFor(x => x.Action, ListToUse, Model.Actions.Title)<br/>
+    </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.StartTime):
+        @Html.TextBoxFor(m => m.StartTime)<br/>
+        
+    </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.EndTime):
+        @Html.TextBoxFor(m => m.EndTime) <a onclick="GetCurrentDateTime()">Get Current DateTime</a>
+        <br />
+
+    </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.OZ):
+        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })
+        <br />
+
+    </div>
+    <div style="padding-top: 10px">
+        <input type="submit" value="Update" />
+    </div>
+}
+
+        @*<div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>*@
+
+
+<script type="text/javascript">
+    function GetCurrentDateTime() {
+        var value = document.getElementById('EndTime').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+    }
+</script>

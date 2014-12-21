@@ -1,0 +1,36 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@model SDNWebApps.Areas.GroceryList.Models.Home.ItemsViewModel
+
+
+@{
+    ViewBag.Title = "Add Item";
+    Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<h2>@ViewBag.Title</h2>
+
+<div>@ViewBag.Item</div>
+<br/>
+
+@using (Html.BeginForm("EditItem","Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{<div>
+     @Html.HiddenFor(m => m.ID)
+     @Html.LabelFor(m => m.Name) @Html.TextBoxFor(m => m.Name)<br />
+     @Html.LabelFor(m => m.Price)
+     @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
+     @Html.LabelFor(m => m.Amount)
+     @Html.TextBoxFor(m => m.Amount)<br />
+     @Html.LabelFor(m => m.Store.StoreName)
+     @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store",null)<br /><br />
+     
+     <input type="file" id="uploadFile" name="uploadFile" />
+
+ </div>
+
+    <p><input id="submitbutton" type="submit" value="update" /></p>
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/grocery")
+@Styles.Render("~/Content/grocery.css")
+

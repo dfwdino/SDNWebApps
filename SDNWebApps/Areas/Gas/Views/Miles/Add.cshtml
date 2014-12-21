@@ -1,0 +1,60 @@
+﻿@using System.Web.Mvc.Html
+@model SDNWebApps.Areas.Gas.Models.Miles.AddViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    label {
+        display: inline-block;
+        width: 80px;
+        padding-bottom: 10px;
+    }
+   
+</style>
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.AutoID)<br />
+    
+    <div>@Html.LabelFor(m => m.TotalPrice)
+    @Html.TextBoxFor(m => m.TotalPrice)</div>
+
+    <div>@Html.LabelFor(m => m.TotalGallons)
+    @Html.TextBoxFor(m => m.TotalGallons)</div>
+
+    
+    <div>@Html.LabelFor(m => m.TotalMiles)
+    @Html.TextBoxFor(m => m.TotalMiles)</div>
+
+
+    <div>@Html.LabelFor(m => m.GasDate)
+    @Html.TextBoxFor(m => m.GasDate)</div>
+
+    <div>@Html.LabelFor(m => m.DrivenMiles)
+    @Html.TextBoxFor(m => m.DrivenMiles)</div>
+
+    <div>@Html.LabelFor(m => m.TankFilled)
+    @Html.CheckBoxFor(m => m.TankFilled)</div>
+
+<input type="submit" value="Add" />
+}
+
+<br/>
+<br />
+@Html.ActionLink("View Miles","List","Miles", new {ID = Model.AutoID},null)
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#GasDate').datepicker();
+    });
+</script>

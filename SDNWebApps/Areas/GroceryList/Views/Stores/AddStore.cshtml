@@ -1,0 +1,19 @@
+﻿@model SDNWebApps.Views.Store
+
+@{
+    ViewBag.Title = "Add New Store";
+    Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
+}
+
+<h2>Add New Store</h2>
+<div id="ItemAdded"></div>
+<p>
+    @Html.LabelFor(m => m.StoreName, new { @class = "Add" }): @Html.TextBoxFor(m => m.StoreName)
+</p>
+
+<p><a href="#" class="add-store-link">Add</a></p>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/grocery")
+@Styles.Render("~/Content/grocery")

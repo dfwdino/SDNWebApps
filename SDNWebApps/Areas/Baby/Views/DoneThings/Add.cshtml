@@ -1,0 +1,77 @@
+﻿@using System.Data.Entity.SqlServer
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Microsoft.Ajax.Utilities
+@using SDNWebApps.Views
+@model SDNWebApps.Areas.Baby.Models.AddViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
+        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList(); ;
+}
+
+<style>
+    label {
+        display: inline-block;
+        padding: 7px;
+        width: 50px;
+    }
+</style>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+
+    <div>
+        
+        @Html.ValidationMessageFor(m => m.Actions)
+        @Html.LabelFor(m => m.Actions)
+        @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
+
+        @Html.LabelFor(m => m.StartTime)
+        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime()">Get Current DateTime</a> <br />
+
+        @Html.LabelFor(m => m.EndTime)
+        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <br />
+        
+        @Html.LabelFor(m => m.OZ)
+        @Html.TextBoxFor(m => m.OZ) <br />
+
+    </div>
+    <br/>
+     <input type="submit" value="Add" />
+}
+
+<div>
+    @*@Html.ActionLink("Back to List", "Index")*@
+</div>
+
+
+    @*@functions{
+
+        public MvcHtmlString ListItems()
+        {
+
+            SDNAppsEntities test = new SDNAppsEntities();
+            var ddl = test.Item1.Select(m => new {m.index, m.Title})
+                .ToList()
+                .Select(m => new System.Web.Mvc.SelectListItem {Text = m.Title, Value = m.index.ToString()})
+                .ToList();
+
+            HtmlHelper htmlHelper = new HtmlHelper(new ViewContext(), null);
+
+            return htmlHelper.DropDownList("name", ddl, "select");
+
+        }
+
+    }*@
+
+
+<script type="text/javascript">
+    function GetCurrentDateTime() {
+        var value = document.getElementById('StartTime').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+    }
+</script>

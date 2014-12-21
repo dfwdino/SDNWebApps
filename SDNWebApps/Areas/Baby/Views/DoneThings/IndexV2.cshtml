@@ -1,0 +1,178 @@
+﻿
+@using System.Globalization
+@using System.Web.Mvc.Html
+@using SDNWebApps.Areas.Baby.Models
+
+@using SDNWebApps.Views
+@using System.Web.Mvc.Html
+@model List<ListViewModel>
+
+@{
+    ViewBag.Title = "Freddy's Daily Break Down";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    string color = string.Empty;
+    string _LastDate = string.Empty;
+    string _LastAction = string.Empty;
+    double totalFeedOz = 0;
+    double totalPumpedOz = 0;
+    TimeSpan SleepTime = new TimeSpan();
+    int colorCounter = 0;
+    string _eattingType = "";
+
+
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<script language="javascript"> 
+    function show(id) {
+        alert('hi');
+        var ele = document.getElementById(id);
+        var text = document.getElementById(id);
+        if (ele.style.display == "block") {
+            ele.style.display = "none";
+            text.innerHTML = "show";
+        }
+        else {
+            ele.style.display = "block";
+            text.innerHTML = "hide";
+        }
+    }
+    
+</script>
+
+<br/>
+@Html.ActionLink("View All", "Index", new { viewall = true })
+<br/>
+<br />
+
+
+<table style="border-collapse: collapse">
+    <tr style="border-bottom: 1px solid black !important">
+        <td style="width: 100px;text-align: center">Item Done </td>
+        <td style="text-align: center;width: 75px">Start Time</td>
+        <td style="text-align: center;width: 75px">End Time</td>
+        <td style="text-align: center">OZ</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    @foreach (ListViewModel thing in Model)
+    {
+        switch (colorCounter)
+        {
+            case 0:
+                color = "lightblue";
+                colorCounter = 1;
+                break;
+            case 1:
+                color = "lightcoral";
+                colorCounter = 0;
+                break;
+
+        }
+
+
+        if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
+        {
+            @displaySummary(SleepTime, totalFeedOz, totalPumpedOz)
+
+            totalFeedOz = 0;
+            totalPumpedOz = 0;
+            SleepTime = new TimeSpan();
+        }
+
+
+        if (_LastDate != string.Empty)
+        {
+            @:</div>
+        }
+
+        if (_LastDate != @thing.StartTime.Date.ToString())
+        {
+
+            <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToShortDateString()</h3></td></tr>
+
+        }
+
+        if (thing.StartTime != null && thing.EndTime != null && thing.Actions.Title.Equals("sleep", StringComparison.CurrentCultureIgnoreCase))
+        {
+            SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
+        }
+
+        if ((_LastAction != thing.Actions.Title) && _LastAction.Equals("sleep", StringComparison.CurrentCultureIgnoreCase))
+        {
+            <tr>
+                <td colspan="5">
+                    Total Sleep Time: @SleepTime
+                </td>
+            </tr>
+        }
+        else if ((_LastAction.IndexOf("Bottle") <= 0 && _LastAction.IndexOf("bf", StringComparison.CurrentCultureIgnoreCase) >= 0)
+             && (thing.Actions.Title != "Bottle Feed" && thing.Actions.Title.IndexOf("bf", StringComparison.CurrentCultureIgnoreCase) < 0))
+
+        {
+            <tr>
+                <td colspan="5">
+                    Total Feed Size: @totalFeedOz
+                </td>
+            </tr>
+        }
+        
+        <tr style="padding-bottom: 8px; background-color: @color;">
+            <td>@Html.LabelForModel(thing.Actions.Title) </td>
+            <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
+            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "")</td>
+            <td style="text-align: center; border-left: 1px solid black !important">@thing.OZ</td>
+            <td style="text-align: center; border-left: 1px solid black !important; width: 40px">@Html.ActionLink("Edit", "Edit", new { id = @thing.Index })</td>
+            <td style="text-align: center; border-left: 1px solid black !important; width: 40px">@Html.ActionLink("Delete", "Delete", new { id = @thing.Index })</td>
+        </tr>
+
+        if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0)
+        {
+            totalFeedOz += (double)thing.OZ;
+        }
+
+        if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
+        {
+            totalPumpedOz += (double)thing.OZ;
+        }
+
+      
+
+        _LastDate = @thing.StartTime.Date.ToString();
+        _LastAction = @thing.Actions.Title;
+
+    }
+    @displaySummary(SleepTime, totalFeedOz, totalPumpedOz)
+
+</table>
+
+
+
+@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump)
+{
+        @*<tr style="border-top: 1px solid black !important">
+        <td style="text-align: center;font:bold">Sleep Total</td>
+        <td style="text-align: center;font:bold">@sleeptime</td>
+            <td style="text-align: center;font:bold">
+                OZ Feed<br />
+                OZ Pump
+            </td>
+            <td style="text-align: center;font:bold">
+                @totaloz<br />
+                @totalpump
+        </td>
+        <td></td>
+        <td></td>
+    </tr>*@
+            <tr>
+                <td colspan="5">
+                    Total Pump Size:@totalpump
+                </td>
+            </tr>
+
+
+
+}

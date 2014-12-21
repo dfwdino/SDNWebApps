@@ -1,0 +1,22 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Optimization
+@model SDNWebApps.Areas.Gas.Models.Person.ListViewModel
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>People</h2>
+
+@{
+    foreach (var item in Model.Persons)
+    {
+        @Html.ActionLink(item.PersonName, "List", "Auto", new { id = item.ID }, null)<br/>
+    }
+}
+
+<br/>
+<br />
+@Html.ActionLink("Add Person","Add","Person",null,null)
+@Scripts.Render("~/bundles/jquery")

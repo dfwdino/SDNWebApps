@@ -1,0 +1,80 @@
+﻿@using System.Diagnostics.Contracts
+@using System.Globalization
+@using Microsoft.SqlServer.Server
+@model SDNWebApps.Areas.Gas.Models.Miles.ListViewModel
+
+@{
+    ViewBag.Title = "ListMiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    double MilePerTank = 0;
+    double MilesDriven = 0;
+    double LastTotalMiles = 0;
+    int colorCounter = 0;
+    string color = string.Empty;
+}
+
+<br />
+<br />
+
+@Html.ActionLink("Add","Add","Miles",new {id = Model.autoID},null)
+@Html.ActionLink("List Auto","List","Auto",new {id = Model.PersonID},null)
+@Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall=true }, null)
+
+<h2>Miles for @Model.AutoName</h2>
+<!--TODO: Make CSS file-->
+<table id="AutoList" style="border-style:none;border-collapse: collapse">
+    <tr style="text-align:center; border-bottom: 1px solid black !important">
+        <td>Total<br/>Miles</td>
+        <td>@Html.Label("Price")</td>
+        <td>Last<br/>Trip<br/>Miles</td>
+        <td>@Html.Label("MGP")</td>
+    </tr>
+
+    @{
+        foreach (var fillup in Model.Gallons)
+        {
+
+            switch (colorCounter)
+            {
+                case 0:
+                    color = "lightblue";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightcoral";
+                    colorCounter = 0;
+                    break;
+
+            }
+
+
+            <tr style="background-color: @color;">
+                <td style="width: 65px">@fillup.TotalMiles.ToString("##,####")</td>
+                <td style="width: 45px">@fillup.TotalPrice.Value.ToString("C")</td>
+                @{
+                    if (LastTotalMiles.Equals(0))
+                    {
+                        <td style="text-align: center">-</td>
+                        <td style="text-align: center">-</td>
+                        LastTotalMiles = fillup.TotalMiles;
+                    }
+
+                    else
+                    {
+                        MilesDriven = fillup.TotalMiles - LastTotalMiles;
+                        MilePerTank = MilesDriven / fillup.TotalGallons;
+
+
+                        <td style="text-align: center">@MilesDriven</td>
+                        <td style="width: 45px;text-align: center" >@MilePerTank.ToString("N")</td>
+                        LastTotalMiles = fillup.TotalMiles;
+                    }
+                }
+                <td> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </td>
+            </tr>
+
+
+
+                    }
+    }
+</table>

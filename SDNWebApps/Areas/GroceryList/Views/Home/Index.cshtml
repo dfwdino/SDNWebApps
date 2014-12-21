@@ -1,0 +1,14 @@
+﻿@using SDNWebApps
+@using SDNWebApps.Areas.GroceryList.Models.Home
+@model  ViewItemsVM
+
+@{
+    Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
+}
+<title>@ViewBag.Title</title>
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("~/Areas/GroceryList/Views/Items/ListItems.cshtml", Model)
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/grocery")

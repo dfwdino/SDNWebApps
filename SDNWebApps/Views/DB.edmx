@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ThingsDone">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Action" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="OZ" Type="float" />
+        </EntityType>
+        <EntityType Name="Autos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WhosCar" Type="int" Nullable="false" />
+          <Property Name="AutoName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gallons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="TotalMiles" Type="int" Nullable="false" />
+          <Property Name="DrivenMiles" Type="int" Nullable="false" />
+          <Property Name="TotalGallons" Type="float" Nullable="false" />
+          <Property Name="TotalPrice" Type="money" />
+          <Property Name="GasDate" Type="date" />
+          <Property Name="TankFilled" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Have" Type="bit" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DueDate" Type="date" />
+          <Property Name="Done" Type="bit" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Autos_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Autos">
+              <PropertyRef Name="WhosCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gallons_Autos">
+          <End Role="Autos" Type="Self.Autos" Multiplicity="1" />
+          <End Role="Gallons" Type="Self.Gallons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gallons">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Stores">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_People1">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ThingsDone_Baby_Item">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="Action" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SDNAppsModelStoreContainer">
+          <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
+          <AssociationSet Name="FK_Autos_People" Association="Self.FK_Autos_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gallons_Autos" Association="Self.FK_Gallons_Autos">
+            <End Role="Autos" EntitySet="Autos" />
+            <End Role="Gallons" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Stores" Association="Self.FK_Items_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
+            <End Role="People" EntitySet="People" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThingsDone_Baby_Item" Association="Self.FK_ThingsDone_Baby_Item">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="ThingsDone" EntitySet="ThingsDone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SDNAppsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SDNAppsEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Autos" EntityType="SDNAppsModel.Auto" />
+          <EntitySet Name="Gallons" EntityType="SDNAppsModel.Gallon" />
+          <AssociationSet Name="FK_Gallons_Autos" Association="SDNAppsModel.FK_Gallons_Autos">
+            <End Role="Auto" EntitySet="Autos" />
+            <End Role="Gallon" EntitySet="Gallons" />
+          </AssociationSet>
+          <EntitySet Name="Items" EntityType="SDNAppsModel.Item" />
+          <EntitySet Name="Stores" EntityType="SDNAppsModel.Store" />
+          <AssociationSet Name="FK_Items_Stores" Association="SDNAppsModel.FK_Items_Stores">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <EntitySet Name="People" EntityType="SDNAppsModel.Person" />
+          <EntitySet Name="Tasks" EntityType="SDNAppsModel.Task" />
+          <AssociationSet Name="FK_Autos_People" Association="SDNAppsModel.FK_Autos_People">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Auto" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tasks_People1" Association="SDNAppsModel.FK_Tasks_People1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <EntitySet Name="Actions1" EntityType="SDNAppsModel.Actions" />
+          <EntitySet Name="ThingsDones" EntityType="SDNAppsModel.ThingsDone" />
+          <AssociationSet Name="FK_ThingsDone_Baby_Item" Association="SDNAppsModel.FK_ThingsDone_Baby_Item">
+            <End Role="Action" EntitySet="Actions1" />
+            <End Role="ThingsDone" EntitySet="ThingsDones" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Auto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="WhosCar" Nullable="false" />
+          <Property Type="String" Name="AutoName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Auto" ToRole="Gallon" />
+          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Auto" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Gallon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="AutoID" Nullable="false" />
+          <Property Type="Int32" Name="TotalMiles" Nullable="false" />
+          <Property Type="Int32" Name="DrivenMiles" Nullable="false" />
+          <Property Type="Double" Name="TotalGallons" Nullable="false" />
+          <Property Type="Decimal" Name="TotalPrice" Precision="19" Scale="4" />
+          <Property Type="DateTime" Name="GasDate" Precision="0" />
+          <Property Type="Boolean" Name="TankFilled" Nullable="false" />
+          <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Gallon" ToRole="Auto" />
+        </EntityType>
+        <Association Name="FK_Gallons_Autos">
+          <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gallon">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Have" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Store" Relationship="SDNAppsModel.FK_Items_Stores" FromRole="Item" ToRole="Store" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Items" Relationship="SDNAppsModel.FK_Items_Stores" FromRole="Store" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Items_Stores">
+          <End Type="SDNAppsModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Autos" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Person" ToRole="Auto" />
+          <NavigationProperty Name="Tasks" Relationship="SDNAppsModel.FK_Tasks_People1" FromRole="Person" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DueDate" Type="DateTime" Precision="0" />
+          <Property Name="Done" Type="Boolean" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Tasks_People1" FromRole="Task" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_Autos_People">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Auto">
+              <PropertyRef Name="WhosCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tasks_People1">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="SDNAppsModel.Task" Role="Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Actions">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_Baby_Item" FromRole="Action" ToRole="ThingsDone" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ThingsDone">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Action" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Actions" Relationship="SDNAppsModel.FK_ThingsDone_Baby_Item" FromRole="ThingsDone" ToRole="Action" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="OZ" Type="Double" />
+        </EntityType>
+        <Association Name="FK_ThingsDone_Baby_Item">
+          <End Type="SDNAppsModel.Actions" Role="Action" Multiplicity="1" />
+          <End Type="SDNAppsModel.ThingsDone" Role="ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="Action" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SDNAppsModelStoreContainer" CdmEntityContainer="SDNAppsEntities">
+          <EntitySetMapping Name="Autos">
+            <EntityTypeMapping TypeName="SDNAppsModel.Auto">
+              <MappingFragment StoreEntitySet="Autos">
+                <ScalarProperty Name="AutoName" ColumnName="AutoName" />
+                <ScalarProperty Name="WhosCar" ColumnName="WhosCar" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gallons">
+            <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
+              <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
+                <ScalarProperty Name="GasDate" ColumnName="GasDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TotalGallons" ColumnName="TotalGallons" />
+                <ScalarProperty Name="DrivenMiles" ColumnName="DrivenMiles" />
+                <ScalarProperty Name="TotalMiles" ColumnName="TotalMiles" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="SDNAppsModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Have" ColumnName="Have" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="SDNAppsModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="SDNAppsModel.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="SDNAppsModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Actions1">
+            <EntityTypeMapping TypeName="SDNAppsModel.Actions">
+              <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThingsDones">
+            <EntityTypeMapping TypeName="SDNAppsModel.ThingsDone">
+              <MappingFragment StoreEntitySet="ThingsDone">
+                <ScalarProperty Name="OZ" ColumnName="OZ" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
