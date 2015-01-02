@@ -36,8 +36,8 @@
 
 
         //Need to redo this layout. :-( and break up showall and need items.
-        <div class="got-link" style="background-color: @color;width:400px;" id="FullItem{@item.ID}">
-            <span id=@item.ID style="alignment-adjust: central;padding: 5px 5px 5px 5px;width:80%">
+        <div class="got-link" style="background-color: @color;width:300px;" id="FullItem{@item.ID}">
+            <span id=@item.ID style="alignment-adjust: central;padding: 5px 5px 5px 5px;width:70%">
                 @Html.LabelForModel(item.Name, new { @class = "list" })
 
                 @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
@@ -53,7 +53,7 @@
                         <label> - @item.Store.StoreName </label>
                     }
                 }
-            </span><span width="20%">
+            </span><span width="30%">
                 @if (Model.ShowAll)
                 {
                     @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
