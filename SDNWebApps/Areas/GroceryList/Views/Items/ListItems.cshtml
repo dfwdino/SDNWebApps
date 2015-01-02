@@ -35,35 +35,37 @@
                     }
 
 
-        //Need to redo this layout. :-(
-        <div style="background-color: @color;width: 300px;" id="FullItem{@item.ID}">
-            <span class="got-link" id=@item.ID style="alignment-adjust: central;width:50%">
+        //Need to redo this layout. :-( and break up showall and need items.
+        <div class="got-link" style="background-color: @color;width:400px;" id="FullItem{@item.ID}">
+            <span id=@item.ID style="alignment-adjust: central;padding: 5px 5px 5px 5px;width:80%">
                 @Html.LabelForModel(item.Name, new { @class = "list" })
-            </span>
-            @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
-            {
-                @Html.LabelForModel(item.Amount, new { @class = "list", @style = "width:3%" })
 
-            }
-            @if (item.StoreID != null)
-{
-    //need to fix this
-    if (!item.StoreID.Equals(3))
-    {
-                    <label style="width: 5%;">- @item.Store.StoreName </label>
+                @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
+                {
+                    <span> - @Html.LabelForModel(item.Amount, new { @class = "list" })</span>
                 }
-}
 
-            @if (Model.ShowAll)
-{
-                <a href="#" id=@item.ID class="delete-link" style="width: 5%;">Delete</a>
-                    @Html.ActionLink("Edit","EditItem","Items",new { itemID = @item.ID}, new { @style = "width:5%" })
+                @if (item.StoreID != null)
+                {
+                    //need to fix this
+                    if (!item.StoreID.Equals(3))
+                    {
+                        <label> - @item.Store.StoreName </label>
+                    }
+                }
+            </span><span width="20%">
+                @if (Model.ShowAll)
+                {
+                    @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
+                    <a href="#" id=@item.ID class="delete-link">Delete</a>
 
                 }
+                     </span>
+            
             @if (item.Image != null)
-{
+            {
                     <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
-                }
+            }
             
             @*<p class="BlackLine"></p>*@
         </div>

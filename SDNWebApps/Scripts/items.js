@@ -2,7 +2,7 @@
     
     $(document).ready(function () {
         $('a.delete-link').click(OnDeleteItemClick);
-        $('a.got-link').click(OnGotClick);
+        $('div.got-link').click(OnGotClick);
         $('a.add-item-link').click(OnAddItemClick);
     });
 
@@ -29,12 +29,8 @@ function OnGotClick(e) {
     var hasItem;
     var itemID = e.target.parentElement.id;
     
-    //var id = 'FullItem{' + itemID + '}';
-
     var div = document.getElementById('FullItem{' + itemID + '}');
     div.innerHTML = "";
-    //div.parentNode.removeChild(div);
-    
     
     //need a find a better way
     if (window.location.href.indexOf('showAll=True') < 0)
