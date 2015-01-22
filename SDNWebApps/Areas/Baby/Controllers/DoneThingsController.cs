@@ -107,16 +107,16 @@ namespace SDNWebApps.Areas.Baby.Controllers
             editAddViewModel.Index = thing.index;
             editAddViewModel.Action = thing.Action;
             editAddViewModel.Actions = thing.Actions;
-            if(thing.EndTime == null && (thing.Actions.Title.IndexOf("Feed", System.StringComparison.CurrentCultureIgnoreCase) >=0 
-                    || thing.Actions.Title.IndexOf("BF", System.StringComparison.CurrentCultureIgnoreCase) >=0))
-            {
-                editAddViewModel.EndTime = DateTime.Now.AddMinutes(30);
-            }
-            if (thing.EndTime == null && thing.Actions.Title.IndexOf("Sleep", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
-            {
-                editAddViewModel.EndTime = DateTime.Now;
-            }
-            else if(thing.EndTime != null)
+            //if(thing.EndTime == null && (thing.Actions.Title.IndexOf("Feed", System.StringComparison.CurrentCultureIgnoreCase) >=0 
+                    //|| thing.Actions.Title.IndexOf("BF", System.StringComparison.CurrentCultureIgnoreCase) >=0))
+            //{
+            //    editAddViewModel.EndTime = DateTime.Now.AddMinutes(30);
+            //}
+            //if (thing.EndTime == null && thing.Actions.Title.IndexOf("Sleep", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
+            //{
+            //    editAddViewModel.EndTime = DateTime.Now;
+            //}
+            if(thing.EndTime != null)
             {
                 editAddViewModel.EndTime = thing.EndTime;
             }

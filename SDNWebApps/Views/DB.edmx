@@ -24,6 +24,17 @@
           <Property Name="Delete" Type="bit" Nullable="false" />
           <Property Name="OZ" Type="float" />
         </EntityType>
+        <EntityType Name="Dreams">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Dream" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Person" Type="int" />
+          <Property Name="DidMeditation" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Autos">
           <Key>
             <PropertyRef Name="ID" />
@@ -93,6 +104,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dreams_People">
+          <End Role="People" Type="Self.People" Multiplicity="0..1" />
+          <End Role="Dreams" Type="Self.Dreams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dreams">
+              <PropertyRef Name="Person" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gallons_Autos">
           <End Role="Autos" Type="Self.Autos" Multiplicity="1" />
           <End Role="Gallons" Type="Self.Gallons" Multiplicity="*" />
@@ -144,6 +167,7 @@
         <EntityContainer Name="SDNAppsModelStoreContainer">
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" Schema="Gas" store:Type="Tables" />
@@ -153,6 +177,10 @@
           <AssociationSet Name="FK_Autos_People" Association="Self.FK_Autos_People">
             <End Role="People" EntitySet="People" />
             <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dreams_People" Association="Self.FK_Dreams_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="Dreams" EntitySet="Dreams" />
           </AssociationSet>
           <AssociationSet Name="FK_Gallons_Autos" Association="Self.FK_Gallons_Autos">
             <End Role="Autos" EntitySet="Autos" />
@@ -203,6 +231,11 @@
           <AssociationSet Name="FK_ThingsDone_Baby_Item" Association="SDNAppsModel.FK_ThingsDone_Baby_Item">
             <End Role="Action" EntitySet="Actions1" />
             <End Role="ThingsDone" EntitySet="ThingsDones" />
+          </AssociationSet>
+          <EntitySet Name="Dreams" EntityType="SDNAppsModel.Dream" />
+          <AssociationSet Name="FK_Dreams_People" Association="SDNAppsModel.FK_Dreams_People">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Dream" EntitySet="Dreams" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
@@ -282,6 +315,7 @@
           <Property Name="PersonName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Autos" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Person" ToRole="Auto" />
           <NavigationProperty Name="Tasks" Relationship="SDNAppsModel.FK_Tasks_People1" FromRole="Person" ToRole="Task" />
+          <NavigationProperty Name="Dreams" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Person" ToRole="Dream" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -348,6 +382,30 @@
             </Principal>
             <Dependent Role="ThingsDone">
               <PropertyRef Name="Action" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Dream">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Dream1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Person" Type="Int32" />
+          <NavigationProperty Name="Person1" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Dream" ToRole="Person" />
+          <Property Name="DidMeditation" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Dreams_People">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Dream" Role="Dream" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dream">
+              <PropertyRef Name="Person" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -438,6 +496,18 @@
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dreams">
+            <EntityTypeMapping TypeName="SDNAppsModel.Dream">
+              <MappingFragment StoreEntitySet="Dreams">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="DidMeditation" ColumnName="DidMeditation" />
+                <ScalarProperty Name="Person" ColumnName="Person" />
+                <ScalarProperty Name="Dream1" ColumnName="Dream" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

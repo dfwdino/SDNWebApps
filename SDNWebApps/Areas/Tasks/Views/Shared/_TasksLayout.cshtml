@@ -9,6 +9,20 @@
     <body>
         @RenderPage("~/Views/Shared/MainMenuBar.cshtml")
         
+        <div>
+            @Html.ActionLink("Add Task", "AddTask", "Tasks")
+
+            @if (ViewBag.Title.Equals("All Tasks"))
+            {
+                @Html.ActionLink("Undone Tasks", "Index", "Home")
+            }
+            else
+            {
+                @Html.ActionLink("View All", "Index", "Home",null, new { showAll = "true" })
+
+            }
+        </div>
+
         @RenderBody()
         
     </body>

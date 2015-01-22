@@ -1,0 +1,85 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Razor.Parser.SyntaxTree
+@using Microsoft.Ajax.Utilities
+@model IEnumerable<SDNWebApps.Views.Dream>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string color = string.Empty;
+    int colorCounter = 0;
+
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dream1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person1.PersonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DidMeditation)
+        </th>
+        <th></th>
+    </tr>*@
+
+@foreach (var item in Model) {
+
+    switch (colorCounter)
+    {
+        case 0:
+            color = "lightblue";
+            colorCounter = 1;
+            break;
+        case 1:
+            color = "lightcoral";
+            colorCounter = 0;
+            break;
+
+    }
+
+    <tr style="background-color: @color;">
+        <td style="padding: 0px 0px 5px 5px">
+            @item.Date.ToShortDateString() - @Html.DisplayFor(modelItem => item.Person1.PersonName) - 
+
+            @switch (item.DidMeditation)
+            {
+                case true:
+                    <span>Yes</span>
+                    break;
+                default:
+                    <span>No</span>
+                    break;
+
+            }
+       
+            <span>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </span>
+       
+            <br /> @Html.Raw(Html.Encode(@item.Dream1).Replace("\n", "<br />"))
+
+    
+        </td>
+        
+    </tr>
+
+
+
+
+}
+
+</table>

@@ -1,0 +1,66 @@
+﻿@model SDNWebApps.Views.Dream
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Dream</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date):
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } }) <a onclick="GetCurrentDateTime()">Get Current DateTime</a><br /><br />
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dream1)
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Dream1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dream1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.DidMeditation):
+            @Html.CheckBoxFor(model => model.DidMeditation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DidMeditation, "", new { @class = "text-danger" })
+
+        </div>
+        <br/>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Person, "Person"):
+            @Html.DropDownList("Person", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Person, "", new { @class = "text-danger" })
+
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@*Should be in its own JS file*@
+<script type="text/javascript">
+    function GetCurrentDateTime() {
+        //var value = document.getElementById('Date').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+        var value = document.getElementById('Date').value = new Date().toLocaleDateString();
+    }
+</script>

@@ -12,26 +12,49 @@
 
 <div>@ViewBag.Item</div>
 <br />
+<style>
+    .ItemsAddForm {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+label {
+    display: inline-block;
+    width: 75px;
+    text-align: left;
+}
+</style>
+
+
+
+
 
 @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{<span>
+{
+        <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name)<br />
+        </div>
 
+        <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Price)
         @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
-
+    </div>
+        <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Amount)
         @Html.TextBoxFor(m => m.Amount)<br />
+    </div>
 
+    <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Store.StoreName)
         @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
+    </div>
 
+    <div class="ItemsAddForm">
         <input type="file" id="uploadFile" name="uploadFile" />
-
-    </span>
-
-    <p><input id="submitbutton" type="submit" value="Add" /></p>
+    </div>
+    <div class="ItemsAddForm">
+        <input id="submitbutton" type="submit" value="Add" />
+    </div>
 }
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/grocery")

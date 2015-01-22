@@ -12,20 +12,15 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Dream
     {
-        public Person()
-        {
-            this.Autos = new HashSet<Auto>();
-            this.Tasks = new HashSet<Task>();
-            this.Dreams = new HashSet<Dream>();
-        }
+        public System.Guid ID { get; set; }
+        public System.DateTime Date { get; set; }
+        public string Dream1 { get; set; }
+        public Nullable<int> Person { get; set; }
+        public bool DidMeditation { get; set; }
+        public bool Deleted { get; set; }
     
-        public int ID { get; set; }
-        public string PersonName { get; set; }
-    
-        public virtual ICollection<Auto> Autos { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
-        public virtual ICollection<Dream> Dreams { get; set; }
+        public virtual Person Person1 { get; set; }
     }
 }

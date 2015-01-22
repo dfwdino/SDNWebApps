@@ -22,6 +22,7 @@
       
     }
     .TaskAssingedTooPerson {
+        display: inline-block;
         text-align: center;
         
     }
@@ -31,10 +32,6 @@
         text-align: center;
     }
 </style>
-
-
-<div id="TaskAdded"></div>
-@*need a better way, custom ViewModel???*@
 
 <div>
     @Html.ActionLink("Add Task", "AddTask", "Tasks")
@@ -49,6 +46,11 @@
 
     }
 </div>
+
+
+
+<div id="TaskAdded"></div>
+@*need a better way, custom ViewModel???*@
 
 
 <br/>

@@ -153,6 +153,8 @@
     <Compile Include="Areas\Baby\Models\AddViewModel.cs" />
     <Compile Include="Areas\Baby\Models\EditViewModel.cs" />
     <Compile Include="Areas\Baby\Models\ListViewModel.cs" />
+    <Compile Include="Areas\Dreams\Controller\DreamsController.cs" />
+    <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />
     <Compile Include="Areas\Gas\Controllers\MilesController.cs" />
     <Compile Include="Areas\Gas\Controllers\PersonController.cs" />
@@ -198,16 +200,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Gallon.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Dream.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Gallon.cs">
+      <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Item.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Person.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -286,6 +291,7 @@
     <Content Include="Areas\Photos\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Photos\Views\Web.config" />
     <Content Include="Areas\Photos\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Dreams\Views\Web.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -359,6 +365,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\MainMenuBar.cshtml" />
+    <Content Include="Areas\Dreams\Views\Dreams\Create.cshtml" />
+    <Content Include="Areas\Dreams\Views\Dreams\Delete.cshtml" />
+    <Content Include="Areas\Dreams\Views\Dreams\Details.cshtml" />
+    <Content Include="Areas\Dreams\Views\Dreams\Edit.cshtml" />
+    <Content Include="Areas\Dreams\Views\Dreams\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
