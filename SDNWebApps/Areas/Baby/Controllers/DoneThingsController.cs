@@ -30,7 +30,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             {
                 DateTime mindate = DateTime.Now.AddDays(-3);
 
-                things = _se.ThingsDones.OrderByDescending(m => m.StartTime ).ThenByDescending(m => m.StartTime).Where(m => m.Delete == false 
+                things = _se.ThingsDones.OrderByDescending(m => m.StartTime).ThenByDescending(m => m.StartTime).Where(m => m.Delete == false 
                             && m.StartTime > mindate).Select(m => m).ToList();
 
                 //things = _se.ThingsDones.OrderByDescending(m => DbFunctions.TruncateTime(m.StartTime)).ThenBy(m => m.Actions.index).ThenByDescending(m => m.StartTime)
@@ -45,8 +45,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
             {
                 _things.Add(new ListViewModel
                 {
-                    EndTime = thingsDone.EndTime, Item = thingsDone.index,Index = thingsDone.index,
-                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ
+                    EndTime = thingsDone.EndTime, Item = thingsDone.index,Index = thingsDone.index, Notes = thingsDone.Notes,
+                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood
                 });
             }
             
@@ -122,7 +122,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
             }
             editAddViewModel.StartTime = thing.StartTime;
             editAddViewModel.OZ = thing.OZ;
-            
+            editAddViewModel.Mood = thing.Mood;
+            editAddViewModel.Notes = thing.Notes;
+
 
             return View(editAddViewModel);
         }
@@ -154,7 +156,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 td.EndTime = editViewModel.EndTime;
             }
             td.OZ = editViewModel.OZ;
-            
+            td.Mood = editViewModel.Mood;
+            td.Notes = editViewModel.Notes;
+
             _se.SaveChanges();
 
             return RedirectToAction("Index");
@@ -193,7 +197,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             td.OZ = addViewModel.OZ;
 
-
+            td.Mood = addViewModel.Mood;
+            td.Notes = addViewModel.Notes;
 
 
             _se.ThingsDones.Add(td);

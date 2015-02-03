@@ -77,24 +77,25 @@
         {
 
             <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToShortDateString()</h3></td></tr>
-                <tr style="border-bottom: 1px solid black !important">
-                <td style="width: 100px;text-align: center">Item Done </td>
-                <td style="text-align: center;width: 75px">Start Time</td>
-                <td style="text-align: center;width: 75px">End Time</td>
-                <td style="text-align: center">OZ</td>
-                <td></td>
-                <td></td>
-                </tr>
+        <tr style="border-bottom: 1px solid black !important">
+            <td style="width: 100px;text-align: center">Item Done </td>
+            <td style="text-align: center;width: 75px">Start Time</td>
+            <td style="text-align: center;width: 75px">End Time</td>
+            <td style="text-align: center">OZ</td>
+            <td>Mood</td>
+            <td>Notes</td>
+            
+        </tr>
 
-        }
+    }
 
         <tr style="padding-bottom: 8px; background-color: @color;">
-            <td>@Html.LabelForModel(thing.Actions.Title) </td>
+            <td> @Html.ActionLink(@thing.Actions.Title, "Edit", new { id = @thing.Index }) </td>
             <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.OZ == 0 ? "-" : @thing.OZ.ToString())</td>
-            <td style="text-align: center; border-left: 1px solid black !important; width: 40px">@Html.ActionLink("Edit", "Edit", new { id = @thing.Index })</td>
-            <td style="text-align: center; border-left: 1px solid black !important; width: 40px">@Html.ActionLink("Delete", "Delete", new { id = @thing.Index })</td>
+            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>
+            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Notes)</td>
         </tr>
 
         if (thing.StartTime != null && thing.EndTime != null && thing.Actions.Title.Equals("sleep", StringComparison.CurrentCultureIgnoreCase))

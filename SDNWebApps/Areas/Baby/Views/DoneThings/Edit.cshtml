@@ -24,36 +24,55 @@
 
 </script>
 
-<br/>
-<br/>
+<style>
+    label {
+        display: inline-block;
+        padding: 7px;
+        width: 65px;
+        text-align: right;
+    }
+</style>
 
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(m => m.Index)
-
+    //Need to change the layout
     <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.Action):
+        @Html.LabelFor(m => m.Action)
         @Html.DropDownListFor(x => x.Action, ListToUse, Model.Actions.Title)<br/>
     </div>
     <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.StartTime):
+        @Html.LabelFor(m => m.StartTime)
         @Html.TextBoxFor(m => m.StartTime)<br/>
         
     </div>
     <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.EndTime):
+        @Html.LabelFor(m => m.EndTime)
         @Html.TextBoxFor(m => m.EndTime) <a onclick="GetCurrentDateTime()">Get Current DateTime</a>
         <br />
 
     </div>
     <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.OZ):
+        @Html.LabelFor(m => m.OZ)
         @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })
         <br />
 
     </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.Mood)
+        @Html.TextBoxFor(m => m.Mood, new { @style = "width: 50px" })
+        <br />
+
+    </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.Notes)
+        @Html.TextBoxFor(m => m.Notes, new { @style = "width: 200px" })
+        <br />
+        <br />
+
+    </div>
     <div style="padding-top: 10px">
-        <input type="submit" value="Update" />
+        <span style="width: 150px;text-align: left" ><input type="submit" value="Update" /></span> - @Html.ActionLink("Delete", "Delete", new { id = Model.Index })
     </div>
 }
 

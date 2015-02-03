@@ -28,6 +28,8 @@ namespace SDNWebApps.Areas.Baby.Models
         public DateTime? EndTime { get; set; }
         public Actions Actions { get; set; }
         public double? OZ { get; set; }
+        public string Mood { get; set; }
+        public string Notes { get; set; }
 
     }
 }

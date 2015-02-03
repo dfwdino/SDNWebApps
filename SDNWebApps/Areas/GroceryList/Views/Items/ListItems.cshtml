@@ -8,84 +8,87 @@
 }
 
 @using (Html.BeginForm())
-            {
-                foreach (var item in Model.Items)
-                {
-                    MemoryStream stream;
-                    FileContentResult test = null;
+{
+    foreach (var item in Model.Items)
+    {
+        MemoryStream stream;
+        FileContentResult test = null;
 
-                    if (item.Image != null)
-                    {
-                        stream = new MemoryStream(item.Image);
-                        test = new FileContentResult(item.Image, "image/jpeg");
-                    }
-
-
-                    switch (colorCounter)
-                    {
-                        case 0:
-                            color = "lightblue";
-                            colorCounter = 1;
-                            break;
-                        case 1:
-                            color = "lightcoral";
-                            colorCounter = 0;
-                            break;
-
-                    }
+        if (item.Image != null)
+        {
+            stream = new MemoryStream(item.Image);
+            test = new FileContentResult(item.Image, "image/jpeg");
+        }
 
 
-        //Need to redo this layout. :-( and break up showall and need items.
-        <div class="got-link" style="background-color: @color;width:300px" id="FullItem{@item.ID}">
-            <span id=@item.ID style="alignment-adjust: central;width:60%">
-                @Html.LabelForModel(item.Name, new { @class = "list" })
-
-                @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
-                {
-                    <span> - @Html.LabelForModel(item.Amount, new { @class = "list" })</span>
-                }
-                else
-                {
-                    <span><label class="list"></label></span>
-                }
-
-                @if (item.StoreID != null)
-                {
-                    //need to fix this
-                    if (!item.StoreID.Equals(3))
-                    {
-                        <label> - @item.Store.StoreName </label>
-                    }
-                }
-                else
-                {
-                        <label></label>
-                }
-            </span><span style="display: inline-block;" width="30%">
-                @if (Model.ShowAll)
-                {
-                    @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
-                    <a href="#" id=@item.ID class="delete-link">Delete</a>
-
-                }
-                     </span>
-            
-            @if (item.Image != null)
-            {
-                    <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
-            }
-            
-            @*<p class="BlackLine"></p>*@
-        </div>
-
-
+        switch (colorCounter)
+        {
+            case 0:
+                color = "lightblue";
+                colorCounter = 1;
+                break;
+            case 1:
+                color = "lightcoral";
+                colorCounter = 0;
+                break;
 
         }
 
+
+
+
+
+
+        //Need to redo this layout. :-( and break up showall and need items.
+            <div class="got-link" style="background-color: @color;width:300px" id="FullItem{@item.ID}">
+                <span id=@item.ID style="alignment-adjust: central;width:60%">
+                    @Html.LabelForModel(item.Name, new { @class = "list" })
+
+                    @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
+                    {
+                        <span> - @Html.LabelForModel(item.Amount, new { @class = "list" })</span>
+                    }
+                    else
+                    {
+                        <span><label class="list"></label></span>
+                    }
+
+                    @if (item.StoreID != null)
+                    {
+                        //need to fix this
+                        if (!item.StoreID.Equals(3))
+                        {
+                            <label> - @item.Store.StoreName </label>
+                        }
+                    }
+                    else
+                    {
+                            <label></label>
+                    }
+                </span><span style="display: inline-block;" width="30%">
+                    @if (Model.ShowAll)
+                    {
+                        @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
+                        <a href="#" id=@item.ID class="delete-link">Delete</a>
+
+                    }
+                         </span>
+
+                @if (item.Image != null)
+                {
+                        <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
+                }
+
+            </div>
+
+
+
     }
+
+}
 
 @Scripts.Render("~/bundles/jquery")
 @*@Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/modernizr")
-@Styles.Render("~/Content/themes/base/css")*@
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/base/css")*@

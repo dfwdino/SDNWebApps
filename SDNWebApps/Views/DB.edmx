@@ -23,6 +23,8 @@
           <Property Name="EndTime" Type="datetime" />
           <Property Name="Delete" Type="bit" Nullable="false" />
           <Property Name="OZ" Type="float" />
+          <Property Name="Mood" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Dreams">
           <Key>
@@ -372,6 +374,8 @@
           <NavigationProperty Name="Actions" Relationship="SDNAppsModel.FK_ThingsDone_Baby_Item" FromRole="ThingsDone" ToRole="Action" />
           <Property Name="Delete" Type="Boolean" Nullable="false" />
           <Property Name="OZ" Type="Double" />
+          <Property Name="Mood" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ThingsDone_Baby_Item">
           <End Type="SDNAppsModel.Actions" Role="Action" Multiplicity="1" />
@@ -490,6 +494,8 @@
           <EntitySetMapping Name="ThingsDones">
             <EntityTypeMapping TypeName="SDNAppsModel.ThingsDone">
               <MappingFragment StoreEntitySet="ThingsDone">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Mood" ColumnName="Mood" />
                 <ScalarProperty Name="OZ" ColumnName="OZ" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />

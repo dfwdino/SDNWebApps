@@ -20,6 +20,8 @@ namespace SDNWebApps.Views
         public Nullable<System.DateTime> EndTime { get; set; }
         public bool Delete { get; set; }
         public Nullable<double> OZ { get; set; }
+        public string Mood { get; set; }
+        public string Notes { get; set; }
     
         public virtual Actions Actions { get; set; }
     }
