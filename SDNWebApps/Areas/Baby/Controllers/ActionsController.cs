@@ -12,23 +12,24 @@ namespace SDNWebApps.Areas.Baby.Controllers
     {
         // GET: Baby/Actions
         SDNAppsEntities _se = new SDNAppsEntities();
+        ActionCategory _actionCategory = new ActionCategory();
 
         public ActionResult Index()
         {
-
-
             return View(_se.Actions1.Where(m => m.Delete == false));
         }
 
 
         public ActionResult Add()
         {
-
-            return View();
+            SDNWebApps.Views.Actions actions = new Actions();
+            
+            return View(actions);
         }
         [HttpPost]
         public ActionResult Add(SDNWebApps.Views.Actions actions)
         {
+            actions.Title = actions.Title.Trim();
             _se.Actions1.Add(actions);
             _se.SaveChanges();
 
@@ -46,7 +47,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
         {
             var actionItem = _se.Actions1.First(m => m.index == actionitem.index);
 
-            actionItem.Title = actionitem.Title;
+            actionItem.Title = actionitem.Title.Trim();
+            actionItem.CategoryID = actionitem.CategoryID;
             _se.SaveChanges();
 
 

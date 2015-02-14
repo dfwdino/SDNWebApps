@@ -1,9 +1,12 @@
 ﻿@using System.Web.Mvc.Html
+@using SDNWebApps.Views
 @model SDNWebApps.Views.Actions
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().ActionCategories.OrderBy(m => m.Category).Select(m =>
+       new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList(); ;
 }
 
 <h2>Edit</h2>
@@ -23,6 +26,13 @@
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             
+        </div>
+        <br/>
+        <div>
+            <span>Cat</span>
+            @Html.LabelFor(m => m.ActionCategory)
+            @Html.DropDownListFor(m => m.CategoryID, ListToUse, Model.ActionCategory.Category)
+
         </div>
 
         <div class="form-group">

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using SDNWebApps.Views;
 
-namespace SDNWebApps.Areas.Baby.Models
+namespace SDNWebApps.Areas.Baby.Models.DoneThings
 {
     public class EditViewModel
     {
@@ -27,6 +23,7 @@ namespace SDNWebApps.Areas.Baby.Models
         public double? OZ { get; set; }
         public string Mood { get; set; }
         public string Notes { get; set; }
+
     }
         
     

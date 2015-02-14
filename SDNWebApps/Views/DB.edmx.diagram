@@ -20,6 +20,9 @@
         <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_Baby_Item" />
         <EntityTypeShape EntityType="SDNAppsModel.Dream" Width="1.5" PointX="2.625" PointY="6.375" />
         <AssociationConnector Association="SDNAppsModel.FK_Dreams_People" />
+        <AssociationConnector Association="SDNAppsModel.FK_Actions_Actions" />
+        <EntityTypeShape EntityType="SDNAppsModel.ActionCategory" Width="1.5" PointX="4.125" PointY="10" />
+        <AssociationConnector Association="SDNAppsModel.FK_Actions_ActionCategory" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

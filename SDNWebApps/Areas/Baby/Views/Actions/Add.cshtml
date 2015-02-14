@@ -1,9 +1,15 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Data.Entity.SqlServer
+@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@using SDNWebApps.Views
 @model SDNWebApps.Views.Actions
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().ActionCategories.OrderBy(m => m.Category).Select(m =>
+        new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList();
+
 }
 
 <h2>Actions</h2>
@@ -23,7 +29,13 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
+        <div>
+            <span>Cat</span>
+            @Html.LabelFor(m => m.ActionCategory)
+            @Html.DropDownListFor(m => m.CategoryID,ListToUse)
+            
+        </div>
         <div>
             <div>
                 <br/><input type="submit" value="Create" class="btn btn-default" />

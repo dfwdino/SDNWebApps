@@ -36,32 +36,35 @@
 
     <tr style="background-color: @color;">
         <td style="padding: 0px 0px 5px 5px">
-            @item.Date.ToShortDateString() - @Html.DisplayFor(modelItem => item.Person1.PersonName) - 
+            <span>@item.Date.ToShortDateString()</span><span> -@Html.DisplayFor(modelItem => item.Person1.PersonName)</span>
+            <span> -
 
-            @switch (item.DidMeditation)
-            {
-                case true:
-                    <span>Yes</span>
-                    break;
-                default:
-                    <span>No</span>
-                    break;
+                @switch (item.DidMeditation)
+                {
+                    case true:
+                        <span>Yes</span>
+                        break;
+                    default:
+                        <span>No</span>
+                        break;
 
-            }
-       
+                }
+            </span>
+
             <span>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </span>
-       
+
             <br /> @Html.Raw(Html.Encode(@item.Dream1).Replace("\n", "<br />"))
-
-    
         </td>
-        
     </tr>
-
+    
+    <tr>
+        <td style="height: 10px">
+        </td>
+</tr>
 
 
 

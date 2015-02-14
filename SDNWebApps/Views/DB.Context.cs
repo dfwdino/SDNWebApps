@@ -34,5 +34,6 @@ namespace SDNWebApps.Views
         public DbSet<Actions> Actions1 { get; set; }
         public DbSet<ThingsDone> ThingsDones { get; set; }
         public DbSet<Dream> Dreams { get; set; }
+        public DbSet<ActionCategory> ActionCategories { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using SDNWebApps.Areas.Baby.Models;
+using SDNWebApps.Areas.Baby.Models.DoneThings;
 using SDNWebApps.Views;
 using System.Data.Entity;
 

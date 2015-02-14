@@ -12,18 +12,16 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Gallon
+    public partial class ActionCategory
     {
-        public int ID { get; set; }
-        public int AutoID { get; set; }
-        public int TotalMiles { get; set; }
-        public int DrivenMiles { get; set; }
-        public double TotalGallons { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-        public Nullable<System.DateTime> GasDate { get; set; }
-        public bool TankFilled { get; set; }
-        public string Notes { get; set; }
+        public ActionCategory()
+        {
+            this.Actions = new HashSet<Actions>();
+        }
     
-        public virtual Auto Auto { get; set; }
+        public System.Guid Index { get; set; }
+        public string Category { get; set; }
+    
+        public virtual ICollection<Actions> Actions { get; set; }
     }
 }

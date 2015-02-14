@@ -3,7 +3,7 @@
 @using System.Web.Mvc.Html
 @using Microsoft.Ajax.Utilities
 @using SDNWebApps.Views
-@model SDNWebApps.Areas.Baby.Models.AddViewModel
+@model SDNWebApps.Areas.Baby.Models.DoneThings.AddViewModel
 
 @{
     ViewBag.Title = "Add";
@@ -33,10 +33,10 @@
         @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
 
         @Html.LabelFor(m => m.StartTime)
-        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime()">Get Current DateTime</a> <br />
+        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Current DateTime</a> <br />
 
         @Html.LabelFor(m => m.EndTime)
-        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <br />
+        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Current DateTime</a> <br />
         
         @Html.LabelFor(m => m.OZ)
         @Html.TextBoxFor(m => m.OZ) <br />
@@ -78,7 +78,7 @@
 
 
 <script type="text/javascript">
-    function GetCurrentDateTime() {
-        var value = document.getElementById('StartTime').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+    function GetCurrentDateTime(field) {
+        var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
     }
 </script>

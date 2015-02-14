@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActionCategory">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Actions">
           <Key>
             <PropertyRef Name="index" />
@@ -12,6 +19,7 @@
           <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="CategoryID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
@@ -57,6 +65,7 @@
           <Property Name="TotalPrice" Type="money" />
           <Property Name="GasDate" Type="date" />
           <Property Name="TankFilled" Type="bit" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="People">
           <Key>
@@ -94,6 +103,30 @@
           <Property Name="Done" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Actions_ActionCategory">
+          <End Role="ActionCategory" Type="Self.ActionCategory" Multiplicity="0..1" />
+          <End Role="Actions" Type="Self.Actions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionCategory">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Actions">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Actions_Actions">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="Actions1" Type="Self.Actions" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Actions1">
+              <PropertyRef Name="index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Autos_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
@@ -154,19 +187,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ThingsDone_Baby_Item">
-          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
-          <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Actions">
-              <PropertyRef Name="index" />
-            </Principal>
-            <Dependent Role="ThingsDone">
-              <PropertyRef Name="Action" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SDNAppsModelStoreContainer">
+          <EntitySet Name="ActionCategory" EntityType="Self.ActionCategory" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
@@ -176,6 +198,14 @@
           <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
+          <AssociationSet Name="FK_Actions_ActionCategory" Association="Self.FK_Actions_ActionCategory">
+            <End Role="ActionCategory" EntitySet="ActionCategory" />
+            <End Role="Actions" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Actions_Actions" Association="Self.FK_Actions_Actions">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Actions1" EntitySet="Actions" />
+          </AssociationSet>
           <AssociationSet Name="FK_Autos_People" Association="Self.FK_Autos_People">
             <End Role="People" EntitySet="People" />
             <End Role="Autos" EntitySet="Autos" />
@@ -195,10 +225,6 @@
           <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
             <End Role="People" EntitySet="People" />
             <End Role="Tasks" EntitySet="Tasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ThingsDone_Baby_Item" Association="Self.FK_ThingsDone_Baby_Item">
-            <End Role="Actions" EntitySet="Actions" />
-            <End Role="ThingsDone" EntitySet="ThingsDone" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -239,6 +265,15 @@
             <End Role="Person" EntitySet="People" />
             <End Role="Dream" EntitySet="Dreams" />
           </AssociationSet>
+          <AssociationSet Name="FK_Actions_Actions" Association="SDNAppsModel.FK_Actions_Actions">
+            <End Role="Actions" EntitySet="Actions1" />
+            <End Role="Actions1" EntitySet="Actions1" />
+          </AssociationSet>
+          <EntitySet Name="ActionCategories" EntityType="SDNAppsModel.ActionCategory" />
+          <AssociationSet Name="FK_Actions_ActionCategory" Association="SDNAppsModel.FK_Actions_ActionCategory">
+            <End Role="ActionCategory" EntitySet="ActionCategories" />
+            <End Role="Actions" EntitySet="Actions1" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -263,6 +298,7 @@
           <Property Type="DateTime" Name="GasDate" Precision="0" />
           <Property Type="Boolean" Name="TankFilled" Nullable="false" />
           <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Gallon" ToRole="Auto" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Gallons_Autos">
           <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
@@ -362,6 +398,10 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_Baby_Item" FromRole="Action" ToRole="ThingsDone" />
           <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="CategoryID" Type="Guid" />
+          <NavigationProperty Name="Actions1" Relationship="SDNAppsModel.FK_Actions_Actions" FromRole="Actions" ToRole="Actions1" />
+          <NavigationProperty Name="Action1" Relationship="SDNAppsModel.FK_Actions_Actions" FromRole="Actions1" ToRole="Actions" />
+          <NavigationProperty Name="ActionCategory" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="Actions" ToRole="ActionCategory" />
         </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
@@ -413,6 +453,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Actions_Actions">
+          <End Type="SDNAppsModel.Actions" Role="Actions" Multiplicity="1" />
+          <End Type="SDNAppsModel.Actions" Role="Actions1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Actions1">
+              <PropertyRef Name="index" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ActionCategory">
+          <Key>
+            <PropertyRef Name="Index" />
+          </Key>
+          <Property Name="Index" Type="Guid" Nullable="false" />
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Actions" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="ActionCategory" ToRole="Actions" />
+        </EntityType>
+        <Association Name="FK_Actions_ActionCategory">
+          <End Type="SDNAppsModel.ActionCategory" Role="ActionCategory" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Actions" Role="Actions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionCategory">
+              <PropertyRef Name="Index" />
+            </Principal>
+            <Dependent Role="Actions">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -431,6 +503,7 @@
           <EntitySetMapping Name="Gallons">
             <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
               <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
                 <ScalarProperty Name="GasDate" ColumnName="GasDate" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
@@ -485,6 +558,7 @@
           <EntitySetMapping Name="Actions1">
             <EntityTypeMapping TypeName="SDNAppsModel.Actions">
               <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="index" ColumnName="index" />
@@ -514,6 +588,14 @@
                 <ScalarProperty Name="Dream1" ColumnName="Dream" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionCategories">
+            <EntityTypeMapping TypeName="SDNAppsModel.ActionCategory">
+              <MappingFragment StoreEntitySet="ActionCategory">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

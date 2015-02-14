@@ -22,7 +22,11 @@ namespace SDNWebApps.Views
         public int index { get; set; }
         public string Title { get; set; }
         public bool Delete { get; set; }
+        public Nullable<System.Guid> CategoryID { get; set; }
     
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }
+        public virtual Actions Actions1 { get; set; }
+        public virtual Actions Action1 { get; set; }
+        public virtual ActionCategory ActionCategory { get; set; }
     }
 }

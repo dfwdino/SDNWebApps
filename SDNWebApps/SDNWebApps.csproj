@@ -150,9 +150,9 @@
     <Compile Include="Areas\Baby\Controllers\ActionsController.cs" />
     <Compile Include="Areas\Baby\Controllers\DoneThingsController.cs" />
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
-    <Compile Include="Areas\Baby\Models\AddViewModel.cs" />
-    <Compile Include="Areas\Baby\Models\EditViewModel.cs" />
-    <Compile Include="Areas\Baby\Models\ListViewModel.cs" />
+    <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
+    <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
+    <Compile Include="Areas\Baby\Models\DoneThings\ListViewModel.cs" />
     <Compile Include="Areas\Dreams\Controller\DreamsController.cs" />
     <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />
@@ -179,6 +179,9 @@
     <Compile Include="Areas\Tasks\Controllers\TasksController.cs" />
     <Compile Include="Areas\Tasks\Models\Task.cs" />
     <Compile Include="Areas\Tasks\TasksAreaRegistration.cs" />
+    <Compile Include="Views\ActionCategory.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Actions.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -373,6 +376,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Baby\Models\Actions\" />
     <Folder Include="Areas\Gas\Views\Shared\" />
     <Folder Include="Content\themes\base\minified\images\" />
     <Folder Include="Controllers\" />

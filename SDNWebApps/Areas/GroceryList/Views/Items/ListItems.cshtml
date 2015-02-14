@@ -4,6 +4,7 @@
 
 @{
     int colorCounter = 0;
+    string divWidth = Model.ShowAll != true ? "300px" : "400px";
     string color = string.Empty;
 }
 
@@ -34,13 +35,49 @@
 
         }
 
+        <div style="display:block;background-color: @color;width:@divWidth;padding-bottom: 5px" id="FullItem{@item.ID}">
+            <span class="got-link" id=@item.ID style="width:200px">
+                @item.Name
+            </span>
+            @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
+                    {
+                <span style="width: 10px"> - @item.Amount</span>
+            }
+            else
+            {
+                <span></span>
+            }
+            @if (item.StoreID != null)
+                    {
+                        //need to fix this
+                        if (!item.StoreID.Equals(3))
+                        {
+                    <span style="width:90px"> - @item.Store.StoreName </span>
+                }
+            }
+            else
+            {
+                <span></span>
+            }
+            @if (Model.ShowAll)
+            {
+                <span style="text-align: right" width="100px">
+                    @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
+                    <a href="#" id=@item.ID class="delete-link">Delete</a>
+                </span>
+            }
+            @if (item.Image != null)
+            {
+                <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
+            }
 
+        </div>
 
 
 
 
         //Need to redo this layout. :-( and break up showall and need items.
-            <div class="got-link" style="background-color: @color;width:300px" id="FullItem{@item.ID}">
+            @*<div class="got-link" style="background-color: @color;width:300px" id="FullItem{@item.ID}">
                 <span id=@item.ID style="alignment-adjust: central;width:60%">
                     @Html.LabelForModel(item.Name, new { @class = "list" })
 
@@ -79,7 +116,7 @@
                         <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
                 }
 
-            </div>
+            </div>*@
 
 
 
@@ -89,6 +126,6 @@
 
 @Scripts.Render("~/bundles/jquery")
 @*@Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/modernizr")
-    @Styles.Render("~/Content/themes/base/css")*@
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/themes/base/css")*@

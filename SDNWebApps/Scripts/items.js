@@ -2,7 +2,7 @@
     
     $(document).ready(function () {
         $('a.delete-link').click(OnDeleteItemClick);
-        $('div.got-link').click(OnGotClick);
+        $('span.got-link').click(OnGotClick);
         $('a.add-item-link').click(OnAddItemClick);
     });
 
@@ -27,7 +27,7 @@ function OnDeleteItemClick(e)
 function OnGotClick(e) {
 
     var hasItem;
-    var itemID = e.target.parentElement.id;
+    var itemID = e.target.id;
     
     var div = document.getElementById('FullItem{' + itemID + '}');
     div.innerHTML = "";
