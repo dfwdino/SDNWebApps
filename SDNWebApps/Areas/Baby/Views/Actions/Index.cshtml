@@ -25,7 +25,7 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td style="padding-left: 5px">
-            @Html.ActionLink("Change Name", "Edit", new { id=item.index }) |
+            @Html.ActionLink("Update", "Edit", new { id=item.index }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.index })
         </td>
     </tr>

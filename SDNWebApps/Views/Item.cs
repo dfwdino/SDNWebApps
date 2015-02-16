@@ -21,6 +21,7 @@ namespace SDNWebApps.Views
         public bool Have { get; set; }
         public byte[] Image { get; set; }
         public string Amount { get; set; }
+        public Nullable<System.DateTime> LastGotten { get; set; }
     
         public virtual Store Store { get; set; }
     }

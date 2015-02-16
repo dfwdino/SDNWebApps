@@ -85,6 +85,7 @@
           <Property Name="Have" Type="bit" Nullable="false" />
           <Property Name="Image" Type="image" />
           <Property Name="Amount" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastGotten" Type="date" />
         </EntityType>
         <EntityType Name="Stores">
           <Key>
@@ -324,6 +325,7 @@
           <NavigationProperty Name="Store" Relationship="SDNAppsModel.FK_Items_Stores" FromRole="Item" ToRole="Store" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastGotten" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -518,6 +520,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="SDNAppsModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="LastGotten" ColumnName="LastGotten" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Have" ColumnName="Have" />

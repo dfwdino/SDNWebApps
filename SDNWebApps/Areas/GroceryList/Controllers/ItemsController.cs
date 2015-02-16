@@ -25,6 +25,8 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
 
             var gotItem = sdnApps.Items.First(m => m.ID == itemID);
 
+            gotItem.LastGotten = DateTime.Now.Date;
+
             gotItem.Have = haveItem;
             sdnApps.SaveChanges();
 

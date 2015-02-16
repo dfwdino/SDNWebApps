@@ -14,7 +14,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
     {
         SDNAppsEntities ae = new SDNAppsEntities();
         
-        public ActionResult Index(bool showAll=false)
+        public ActionResult Index(bool showAll=false,int? storeID = null)
         {
             IQueryable<Item> gitems = ae.Items;
             Item item = new Item();
@@ -30,6 +30,9 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
                 gitems = ae.Items.Where(m => m.Have == showAll);
                 ViewBag.Title = "Need Items";
             }
+
+            if (storeID != null)
+                gitems = ae.Items.Where(m => m.StoreID == storeID && m.Have == showAll);
 
             itemsVM.Items = gitems.OrderBy(m => m.Name).ToList();
 
