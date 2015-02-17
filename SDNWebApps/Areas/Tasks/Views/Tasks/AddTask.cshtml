@@ -10,20 +10,21 @@
 <div id="TaskAdded"></div>
 
 @ViewBag.Task<br/>
+<br/>
 
 @using (Html.BeginForm("AddTask","Tasks", FormMethod.Post))
 {<div>
-     <div style="padding-bottom: 3px">
+     <div style="padding-bottom: 5px;padding-top: 5px">
          @Html.LabelFor(m => m.Title):
          @Html.TextBoxFor(m => m.Title)
      </div>
-     <div style="padding-bottom: 3px">
+     <div style="padding-bottom: 5px;padding-top: 5px">
          @Html.LabelFor(m => m.DueDate):
-         @Html.TextBoxFor(m => m.DueDate,new { @class = "date"})
+         @Html.TextBoxFor(m => m.DueDate, new { @class = "date" })
      </div>
-     <div style="padding-bottom: 3px">
+     <div style="padding-bottom: 5px;padding-top: 5px">
          @Html.LabelFor(m => m.PersonID):
-         @Html.DropDownListFor(m => m.PersonID,new SelectList(Model.Persons,"ID", "PersonName", Model.Persons))
+         @Html.DropDownListFor(m => m.PersonID, new SelectList(Model.Persons, "ID", "PersonName", Model.Persons))
      </div>
 
 

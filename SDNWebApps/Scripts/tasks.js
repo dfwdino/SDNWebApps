@@ -55,14 +55,15 @@ function OnGotClick(e) {
     //    done = false;
     //}
 
-    $.post("/Tasks/Tasks/GotTask", { taskID: itemID, done: done },
+    var test = $.post("/Tasks/Tasks/GotTask", { taskID: itemID},
           function (result) // success
           {
-              alert('tea');
+              alert(result);
           },
-          function (msg) // error
+
+          function (result) // error
           {
-              alert('Error');
+              alert(result);
           }
          );
     return false; // for the button

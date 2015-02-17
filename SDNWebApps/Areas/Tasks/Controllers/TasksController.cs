@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 using SDNWebApps.Areas.Tasks.Models;
 using SDNWebApps.Views;
@@ -16,11 +17,14 @@ namespace SDNWebApps.Areas.Tasks.Controllers
         SDNAppsEntities sdnApps = new SDNAppsEntities();
 
         [HttpPost]
-        public JsonResult GotTask(int taskID, bool done = false)
+        [WebMethod]
+        public JsonResult GotTask(int taskID)
         {
             var gotItem = sdnApps.Tasks.First(m => m.ID == taskID);
 
-            gotItem.Done = done;
+            gotItem.Done = !gotItem.Done;
+
+            //gotItem.Done = done;
             sdnApps.SaveChanges();
 
             return Json("Record deleted successfully!");

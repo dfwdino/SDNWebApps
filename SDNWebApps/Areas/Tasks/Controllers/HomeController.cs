@@ -16,12 +16,12 @@ namespace SDNWebApps.Areas.Tasks.Controllers
         SDNAppsEntities sdnApps = new SDNAppsEntities();
 
         //Need to fix the user id isse
-        public ActionResult Index(int userid=2112, bool showAll = false)
+        public ActionResult Index(int? userid=null, bool showAll = false)
         {
             IQueryable<Task> gtasks = sdnApps.Tasks;
             Item item = new Item();
 
-            if (!userid.Equals(2112))
+            if (userid!=null)
             {
                 gtasks = gtasks.Where(m => m.PersonID.Equals(userid));
             }
