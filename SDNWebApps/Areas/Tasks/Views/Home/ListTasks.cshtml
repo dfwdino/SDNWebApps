@@ -1,4 +1,5 @@
-﻿@model List<SDNWebApps.Views.Task>
+﻿@using System.Globalization
+@model List<SDNWebApps.Views.Task>
 
 
 @{
@@ -70,7 +71,7 @@
     foreach (var task in Model)
     {
         <div id="FullItem{@task.ID}" style="height: 30px;width: 750px">
-            <a href="#" id=@task.ID class="got-link TaskItem">@Html.LabelForModel(task.Title)</a>
+            <a href="#" id=@task.ID class="got-link TaskItem">@Html.LabelForModel(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title))</a>
            @if (task.Done)
             {//Need to fix if statement
                 <a href="#" id=@task.ID class="delete-link">Delete</a>

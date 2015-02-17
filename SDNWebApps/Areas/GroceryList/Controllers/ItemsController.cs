@@ -103,7 +103,8 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             var newItem = sdnApps.Items.FirstOrDefault(m => m.Name == "");
 
             if (newItem == null)
-                newItem = new Item { Name = itemsViewModel.Name, Price = Convert.ToDecimal(itemsViewModel.Price), StoreID = itemsViewModel.SelectedItemId, Have = false, Amount = itemsViewModel.Amount};
+                newItem = new Item { Name = itemsViewModel.Name, Price = Convert.ToDecimal(itemsViewModel.Price),
+                    StoreID = itemsViewModel.SelectedItemId, Have = false, Amount = itemsViewModel.Amount};
             else
                 newItem.Have = false;
 

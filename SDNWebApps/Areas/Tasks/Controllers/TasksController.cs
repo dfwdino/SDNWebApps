@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,7 +46,7 @@ namespace SDNWebApps.Areas.Tasks.Controllers
         {
             var newTask = sdnApps.Tasks.FirstOrDefault(m => m.Title == task.Title);
             
-            newTask = new Task { Title = task.Title, DueDate = Convert.ToDateTime(task.DueDate), Done = false, PersonID = task.PersonID};
+            newTask = new Task { Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title), DueDate = Convert.ToDateTime(task.DueDate), Done = false, PersonID = task.PersonID};
             
             sdnApps.Tasks.Add(newTask);
             sdnApps.SaveChanges();
