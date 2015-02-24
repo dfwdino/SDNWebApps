@@ -1,4 +1,6 @@
-﻿@using System.Data.Entity.SqlServer
+﻿@using System.Collections.Generic
+@using System.Data.Entity.SqlServer
+@using System.Linq
 @using System.Web.Mvc.Html
 @using System.Web.WebPages.Html
 @using SDNWebApps.Views
@@ -8,7 +10,7 @@
     ViewBag.Title = "Edit Action Items";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     //Add to remove current item in list and just show that one.
-    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
+    List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false && m.Title != Model.Actions.Title) .OrderBy(m => m.Title).Select(m =>
         new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
 
 

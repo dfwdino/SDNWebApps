@@ -1,0 +1,27 @@
+﻿@model SDNWebApps.Views.ActionCategory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ActionCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Index }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

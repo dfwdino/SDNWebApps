@@ -28,7 +28,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
         [HttpPost]
         public ActionResult AddStore(string storeName)
         {
-            Store checkStore = sdnApps.Stores.First(m => m.StoreName == storeName);
+            Store checkStore = sdnApps.Stores.FirstOrDefault(m => m.StoreName == storeName);
 
             if (checkStore == null)
             {

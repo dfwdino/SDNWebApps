@@ -21,6 +21,7 @@ namespace SDNWebApps.Views
     
         public System.Guid Index { get; set; }
         public string Category { get; set; }
+        public bool Delete { get; set; }
     
         public virtual ICollection<Actions> Actions { get; set; }
     }

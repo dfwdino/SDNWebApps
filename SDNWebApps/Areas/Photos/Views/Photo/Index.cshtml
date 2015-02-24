@@ -3,6 +3,7 @@
 @{
     Layout = null;
     int fileCount = 0;
+
 }
 
 <!DOCTYPE html>
@@ -34,7 +35,6 @@
 <body>
     <div id="main">
         @{
-//int i = 1;
             <div id="Folders" style="width: 150px">
                 <p style="border-right-color: red;border-right-style: solid;">
                     @Html.ActionLink("Up", "Index", "Photo",
@@ -53,19 +53,12 @@
                         "Index", "Photo", new { addlocation = folder }, null)
                         <br />
 
-                        @*if (i.Equals(3))
-                {
-                    <br />
-                    i = 0;
-                }
-                i++;*@
-
                     }
                     <br />
                     <br />
                 </p>
             </div>
-
+            <!--Need a better way of doing this-->
             <div id="Images" style="margin-left: 25px">
 
                 @foreach (var file in Model.Images)
@@ -78,21 +71,31 @@
                     }
 
                     <img style="padding: 5px" src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(file.Data))" />
+                    
+                    @*@Html.ActionLink(file.Name.Substring(file.Name.LastIndexOf(@"\") + 1,5),
+                        "ViewPhoto", "Photo", new { photolocation = file.Name }, null)*@
+
 
                     fileCount++;
+
                 }
-                <br/>
+                <br />
                 @Html.ActionLink("Back", "Index", "Photo",
                 new { addlocation = Model.CurrentLocation, PhotoLocationNumber = Model.PhotoLocationNumber - 4 }, null)
 
                 @Html.ActionLink("Next", "Index", "Photo",
                 new { addlocation = Model.CurrentLocation, PhotoLocationNumber = Model.PhotoLocationNumber + 4 }, null)
 
+                <div>Total Pages:@Model.TotalPages </div>
+
             </div>
         }
 
     </div>
 </body>
+
+
+
 
 
 </html>

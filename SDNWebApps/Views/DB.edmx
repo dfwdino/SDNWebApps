@@ -11,6 +11,7 @@
           </Key>
           <Property Name="Index" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Actions">
           <Key>
@@ -474,6 +475,7 @@
           <Property Name="Index" Type="Guid" Nullable="false" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Actions" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="ActionCategory" ToRole="Actions" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Actions_ActionCategory">
           <End Type="SDNAppsModel.ActionCategory" Role="ActionCategory" Multiplicity="0..1" />
@@ -597,6 +599,7 @@
           <EntitySetMapping Name="ActionCategories">
             <EntityTypeMapping TypeName="SDNAppsModel.ActionCategory">
               <MappingFragment StoreEntitySet="ActionCategory">
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Index" ColumnName="Index" />
               </MappingFragment>

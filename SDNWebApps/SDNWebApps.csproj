@@ -167,6 +167,7 @@
     <Compile Include="Areas\Gas\Models\Auto\ListViewModel.cs" />
     <Compile Include="Areas\Gas\Models\Person\AddViewModel.cs" />
     <Compile Include="Areas\Gas\Models\Person\ListViewModel.cs" />
+    <Compile Include="Areas\Baby\Controllers\ActionCategoriesController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\HomeController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\ItemsController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\StroesController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Areas\Photos\Controller\PhotoController.cs" />
     <Compile Include="Areas\Photos\Models\ImageFile.cs" />
     <Compile Include="Areas\Photos\Models\Photo.cs" />
+    <Compile Include="Areas\Photos\Models\ViewPhoto.cs" />
     <Compile Include="Areas\Photos\PhotosAreaRegistration.cs" />
     <Compile Include="Areas\Tasks\Controllers\HomeController.cs" />
     <Compile Include="Areas\Tasks\Controllers\TasksController.cs" />
@@ -297,6 +299,12 @@
     <Content Include="Areas\Photos\Views\Web.config" />
     <Content Include="Areas\Photos\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Dreams\Views\Web.config" />
+    <Content Include="Areas\Baby\Views\ActionCategories\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\ActionCategories\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\ActionCategories\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\ActionCategories\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\ActionCategories\Index.cshtml" />
+    <Content Include="Areas\Photos\Views\Photo\ViewPhoto.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -358,7 +366,9 @@
     <Content Include="Scripts\store.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

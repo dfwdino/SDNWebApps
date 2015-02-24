@@ -16,6 +16,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionCategory.Category)
+        </th>
         <th></th>
     </tr>
 
@@ -23,6 +26,9 @@
     <tr>
         <td style="padding-bottom: 4px">
             @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td style="padding-bottom: 4px;text-align: center">
+            @Html.DisplayFor(modelItem => item.ActionCategory.Category)
         </td>
         <td style="padding-left: 5px">
             @Html.ActionLink("Update", "Edit", new { id=item.index }) |

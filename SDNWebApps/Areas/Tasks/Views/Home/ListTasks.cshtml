@@ -2,14 +2,6 @@
 @model List<SDNWebApps.Views.Task>
 
 
-@{
-    //ViewBag.Title = "List Task";
-    //Layout = "~/Areas/Tasks/Views/Shared/_TasksLayout.cshtml";
-}
-
-
-
-
 <style>
     .TaskItem {
         display: inline-block;
@@ -33,22 +25,6 @@
         text-align: center;
     }
 </style>
-
-@*<div>
-    @Html.ActionLink("Add Task", "AddTask", "Tasks")
-
-    @if (ViewBag.Title.Equals("All Tasks"))
-            {
-        @Html.ActionLink("Undone Tasks", "Index")
-    }
-    else
-    {
-        @Html.ActionLink("View All", "Index", new { showAll = "true" })
-
-    }
-</div>*@
-
-
 
 <div id="TaskAdded"></div>
 @*need a better way, custom ViewModel???*@

@@ -12,6 +12,12 @@
 
 }
 
+<span>
+    <label id="HeaderLablel">Category's:</label>
+    @Html.ActionLink("Add", "Create", "ActionCategories", null, new { @class = "headerItems" })
+    @Html.ActionLink("All", "Index", "ActionCategories", null, new { @class = "headerItems" })
+</span>
+
 <h2>Actions</h2>
 
 @using (Html.BeginForm()) 

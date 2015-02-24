@@ -18,6 +18,9 @@ namespace SDNWebApps.Areas.Photos.Models
         public List<Image> RealImages { get; set; }
 
         public string TopRoot { get; set; }
+
+        public int CurrentPageNumber { get; set; }
+        public int TotalPages { get; set; }
                
 
         public PhotoViewModel()
@@ -28,6 +31,8 @@ namespace SDNWebApps.Areas.Photos.Models
             Images = new List<ImageFile>();
             RealImages = new List<Image>();
             PhotoLocationNumber = 0;
+            CurrentPageNumber = 1;
+            TotalPages = 1;
 
         }
 

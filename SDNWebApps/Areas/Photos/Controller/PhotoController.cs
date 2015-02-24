@@ -29,8 +29,11 @@ namespace SDNWebApps.Areas.Photos.Controllers
                 m.ToLower().EndsWith("jpg") || m.ToLower().EndsWith("png")).ToList();
 
             pvm.PhotoLocationNumber += photoLocationNumber;
+            pvm.TotalPages = pvm.ImageLocations.Count/6;
 
             pvm.Images.Clear();
+
+            
 
             for (int i = photoLocationNumber; i <= pvm.PhotoLocationNumber+5 && pvm.ImageLocations.Count-1 >=i; i++)
             {
@@ -57,6 +60,12 @@ namespace SDNWebApps.Areas.Photos.Controllers
 
             return View(pvm);
         }
+
+        public ActionResult ViewPhoto(string photolocation = "")
+        {
+            return View();
+        }
+
         public bool ThumbnailCallback()
         {
             return false;

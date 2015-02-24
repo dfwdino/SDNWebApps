@@ -1,4 +1,6 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Collections.Generic
+@using System.Linq
+@using System.Web.Mvc.Html
 @using SDNWebApps.Views
 @model SDNWebApps.Views.Actions
 
@@ -8,6 +10,13 @@
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().ActionCategories.OrderBy(m => m.Category).Select(m =>
        new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList(); ;
 }
+
+<span>
+    <label id="HeaderLablel">Category's:</label>
+    @Html.ActionLink("Add", "Create", "ActionCategories", null, new { @class = "headerItems" })
+    @Html.ActionLink("All", "Index", "ActionCategories", null, new { @class = "headerItems" })
+</span>
+
 
 <h2>Edit</h2>
 
