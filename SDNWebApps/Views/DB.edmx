@@ -45,6 +45,7 @@
           <Property Name="Person" Type="int" />
           <Property Name="DidMeditation" Type="bit" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Links" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Autos">
           <Key>
@@ -443,6 +444,7 @@
           <NavigationProperty Name="Person1" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Dream" ToRole="Person" />
           <Property Name="DidMeditation" Type="Boolean" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Links" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Dreams_People">
           <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="0..1" />
@@ -587,6 +589,7 @@
           <EntitySetMapping Name="Dreams">
             <EntityTypeMapping TypeName="SDNAppsModel.Dream">
               <MappingFragment StoreEntitySet="Dreams">
+                <ScalarProperty Name="Links" ColumnName="Links" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="DidMeditation" ColumnName="DidMeditation" />
                 <ScalarProperty Name="Person" ColumnName="Person" />

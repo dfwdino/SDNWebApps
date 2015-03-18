@@ -10,7 +10,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public AddViewModel()
         {
             Actions = new SDNWebApps.Views.Actions();
-            StartTime = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            StartTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "Central Standard Time").ToString(CultureInfo.InvariantCulture);
             EndTime = string.Empty;
             Mood = string.Empty;
             OZ = null;

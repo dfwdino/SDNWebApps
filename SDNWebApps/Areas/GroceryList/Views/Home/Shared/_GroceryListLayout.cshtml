@@ -12,18 +12,18 @@
     @RenderPage("~/Views/Shared/MainMenuBar.cshtml")
 
 
-    <span>
+    <div>
         <label id="HeaderLablel">Store:</label>
         @Html.ActionLink("Add", "AddStore", "Stores", null, new { @class = "headerItems" })
         @Html.ActionLink("All", "Stores", "Stores", null, new { @class = "headerItems" })
-    </span>
-    <br/>
-    <span>
+    </div>
+    <br />
+    <div>
         <label id="HeaderLablel">Items:</label>
         @Html.ActionLink("Add", "AddItem", "Items", null, new { @class = "headerItems" })
         @Html.ActionLink("All", "Index", "Home", new { showAll = true }, new { @class = "headerItems" })
         @Html.ActionLink("Need", "Index", "Home", null, new { @class = "headerItems" })
-    </span>
+    </div>
 
     @RenderBody()
 

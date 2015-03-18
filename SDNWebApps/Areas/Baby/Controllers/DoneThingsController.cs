@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.SqlServer;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,21 @@ namespace SDNWebApps.Areas.Baby.Controllers
     {
         
         SDNAppsEntities _se = new SDNAppsEntities();
+
+        public ActionResult SummaryPage()
+        {
+            var makeSummary =
+                _se.ThingsDones.Where(m => m.Actions.ActionCategory.Category == "Food" && (m.OZ > 0 || m.OZ != null))
+                    .GroupBy(g => new {TruncateTime = EntityFunctions.TruncateTime(g.StartTime)})
+                    .Select(s => new {StartTime = s.Key.TruncateTime, OZ = s.Sum(item => item.OZ)}).ToList();
+
+            var smList = makeSummary.Select(summary => new SummaryModel((DateTime)summary.StartTime,summary.OZ)).ToList();
+
+
+            return View(smList);
+        }
+
+
         public ActionResult Index(bool viewall = false)
         {
             List<Views.ThingsDone> things =  new List<ThingsDone>();
@@ -29,9 +45,10 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 //    .Where(m => m.Delete == false).Select(m => m).ToList();
             else
             {
-                DateTime mindate = DateTime.Now.AddDays(-3);
+                //Why is it not showing any data for the last day??? Where is my logic wrong???
+                DateTime mindate = DateTime.Now.AddDays(-3).Date;
 
-                things = _se.ThingsDones.OrderByDescending(m => m.StartTime).ThenByDescending(m => m.StartTime).Where(m => m.Delete == false 
+                things = _se.ThingsDones.OrderByDescending(m => m.StartTime).Where(m => m.Delete == false 
                             && m.StartTime > mindate).Select(m => m).ToList();
 
                 //things = _se.ThingsDones.OrderByDescending(m => DbFunctions.TruncateTime(m.StartTime)).ThenBy(m => m.Actions.index).ThenByDescending(m => m.StartTime)

@@ -8,7 +8,7 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().ActionCategories.OrderBy(m => m.Category).Select(m =>
-       new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList(); ;
+       new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList();
 }
 
 <span>

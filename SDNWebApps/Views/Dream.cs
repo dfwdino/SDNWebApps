@@ -20,6 +20,7 @@ namespace SDNWebApps.Views
         public Nullable<int> Person { get; set; }
         public bool DidMeditation { get; set; }
         public bool Deleted { get; set; }
+        public string Links { get; set; }
     
         public virtual Person Person1 { get; set; }
     }

@@ -12,11 +12,11 @@ namespace SDNWebApps.Areas.Baby.Controllers
     {
         // GET: Baby/Actions
         SDNAppsEntities _se = new SDNAppsEntities();
-        ActionCategory _actionCategory = new ActionCategory();
+        //ActionCategory _actionCategory = new ActionCategory();
 
         public ActionResult Index()
         {
-            return View(_se.Actions1.Where(m => m.Delete == false));
+            return View(_se.Actions1.Where(m => m.Delete == false).ToList());
         }
 
 

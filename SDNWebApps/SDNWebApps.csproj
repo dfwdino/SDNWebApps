@@ -155,6 +155,7 @@
     <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\ListViewModel.cs" />
+    <Compile Include="Areas\Baby\Models\DoneThings\SummaryModel.cs" />
     <Compile Include="Areas\Dreams\Controller\DreamsController.cs" />
     <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />
@@ -305,6 +306,8 @@
     <Content Include="Areas\Baby\Views\ActionCategories\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\ActionCategories\Index.cshtml" />
     <Content Include="Areas\Photos\Views\Photo\ViewPhoto.cshtml" />
+    <Content Include="Areas\Baby\Views\DoneThings\SummaryPage.cshtml" />
+    <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -360,7 +363,7 @@
     <Content Include="Content\Main.css.map">
       <DependentUpon>Main.css</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\sdnwebapps.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\tasks.js" />
     <Content Include="Scripts\items.js" />
     <Content Include="Scripts\store.js" />
@@ -385,6 +388,7 @@
     <Content Include="Areas\Dreams\Views\Dreams\Details.cshtml" />
     <Content Include="Areas\Dreams\Views\Dreams\Edit.cshtml" />
     <Content Include="Areas\Dreams\Views\Dreams\Index.cshtml" />
+    <Content Include="SDNWebApps.azurewebsites.net.PublishSettings" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
