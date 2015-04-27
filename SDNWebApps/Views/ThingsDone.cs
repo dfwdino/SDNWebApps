@@ -22,7 +22,12 @@ namespace SDNWebApps.Views
         public Nullable<double> OZ { get; set; }
         public string Mood { get; set; }
         public string Notes { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public Nullable<int> LiquidSizeID { get; set; }
     
         public virtual Actions Actions { get; set; }
+        public virtual LiquidSize LiquidSize { get; set; }
     }
 }

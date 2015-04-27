@@ -85,9 +85,9 @@
             <td style="width: 100px;text-align: center">Item Done </td>
             <td style="text-align: center;width: 75px">Start Time</td>
             <td style="text-align: center;width: 75px">End Time</td>
-            <td style="text-align: center">OZ</td>
-            <td>Mood</td>
-            <td>Notes</td>
+            <td style="text-align: center">Amount</td>
+            <td style="text-align: center">Mood</td>
+            <td style="text-align: center">Notes</td>
             
         </tr>
 
@@ -97,7 +97,12 @@
             <td> @Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new { id = @thing.Index }) </td>
             <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
-            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.OZ == 0 ? "-" : @thing.OZ.ToString())</td>
+            <td style="text-align: center; border-left: 1px solid black !important">
+                @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString())
+                @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")
+            </td>
+            
+
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Notes)</td>
         </tr>
@@ -109,6 +114,7 @@
 
         if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0)
         {
+            //Need to fix this with new liquid type
             totalFeedOz += (double)thing.OZ;
         }
 

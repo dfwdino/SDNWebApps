@@ -64,7 +64,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 _things.Add(new ListViewModel
                 {
                     EndTime = thingsDone.EndTime, Item = thingsDone.index,Index = thingsDone.index, Notes = thingsDone.Notes,
-                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood
+                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood, LiquidSize = thingsDone.LiquidSize
                 });
             }
             
@@ -142,6 +142,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             editAddViewModel.OZ = thing.OZ;
             editAddViewModel.Mood = thing.Mood;
             editAddViewModel.Notes = thing.Notes;
+            editAddViewModel.LiquidType = thing.LiquidSizeID;
 
 
             return View(editAddViewModel);
@@ -176,6 +177,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             td.OZ = editViewModel.OZ;
             td.Mood = editViewModel.Mood;
             td.Notes = editViewModel.Notes;
+            td.LiquidSizeID = editViewModel.LiquidType;
 
             _se.SaveChanges();
 
@@ -217,6 +219,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             td.Mood = addViewModel.Mood;
             td.Notes = addViewModel.Notes;
+            td.LiquidSizeID = addViewModel.LiquidType;
 
 
             _se.ThingsDones.Add(td);

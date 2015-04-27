@@ -12,18 +12,18 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class LiquidSize
     {
-        public int ID { get; set; }
-        public Nullable<int> StoreID { get; set; }
-        public string Name { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public bool Have { get; set; }
-        public byte[] Image { get; set; }
-        public string Amount { get; set; }
-        public Nullable<System.DateTime> LastGotten { get; set; }
-        public string ImageLocation { get; set; }
+        public LiquidSize()
+        {
+            this.ThingsDones = new HashSet<ThingsDone>();
+        }
     
-        public virtual Store Store { get; set; }
+        public int Id { get; set; }
+        public string Type { get; set; }
+        public bool Deleted { get; set; }
+    
+        public virtual LiquidSize LiquidSize1 { get; set; }
+        public virtual ICollection<ThingsDone> ThingsDones { get; set; }
     }
 }

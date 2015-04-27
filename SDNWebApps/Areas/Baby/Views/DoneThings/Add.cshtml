@@ -9,7 +9,10 @@
     ViewBag.Title = "Add";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
-        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList(); ;
+        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
+
+    List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
+        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
 }
 
 <style>
@@ -39,7 +42,7 @@
         @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Current DateTime</a> <br />
         
         @Html.LabelFor(m => m.OZ)
-        @Html.TextBoxFor(m => m.OZ) <br />
+        @Html.TextBoxFor(m => m.OZ)  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
         
         @Html.LabelFor(m => m.Mood)
         @Html.TextBoxFor(m => m.Mood) <br />

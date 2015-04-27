@@ -29,6 +29,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public string Mood { get; set; }
         public string Notes { get; set; }
 
+        public int LiquidType { get; set; }
 
     }
         

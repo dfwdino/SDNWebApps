@@ -5,12 +5,13 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 {
     public class ListViewModel
     {
-        public ListViewModel(int index,int item,DateTime starttime,DateTime? endtime)
+        public ListViewModel(int index,int item,DateTime starttime,DateTime? endtime, LiquidSize liquidsize)
         {
             Index = index;
             Item = item;
             StartTime = starttime;
             EndTime = endtime;
+            LiquidSize = liquidsize;
 
         }
 
@@ -27,6 +28,8 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public double? OZ { get; set; }
         public string Mood { get; set; }
         public string Notes { get; set; }
+
+        public LiquidSize LiquidSize { get; set; }
         
     }
 }

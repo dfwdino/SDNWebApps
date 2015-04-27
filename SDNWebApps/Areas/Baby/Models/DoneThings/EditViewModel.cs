@@ -23,6 +23,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public double? OZ { get; set; }
         public string Mood { get; set; }
         public string Notes { get; set; }
+        public int? LiquidType { get; set; }
 
     }
         

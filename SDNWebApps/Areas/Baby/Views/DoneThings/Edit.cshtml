@@ -13,6 +13,9 @@
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false) .OrderBy(m => m.Title).Select(m =>
         new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
 
+    List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
+        new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
+
 
 }
 <script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
@@ -57,7 +60,8 @@
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.OZ)
-        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })
+        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" }) 
+        @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, Model.LiquidType)<br />
         <br />
 
     </div>

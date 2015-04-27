@@ -15,14 +15,17 @@
         <EntityTypeShape EntityType="SDNAppsModel.Task" Width="1.5" PointX="1.625" PointY="3.25" />
         <AssociationConnector Association="SDNAppsModel.FK_Autos_People" />
         <AssociationConnector Association="SDNAppsModel.FK_Tasks_People1" />
-        <EntityTypeShape EntityType="SDNAppsModel.Actions" Width="1.5" PointX="6.375" PointY="3.5" />
-        <EntityTypeShape EntityType="SDNAppsModel.ThingsDone" Width="1.5" PointX="8.375" PointY="3.375" />
+        <EntityTypeShape EntityType="SDNAppsModel.Actions" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.ThingsDone" Width="1.5" PointX="14.375" PointY="0.75" />
         <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_Baby_Item" />
         <EntityTypeShape EntityType="SDNAppsModel.Dream" Width="1.5" PointX="2.625" PointY="6.375" />
         <AssociationConnector Association="SDNAppsModel.FK_Dreams_People" />
         <AssociationConnector Association="SDNAppsModel.FK_Actions_Actions" />
-        <EntityTypeShape EntityType="SDNAppsModel.ActionCategory" Width="1.5" PointX="4.125" PointY="10" />
+        <EntityTypeShape EntityType="SDNAppsModel.ActionCategory" Width="1.5" PointX="12.75" PointY="3.75" />
         <AssociationConnector Association="SDNAppsModel.FK_Actions_ActionCategory" />
+        <EntityTypeShape EntityType="SDNAppsModel.LiquidSize" Width="1.5" PointX="14.375" PointY="4.75" />
+        <AssociationConnector Association="SDNAppsModel.FK_LiquidSize_LiquidSize" />
+        <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_LiquidSize" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

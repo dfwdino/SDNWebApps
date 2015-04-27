@@ -221,6 +221,9 @@
     <Compile Include="Views\Item.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\LiquidSize.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Person.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -308,6 +311,7 @@
     <Content Include="Areas\Photos\Views\Photo\ViewPhoto.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\SummaryPage.cshtml" />
     <None Include="Properties\PublishProfiles\Azure.pubxml" />
+    <None Include="Properties\PublishProfiles\SDNWebApps.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
