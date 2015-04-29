@@ -16,6 +16,7 @@
     string _LastDate = string.Empty;
     double totalFeedOz = 0;
     double totalPumpedOz = 0;
+    double totalTeaspoons = 0;
     TimeSpan SleepTime = new TimeSpan();
     int colorCounter = 0;
 
@@ -64,10 +65,11 @@
         //I think this is why my last day is call jacked up
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
-            @displaySummary(SleepTime, totalFeedOz, totalPumpedOz)
+            @displaySummary(SleepTime, totalFeedOz, totalPumpedOz,totalTeaspoons)
 
             totalFeedOz = 0;
             totalPumpedOz = 0;
+            totalTeaspoons = 0;
             SleepTime = new TimeSpan();
         }
 
@@ -107,18 +109,24 @@
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Notes)</td>
         </tr>
 
+        //need to fix this reporting style, try select case??? If not a better if statyment
+
         if (thing.StartTime != null && thing.EndTime != null && thing.Actions.Title.Equals("sleep", StringComparison.CurrentCultureIgnoreCase))
         {
             SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
         }
-
-        if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0)
+        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0 && thing.LiquidSize.Type == "OZ"))
         {
-            //Need to fix this with new liquid type
-            totalFeedOz += (double)thing.OZ;
-        }
 
-        if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
+            totalFeedOz += (double)thing.OZ;
+
+        }
+        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0 && thing.LiquidSize.Type != "OZ"))
+        {
+
+            totalTeaspoons += (double)thing.OZ;
+        }
+        else if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
         {
             totalPumpedOz += (double)thing.OZ;
         }
@@ -127,13 +135,13 @@
         _LastDate = @thing.StartTime.Date.ToString();
 
     }
-    @displaySummary(SleepTime, totalFeedOz,totalPumpedOz)
+    @displaySummary(SleepTime, totalFeedOz,totalPumpedOz,totalTeaspoons)
 
 </table>
 
 
 
-@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump)
+@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons)
 {
         <tr style="border-top: 1px solid black !important">
         <td style="text-align: center;font:bold">Sleep Total</td>
@@ -146,7 +154,7 @@
                 @totaloz<br />
                 @totalpump
         </td>
-        <td></td>
-        <td></td>
+        <td>Teaspoons</td>
+        <td>@totalteaspoons</td>
     </tr>
 }
