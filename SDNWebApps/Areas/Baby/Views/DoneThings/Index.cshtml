@@ -1,6 +1,7 @@
 ﻿
 @using System
 @using System.Globalization
+@using System.Runtime.InteropServices
 @using System.Web.Mvc.Html
 @using SDNWebApps.Areas.Baby.Models
 
@@ -10,16 +11,15 @@
 @model List<SDNWebApps.Areas.Baby.Models.DoneThings.ListViewModel>
 
 @{
-    ViewBag.Title = "Freddy's Daily Break Down";
-    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
-    string color = string.Empty;
-    string _LastDate = string.Empty;
-    double totalFeedOz = 0;
-    double totalPumpedOz = 0;
-    double totalTeaspoons = 0;
-    TimeSpan SleepTime = new TimeSpan();
-    int colorCounter = 0;
-
+        ViewBag.Title = "Freddy's Daily Break Down";
+        Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+        string color = string.Empty;
+        string _LastDate = string.Empty;
+        double totalFeedOz = 0;
+        double totalPumpedOz = 0;
+        double totalTeaspoons = 0;
+        TimeSpan SleepTime = new TimeSpan();
+        int colorCounter = 0;
 
 }
 

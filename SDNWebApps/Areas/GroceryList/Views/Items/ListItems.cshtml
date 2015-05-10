@@ -9,6 +9,7 @@
     string color = string.Empty;
 }
 
+
 @using (Html.BeginForm())
 {
     foreach (var item in Model.Items)
@@ -50,7 +51,7 @@
             }
             @if (item.StoreID != null)
             {
-                    //need to fix this
+                    
                 if (!item.StoreID.Equals(3))
                 {
                     <span style="width:90px"> - @Html.ActionLink(item.Store.StoreName,"Index","Home", new { showAll = Model.ShowAll, storeID = item.StoreID },null) </span>
@@ -130,8 +131,10 @@
 
 }
 
+
+
 @Scripts.Render("~/bundles/jquery")
 @*@Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/modernizr") 
 @Styles.Render("~/Content/themes/base/css")*@

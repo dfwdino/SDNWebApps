@@ -156,6 +156,7 @@
     <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\ListViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\SummaryModel.cs" />
+    <Compile Include="Areas\Baby\Models\DoneThings\TotalValues.cs" />
     <Compile Include="Areas\Dreams\Controller\DreamsController.cs" />
     <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />

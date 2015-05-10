@@ -59,7 +59,7 @@
 
     </div>
     <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.OZ)
+        @Html.Label("Amount")
         @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" }) 
         @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, Model.LiquidType)<br />
         <br />

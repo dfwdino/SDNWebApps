@@ -36,13 +36,13 @@
         @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
 
         @Html.LabelFor(m => m.StartTime)
-        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Current DateTime</a> <br />
+        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
 
         @Html.LabelFor(m => m.EndTime)
-        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Current DateTime</a> <br />
+        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
         
-        @Html.LabelFor(m => m.OZ)
-        @Html.TextBoxFor(m => m.OZ)  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
+        @Html.Label("Amount")
+        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
         
         @Html.LabelFor(m => m.Mood)
         @Html.TextBoxFor(m => m.Mood) <br />
@@ -85,3 +85,4 @@
         var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
     }
 </script>
+
