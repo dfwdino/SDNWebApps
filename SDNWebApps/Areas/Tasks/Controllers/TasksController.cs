@@ -37,12 +37,45 @@ namespace SDNWebApps.Areas.Tasks.Controllers
             if (!taskName.Equals(""))
                 ViewBag.Task = taskName + " was add.";
 
-            return View(new Models.Task1());
+            return View(new Models.AddTask());
         }
+
+        public ActionResult EditTask(int taskID)
+        {
+
+            EditTask editTask = new EditTask();
+            var curentTask = sdnApps.Tasks.FirstOrDefault(m => m.ID == taskID);
+
+            editTask.DueDate = curentTask.DueDate.ToString();
+            editTask.Person = curentTask.Person;
+            editTask.Title = curentTask.Title;
+
+
+            return View(editTask);
+
+
+        }
+
+[HttpPost]        
+//TODO: Fix this. Remove field names and use viewmode and retrun to edit or list
+        public ActionResult EditTask(EditTask task)
+        {
+            var currentTask = sdnApps.Tasks.FirstOrDefault(m => m.ID == task.ID);
+
+    currentTask.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title);
+    currentTask.DueDate = Convert.ToDateTime(task.DueDate);
+            currentTask.PersonID = task.PersonID;
+            
+            
+            sdnApps.SaveChanges();
+            return RedirectToAction("AddTask", new {taskName = task.Title});
+            
+        }
+
 
         [HttpPost]
         ///TODO: Fix this. Remove field names and use viewmode and retrun to edit or list
-        public ActionResult AddTask(Task1 task)
+        public ActionResult AddTask(AddTask task)
         {
             var newTask = sdnApps.Tasks.FirstOrDefault(m => m.Title == task.Title);
             

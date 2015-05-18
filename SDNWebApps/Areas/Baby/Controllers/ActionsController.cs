@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
         [HttpPost]
         public ActionResult Add(SDNWebApps.Views.Actions actions)
         {
-            actions.Title = actions.Title.Trim();
+            actions.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(actions.Title.Trim());
             _se.Actions1.Add(actions);
             _se.SaveChanges();
 

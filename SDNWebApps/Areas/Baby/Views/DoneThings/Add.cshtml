@@ -28,7 +28,7 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
-    //Need to change the layout
+    //Need to change the layout... Add span or div
     <div>
         
         @Html.ValidationMessageFor(m => m.Actions)
@@ -41,14 +41,14 @@
         @Html.LabelFor(m => m.EndTime)
         @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
         
-        @Html.Label("Amount")
+        @Html.Label("Amount", new {@style = "padding-bottom: 25px"})
         @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
         
-        @Html.LabelFor(m => m.Mood)
-        @Html.TextBoxFor(m => m.Mood) <br />
+        @Html.LabelFor(m => m.Mood, new {@style = "padding-bottom: 25px"})
+        @Html.TextAreaFor(m => m.Mood, new { cols = "15" }) <br />
         
         @Html.LabelFor(m => m.Notes)
-        @Html.TextBoxFor(m => m.Notes) <br />
+        @Html.TextAreaFor(m => m.Notes, new { cols = "15" }) <br />
 
     </div>
     <br/>

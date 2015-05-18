@@ -57,7 +57,8 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </span>
 
-            <br /> @Html.Raw(Html.Encode(@item.Dream1).Replace("\n", "<br />"))
+            <br /> <b>Dream: </b>@Html.Raw(Html.Encode(@item.Dream1).Replace("\n", "<br />"))
+            <br /><b>Links: </b> @Html.Raw(Html.Encode(@item.Links).Replace("\n", "<br />"))
         </td>
     </tr>
     

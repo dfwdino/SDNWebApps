@@ -4,13 +4,10 @@
     Layout = "~/Areas/Tasks/Views/Shared/_TasksLayout.cshtml";
 }
 
-<title>@ViewBag.Title</title>
+
 <h2>@ViewBag.Title</h2>
 
 @Html.Partial("ListTasks", Model)
 
-@*<script src="~/Scripts/jquery-2.0.3.js" type="text/javascript"></script>
-<script src="~/Scripts/tasks.js?v=2"></script>*@
-
-<script src="~/Scripts/jquery-2.1.1.min.js"></script>
-<script src="~/Scripts/tasks.js"></script>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/task")

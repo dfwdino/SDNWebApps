@@ -65,15 +65,15 @@
         <br />
 
     </div>
-    <div style="padding-bottom: 5px">
+    <div style="padding-bottom: 15px">
         @Html.LabelFor(m => m.Mood)
-        @Html.TextBoxFor(m => m.Mood, new { @style = "width: 50px" })
+        @Html.TextAreaFor(m => m.Mood, new { cols = "25" })
         <br />
 
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.Notes)
-        @Html.TextBoxFor(m => m.Notes, new { @style = "width: 200px" })
+        @Html.TextAreaFor(m => m.Notes, new { cols = "25" })
         <br />
         <br />
 

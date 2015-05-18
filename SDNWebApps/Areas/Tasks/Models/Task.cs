@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,10 +8,10 @@ using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Tasks.Models
 {
-    public class Task1 : Task
+    public class AddTask : Task
     {
         
-        public Task1()
+        public AddTask()
         {
             SDNAppsEntities _sen = new SDNAppsEntities();
 
