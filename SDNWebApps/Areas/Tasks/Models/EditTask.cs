@@ -25,6 +25,8 @@ namespace SDNWebApps.Areas.Tasks.Models
 
         public string Title { get; set; }
         public string DueDate { get; set; }
+        public int ID { get; set; }
+
 
     }
 }

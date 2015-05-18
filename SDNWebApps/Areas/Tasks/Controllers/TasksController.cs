@@ -49,6 +49,7 @@ namespace SDNWebApps.Areas.Tasks.Controllers
             editTask.DueDate = curentTask.DueDate.ToString();
             editTask.Person = curentTask.Person;
             editTask.Title = curentTask.Title;
+            editTask.ID = curentTask.ID;
 
 
             return View(editTask);
@@ -56,19 +57,19 @@ namespace SDNWebApps.Areas.Tasks.Controllers
 
         }
 
-[HttpPost]        
-//TODO: Fix this. Remove field names and use viewmode and retrun to edit or list
-        public ActionResult EditTask(EditTask task)
+        [HttpPost]        
+        //TODO: Fix this. Remove field names and use viewmode and retrun to edit or list
+         public ActionResult EditTask(EditTask task)
         {
             var currentTask = sdnApps.Tasks.FirstOrDefault(m => m.ID == task.ID);
 
-    currentTask.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title);
-    currentTask.DueDate = Convert.ToDateTime(task.DueDate);
+            currentTask.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title);
+            currentTask.DueDate = Convert.ToDateTime(task.DueDate);
             currentTask.PersonID = task.PersonID;
             
             
             sdnApps.SaveChanges();
-            return RedirectToAction("AddTask", new {taskName = task.Title});
+            return RedirectToAction("Index","Home"); //Should i send this back to update?
             
         }
 

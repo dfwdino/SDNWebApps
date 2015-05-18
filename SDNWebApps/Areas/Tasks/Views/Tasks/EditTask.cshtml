@@ -14,6 +14,7 @@
 
 @using (Html.BeginForm("EditTask","Tasks", FormMethod.Post))
 {<div>
+     @Html.HiddenFor(m => m.ID)
      <div style="padding-bottom: 5px;padding-top: 5px">
          @Html.LabelFor(m => m.Title):
          @Html.TextBoxFor(m => m.Title)
@@ -24,11 +25,12 @@
      </div>
      <div style="padding-bottom: 5px;padding-top: 5px">
          @Html.LabelFor(m => m.PersonID):
-         @Html.DropDownListFor(m => m.PersonID, new SelectList(Model.Persons, "ID", "PersonName", Model.Persons))
+         @Html.DropDownListFor(m => m.Person.ID, new SelectList(Model.Persons, "ID", "PersonName"),"Select it",null)
+         
      </div>
 
 
-         </div>
+ </div>
 
     @*<p><a href="#" class="add-link">Add</a></p>*@
     <p><input value="Update" type="submit"/> </p>
