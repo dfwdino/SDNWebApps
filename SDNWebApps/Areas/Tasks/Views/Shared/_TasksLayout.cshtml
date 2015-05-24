@@ -1,28 +1,27 @@
-﻿@*<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
 
 </head>
-    <body>*@
+    <body>
         @RenderPage("~/Views/Shared/MainMenuBar.cshtml")
         
 <div>
-    Tasks: 
-    @Html.ActionLink("Add Task", "AddTask", "Tasks")
+    <span style="width: 25px">@Html.ActionLink("Add", "AddTask", "Tasks")</span>
 
-    @if (ViewBag.Title.Equals("All Tasks"))
+    @if (ViewBag.Title.Equals("All"))
     {
-        @Html.ActionLink("Undone Tasks", "Index", "Home")
+        <span>@Html.ActionLink("Undone", "Index", "Home")</span>
     }
     else
     {
-        @Html.ActionLink("View All", "Index", "Home", new { showAll = "true" },null)
+        <span>@Html.ActionLink("All", "Index", "Home", new { showAll = "true" },null)</span>
 
     }
 </div>
 
         @RenderBody()
         
-    @*</body>
-</html>*@
+    </body>
+</html>

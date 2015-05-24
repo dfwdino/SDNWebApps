@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -23,9 +25,14 @@ namespace SDNWebApps.Areas.Tasks.Models
 
         public List<SDNWebApps.Views.Person> Persons;
 
+        [DisplayName("Task")]
         public string Title { get; set; }
         public string DueDate { get; set; }
         public int ID { get; set; }
+        
+        [DisplayName("Person")]
+        public int PersonID { get; set; }
+        public bool Done { get; set; }
 
 
     }

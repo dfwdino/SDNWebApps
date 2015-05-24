@@ -19,10 +19,15 @@
     label {
         display: inline-block;
         padding: 7px;
-        width: 65px;
+        width: 75px;
         text-align: right;
     }
 </style>
+<script>
+    $(document).ready(function () { $("#Notes").click(function () { $("#TANotes").toggle(); }); });
+    $(document).ready(function () { $("#Mood").click(function () { $("#TAMood").toggle(); }); });
+
+</script>
 
 
 @using (Html.BeginForm())
@@ -30,7 +35,7 @@
     @Html.ValidationSummary()
     //Need to change the layout... Add span or div
     <div>
-        
+
         @Html.ValidationMessageFor(m => m.Actions)
         @Html.LabelFor(m => m.Actions)
         @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
@@ -40,19 +45,25 @@
 
         @Html.LabelFor(m => m.EndTime)
         @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
-        
+
         @Html.Label("Amount", new {@style = "padding-bottom: 25px"})
         @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
-        
-        @Html.LabelFor(m => m.Mood, new {@style = "padding-bottom: 25px"})
-        @Html.TextAreaFor(m => m.Mood, new { cols = "15" }) <br />
-        
-        @Html.LabelFor(m => m.Notes)
-        @Html.TextAreaFor(m => m.Notes, new { cols = "15" }) <br />
+        <div>
+            @Html.LabelFor(m => m.Mood,new{style="color: blue;text-decoration: underline"})
+            <div id="TAMood" style="display: none;padding-left: 5px">
+                @Html.TextAreaFor(m => m.Mood, new { cols = "15" })
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Notes,new{style="color: blue;text-decoration: underline"})
+            <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "15" })</div> <br />
+        </div>
 
     </div>
-    <br/>
-     <input type="submit" value="Add" />
+    <br />
+    <input type="submit" value="Add" />
+    <br />
+    <br />
 }
 
 <div>
@@ -60,7 +71,7 @@
 </div>
 
 
-    @*@functions{
+@*@functions{
 
         public MvcHtmlString ListItems()
         {

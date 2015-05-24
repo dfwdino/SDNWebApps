@@ -114,7 +114,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DueDate" Type="date" />
           <Property Name="Done" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
@@ -420,7 +420,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DueDate" Type="DateTime" Precision="0" />
           <Property Name="Done" Type="Boolean" Nullable="false" />
           <Property Name="PersonID" Type="Int32" Nullable="false" />

@@ -44,12 +44,15 @@ namespace SDNWebApps.Areas.Tasks.Controllers
         {
 
             EditTask editTask = new EditTask();
-            var curentTask = sdnApps.Tasks.FirstOrDefault(m => m.ID == taskID);
+            var currentTask = sdnApps.Tasks.FirstOrDefault(m => m.ID == taskID);
 
-            editTask.DueDate = curentTask.DueDate.ToString();
-            editTask.Person = curentTask.Person;
-            editTask.Title = curentTask.Title;
-            editTask.ID = curentTask.ID;
+            editTask.DueDate = currentTask.DueDate.ToString();
+            editTask.Person = currentTask.Person;
+            editTask.Title = currentTask.Title;
+            editTask.ID = currentTask.ID;
+            editTask.PersonID = currentTask.PersonID;
+            editTask.Done = currentTask.Done;
+
 
 
             return View(editTask);

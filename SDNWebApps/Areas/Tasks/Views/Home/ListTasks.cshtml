@@ -1,6 +1,10 @@
 ﻿@using System.Globalization
 @model List<SDNWebApps.Views.Task>
 
+@{
+    ViewBag.Header = "Tasks";
+}
+
 
 <style>
     .TaskItem {
@@ -44,10 +48,10 @@
     {
         <div id="FullItem{@task.ID}" style="width: 600px;padding-bottom: 15px">
             <a href="#" id=@task.ID class="got-link TaskItem">@Html.LabelForModel(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title))</a>
-           @if (task.Done)
+           @*@if (task.Done)
             {//Need to fix if statement
                 <a href="#" id=@task.ID class="delete-link">Delete</a>
-            }
+            }*@
 
             <label class="TaskAssingedTooHeader TaskAssingedTooPerson">
                 @Html.ActionLink(@task.Person.PersonName,"Index","Home",new { userid=task.Person.ID},new { @class="TaskAssingedTooHeader TaskAssingedTooPerson" })
@@ -61,6 +65,7 @@
             </label>
             <label>
                 @Html.ActionLink("Edit","EditTask","Tasks",new {taskid=task.ID},null)
+                <a href="#" id=@task.ID class="delete-link">Delete</a>
             </label>
         </div>
         
