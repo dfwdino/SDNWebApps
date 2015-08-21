@@ -46,6 +46,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
             lmvModel.TotalGallons = null;
             lmvModel.TotalMiles = null;
             lmvModel.DrivenMiles = null;
+            
+            
 
             return View(lmvModel);
         }
@@ -61,7 +63,9 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 TotalGallons = addviewmodel.TotalGallons ?? 0,
                 DrivenMiles = addviewmodel.DrivenMiles ?? 0,
                 TotalPrice = addviewmodel.TotalPrice,
-                TankFilled = addviewmodel.TankFilled
+                TankFilled = addviewmodel.TankFilled,
+                StationID = addviewmodel.SelectedStation
+                
             };
 
             gallon.GasDate = addviewmodel.GasDate.HasValue ? addviewmodel.GasDate : DateTime.Now;

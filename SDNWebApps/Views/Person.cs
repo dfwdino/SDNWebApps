@@ -19,13 +19,18 @@ namespace SDNWebApps.Views
             this.Autos = new HashSet<Auto>();
             this.Tasks = new HashSet<Task>();
             this.Dreams = new HashSet<Dream>();
+            this.Sizes = new HashSet<Size>();
         }
     
         public int ID { get; set; }
         public string PersonName { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string SaltHash { get; set; }
     
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Dream> Dreams { get; set; }
+        public virtual ICollection<Size> Sizes { get; set; }
     }
 }

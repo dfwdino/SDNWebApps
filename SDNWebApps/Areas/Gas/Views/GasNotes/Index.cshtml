@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SDNWebApps.Views.GasNote>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NoteDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoteDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auto.AutoName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.NotesID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.NotesID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.NotesID })
+        </td>
+    </tr>
+}
+
+</table>

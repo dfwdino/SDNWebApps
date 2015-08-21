@@ -4,24 +4,18 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-Add Your Dreams</h2>
-
-
-@*<style>
-    #Dearm1 {
-        row-span: 4000;
-        width: 3000px;
-      }
-</style*@
-
-
-
+<div>
+    <br />
+    @Html.ActionLink("All Dreams", "Index")
+    <br />
+    <br />
+    <br />
+</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div style="padding-left: 30px" class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Date):
@@ -49,7 +43,7 @@ Add Your Dreams</h2>
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.DidMeditation, htmlAttributes: new { @class = "control-label col-md-2" }):
+            <label>Meditation:</label>
             @Html.CheckBoxFor(model => model.DidMeditation, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.DidMeditation, "", new { @class = "text-danger" })<br/><br />
            
@@ -66,17 +60,14 @@ Add Your Dreams</h2>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div >
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    <br/><br />
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 <script type="text/javascript">
     function GetCurrentDateTime() {
         //var value = document.getElementById('Date').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();

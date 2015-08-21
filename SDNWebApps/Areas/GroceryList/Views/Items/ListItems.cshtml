@@ -17,11 +17,11 @@
         MemoryStream stream;
         FileContentResult test = null;
 
-        if (item.Image != null)
-        {
-            stream = new MemoryStream(item.Image);
-            test = new FileContentResult(item.Image, "image/jpeg");
-        }
+        //if (item.Image != null)
+        //{
+        //    stream = new MemoryStream(item.Image);
+        //    test = new FileContentResult(item.Image, "image/jpeg");
+        //}
 
 
         switch (colorCounter)
@@ -73,10 +73,10 @@
                     <a href="#" id=@item.ID class="delete-link">Delete</a>
                 </span>
             }
-            @if (item.Image != null)
+            @*@if (item.Image != null)
             {
                 <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
-            }
+            }*@
 
         </div>
 

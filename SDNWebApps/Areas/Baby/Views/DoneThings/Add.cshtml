@@ -24,8 +24,8 @@
     }
 </style>
 <script>
-    $(document).ready(function () { $("#Notes").click(function () { $("#TANotes").toggle(); }); });
-    $(document).ready(function () { $("#Mood").click(function () { $("#TAMood").toggle(); }); });
+    $(document).ready(function () { $("#LNotes").click(function () { $("#TANotes").toggle(); }); });
+    //$(document).ready(function () { $("#LMood").click(function () { $("#TAMood").toggle(); }); });
 
 </script>
 
@@ -35,27 +35,31 @@
     @Html.ValidationSummary()
     //Need to change the layout... Add span or div
     <div>
-
-        @Html.ValidationMessageFor(m => m.Actions)
-        @Html.LabelFor(m => m.Actions)
-        @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
-
-        @Html.LabelFor(m => m.StartTime)
-        @Html.TextBoxFor(m => m.StartTime,new {@length="40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
-
-        @Html.LabelFor(m => m.EndTime)
-        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
-
-        @Html.Label("Amount", new {@style = "padding-bottom: 25px"})
-        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes,3)<br />
-        <div>
-            @Html.LabelFor(m => m.Mood,new{style="color: blue;text-decoration: underline"})
-            <div id="TAMood" style="display: none;padding-left: 5px">
-                @Html.TextAreaFor(m => m.Mood, new { cols = "15" })
+        <div id="actions">
+            <div id="actionCopy">
+                @Html.ValidationMessageFor(m => m.Actions)
+                @Html.LabelFor(m => m.Actions)
+                @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br/>
+                @Html.Label("Amount")
+                @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, 3)
             </div>
         </div>
-        <div>
-            @Html.LabelFor(m => m.Notes,new{style="color: blue;text-decoration: underline"})
+        <br/>
+        <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
+        <br/>
+        <br/>
+        @Html.Label("Start")
+        @Html.TextBoxFor(m => m.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
+
+        @Html.Label("End")
+        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
+
+        @*@Html.Label("Amount", new { @style = "padding-bottom: 25px" })
+            @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, 3)<br />*@
+
+        <div style="width: 150px; display: inline-block;">
+            @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
+
             <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "15" })</div> <br />
         </div>
 
@@ -66,34 +70,19 @@
     <br />
 }
 
-<div>
-    @*@Html.ActionLink("Back to List", "Index")*@
-</div>
-
-
-@*@functions{
-
-        public MvcHtmlString ListItems()
-        {
-
-            SDNAppsEntities test = new SDNAppsEntities();
-            var ddl = test.Item1.Select(m => new {m.index, m.Title})
-                .ToList()
-                .Select(m => new System.Web.Mvc.SelectListItem {Text = m.Title, Value = m.index.ToString()})
-                .ToList();
-
-            HtmlHelper htmlHelper = new HtmlHelper(new ViewContext(), null);
-
-            return htmlHelper.DropDownList("name", ddl, "select");
-
-        }
-
-    }*@
-
 
 <script type="text/javascript">
+
     function GetCurrentDateTime(field) {
         var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+    }
+
+    function addRow() {
+
+        $("#actionCopy").clone().find("input").each(function () {
+            $(this).val('');
+        }).end().appendTo("#actions");
+
     }
 </script>
 

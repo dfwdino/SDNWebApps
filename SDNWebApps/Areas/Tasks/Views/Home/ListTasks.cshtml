@@ -1,11 +1,6 @@
 ﻿@using System.Globalization
 @model List<SDNWebApps.Views.Task>
 
-@{
-    ViewBag.Header = "Tasks";
-}
-
-
 <style>
     .TaskItem {
         display: inline-block;
@@ -76,4 +71,5 @@
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/task")

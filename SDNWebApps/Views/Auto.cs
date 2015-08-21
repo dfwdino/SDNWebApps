@@ -17,6 +17,7 @@ namespace SDNWebApps.Views
         public Auto()
         {
             this.Gallons = new HashSet<Gallon>();
+            this.GasNotes = new HashSet<GasNote>();
         }
     
         public int ID { get; set; }
@@ -25,5 +26,6 @@ namespace SDNWebApps.Views
     
         public virtual ICollection<Gallon> Gallons { get; set; }
         public virtual Person Person { get; set; }
+        public virtual ICollection<GasNote> GasNotes { get; set; }
     }
 }

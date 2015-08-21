@@ -24,6 +24,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
 
         public string AutoName { get; set; }
 
+        //public Station Station { get; set; }
+
     }
 
     

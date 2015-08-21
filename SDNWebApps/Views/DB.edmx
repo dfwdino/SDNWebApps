@@ -80,6 +80,21 @@
           <Property Name="GasDate" Type="date" />
           <Property Name="TankFilled" Type="bit" Nullable="false" />
           <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="StationID" Type="int" />
+        </EntityType>
+        <EntityType Name="GasNotes">
+          <Key>
+            <PropertyRef Name="NotesID" />
+          </Key>
+          <Property Name="NotesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AutoID" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="15" />
+          <Property Name="Broswer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="NoteDate" Type="datetime" />
         </EntityType>
         <EntityType Name="People">
           <Key>
@@ -87,6 +102,21 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="25" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="SaltHash" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stations">
+          <Key>
+            <PropertyRef Name="StationID" />
+          </Key>
+          <Property Name="StationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="15" />
+          <Property Name="Broswer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Items">
           <Key>
@@ -118,6 +148,41 @@
           <Property Name="DueDate" Type="date" />
           <Property Name="Done" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="SizeID" />
+          </Key>
+          <Property Name="SizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PeopleID" Type="int" Nullable="false" />
+          <Property Name="Wrist" Type="int" />
+          <Property Name="Chest" Type="int" />
+          <Property Name="Forearm" Type="int" />
+          <Property Name="Waist" Type="int" />
+          <Property Name="Thigh" Type="int" />
+          <Property Name="Hip" Type="int" />
+          <Property Name="Calve" Type="int" />
+          <Property Name="Bicep" Type="int" />
+          <Property Name="Neck" Type="int" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="20" />
+          <Property Name="Broswer" Type="nvarchar" MaxLength="250" />
+          <Property Name="StatusDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weight">
+          <Key>
+            <PropertyRef Name="WeightID" />
+          </Key>
+          <Property Name="WeightID" Type="int" Nullable="false" />
+          <Property Name="SizeID" Type="int" />
+          <Property Name="Pound" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="20" />
+          <Property Name="Broswer" Type="nvarchar" MaxLength="250" />
+          <Property Name="StatusDate" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_Actions_ActionCategory">
           <End Role="ActionCategory" Type="Self.ActionCategory" Multiplicity="0..1" />
@@ -179,6 +244,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gallons_Stations">
+          <End Role="Stations" Type="Self.Stations" Multiplicity="0..1" />
+          <End Role="Gallons" Type="Self.Gallons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stations">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Gallons">
+              <PropertyRef Name="StationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GasNotes_Autos">
+          <End Role="Autos" Type="Self.Autos" Multiplicity="1" />
+          <End Role="GasNotes" Type="Self.GasNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GasNotes">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Items_Stores">
           <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
@@ -200,6 +289,30 @@
             </Principal>
             <Dependent Role="LiquidSize1">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Size_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="Size" Type="Self.Size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Size">
+              <PropertyRef Name="PeopleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stations_Stations">
+          <End Role="Stations" Type="Self.Stations" Multiplicity="1" />
+          <End Role="Stations1" Type="Self.Stations" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Stations">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Stations1">
+              <PropertyRef Name="StationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -227,6 +340,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Weight_Size">
+          <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
+          <End Role="Weight" Type="Self.Weight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="SizeID" />
+            </Principal>
+            <Dependent Role="Weight">
+              <PropertyRef Name="SizeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SDNAppsModelStoreContainer">
           <EntitySet Name="ActionCategory" EntityType="Self.ActionCategory" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
@@ -235,10 +360,14 @@
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="GasNotes" EntityType="Self.GasNotes" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="Stations" EntityType="Self.Stations" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
+          <EntitySet Name="Size" EntityType="Self.Size" Schema="weighttracking" store:Type="Tables" />
+          <EntitySet Name="Weight" EntityType="Self.Weight" Schema="weighttracking" store:Type="Tables" />
           <AssociationSet Name="FK_Actions_ActionCategory" Association="Self.FK_Actions_ActionCategory">
             <End Role="ActionCategory" EntitySet="ActionCategory" />
             <End Role="Actions" EntitySet="Actions" />
@@ -259,6 +388,14 @@
             <End Role="Autos" EntitySet="Autos" />
             <End Role="Gallons" EntitySet="Gallons" />
           </AssociationSet>
+          <AssociationSet Name="FK_Gallons_Stations" Association="Self.FK_Gallons_Stations">
+            <End Role="Stations" EntitySet="Stations" />
+            <End Role="Gallons" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GasNotes_Autos" Association="Self.FK_GasNotes_Autos">
+            <End Role="Autos" EntitySet="Autos" />
+            <End Role="GasNotes" EntitySet="GasNotes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Items_Stores" Association="Self.FK_Items_Stores">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Items" EntitySet="Items" />
@@ -267,6 +404,14 @@
             <End Role="LiquidSize" EntitySet="LiquidSize" />
             <End Role="LiquidSize1" EntitySet="LiquidSize" />
           </AssociationSet>
+          <AssociationSet Name="FK_Size_People" Association="Self.FK_Size_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="Size" EntitySet="Size" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stations_Stations" Association="Self.FK_Stations_Stations">
+            <End Role="Stations" EntitySet="Stations" />
+            <End Role="Stations1" EntitySet="Stations" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
             <End Role="People" EntitySet="People" />
             <End Role="Tasks" EntitySet="Tasks" />
@@ -274,6 +419,10 @@
           <AssociationSet Name="FK_ThingsDone_LiquidSize" Association="Self.FK_ThingsDone_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSize" />
             <End Role="ThingsDone" EntitySet="ThingsDone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weight_Size" Association="Self.FK_Weight_Size">
+            <End Role="Size" EntitySet="Size" />
+            <End Role="Weight" EntitySet="Weight" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -332,6 +481,30 @@
             <End Role="LiquidSize" EntitySet="LiquidSizes" />
             <End Role="ThingsDone" EntitySet="ThingsDones" />
           </AssociationSet>
+          <EntitySet Name="Sizes" EntityType="SDNAppsModel.Size" />
+          <EntitySet Name="Weights" EntityType="SDNAppsModel.Weight" />
+          <AssociationSet Name="FK_Size_People" Association="SDNAppsModel.FK_Size_People">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Size" EntitySet="Sizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Weight_Size" Association="SDNAppsModel.FK_Weight_Size">
+            <End Role="Size" EntitySet="Sizes" />
+            <End Role="Weight" EntitySet="Weights" />
+          </AssociationSet>
+          <EntitySet Name="Stations" EntityType="SDNAppsModel.Station" />
+          <AssociationSet Name="FK_Gallons_Stations" Association="SDNAppsModel.FK_Gallons_Stations">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Gallon" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stations_Stations" Association="SDNAppsModel.FK_Stations_Stations">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Station1" EntitySet="Stations" />
+          </AssociationSet>
+          <EntitySet Name="GasNotes" EntityType="SDNAppsModel.GasNote" />
+          <AssociationSet Name="FK_GasNotes_Autos" Association="SDNAppsModel.FK_GasNotes_Autos">
+            <End Role="Auto" EntitySet="Autos" />
+            <End Role="GasNote" EntitySet="GasNotes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -342,7 +515,8 @@
           <Property Type="String" Name="AutoName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Auto" ToRole="Gallon" />
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Auto" ToRole="Person" />
-        </EntityType>
+          <NavigationProperty Name="GasNotes" Relationship="SDNAppsModel.FK_GasNotes_Autos" FromRole="Auto" ToRole="GasNote" />
+          </EntityType>
         <EntityType Name="Gallon">
           <Key>
             <PropertyRef Name="ID" />
@@ -357,6 +531,8 @@
           <Property Type="Boolean" Name="TankFilled" Nullable="false" />
           <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Gallon" ToRole="Auto" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationID" Type="Int32" />
+          <NavigationProperty Name="Station" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Gallon" ToRole="Station" />
         </EntityType>
         <Association Name="FK_Gallons_Autos">
           <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
@@ -414,6 +590,10 @@
           <NavigationProperty Name="Autos" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Person" ToRole="Auto" />
           <NavigationProperty Name="Tasks" Relationship="SDNAppsModel.FK_Tasks_People1" FromRole="Person" ToRole="Task" />
           <NavigationProperty Name="Dreams" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Person" ToRole="Dream" />
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SaltHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sizes" Relationship="SDNAppsModel.FK_Size_People" FromRole="Person" ToRole="Size" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -586,6 +766,134 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="SizeID" />
+          </Key>
+          <Property Name="SizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PeopleID" Type="Int32" Nullable="false" />
+          <Property Name="Wrist" Type="Int32" />
+          <Property Name="Chest" Type="Int32" />
+          <Property Name="Forearm" Type="Int32" />
+          <Property Name="Waist" Type="Int32" />
+          <Property Name="Thigh" Type="Int32" />
+          <Property Name="Hip" Type="Int32" />
+          <Property Name="Calve" Type="Int32" />
+          <Property Name="Bicep" Type="Int32" />
+          <Property Name="Neck" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Broswer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Size_People" FromRole="Size" ToRole="Person" />
+          <NavigationProperty Name="Weights" Relationship="SDNAppsModel.FK_Weight_Size" FromRole="Size" ToRole="Weight" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Weight">
+          <Key>
+            <PropertyRef Name="WeightID" />
+          </Key>
+          <Property Name="WeightID" Type="Int32" Nullable="false" />
+          <Property Name="SizeID" Type="Int32" />
+          <Property Name="Pound" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Broswer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Size" Relationship="SDNAppsModel.FK_Weight_Size" FromRole="Weight" ToRole="Size" />
+          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Size_People">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="SDNAppsModel.Size" Role="Size" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Size">
+              <PropertyRef Name="PeopleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Weight_Size">
+          <End Type="SDNAppsModel.Size" Role="Size" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Weight" Role="Weight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="SizeID" />
+            </Principal>
+            <Dependent Role="Weight">
+              <PropertyRef Name="SizeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="StationID" />
+          </Key>
+          <Property Name="StationID" Type="Int32" Nullable="false" />
+          <Property Name="StationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Broswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Station" ToRole="Gallon" />
+          <NavigationProperty Name="Stations1" Relationship="SDNAppsModel.FK_Stations_Stations" FromRole="Station" ToRole="Station1" />
+          <NavigationProperty Name="Station1" Relationship="SDNAppsModel.FK_Stations_Stations" FromRole="Station1" ToRole="Station" />
+        </EntityType>
+        <Association Name="FK_Gallons_Stations">
+          <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Gallon">
+              <PropertyRef Name="StationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stations_Stations">
+          <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="SDNAppsModel.Station" Role="Station1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Station1">
+              <PropertyRef Name="StationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GasNote">
+          <Key>
+            <PropertyRef Name="NotesID" />
+          </Key>
+          <Property Name="NotesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Broswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="NoteDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_GasNotes_Autos" FromRole="GasNote" ToRole="Auto" />
+        </EntityType>
+        <Association Name="FK_GasNotes_Autos">
+          <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="SDNAppsModel.GasNote" Role="GasNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GasNote">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -604,6 +912,7 @@
           <EntitySetMapping Name="Gallons">
             <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
               <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
                 <ScalarProperty Name="GasDate" ColumnName="GasDate" />
@@ -642,6 +951,9 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="SDNAppsModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="SaltHash" ColumnName="SaltHash" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -714,6 +1026,71 @@
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="SDNAppsModel.Size">
+              <MappingFragment StoreEntitySet="Size">
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Neck" ColumnName="Neck" />
+                <ScalarProperty Name="Bicep" ColumnName="Bicep" />
+                <ScalarProperty Name="Calve" ColumnName="Calve" />
+                <ScalarProperty Name="Hip" ColumnName="Hip" />
+                <ScalarProperty Name="Thigh" ColumnName="Thigh" />
+                <ScalarProperty Name="Waist" ColumnName="Waist" />
+                <ScalarProperty Name="Forearm" ColumnName="Forearm" />
+                <ScalarProperty Name="Chest" ColumnName="Chest" />
+                <ScalarProperty Name="Wrist" ColumnName="Wrist" />
+                <ScalarProperty Name="PeopleID" ColumnName="PeopleID" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weights">
+            <EntityTypeMapping TypeName="SDNAppsModel.Weight">
+              <MappingFragment StoreEntitySet="Weight">
+                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
+                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Pound" ColumnName="Pound" />
+                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+                <ScalarProperty Name="WeightID" ColumnName="WeightID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="SDNAppsModel.Station">
+              <MappingFragment StoreEntitySet="Stations">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GasNotes">
+            <EntityTypeMapping TypeName="SDNAppsModel.GasNote">
+              <MappingFragment StoreEntitySet="GasNotes">
+                <ScalarProperty Name="NoteDate" ColumnName="NoteDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="NotesID" ColumnName="NotesID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

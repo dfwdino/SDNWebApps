@@ -1,12 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.Mvc;
+using SDNWebApps.Areas.Gas.Controllers;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Gas.Models.Miles
 {
     public class AddViewModel
     {
-
+        SDNAppsEntities se = new SDNAppsEntities();
         public AddViewModel()
         {
            
@@ -15,6 +19,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public AddViewModel(int autoID)
         {
             AutoID = autoID;
+
+            Stations = new SelectList(se.Stations.OrderBy(m => m.StationName), "StationID", "StationName", null);
         }
 
         public AddViewModel(Gallon gallon)
@@ -27,8 +33,14 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             GasDate =      gallon.GasDate;
             TankFilled =   gallon.TankFilled;
 
+          
+
+       
+
+
         }
 
+        public int SelectedStation { get; set; }
         public int AutoID { get; set; }
         //public int PersonID { get; set; }
         [DisplayName("Total Miles")]
@@ -43,6 +55,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public DateTime? GasDate  { get; set; }
         [DisplayName("Tank Filled")]
         public bool TankFilled { get; set; }
+
+       public SelectList Stations { get; set; }
 
 
     }

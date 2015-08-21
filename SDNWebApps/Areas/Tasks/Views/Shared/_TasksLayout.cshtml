@@ -1,27 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<html>
-<head>
-
-</head>
-    <body>
-        @RenderPage("~/Views/Shared/MainMenuBar.cshtml")
         
-<div>
-    <span style="width: 25px">@Html.ActionLink("Add", "AddTask", "Tasks")</span>
-
-    @if (ViewBag.Title.Equals("All"))
-    {
-        <span>@Html.ActionLink("Undone", "Index", "Home")</span>
-    }
-    else
-    {
-        <span>@Html.ActionLink("All", "Index", "Home", new { showAll = "true" },null)</span>
-
-    }
-</div>
-
-        @RenderBody()
-        
-    </body>
-</html>
+@RenderBody()

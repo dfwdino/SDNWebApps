@@ -16,6 +16,9 @@
     List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
         new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
 
+    var ShowNotesDispaly = Model.Notes == null ? "display: none;" : "";
+    var ShowMoodDispaly = Model.Mood == null ? "display: none;" : "";
+
 
 }
 <script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
@@ -27,10 +30,8 @@
         document.getElementById("EndTime").value = date;
         //document.getElementById("EndTime").setActive();
     }
-
-    $(document).ready(function () { $("#Notes").click(function () { $("#TANotes").toggle(); }); });
-    $(document).ready(function () { $("#Mood").click(function () { $("#TAMood").toggle(); }); });
-
+    $(document).ready(function () { $("#LNotes").click(function () { $("#TANotes").toggle(); }); });
+    $(document).ready(function () { $("#LMood").click(function () { $("#TAMood").toggle(); }); });
 </script>
 
 <style>
@@ -66,20 +67,21 @@
         @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })
         @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, Model.LiquidType)<br />
     </div>
-    <div style="padding-bottom: 15px">
-        @Html.LabelFor(m => m.Mood,new{style="color: blue;text-decoration: underline"})
-        <div id="TAMood" style="display: none;padding-left: 5px">
+    @*<div style="display: inline-block;width: 175px">
+        @Html.LabelFor(m => m.Mood,new{id="LMood",style="color: blue;text-decoration: underline"})
+        <div id="TAMood" style="@ShowMoodDispaly padding-left: 5px">
             @Html.TextAreaFor(m => m.Mood, new { cols = "25" })
             </div>
-        </div>
-    <div style="padding-bottom: 5px">
-        @Html.LabelFor(m => m.Notes,new{style="color: blue;text-decoration: underline"})
-        <div id="TANotes" style="display: none;padding-left: 5px">
-            @Html.TextAreaFor(m => m.Notes, new { cols = "25" })
-        </div>
-            <br />
+        </div>*@
+    @*<div style="display: inline-block;position:absolute;">*@
+<div style="display: inline-block;width: 175px">
+    @Html.LabelFor(m => m.Notes,new{id="LNotes",style="color: blue;text-decoration: underline"})
+    <div id="TANotes" style="@ShowNotesDispaly padding-left: 5px">
+        @Html.TextAreaFor(m => m.Notes, new { cols = "25" })
+    </div>
+    <br />
 
-        </div>
+</div>
     <div style="padding-top: 10px;padding-left: 10px">
         <span style="width: 150px;text-align: left;padding-right: 5px">
             <input type="submit" value="Update" />

@@ -5,9 +5,11 @@ using System.Data.Entity.Migrations;
 using System.Data.Entity.SqlServer;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Microsoft.Ajax.Utilities;
 using SDNWebApps.Areas.Baby.Models;
 using SDNWebApps.Areas.Baby.Models.DoneThings;
 using SDNWebApps.Views;
@@ -33,6 +35,26 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             return View(smList);
         }
+
+        public ActionResult SummaryPage2()
+        {
+            DateTime backDate = DateTime.Now.AddDays(-3);
+            var Grouped = _se.ThingsDones.Where(m => m.StartTime > backDate)
+                                            .GroupBy(m => new {TruncateTime = EntityFunctions.TruncateTime(m.StartTime), m.Actions.Title})
+                                            .Select(s => new {ItemDate = s.Key.TruncateTime, Title = s.Key.Title, Count = s.Count(),TotalOZ = s.Sum(ss => ss.OZ)})
+                                            .OrderByDescending(m => m.ItemDate);
+                            
+            List<SummaryModel2> smList = new List<SummaryModel2>();
+
+            foreach (var done in Grouped)
+            {
+                SummaryModel2 sm = new SummaryModel2() {ItemDate = done.ItemDate,Title = done.Title, action = done.Count,OZ = done.TotalOZ};
+                smList.Add(sm);
+            }
+            
+            return View(smList);
+        }
+
 
 
         public ActionResult Index(bool viewall = false)
@@ -194,47 +216,78 @@ namespace SDNWebApps.Areas.Baby.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(AddViewModel addViewModel)
+        public ActionResult Add(AddViewModel addViewModel,FormCollection form)
         {
 
-            //var allErrors = ModelState.Values.SelectMany(v => v.Errors).Where(m => m.ErrorMessage.IndexOf("StartTime")>0);
-
-             //= FixFuckenDate(ModelState["StartTime"].Value.AttemptedValue.ToString());
+            var Actions = form["Action"].Split(',');
+            var LiquidTypes = form["LiquidType"].Split(',');
+            var OZs = form["OZ"].Split(',');
 
             if (!ModelState.IsValid)
                 return View(addViewModel);
 
 
-            //is there a better way to do this????
-            string action = _se.Actions1.First(m => m.index == addViewModel.Action).Title;
-            ThingsDone td = new ThingsDone();
+            for (int i = 0; i < Actions.Count(); i++)
+            {
+                ThingsDone td = new ThingsDone();
 
-            td.Action = addViewModel.Action;
-            td.StartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
+                td.Action = Convert.ToInt16(Actions[i]);
+                td.StartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
 
-            if (addViewModel.EndTime!=null)
-                td.EndTime = Convert.ToDateTime(FixFuckenDate(addViewModel.EndTime));
+                if (addViewModel.EndTime != null)
+                    td.EndTime = Convert.ToDateTime(FixFuckenDate(addViewModel.EndTime));
 
-            td.OZ = addViewModel.OZ;
+                if(!OZs[i].Length.Equals(0))
+                    td.OZ = Convert.ToDouble(OZs[i]); //might need to check for null
 
-            td.Mood = addViewModel.Mood;
-            td.Notes = addViewModel.Notes;
-            td.LiquidSizeID = addViewModel.LiquidType;
+                
+                if(i==0)
+                    td.Notes = addViewModel.Notes;
+
+               
+                td.LiquidSizeID = Convert.ToInt16(LiquidTypes[i]); //might need to check for null
 
 
-            _se.ThingsDones.Add(td);
+                _se.ThingsDones.Add(td);
+            }
+            
+
+
+            ////is there a better way to do this????
+            //string action = _se.Actions1.First(m => m.index == addViewModel.Action).Title;
+            //ThingsDone td = new ThingsDone();
+
+            //td.Action = addViewModel.Action;
+            //td.StartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
+
+            //if (addViewModel.EndTime!=null)
+            //    td.EndTime = Convert.ToDateTime(FixFuckenDate(addViewModel.EndTime));
+
+            //td.OZ = addViewModel.OZ;
+
+            //td.Mood = addViewModel.Mood;
+            //td.Notes = addViewModel.Notes;
+            //td.LiquidSizeID = addViewModel.LiquidType;
+
+
+            //_se.ThingsDones.Add(td);
             _se.SaveChanges();
 
-            if (action.IndexOf("Feed") >= 0 || action.IndexOf("BF") >= 0)
-            {
-                return RedirectToAction("Edit", "DoneThings", new { id = td.index });
-            }
-            else
-            {
-                return RedirectToAction("Index", "DoneThings", new { id = td.index });
-            }
+            //is there a better way to do this????
+            //No longer doing this with the new way
+            //string action = _se.Actions1.First(m => m.index == addViewModel.Action).Title;
 
-            
+            //if (action.IndexOf("Feed") >= 0 || action.IndexOf("BF") >= 0)
+            //{
+            //    return RedirectToAction("Edit", "DoneThings", new { id = td.index });
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index", "DoneThings", new { id = td.index });
+            //}
+
+            return RedirectToAction("Index", "DoneThings");
+
         }
 
         

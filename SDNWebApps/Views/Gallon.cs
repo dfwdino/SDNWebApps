@@ -23,7 +23,9 @@ namespace SDNWebApps.Views
         public Nullable<System.DateTime> GasDate { get; set; }
         public bool TankFilled { get; set; }
         public string Notes { get; set; }
+        public Nullable<int> StationID { get; set; }
     
         public virtual Auto Auto { get; set; }
+        public virtual Station Station { get; set; }
     }
 }

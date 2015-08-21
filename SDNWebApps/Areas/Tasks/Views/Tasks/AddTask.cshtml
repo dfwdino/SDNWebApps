@@ -6,10 +6,10 @@
     Layout = "~/Areas/Tasks/Views/Shared/_TasksLayout.cshtml";
 }
 <title>@ViewBag.Title</title>
-<h2>@ViewBag.Title</h2>
 <div id="TaskAdded"></div>
 
-@ViewBag.Task<br/>
+<br/>
+@Html.ActionLink("All Tasks","Index","Home",null,new{@style="padding-left: 5px;"})
 <br/>
 
 @using (Html.BeginForm("AddTask","Tasks", FormMethod.Post))
@@ -33,8 +33,6 @@
     @*<p><a href="#" class="add-link">Add</a></p>*@
     <p><input value="Add" type="submit"/> </p>
 }
-
-@*<script src="~/Scripts/tasks.js?v=6"></script>*@
 
 
 @Styles.Render("~/Content/css")

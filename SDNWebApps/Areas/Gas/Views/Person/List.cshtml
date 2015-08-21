@@ -7,16 +7,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-@{
+<br/>
+<div style="padding-left: 10px">
+    @{
     foreach (var item in Model.Persons)
     {
-        @Html.ActionLink(item.PersonName, "List", "Auto", new { id = item.ID }, null)<br/>
+        <p style="padding-left: 5px">@Html.ActionLink(item.PersonName, "List", "Auto", new { id = item.ID }, null)</p>
     }
-}
+    }
 
-<br/>
-<br />
-@Html.ActionLink("Add Person","Add","Person",null,null)
+    <br />
+    @Html.ActionLink("Add Person","Add","Person",null,null)
+</div>
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")

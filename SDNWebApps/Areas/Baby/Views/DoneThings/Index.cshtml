@@ -11,21 +11,23 @@
 @model List<SDNWebApps.Areas.Baby.Models.DoneThings.ListViewModel>
 
 @{
-        ViewBag.Title = "Freddy's Daily Break Down";
-        Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
-        string color = string.Empty;
-        string _LastDate = string.Empty;
-        double totalFeedOz = 0;
-        double totalPumpedOz = 0;
-        double totalTeaspoons = 0;
-        TimeSpan SleepTime = new TimeSpan();
-        int colorCounter = 0;
+    ViewBag.Title = "Freddy's Daily Break Down";
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    string color = string.Empty;
+    string _LastDate = string.Empty;
+    double totalMilkOz = 0;
+    double totalFoodOz = 0;
+    double totalPumpedOz = 0;
+    double totalTeaspoons = 0;
+    TimeSpan SleepTime = new TimeSpan();
+    int colorCounter = 0;
 
 }
 
-@*@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")*@
+@Scripts.Render("~/bundles/jquery")
+
 
 <script language="javascript"> 
     function show(id) {
@@ -66,9 +68,10 @@
         //I think this is why my last day is call jacked up
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
-            @displaySummary(SleepTime, totalFeedOz, totalPumpedOz,totalTeaspoons)
+            @displaySummary(SleepTime, totalMilkOz, totalPumpedOz,totalTeaspoons,totalFoodOz)
 
-            totalFeedOz = 0;
+            totalMilkOz = 0;
+            totalFoodOz = 0;
             totalPumpedOz = 0;
             totalTeaspoons = 0;
             SleepTime = new TimeSpan();
@@ -83,13 +86,13 @@
         if (_LastDate != @thing.StartTime.Date.ToString())
         {
 
-            <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToShortDateString()</h3></td></tr>
+            <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToString("D")</h3></td></tr>
         <tr style="border-bottom: 1px solid black !important">
             <td style="width: 100px;text-align: center">Item Done </td>
             <td style="text-align: center;width: 75px">Start Time</td>
             <td style="text-align: center;width: 75px">End Time</td>
             <td style="text-align: center">Amount</td>
-            <td style="text-align: center">Mood</td>
+            @*<td style="text-align: center">Mood</td>*@
             <td style="text-align: center">Notes</td>
             
         </tr>
@@ -101,12 +104,18 @@
             <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
             <td style="text-align: center; border-left: 1px solid black !important">
-                @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString())
-                @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")
+                @if (@thing.StartTime != null && @thing.EndTime != null)
+                {
+                    @thing.EndTime.Value.Subtract(@thing.StartTime).ToString().Substring(0,5);
+                }
+                else
+                {
+                    <span> @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString()) @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")</span>
+                }           
             </td>
             
 
-            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>
+            @*<td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>*@
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Notes)</td>
         </tr>
 
@@ -116,10 +125,16 @@
         {
             SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
         }
-        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0 && thing.LiquidSize.Type == "OZ"))
+        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0 && thing.Actions.Title.IndexOf("Bottle Feed", System.StringComparison.CurrentCultureIgnoreCase) == 0 && thing.LiquidSize.Type == "OZ"))
         {
 
-            totalFeedOz += (double)thing.OZ;
+            totalMilkOz += (double)thing.OZ;
+
+        }
+        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0 && thing.LiquidSize.Type == "OZ"))
+        {
+
+            totalFoodOz += (double)thing.OZ;
 
         }
         else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0 && thing.LiquidSize.Type != "OZ"))
@@ -136,26 +151,27 @@
         _LastDate = @thing.StartTime.Date.ToString();
 
     }
-    @displaySummary(SleepTime, totalFeedOz,totalPumpedOz,totalTeaspoons)
+    @displaySummary(SleepTime, totalMilkOz,totalPumpedOz,totalTeaspoons,totalFoodOz)
 
 </table>
 
 
 
-@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons)
+@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz)
 {
         <tr style="border-top: 1px solid black !important">
-        <td style="text-align: center;font:bold">Sleep Total</td>
-        <td style="text-align: center;font:bold">@sleeptime</td>
-            <td style="text-align: center;font:bold">
-                OZ Feed<br />
-                OZ Pump
+        <td style="text-align: center;font:bold">Sleep Total<br/>@sleeptime</td>
+        @*<td style="text-align: center;font:bold"></td>*@
+            <td style="text-align: left;font:bold">
+                Milk: @totaloz <br/>
+                Food: @totalFoodOz
             </td>
             <td style="text-align: center;font:bold">
-                @totaloz<br />
-                @totalpump
-        </td>
-        <td>Teaspoons</td>
-        <td>@totalteaspoons</td>
+                Pump: @totalpump
+            </td>
+            <td style="text-align: left;" colspan=" 2">
+                <span style="padding-left: 10px">Teaspoons: @totalteaspoons</span> 
+            </td>
+        <td></td>
     </tr>
 }

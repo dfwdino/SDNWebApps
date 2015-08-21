@@ -1,0 +1,66 @@
+﻿@model List<SDNWebApps.Areas.Baby.Models.DoneThings.SummaryModel2>
+
+@{
+     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    string LastDate = "";
+    string Color = "coral";
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>SummaryPage</title>
+    </head>
+<body>
+    <div>
+        <table>
+        <tr>
+            <td>Date</td>
+            <td>Action</td>
+            <td>Number Of Times</td>
+            <td>OZ</td>
+        </tr>
+         @foreach (var sum in Model)
+        {
+            if (LastDate.Length > 0)
+            {
+                if (LastDate != sum.ItemDate.Value.ToString("d"))
+                {
+                    <tr>
+                        <td colspan="4"><br/></td>
+                    </tr>
+                    if (Color.Equals("coral"))
+                    {
+                        Color = "yellow";
+                    }
+                    else
+                    {
+                        Color = "coral";
+                    }
+                }
+            }
+
+            <tr style="background-color:@Color">
+
+                <td>@sum.ItemDate.Value.ToString("d") -</td>
+                <td>@sum.Title</td>
+                <td style="text-align: center">@sum.action</td>
+                <td style="text-align: center">@sum.OZ</td>
+
+            </tr>
+
+            LastDate = sum.ItemDate.Value.ToString("d");
+
+
+
+
+        }
+        </table>
+    </div>
+</body>
+</html>

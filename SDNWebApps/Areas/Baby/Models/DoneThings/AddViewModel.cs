@@ -20,8 +20,11 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public int Action { get; set; }
         [Display(Name = "Action")]
         public SDNWebApps.Views.Actions Actions {get;set;}
+
         [Required(ErrorMessage = "Need to pick an start time.")]
         [Display(Name = "Start Time")]
+
+        
         public string StartTime { get; set; }
         [Display(Name = "End Time")]
         public string EndTime { get; set; }

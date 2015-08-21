@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics.Contracts
 @using System.Globalization
+@using System.Web.Razor.Parser.SyntaxTree
 @using Microsoft.SqlServer.Server
 @model SDNWebApps.Areas.Gas.Models.Miles.ListViewModel
 
@@ -15,19 +16,19 @@
 
 <br />
 <br />
-
-@Html.ActionLink("Add","Add","Miles",new {id = Model.autoID},null)
-@Html.ActionLink("List Auto","List","Auto",new {id = Model.PersonID},null)
-@Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall=true }, null)
-
+@Html.ActionLink("List Auto","List","Auto",new {id = Model.PersonID},new {@style="padding-right: 10px;padding-left: 5px;"})
+@Html.ActionLink("Add","Add","Miles",new {id = Model.autoID},new {@style="padding-right: 10px"})
+@Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall=true }, new {@style="padding-right: 10px;"})
+<br />
+<br />
 
 <!--TODO: Make CSS file-->
 <table id="AutoList" style="border-style:none;border-collapse: collapse">
     <tr style="text-align:center; border-bottom: 1px solid black !important">
-        <td>Total<br/>Miles</td>
-        <td>@Html.Label("Price")</td>
-        <td>LTM</td>
-        <td>@Html.Label("MGP")</td>
+        <td style="width: 75px">Total<br/>Miles</td>
+        <td style="width: 50px">@Html.Label("Price")</td>
+        <td style="width: 50px">LTM</td>
+        <td style="width: 50px">@Html.Label("MGP")</td>
     </tr>
 
     @{
@@ -70,11 +71,18 @@
                         LastTotalMiles = fillup.TotalMiles;
                     }
                 }
+                <td style="width: 50px;text-align: center">@(fillup.Station == null ? "" : fillup.Station.StationName)</td>
                 <td> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </td>
             </tr>
 
 
 
-                    }
+        }
     }
 </table>
+
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/themes/base/css")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/jqueryval")

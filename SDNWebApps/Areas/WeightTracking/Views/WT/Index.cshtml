@@ -1,0 +1,118 @@
+﻿@model IEnumerable<SDNWebApps.Views.Size>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Wrist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Chest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Forearm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Waist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Thigh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Calve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bicep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Neck)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Broswer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Person.PersonName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wrist)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Forearm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Waist)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thigh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calve)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bicep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Neck)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Broswer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Person.PersonName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SizeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SizeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SizeID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -7,44 +7,60 @@
 <style>
     label {
         display: inline-block;
-        width: 80px;
+        width: 90px;
         padding-bottom: 10px;
     }
-   
 </style>
-
-@ViewBag.Title</h2>
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(m => m.AutoID)<br />
-    
-    <div>@Html.LabelFor(m => m.TotalPrice)
-    @Html.TextBoxFor(m => m.TotalPrice)</div>
-
-    <div>@Html.LabelFor(m => m.TotalGallons)
-    @Html.TextBoxFor(m => m.TotalGallons)</div>
-
-    
-    <div>@Html.LabelFor(m => m.TotalMiles)
-    @Html.TextBoxFor(m => m.TotalMiles)</div>
+<div style="padding-left: 5px">
+    @Html.ActionLink("View Miles", "List", "Miles", new { ID = Model.AutoID }, null)
 
 
-    <div>@Html.LabelFor(m => m.GasDate)
-    @Html.TextBoxFor(m => m.GasDate)</div>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.AutoID)<br />
 
-    <div>@Html.LabelFor(m => m.DrivenMiles)
-    @Html.TextBoxFor(m => m.DrivenMiles)</div>
+        <div>
+            @Html.LabelFor(m => m.TotalPrice)
+        @Html.TextBoxFor(m => m.TotalPrice)
+    </div>
 
-    <div>@Html.LabelFor(m => m.TankFilled)
-    @Html.CheckBoxFor(m => m.TankFilled)</div>
+        <div>
+            @Html.LabelFor(m => m.TotalGallons)
+        @Html.TextBoxFor(m => m.TotalGallons)
+    </div>
 
-<input type="submit" value="Add" />
-}
 
-<br/>
-<br />
-@Html.ActionLink("View Miles","List","Miles", new {ID = Model.AutoID},null)
+        <div>
+            @Html.LabelFor(m => m.TotalMiles)
+        @Html.TextBoxFor(m => m.TotalMiles)
+    </div>
 
+        <div>
+            @Html.LabelFor(m => m.Stations)
+        @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) @Html.ActionLink("Add new Station","Create","Stations")
+    </div>
+
+
+        <div>
+            @Html.LabelFor(m => m.GasDate)
+        @Html.TextBoxFor(m => m.GasDate)
+    </div>
+
+        <div>
+            @Html.LabelFor(m => m.DrivenMiles)
+        @Html.TextBoxFor(m => m.DrivenMiles)
+    </div>
+
+
+
+
+        @*<div>@Html.LabelFor(m => m.TankFilled)
+            @Html.CheckBoxFor(m => m.TankFilled)</div>*@
+        <br />
+
+        <input type="submit" value="Add" />
+    }
+</div>
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")

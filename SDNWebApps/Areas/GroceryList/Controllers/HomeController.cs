@@ -13,7 +13,20 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
     public class HomeController : Controller
     {
         SDNAppsEntities ae = new SDNAppsEntities();
-        
+
+        public JsonResult GetItems(bool have=false)
+        {
+            SDNAppsEntities e = new SDNAppsEntities();
+            var results = e.Items.Where(m => m.Have==have) .Select(m => new { m.Name, m.Amount,m.Store.StoreName }).ToList();
+            //var results2 = JsonConvert.SerializeObject(e.Items);  //look more into
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Aindex()
+        {
+            return View();
+        }
+
         public ActionResult Index(bool showAll=false,int? storeID = null)
         {
             IQueryable<Item> gitems = ae.Items;

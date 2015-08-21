@@ -6,10 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="664f2b62b3084f54aea347893176ec1d" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="SDNAppsModel.Auto" Width="1.5" PointX="3.875" PointY="0.625" />
-        <EntityTypeShape EntityType="SDNAppsModel.Gallon" Width="1.5" PointX="4" PointY="2.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.Gallon" Width="1.5" PointX="4" PointY="3.25" />
         <AssociationConnector Association="SDNAppsModel.FK_Gallons_Autos" />
-        <EntityTypeShape EntityType="SDNAppsModel.Item" Width="1.5" PointX="8.5" PointY="0.625" />
-        <EntityTypeShape EntityType="SDNAppsModel.Store" Width="1.5" PointX="6.25" PointY="1" />
+        <EntityTypeShape EntityType="SDNAppsModel.Item" Width="1.5" PointX="10.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SDNAppsModel.Store" Width="1.5" PointX="9" PointY="0.625" />
         <AssociationConnector Association="SDNAppsModel.FK_Items_Stores" />
         <EntityTypeShape EntityType="SDNAppsModel.Person" Width="1.5" PointX="1.625" PointY="0.75" />
         <EntityTypeShape EntityType="SDNAppsModel.Task" Width="1.5" PointX="1.625" PointY="3.25" />
@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="SDNAppsModel.Actions" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="SDNAppsModel.ThingsDone" Width="1.5" PointX="14.375" PointY="0.75" />
         <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_Baby_Item" />
-        <EntityTypeShape EntityType="SDNAppsModel.Dream" Width="1.5" PointX="2.625" PointY="6.375" />
+        <EntityTypeShape EntityType="SDNAppsModel.Dream" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="SDNAppsModel.FK_Dreams_People" />
         <AssociationConnector Association="SDNAppsModel.FK_Actions_Actions" />
         <EntityTypeShape EntityType="SDNAppsModel.ActionCategory" Width="1.5" PointX="12.75" PointY="3.75" />
@@ -26,6 +26,15 @@
         <EntityTypeShape EntityType="SDNAppsModel.LiquidSize" Width="1.5" PointX="14.375" PointY="4.75" />
         <AssociationConnector Association="SDNAppsModel.FK_LiquidSize_LiquidSize" />
         <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_LiquidSize" />
+        <EntityTypeShape EntityType="SDNAppsModel.Size" Width="1.5" PointX="2.625" PointY="6.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.Weight" Width="1.5" PointX="10.75" PointY="9" />
+        <AssociationConnector Association="SDNAppsModel.FK_Size_People" />
+        <AssociationConnector Association="SDNAppsModel.FK_Weight_Size" />
+        <EntityTypeShape EntityType="SDNAppsModel.Station" Width="1.5" PointX="7.5" PointY="3.25" />
+        <AssociationConnector Association="SDNAppsModel.FK_Gallons_Stations" />
+        <AssociationConnector Association="SDNAppsModel.FK_Stations_Stations" />
+        <EntityTypeShape EntityType="SDNAppsModel.GasNote" Width="1.5" PointX="5.875" PointY="1.5" />
+        <AssociationConnector Association="SDNAppsModel.FK_GasNotes_Autos" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

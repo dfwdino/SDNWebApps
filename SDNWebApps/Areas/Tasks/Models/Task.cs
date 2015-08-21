@@ -1,6 +1,7 @@
 ﻿using System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -22,9 +23,15 @@ namespace SDNWebApps.Areas.Tasks.Models
 
         }
 
+        [DisplayName("Task")]
+         public string Title { get; set; }
+
         public List<SDNWebApps.Views.Person> Persons;
 
         public string DueDate { get; set; }
+
+        [DisplayName("Person")]
+        public int PersonID { get; set; }
 
     }
 }

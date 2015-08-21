@@ -50,8 +50,7 @@ namespace SDNWebApps
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.min.js"));
 
 
 
@@ -65,11 +64,9 @@ bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
             bundles.Add(new ScriptBundle("~/bundles/task").Include(
                         "~/Scripts/tasks.js"));
 
-            bundles.Add(new StyleBundle("~/Content/grocery").Include(
-                 "~/Content/grocery.css"));
+            //bundles.Add(new StyleBundle("~/Content/grocery").Include("~/Content/grocery.css"));
 
-            bundles.Add(new StyleBundle("~/Content/main").Include(
-                "~/Content/main.css"));
+            //bundles.Add(new StyleBundle("~/Content/main").Include("~/Content/main.css"));
 
 
             #endregion

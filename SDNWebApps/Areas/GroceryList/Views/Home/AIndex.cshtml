@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    
+
+    <script src="Scripts/angular.js"></script>
+    <script src="/Scripts/A/Items.js"></script>
+</head>
+    <body>
+        <div ng-app="ItemApp" class="container">
+        <br />
+        <br />
+        <input type="text" placeholder="Search Student" ng-model="searchStudent" />
+        <br />
+        <div ng-controller="ItemController">
+            <table class="table">
+                <tr ng-repeat="r in items | filter : searchStudent">
+                    <td></td>
+                    <td>{{r.Name}}</td>
+                    <td>{{r.Amount}}</td>
+                    <td>{{r.StoreName}}</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+
+
+    </body>
+</html>
