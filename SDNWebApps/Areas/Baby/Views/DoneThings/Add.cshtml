@@ -8,11 +8,12 @@
 @{
     ViewBag.Title = "Add";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    int POS = 3;
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
         new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
 
     List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
-        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
+        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type, Selected = (m.Id == 3) }).ToList();
 }
 
 <style>
@@ -27,62 +28,83 @@
     $(document).ready(function () { $("#LNotes").click(function () { $("#TANotes").toggle(); }); });
     //$(document).ready(function () { $("#LMood").click(function () { $("#TAMood").toggle(); }); });
 
+
+    var la = document.getElementById("Latitude");
+    var lo = document.getElementById("Longitude");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+        //else {
+        //    alert("Geolocation is not supported by this browser.");
+        //}
+    }
+    function showPosition(position) {
+        document.getElementById("Latitude").value = position.coords.latitude;
+        document.getElementById("Longitude").value = position.coords.longitude;
+    }
+
 </script>
 
+<body onload="getLocation()">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        //Need to change the layout... Add span or div
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary()
-    //Need to change the layout... Add span or div
-    <div>
-        <div id="actions">
-            <div id="actionCopy">
-                @Html.ValidationMessageFor(m => m.Actions)
-                @Html.LabelFor(m => m.Actions)
-                @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br/>
-                @Html.Label("Amount")
-                @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, 3)
+            @Html.HiddenFor(m => m.Latitude)
+            @Html.HiddenFor(m => m.Longitude)
+
+            <div>
+                <div id="actions">
+                    <div id="actionCopy">
+                        @Html.ValidationMessageFor(m => m.Actions)
+                        @Html.LabelFor(m => m.Actions)
+                        @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
+                        @Html.Label("Amount")
+                        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => POS, LiquidTypes)
+                    </div>
+                </div>
+                <br />
+                <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
+                <br />
+                <br />
+                @Html.Label("Start")
+                @Html.TextBoxFor(m => m.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
+
+                @Html.Label("End")
+                @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
+
+                @*@Html.Label("Amount", new { @style = "padding-bottom: 25px" })
+                    @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, 3)<br />*@
+
+                <div style="width: 150px; display: inline-block;">
+                    @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
+
+                    <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "15" })</div> <br />
+                </div>
+
             </div>
-        </div>
-        <br/>
-        <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
-        <br/>
-        <br/>
-        @Html.Label("Start")
-        @Html.TextBoxFor(m => m.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
-
-        @Html.Label("End")
-        @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
-
-        @*@Html.Label("Amount", new { @style = "padding-bottom: 25px" })
-            @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, 3)<br />*@
-
-        <div style="width: 150px; display: inline-block;">
-            @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
-
-            <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "15" })</div> <br />
-        </div>
-
-    </div>
-    <br />
-    <input type="submit" value="Add" />
-    <br />
-    <br />
-}
-
-
-<script type="text/javascript">
-
-    function GetCurrentDateTime(field) {
-        var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+            <br />
+            <input type="submit" value="Add" />
+            <br />
+            <br />
     }
 
-    function addRow() {
+</body>
+    <script type="text/javascript">
 
-        $("#actionCopy").clone().find("input").each(function () {
-            $(this).val('');
-        }).end().appendTo("#actions");
+        function GetCurrentDateTime(field) {
+            var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+        }
 
-    }
-</script>
+        function addRow() {
+
+            $("#actionCopy").clone().find("input").each(function () {
+                $(this).val('');
+            }).end().appendTo("#actions");
+
+        }
+    </script>
 

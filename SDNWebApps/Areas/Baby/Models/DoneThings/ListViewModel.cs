@@ -30,6 +30,9 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public string Notes { get; set; }
 
         public LiquidSize LiquidSize { get; set; }
-        
+
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+
     }
 }

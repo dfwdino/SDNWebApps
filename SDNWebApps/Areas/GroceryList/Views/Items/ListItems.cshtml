@@ -49,6 +49,14 @@
             {
                 <span></span>
             }
+            @if (item.Price>0)
+                    {
+                <span style="width: 10px"> - $@item.Price</span>
+            }
+            else
+            {
+                <span></span>
+            }
             @if (item.StoreID != null)
             {
                     

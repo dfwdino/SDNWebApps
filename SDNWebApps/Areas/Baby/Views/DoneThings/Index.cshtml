@@ -116,7 +116,19 @@
             
 
             @*<td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>*@
-            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.Notes)</td>
+            <td style="text-align: center; border-left: 1px solid black !important">
+                @(@thing.Notes)
+
+                @if (Request.Cookies["LoggedIn"] != null)
+                {
+                    if (thing.Longitude != null)
+                    {
+                    
+                        <br /><a href="http://maps.google.com/maps?z=18&q=@thing.Latitude.Trim(),@thing.Longitude.Trim()" target='_blank'>Map</a>
+
+                    }
+}
+            </td>
         </tr>
 
         //need to fix this reporting style, try select case??? If not a better if statyment

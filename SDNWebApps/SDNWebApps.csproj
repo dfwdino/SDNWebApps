@@ -151,6 +151,7 @@
     <Compile Include="Areas\Baby\Controllers\ActionsController.cs" />
     <Compile Include="Areas\Baby\Controllers\DoneThingsController.cs" />
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
+    <Compile Include="Areas\Baby\Controllers\LiquidSizesController.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\ListViewModel.cs" />
@@ -178,6 +179,8 @@
     <Compile Include="Areas\GroceryList\GroceryListAreaRegistration.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ViewItemsVM.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ItemsViewModel.cs" />
+    <Compile Include="Areas\Login\Controllers\LogInController.cs" />
+    <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Photos\Controller\PhotoController.cs" />
     <Compile Include="Areas\Photos\Models\ImageFile.cs" />
     <Compile Include="Areas\Photos\Models\Photo.cs" />
@@ -257,6 +260,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Baby\Views\LiquidSizes\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\LiquidSizes\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\LiquidSizes\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\LiquidSizes\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\LiquidSizes\Index.cshtml" />
     <None Include="Areas\GroceryList\Views\Home\AIndex.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -364,6 +372,13 @@
     <Content Include="Areas\Gas\Views\Stations\Details.cshtml" />
     <Content Include="Areas\Gas\Views\Stations\Edit.cshtml" />
     <Content Include="Areas\Gas\Views\Stations\Index.cshtml" />
+    <Content Include="Areas\Login\Views\web.config" />
+    <Content Include="Areas\Login\Views\LogIn\Create.cshtml" />
+    <Content Include="Areas\Login\Views\LogIn\Delete.cshtml" />
+    <Content Include="Areas\Login\Views\LogIn\Details.cshtml" />
+    <Content Include="Areas\Login\Views\LogIn\Edit.cshtml" />
+    <Content Include="Areas\Login\Views\LogIn\Index.cshtml" />
+    <Content Include="Areas\Login\Views\LogIn\Login.cshtml" />
     <None Include="Properties\PublishProfiles\Azure.pubxml" />
     <None Include="Properties\PublishProfiles\SDNWebApps.pubxml" />
     <Content Include="Scripts\angular-animate.js" />
@@ -1238,6 +1253,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Baby\Models\Actions\" />
     <Folder Include="Areas\Gas\Views\Shared\" />
+    <Folder Include="Areas\Login\Models\" />
+    <Folder Include="Areas\Login\Views\Shared\" />
     <Folder Include="Areas\WeightTracking\Models\" />
     <Folder Include="Areas\WeightTracking\Views\Shared\" />
     <Folder Include="Content\themes\base\minified\images\" />

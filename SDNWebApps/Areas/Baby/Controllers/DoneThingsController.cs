@@ -86,10 +86,26 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 _things.Add(new ListViewModel
                 {
                     EndTime = thingsDone.EndTime, Item = thingsDone.index,Index = thingsDone.index, Notes = thingsDone.Notes,
-                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood, LiquidSize = thingsDone.LiquidSize
+                    Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood,
+                    LiquidSize = thingsDone.LiquidSize, Longitude = thingsDone.Longitude, Latitude = thingsDone.Latitude
+
                 });
             }
-            
+
+            if (Request.Cookies["LoggedIn"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("LoggedIn");
+                myCookie.Expires = DateTime.Now.AddDays(1d);
+
+                Response.Cookies.Add(myCookie);
+
+
+                HttpCookie idCookie = new HttpCookie("SDNID");
+                idCookie.Expires = DateTime.Now.AddDays(1d);
+
+                Response.Cookies.Add(idCookie);
+            }
+
 
 
 
@@ -220,16 +236,17 @@ namespace SDNWebApps.Areas.Baby.Controllers
         {
 
             var Actions = form["Action"].Split(',');
-            var LiquidTypes = form["LiquidType"].Split(',');
+            var LiquidTypes = form["POS"].Split(','); //Fucken MS bad coding, this value is "LiquidType"
             var OZs = form["OZ"].Split(',');
 
             if (!ModelState.IsValid)
                 return View(addViewModel);
 
+            ThingsDone td;
 
             for (int i = 0; i < Actions.Count(); i++)
             {
-                ThingsDone td = new ThingsDone();
+                td = new ThingsDone();
 
                 td.Action = Convert.ToInt16(Actions[i]);
                 td.StartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
@@ -240,11 +257,15 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 if(!OZs[i].Length.Equals(0))
                     td.OZ = Convert.ToDouble(OZs[i]); //might need to check for null
 
-                
-                if(i==0)
-                    td.Notes = addViewModel.Notes;
 
-               
+                if (i == 0)
+                {
+                    td.Notes = addViewModel.Notes;
+                    td.Latitude = addViewModel.Latitude;
+                    td.Longitude = addViewModel.Longitude;
+                }
+
+
                 td.LiquidSizeID = Convert.ToInt16(LiquidTypes[i]); //might need to check for null
 
 

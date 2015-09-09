@@ -24,10 +24,12 @@ namespace SDNWebApps.Areas.Gas.Controllers
             else
             {
                 DateTime backdate = DateTime.Now.AddMonths(-1);
-                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id && m.GasDate > DbFunctions.TruncateTime(backdate))
-                   .OrderBy(m => m.TotalMiles).ToList()); 
+                //lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id && m.GasDate > DbFunctions.TruncateTime(backdate))
+                //   .OrderBy(m => m.TotalMiles).ToList()); 
+                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id)
+                   .OrderBy(m => m.TotalMiles).Take(5).ToList());
             }
-            
+
 
             lmvModel.PersonID = ae.Autos.First(m => m.ID == id).Person.ID.ToString();
             lmvModel.autoID = id;
