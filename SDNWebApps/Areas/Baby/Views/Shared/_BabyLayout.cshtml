@@ -7,23 +7,23 @@
 
 <div style="padding-bottom: 8px;padding-left: 5px;">
     <div id="ActionItems" style="padding-bottom: 5px;">
-        Action Items:
+        <span style="padding-right: 8px">Action Items:</span> 
         @Html.ActionLink("Add", "Add", "Actions", null, new { @style = "padding-right: 8px;" })
         @Html.ActionLink("List", "Index", "Actions", null, new { @style = "padding-right: 8px;" }) <br />
     </div>
     
     <div id="AmountSize">
-        Amount Sizes:
-        @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
-        @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })<br />
-        </div>
+        <span>Amount Sizes:</span>
+            @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
+            @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })<br />
+</div>
     </div>
 <div style="padding-bottom: 8px;padding-left: 5px">
-    Done Things:
-    @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
-    @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
-    @Html.ActionLink("View All", "Index", "DoneThings", new { @style = "padding-right: 8px;", viewall = true }, null)
-    @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })
+    <span style="padding-right: 8px">Done Things:</span>
+        @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
+        @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
+        @Html.ActionLink("View All", "Index", "DoneThings", new { @style = "padding-right: 8px;", viewall = true }, null)
+        @*@Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })*@
 </div>
 
 <br />
