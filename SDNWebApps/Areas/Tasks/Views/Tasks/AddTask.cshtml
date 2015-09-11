@@ -8,22 +8,32 @@
 <title>@ViewBag.Title</title>
 <div id="TaskAdded"></div>
 
+<style>
+    label {
+        width: 60px;
+    }
+    ui-datepicker .ui-widget-content {
+    background: #999;
+    }
+</style>
+
 <br/>
 @Html.ActionLink("All Tasks","Index","Home",null,new{@style="padding-left: 5px;"})
 <br/>
+<br />
 
-@using (Html.BeginForm("AddTask","Tasks", FormMethod.Post))
+@using (Html.BeginForm("AddTask","Tasks", FormMethod.Post,new {@style="padding-left: 8px"}))
 {<div>
      <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.Title):
+         @Html.LabelFor(m => m.Title)
          @Html.TextBoxFor(m => m.Title)
      </div>
      <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.DueDate):
-         @Html.TextBoxFor(m => m.DueDate, new { @class = "date" })
+         @Html.LabelFor(m => m.DueDate)
+         @Html.TextBoxFor(m => m.DueDate)
      </div>
      <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.PersonID):
+         @Html.LabelFor(m => m.PersonID)
          @Html.DropDownListFor(m => m.PersonID, new SelectList(Model.Persons, "ID", "PersonName", Model.Persons))
      </div>
 
@@ -34,7 +44,7 @@
     <p><input value="Add" type="submit"/> </p>
 }
 
-
+<link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")

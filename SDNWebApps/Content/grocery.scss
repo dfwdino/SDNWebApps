@@ -4,20 +4,15 @@
 }
 
 label {
-/*display: inline-block !important;*/
-/*width: 75px;*/
+
 text-align:left;
-/*padding: 3px 3px 3px 3px;*/
-/*padding-bottom: 15px;
-padding-right: 3px;*/
+
 }
 
-label.list {
-/*display: inline-block;*/
-
-/*padding-bottom: 5px;
-padding-right: 3px;*/
-}
+ .ItemsAddForm {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	}
 
 form{
 	padding-left 8px;
@@ -29,10 +24,7 @@ a.headerItems {
 	padding-bottom: 2px;
 }
 .got-link,.delete-link {
-	/*display: inline-block;
-	width: 135px;*/
-	/*padding-left: 10px;
-	padding-bottom: 2px;*/
+
 	padding: 10px 0px 10px 0px;
 
  
@@ -44,11 +36,6 @@ a.headerItems {
 	width: 40px;
 	padding-bottom: 6px;
 }
-span {
-	/*display: inline-block;*/
-	/*width: 475px;*/
-}
-
 
 ul {
 	list-style-type: none;
@@ -60,12 +47,7 @@ ul {
 li {
 	float: left;
 }
-/*
-a {
-	display: block;
-	width: 60px;
-	
-}*/
+
 
 
 
