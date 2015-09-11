@@ -5,10 +5,12 @@
 @model SDNWebApps.Views.Actions
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Action";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    //Need to put this in the controller 
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().ActionCategories.OrderBy(m => m.Category).Select(m =>
        new SelectListItem { Value = m.Index.ToString().Trim(), Text = m.Category }).ToList();
+    ViewBag.Header = "Edit Action";
 }
 
 <span>
@@ -18,36 +20,37 @@
 </span>
 
 
-Edit</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Actions</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.index)
+<div style="padding-left: 5px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <span>Name:</span>
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            
-        </div>
-        <br/>
-        <div>
-            <span>Cat</span>
-            @Html.LabelFor(m => m.ActionCategory)
-            @Html.DropDownListFor(m => m.CategoryID, ListToUse, Model.ActionCategory.Category)
+        <div class="form-horizontal">
+            <h4>Actions</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.index)
 
-        </div>
+            <div class="form-group">
+                <span>Name:</span>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <br/><input type="submit" value="Save" class="btn btn-default" />
+            </div>
+            <br />
+            <div>
+                <span>Cat</span>
+                @Html.LabelFor(m => m.ActionCategory)
+                @Html.DropDownListFor(m => m.CategoryID, ListToUse, Model.ActionCategory.Category)
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <br /><input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
