@@ -21,12 +21,11 @@ Index</h2>
 
 @foreach (var item in Model) {
     <tr>
-        <td style="width: 100px">
+        <td style="width: 50px">
             @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Index }) |
-            @*@Html.ActionLink("Details", "Details", new { id=item.Index }) |*@
             @Html.ActionLink("Delete", "Delete", new { id=item.Index })
         </td>
     </tr>

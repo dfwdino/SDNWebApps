@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
         // GET: Baby/LiquidSizes
         public ActionResult Index()
         {
-            var liquidSizes = db.LiquidSizes.Where(m => m.Deleted == false);
+            var liquidSizes = db.LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type);
             return View(liquidSizes.ToList());
         }
 

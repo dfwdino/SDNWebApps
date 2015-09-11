@@ -7,8 +7,6 @@
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
 }
 
-Action List</h2>
-
 <p>
     @Html.ActionLink("Create New", "Add")
 </p>
@@ -28,7 +26,7 @@ Action List</h2>
         <td style="padding-bottom: 4px">
             @Html.DisplayFor(modelItem => item.Title)
         </td>
-        <td style="padding-bottom: 4px;text-align: center">
+        <td style="padding-bottom: 4px;">
             @Html.DisplayFor(modelItem => item.ActionCategory.Category)
         </td>
         <td style="padding-left: 5px">

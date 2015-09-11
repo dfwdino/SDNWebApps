@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
         public ActionResult Index()
         {
-            return View(_se.Actions1.Where(m => m.Delete == false).ToList());
+            return View(_se.Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).ToList());
         }
 
 

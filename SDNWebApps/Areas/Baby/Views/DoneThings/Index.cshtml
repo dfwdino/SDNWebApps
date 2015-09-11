@@ -19,8 +19,11 @@
     double totalFoodOz = 0;
     double totalPumpedOz = 0;
     double totalTeaspoons = 0;
+    double totalML = 0;
     TimeSpan SleepTime = new TimeSpan();
     int colorCounter = 0;
+
+    SDNAppsEntities ae = new SDNAppsEntities();
 
 }
 
@@ -28,23 +31,6 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
 
-
-<script language="javascript"> 
-    function show(id) {
-        alert('hi');
-        var ele = document.getElementById(id);
-        var text = document.getElementById(id);
-        if (ele.style.display == "block") {
-            ele.style.display = "none";
-            text.innerHTML = "show";
-        }
-        else {
-            ele.style.display = "block";
-            text.innerHTML = "hide";
-        }
-    }
-    
-</script>
 
 <table style="border-collapse: collapse">
 
@@ -68,13 +54,14 @@
         //I think this is why my last day is call jacked up
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
-            @displaySummary(SleepTime, totalMilkOz, totalPumpedOz,totalTeaspoons,totalFoodOz)
+            @displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz,totalML)
 
             totalMilkOz = 0;
             totalFoodOz = 0;
             totalPumpedOz = 0;
             totalTeaspoons = 0;
             SleepTime = new TimeSpan();
+            totalML = 0;
         }
 
 
@@ -87,17 +74,17 @@
         {
 
             <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToString("D")</h3></td></tr>
-        <tr style="border-bottom: 1px solid black !important">
-            <td style="width: 100px;text-align: center">Item Done </td>
-            <td style="text-align: center;width: 75px">Start Time</td>
-            <td style="text-align: center;width: 75px">End Time</td>
-            <td style="text-align: center">Amount</td>
-            @*<td style="text-align: center">Mood</td>*@
-            <td style="text-align: center">Notes</td>
-            
-        </tr>
+            <tr style="border-bottom: 1px solid black !important">
+                <td style="width: 100px;text-align: center">Item Done </td>
+                <td style="text-align: center;width: 75px">Start Time</td>
+                <td style="text-align: center;width: 75px">End Time</td>
+                <td style="text-align: center">Amount</td>
+                @*<td style="text-align: center">Mood</td>*@
+                <td style="text-align: center">Notes</td>
 
-    }
+            </tr>
+
+        }
 
         <tr style="padding-bottom: 8px; background-color: @color;">
             <td> @Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new { id = @thing.Index }) </td>
@@ -106,16 +93,15 @@
             <td style="text-align: center; border-left: 1px solid black !important">
                 @if (@thing.StartTime != null && @thing.EndTime != null)
                 {
-                    @thing.EndTime.Value.Subtract(@thing.StartTime).ToString().Substring(0,5);
+                    @thing.EndTime.Value.Subtract(@thing.StartTime).ToString().Substring(0, 5);
                 }
                 else
                 {
                     <span> @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString()) @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")</span>
-                }           
+                }
             </td>
-            
 
-            @*<td style="text-align: center; border-left: 1px solid black !important">@(@thing.Mood)</td>*@
+
             <td style="text-align: center; border-left: 1px solid black !important">
                 @(@thing.Notes)
 
@@ -123,53 +109,64 @@
                 {
                     if (thing.Longitude != null)
                     {
-                    
+
                         <br /><a href="http://maps.google.com/maps?z=18&q=@thing.Latitude.Trim(),@thing.Longitude.Trim()" target='_blank'>Map</a>
 
                     }
-}
+                }
             </td>
         </tr>
 
-        //need to fix this reporting style, try select case??? If not a better if statyment
 
-        if (thing.StartTime != null && thing.EndTime != null && thing.Actions.Title.Equals("sleep", StringComparison.CurrentCultureIgnoreCase))
+        if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Food").Category)
         {
-            SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
+            if (thing.Actions.Title.IndexOf("Bottle Feed",StringComparison.CurrentCultureIgnoreCase) >=0 )
+            {
+                totalMilkOz += (double)thing.OZ;
+            }
+            else if (thing.LiquidSize.Type == "OZ")
+            {
+                totalFoodOz += (double)thing.OZ;
+            }
+            else if (thing.LiquidSize.Type.ToLower() == "teaspoon")
+            {
+                totalTeaspoons += (double)thing.OZ;
+            }
+
         }
-        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase)<0 && thing.Actions.Title.IndexOf("Bottle Feed", System.StringComparison.CurrentCultureIgnoreCase) == 0 && thing.LiquidSize.Type == "OZ"))
-        {
 
-            totalMilkOz += (double)thing.OZ;
-
-        }
-        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0 && thing.LiquidSize.Type == "OZ"))
-        {
-
-            totalFoodOz += (double)thing.OZ;
-
-        }
-        else if (thing.LiquidSize != null && (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) < 0 && thing.LiquidSize.Type != "OZ"))
-        {
-
-            totalTeaspoons += (double)thing.OZ;
-        }
-        else if (thing.OZ != null && thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
+        //else if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Pump").Category)
+        else if (thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
         {
             totalPumpedOz += (double)thing.OZ;
         }
+
+        else if ((thing.Actions.Title.IndexOf("Sleep", System.StringComparison.CurrentCultureIgnoreCase) >= 0) &&
+          thing.EndTime != null)
+        {
+            SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
+        }
+
+        else if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Medicine").Category)
+        {
+            if (thing.OZ != null)
+            {
+                totalML += (double) thing.OZ;
+            }
+        }
+
 
 
         _LastDate = @thing.StartTime.Date.ToString();
 
     }
-    @displaySummary(SleepTime, totalMilkOz,totalPumpedOz,totalTeaspoons,totalFoodOz)
+    @displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz, totalML)
 
 </table>
 
 
 
-@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz)
+@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz,double totalML)
 {
         <tr style="border-top: 1px solid black !important">
         <td style="text-align: center;font:bold">Sleep Total<br/>@sleeptime</td>
@@ -182,7 +179,8 @@
                 Pump: @totalpump
             </td>
             <td style="text-align: left;" colspan=" 2">
-                <span style="padding-left: 10px">Teaspoons: @totalteaspoons</span> 
+                <span style="padding-left: 10px">Teaspoons: @totalteaspoons</span> <br/>
+                <span style="padding-left: 10px">Meds: @totalML</span> 
             </td>
         <td></td>
     </tr>
