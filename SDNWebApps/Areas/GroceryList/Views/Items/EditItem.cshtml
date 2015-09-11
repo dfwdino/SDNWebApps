@@ -4,11 +4,27 @@
 
 
 @{
-    ViewBag.Title = "Add Item";
+    ViewBag.Title = "Edit Item";
     Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
 }
 <title>@ViewBag.Title</title>
 
+<style>
+    .ItemsAddForm {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    label {
+        display: inline-block;
+        width: 60px;
+        text-align: left;
+    }
+
+    form {
+        padding-left: 8px;
+    }
+</style>
 
 <div>@ViewBag.Item</div>
 <br/>
@@ -21,10 +37,10 @@
      @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
      @Html.LabelFor(m => m.Amount)
      @Html.TextBoxFor(m => m.Amount)<br />
-     @Html.LabelFor(m => m.Store.StoreName)
+     <label>Store</label>
      @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store",null)<br /><br />
      
-     <input type="file" id="uploadFile" name="uploadFile" />
+     @*<input type="file" id="uploadFile" name="uploadFile" />*@
 
  </div>
 

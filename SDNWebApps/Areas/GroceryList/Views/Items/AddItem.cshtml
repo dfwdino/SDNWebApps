@@ -20,13 +20,13 @@
     }
 label {
     display: inline-block;
-    width: 75px;
+    width: 60px;
     text-align: left;
 }
+form {
+    padding-left: 8px;
+}
 </style>
-
-
-
 
 
 @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -46,13 +46,14 @@ label {
     </div>
 
     <div class="ItemsAddForm">
-        @Html.LabelFor(m => m.Store.StoreName)
+        <label>Store</label>
         @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
     </div>
 
-    <div class="ItemsAddForm">
+    @*<div class="ItemsAddForm">
         <input type="file" id="uploadFile" name="uploadFile" />
-    </div>
+    </div>*@
+
     <div class="ItemsAddForm">
         <input id="submitbutton" type="submit" value="Add" />
     </div>

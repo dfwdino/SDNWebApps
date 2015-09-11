@@ -4,16 +4,20 @@
 
 @Scripts.Render("~/bundles/jquery")
 
-@using (Html.BeginForm())
+<br/>
+<br/>
+<div style="padding-left: 8px">
+    @using (Html.BeginForm())
 {
 
     foreach (Store item in Model)
     {
-        <div id="FullItem{@item.ID}">
-            @Html.Label(@item.StoreName) - <a href="#" id=@item.ID class="delete-store-link">Delete</a>
-        </div>
-        <br/>
+            <div id="FullItem{@item.ID}">
+                @Html.Label(@item.StoreName) - <a href="#" id=@item.ID class="delete-store-link">Delete</a>
+            </div>
+            <br />
 
 
     }
 }
+</div>

@@ -5,18 +5,18 @@
     Layout = "~/Areas/GroceryList/Views/Home/Shared/_GroceryListLayout.cshtml";
 }
 
+<br />
+<br />
+<div style="padding-left: 8px">
+    <div id="ItemAdded"></div>
 
-<div id="ItemAdded"></div>
-<p>
-    <span style="padding-right: 3px">@Html.LabelFor(m => m.StoreName, new { @class = "Add" }): </span> <span>@Html.TextBoxFor(m => m.StoreName)</span>
-</p>
-<br/>
-<p><a href="#" class="add-store-link">Add</a></p>
+    <span style="padding-right: 3px" class="Add">Store: </span> <span>@Html.TextBoxFor(m => m.StoreName)</span>
 
+    <br />
+    <br />
+    <a href="#" class="add-store-link">Add</a>
 
+</div>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/grocery")
 @Styles.Render("~/Content/grocery")
-@*<script src="~/Scripts/jquery-2.1.1.js"></script>*@
-
-@*<script src="~/Scripts/store.js"></script>*@

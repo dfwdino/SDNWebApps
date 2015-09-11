@@ -9,137 +9,94 @@
     string color = string.Empty;
 }
 
+<div>
 
-@using (Html.BeginForm())
-{
-    foreach (var item in Model.Items)
+    @using (Html.BeginForm())
     {
-        MemoryStream stream;
-        FileContentResult test = null;
-
-        //if (item.Image != null)
-        //{
-        //    stream = new MemoryStream(item.Image);
-        //    test = new FileContentResult(item.Image, "image/jpeg");
-        //}
-
-
-        switch (colorCounter)
+        foreach (var item in Model.Items)
         {
-            case 0:
-                color = "lightblue";
-                colorCounter = 1;
-                break;
-            case 1:
-                color = "lightcoral";
-                colorCounter = 0;
-                break;
+            MemoryStream stream;
+            FileContentResult test = null;
 
-        }
+            //if (item.Image != null)
+            //{
+            //    stream = new MemoryStream(item.Image);
+            //    test = new FileContentResult(item.Image, "image/jpeg");
+            //}
 
-        <div style="display:block;background-color: @color;width:@divWidth;padding-bottom: 5px;padding-top: 5px" id="FullItem{@item.ID}">
-            <span class="got-link" id=@item.ID style="width:200px">
-                @item.Name
-            </span>
-            @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
-                    {
-                <span style="width: 10px"> - @item.Amount</span>
-            }
-            else
-            {
-                <span></span>
-            }
-            @if (item.Price>0)
-                    {
-                <span style="width: 10px"> - $@item.Price</span>
-            }
-            else
-            {
-                <span></span>
-            }
-            @if (item.StoreID != null)
-            {
-                    
-                if (!item.StoreID.Equals(3))
-                {
-                    <span style="width:90px"> - @Html.ActionLink(item.Store.StoreName,"Index","Home", new { showAll = Model.ShowAll, storeID = item.StoreID },null) </span>
-                }
-            }
-            @*else
-            {
-                <span></span>
-            }*@
-            @if (Model.ShowAll)
-            {
-                <span style="padding-left: 5px;padding-right: 5px">@if (item.LastGotten != null)
-                      {
-                          @item.LastGotten.Value.ToShortDateString()
-                      }</span>
 
-                <span style="text-align: right" width="100px">
-                    @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
-                    <a href="#" id=@item.ID class="delete-link">Delete</a>
+            switch (colorCounter)
+            {
+                case 0:
+                    color = "lightblue";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightcoral";
+                    colorCounter = 0;
+                    break;
+
+            }
+
+            <div style="display:block;background-color: @color;width:@divWidth;padding-bottom: 5px;padding-top: 5px" id="FullItem{@item.ID}">
+                <span class="got-link" id=@item.ID style="width:200px">
+                    @item.Name
                 </span>
-            }
-            @*@if (item.Image != null)
-            {
-                <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
-            }*@
-
-        </div>
-
-        <br/>
-
-
-        //Need to redo this layout. :-( and break up showall and need items.
-            @*<div class="got-link" style="background-color: @color;width:300px" id="FullItem{@item.ID}">
-                <span id=@item.ID style="alignment-adjust: central;width:60%">
-                    @Html.LabelForModel(item.Name, new { @class = "list" })
-
-                    @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
+                @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
                     {
-                        <span> - @Html.LabelForModel(item.Amount, new { @class = "list" })</span>
+                    <span style="width: 10px"> - @item.Amount</span>
+                }
+                else
+                {
+                    <span></span>
+                }
+                @if (item.Price > 0)
+                {
+                    <span style="width: 10px"> - $@item.Price</span>
+                }
+                else
+                {
+                    <span></span>
+                }
+                @if (item.StoreID != null)
+                {
+
+                    if (!item.StoreID.Equals(3))
+                    {
+                        <span style="width:90px"> - @Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null) </span>
                     }
-                    else
+                }
+                @*else
                     {
-                        <span><label class="list"></label></span>
+                        <span></span>
+                    }*@
+                @if (Model.ShowAll)
+                {
+                    <span style="padding-left: 5px;padding-right: 5px">
+                        @if (item.LastGotten != null)
+                    {
+                        @item.LastGotten.Value.ToShortDateString()
                     }
+                </span>
 
-                    @if (item.StoreID != null)
-                    {
-                        //need to fix this
-                        if (!item.StoreID.Equals(3))
-                        {
-                            <label> - @item.Store.StoreName </label>
-                        }
-                    }
-                    else
-                    {
-                            <label></label>
-                    }
-                </span><span style="display: inline-block;" width="30%">
-                    @if (Model.ShowAll)
-                    {
+                    <span style="text-align: right" width="100px">
                         @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
                         <a href="#" id=@item.ID class="delete-link">Delete</a>
-
-                    }
-                         </span>
-
-                @if (item.Image != null)
-                {
-                        <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
+                    </span>
                 }
+                @*@if (item.Image != null)
+                    {
+                        <br /><img src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" width="200px" height="200px" />
+                    }*@
 
-            </div>*@
+            </div>
 
-
+            <br />
+        }
 
     }
 
-}
-
-
+</div>
 
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/jquery")
