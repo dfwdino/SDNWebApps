@@ -147,9 +147,9 @@
             SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
         }
 
-        else if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Medicine").Category)
+        else if (thing.Actions.ActionCategory.Category == (ae.ActionCategories.FirstOrDefault(m => m.Category == "Medicine") ==null ? "" : ae.ActionCategories.First(m => m.Category == "Medicine").Category))
         {
-            if (thing.OZ != null)
+            if (thing.OZ != null && thing.LiquidSize.Type.Equals("ML",StringComparison.CurrentCultureIgnoreCase))
             {
                 totalML += (double) thing.OZ;
             }

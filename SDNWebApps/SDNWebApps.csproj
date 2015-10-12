@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SDNWebApps</RootNamespace>
     <AssemblyName>SDNWebApps</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -152,6 +152,7 @@
     <Compile Include="Areas\Baby\Controllers\DoneThingsController.cs" />
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
     <Compile Include="Areas\Baby\Controllers\LiquidSizesController.cs" />
+    <Compile Include="Areas\Baby\Models\Actions\BabyActions.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\ListViewModel.cs" />
@@ -1251,7 +1252,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Baby\Models\Actions\" />
     <Folder Include="Areas\Gas\Views\Shared\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />

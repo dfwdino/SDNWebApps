@@ -23,12 +23,13 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
         public ActionResult Add()
         {
-            SDNWebApps.Views.Actions actions = new Actions();
+            //SDNWebApps.Views.Actions actions = new Actions();
+            SDNWebApps.Areas.Baby.Models.Actions.BabyActions actions = new Baby.Models.Actions.BabyActions();
             
             return View(actions);
         }
         [HttpPost]
-        public ActionResult Add(SDNWebApps.Views.Actions actions)
+        public ActionResult Add(Models.Actions.BabyActions actions)
         {
             actions.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(actions.Title.Trim());
             _se.Actions1.Add(actions);

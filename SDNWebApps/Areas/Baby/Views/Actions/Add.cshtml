@@ -3,7 +3,7 @@
 @using System.Web.Mvc.Html
 @using System.Web.UI.WebControls
 @using SDNWebApps.Views
-@model SDNWebApps.Views.Actions
+@model SDNWebApps.Areas.Baby.Models.Actions.BabyActions
 
 @{
     ViewBag.Title = "Add Action Items";
@@ -15,11 +15,11 @@
 
 <span>
     <label id="HeaderLablel">Category's:</label>
-    @Html.ActionLink("Add", "Create", "ActionCategories", null, new { @class = "headerItems" })
-    @Html.ActionLink("All", "Index", "ActionCategories", null, new { @class = "headerItems" })
+     <span style="padding-left: 5px !important">@Html.ActionLink("Add", "Create", "ActionCategories", null, new { @class = "headerItems" })</span>
+    <span style="padding-left: 5px !important">@Html.ActionLink("All", "Index", "ActionCategories", null, new { @class = "headerItems" })</span>
 </span>
 
-Actions</h2>
+
 
 @using (Html.BeginForm()) 
 {
@@ -38,7 +38,6 @@ Actions</h2>
         </div>
         <br />
         <div>
-            <span>Cat</span>
             @Html.LabelFor(m => m.ActionCategory)
             @Html.DropDownListFor(m => m.CategoryID,ListToUse)
             

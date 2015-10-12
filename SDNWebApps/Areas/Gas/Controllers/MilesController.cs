@@ -19,15 +19,15 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
             if (viewall)
             {
-                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderBy(m => m.TotalMiles).ToList());
+                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id).ToList());
             }
             else
             {
                 DateTime backdate = DateTime.Now.AddMonths(-1);
                 //lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id && m.GasDate > DbFunctions.TruncateTime(backdate))
                 //   .OrderBy(m => m.TotalMiles).ToList()); 
-                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id)
-                   .OrderBy(m => m.TotalMiles).Take(5).ToList());
+                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles)
+                   .Take(5).OrderBy(m => m.TotalMiles).ToList());
             }
 
 

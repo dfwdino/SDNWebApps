@@ -39,20 +39,45 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public ActionResult SummaryPage2()
         {
             DateTime backDate = DateTime.Now.AddDays(-3);
-            var Grouped = _se.ThingsDones.Where(m => m.StartTime > backDate)
+            var Grouped = _se.ThingsDones.Where(m => m.StartTime > backDate && m.EndTime == null)
                                             .GroupBy(m => new {TruncateTime = EntityFunctions.TruncateTime(m.StartTime), m.Actions.Title})
-                                            .Select(s => new {ItemDate = s.Key.TruncateTime, Title = s.Key.Title, Count = s.Count(),TotalOZ = s.Sum(ss => ss.OZ)})
-                                            .OrderByDescending(m => m.ItemDate);
+                                            .Select(s => new
+                                            {
+                                                ItemDate = s.Key.TruncateTime, Title = s.Key.Title, Count = s.Count(),TotalOZ = s.Sum(ss => ss.OZ)
+                                            
+                                            })
+                                            .OrderBy(m => m.ItemDate).ToList();
                             
             List<SummaryModel2> smList = new List<SummaryModel2>();
+            //need to do a better way of grouping.
+            var sleepGroup = _se.ThingsDones.Where(m => m.StartTime > backDate  && m.EndTime != null)
+                                            .GroupBy(m => new { TruncateTime = EntityFunctions.TruncateTime(m.StartTime), m.Actions.Title })
+                                            .Select(s => new
+                                            {
+                                                ItemDate = s.Key.TruncateTime,
+                                                Title = s.Key.Title,
+                                                Count = s.Count(),
+                                                TotalOZ = s.Sum(x => DbFunctions.DiffMinutes(x.StartTime, x.EndTime.Value))
+
+                                            })
+                                            .OrderBy(m => m.ItemDate).ToList();
+
+
+
 
             foreach (var done in Grouped)
             {
                 SummaryModel2 sm = new SummaryModel2() {ItemDate = done.ItemDate,Title = done.Title, action = done.Count,OZ = done.TotalOZ};
                 smList.Add(sm);
             }
-            
-            return View(smList);
+
+            foreach (var done in sleepGroup)
+            {
+                SummaryModel2 sm = new SummaryModel2() { ItemDate = done.ItemDate, Title = done.Title, action = done.Count, OZ = done.TotalOZ };
+                smList.Add(sm);
+            }
+
+            return View(smList.OrderByDescending(m => m.ItemDate).ToList());
         }
 
 

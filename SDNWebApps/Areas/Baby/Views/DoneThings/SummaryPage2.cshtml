@@ -3,7 +3,7 @@
 @{
      Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     string LastDate = "";
-    string Color = "coral";
+    string Color = "lightblue";
 }
 
 @Styles.Render("~/Content/css")
@@ -20,10 +20,9 @@
     <div>
         <table>
         <tr>
-            <td>Date</td>
             <td>Action</td>
-            <td>Number Of Times</td>
-            <td>OZ</td>
+            <td># Times</td>
+            <td>Amount<BR/>Time</td>
         </tr>
          @foreach (var sum in Model)
         {
@@ -32,25 +31,38 @@
                 if (LastDate != sum.ItemDate.Value.ToString("d"))
                 {
                     <tr>
-                        <td colspan="4"><br/></td>
+                        <td colspan="3"><br/></td>
                     </tr>
-                    if (Color.Equals("coral"))
-                    {
-                        Color = "yellow";
-                    }
-                    else
-                    {
-                        Color = "coral";
-                    }
-                }
+            if (Color.Equals("lightblue"))
+            {
+                Color = "yellow";
             }
+            else
+            {
+                Color = "lightblue";
+            }
+        }
+    }
 
-            <tr style="background-color:@Color">
 
-                <td>@sum.ItemDate.Value.ToString("d") -</td>
+
+        if (!LastDate.Equals(sum.ItemDate.Value.ToString("d")))
+        {
+            <tr><td colspan="3" style="font-size: large; font-weight: bold">@sum.ItemDate.Value.ToString("D")</td></tr>
+            <td colspan="3"><br/></td>
+        }
+        <tr style="background-color:@Color">
                 <td>@sum.Title</td>
                 <td style="text-align: center">@sum.action</td>
-                <td style="text-align: center">@sum.OZ</td>
+                @if (sum.OZ > 59)
+                {
+                    string totaltime = (sum.OZ / 60).ToString().PadRight(5,' ').Substring(0,5);
+                    <td style="text-align: center">@totaltime hours</td>
+                }
+                else
+                {
+                     <td style="text-align: center">@sum.OZ</td>
+                }
 
             </tr>
 
