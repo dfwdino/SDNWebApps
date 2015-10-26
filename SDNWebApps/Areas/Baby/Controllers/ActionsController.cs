@@ -29,10 +29,16 @@ namespace SDNWebApps.Areas.Baby.Controllers
             return View(actions);
         }
         [HttpPost]
-        public ActionResult Add(Models.Actions.BabyActions actions)
+        public ActionResult Add(Models.Actions.BabyActions babyactions)
         {
-            actions.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(actions.Title.Trim());
-            _se.Actions1.Add(actions);
+            babyactions.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(babyactions.Title.Trim());
+            
+            Actions addActions = new Actions();
+            
+            addActions.CategoryID = babyactions.CategoryID;
+            addActions.Title = babyactions.Title;
+          
+            _se.Actions1.Add(addActions);
             _se.SaveChanges();
 
             var act = new Actions();

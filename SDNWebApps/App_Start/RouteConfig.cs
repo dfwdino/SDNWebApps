@@ -13,7 +13,12 @@ namespace SDNWebApps
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-              
+            routes.MapRoute(
+               name: "Blah",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
+           );
+
 
             routes.MapRoute(
                 name: "Default",

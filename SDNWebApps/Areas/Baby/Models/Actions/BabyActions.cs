@@ -13,8 +13,8 @@ namespace SDNWebApps.Areas.Baby.Models.Actions
         {
             
         }
-
         [DisplayName("Category")]
         public ActionCategory ActionCategory { get; set; }
+
     }
 }

@@ -196,18 +196,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Actions_Actions">
-          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
-          <End Role="Actions1" Type="Self.Actions" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Actions">
-              <PropertyRef Name="index" />
-            </Principal>
-            <Dependent Role="Actions1">
-              <PropertyRef Name="index" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Autos_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="Autos" Type="Self.Autos" Multiplicity="*" />
@@ -371,10 +359,6 @@
           <AssociationSet Name="FK_Actions_ActionCategory" Association="Self.FK_Actions_ActionCategory">
             <End Role="ActionCategory" EntitySet="ActionCategory" />
             <End Role="Actions" EntitySet="Actions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Actions_Actions" Association="Self.FK_Actions_Actions">
-            <End Role="Actions" EntitySet="Actions" />
-            <End Role="Actions1" EntitySet="Actions" />
           </AssociationSet>
           <AssociationSet Name="FK_Autos_People" Association="Self.FK_Autos_People">
             <End Role="People" EntitySet="People" />
@@ -639,8 +623,6 @@
           <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_Baby_Item" FromRole="Action" ToRole="ThingsDone" />
           <Property Name="Delete" Type="Boolean" Nullable="false" />
           <Property Name="CategoryID" Type="Guid" />
-          <NavigationProperty Name="Actions1" Relationship="SDNAppsModel.FK_Actions_Actions" FromRole="Actions" ToRole="Actions1" />
-          <NavigationProperty Name="Action1" Relationship="SDNAppsModel.FK_Actions_Actions" FromRole="Actions1" ToRole="Actions" />
           <NavigationProperty Name="ActionCategory" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="Actions" ToRole="ActionCategory" />
         </EntityType>
         <EntityType Name="ThingsDone">
@@ -840,8 +822,6 @@
           <Property Name="Broswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Station" ToRole="Gallon" />
-          <NavigationProperty Name="Stations1" Relationship="SDNAppsModel.FK_Stations_Stations" FromRole="Station" ToRole="Station1" />
-          <NavigationProperty Name="Station1" Relationship="SDNAppsModel.FK_Stations_Stations" FromRole="Station1" ToRole="Station" />
         </EntityType>
         <Association Name="FK_Gallons_Stations">
           <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="0..1" />

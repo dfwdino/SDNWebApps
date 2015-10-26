@@ -23,7 +23,6 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 
         [Required(ErrorMessage = "Need to pick an start time.")]
         [Display(Name = "Start Time")]
-
         
         public string StartTime { get; set; }
         [Display(Name = "End Time")]

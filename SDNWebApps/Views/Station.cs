@@ -28,7 +28,5 @@ namespace SDNWebApps.Views
         public bool Deleted { get; set; }
     
         public virtual ICollection<Gallon> Gallons { get; set; }
-        public virtual Station Stations1 { get; set; }
-        public virtual Station Station1 { get; set; }
     }
 }

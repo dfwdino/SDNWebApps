@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         // GET: Gas/Stations
         public ActionResult Index()
         {
-            var stations = db.Stations.Include(s => s.Stations1);
+            var stations = db.Stations;
             return View(stations.ToList());
         }
 
