@@ -152,6 +152,7 @@
     <Compile Include="Areas\Baby\Controllers\ActionsController.cs" />
     <Compile Include="Areas\Baby\Controllers\DoneThingsController.cs" />
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
+    <Compile Include="Areas\Baby\Controllers\HomeController.cs" />
     <Compile Include="Areas\Baby\Controllers\LiquidSizesController.cs" />
     <Compile Include="Areas\Baby\Models\Actions\BabyActions.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />
     <Compile Include="Areas\Gas\Controllers\GasNotesController.cs" />
+    <Compile Include="Areas\Gas\Controllers\HomeController.cs" />
     <Compile Include="Areas\Gas\Controllers\MilesController.cs" />
     <Compile Include="Areas\Gas\Controllers\PersonController.cs" />
     <Compile Include="Areas\Gas\Controllers\StationsController.cs" />
@@ -475,6 +477,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Baby\Views\Home\" />
+    <Folder Include="Areas\Gas\Views\Home\" />
     <Folder Include="Areas\Gas\Views\Shared\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
