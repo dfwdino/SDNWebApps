@@ -40,5 +40,6 @@ namespace SDNWebApps.Views
         public DbSet<Weight> Weights { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<GasNote> GasNotes { get; set; }
+        public DbSet<Logging> Loggings { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<SDNWebApps.Views.ActionCategory>
 
+                      
+
 @{
     ViewBag.Title = "Category's";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     ViewBag.Header = "Category's";
+    HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
 
@@ -24,9 +27,12 @@
             @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Index }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Index })
-        </td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Index })
+            @if (Request.Cookies["LoggedIn"] != null)
+            {<span>
+                | @Html.ActionLink("Delete", "Delete", new { id = item.Index })</span>
+                }
+</td>
     </tr>
 }
 

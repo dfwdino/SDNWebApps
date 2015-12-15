@@ -88,7 +88,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
             var removeGallons = ae.Gallons.First(m => m.ID == milesID);
 
 
-            ae.Gallons.Remove(removeGallons);
+            //ae.Gallons.Remove(removeGallons);
+            removeGallons.Delete = true;
             ae.SaveChanges();
 
 

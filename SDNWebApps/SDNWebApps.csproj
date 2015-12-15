@@ -183,8 +183,11 @@
     <Compile Include="Areas\GroceryList\GroceryListAreaRegistration.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ViewItemsVM.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ItemsViewModel.cs" />
-    <Compile Include="Areas\Login\Controllers\LogInController.cs" />
+    <Compile Include="Areas\Login\Controllers\HomeController.cs" />
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
+    <Compile Include="Areas\Logs\Controllers\Home\HomeController.cs" />
+    <Compile Include="Areas\Logs\LogsAreaRegistration.cs" />
+    <Compile Include="Areas\PageLogging.cs" />
     <Compile Include="Areas\Photos\Controller\PhotoController.cs" />
     <Compile Include="Areas\Photos\Models\ImageFile.cs" />
     <Compile Include="Areas\Photos\Models\Photo.cs" />
@@ -242,6 +245,9 @@
     <Compile Include="Views\LiquidSize.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logging.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Person.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -281,6 +287,7 @@
     <Content Include="Content\grocery.min.css">
       <DependentUpon>grocery.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery.simple-dtpicker.css" />
     <Content Include="Content\Main.css">
       <DependentUpon>Main.scss</DependentUpon>
     </Content>
@@ -378,16 +385,22 @@
     <Content Include="Areas\Gas\Views\Stations\Edit.cshtml" />
     <Content Include="Areas\Gas\Views\Stations\Index.cshtml" />
     <Content Include="Areas\Login\Views\web.config" />
-    <Content Include="Areas\Login\Views\LogIn\Create.cshtml" />
-    <Content Include="Areas\Login\Views\LogIn\Delete.cshtml" />
-    <Content Include="Areas\Login\Views\LogIn\Details.cshtml" />
-    <Content Include="Areas\Login\Views\LogIn\Edit.cshtml" />
-    <Content Include="Areas\Login\Views\LogIn\Index.cshtml" />
-    <Content Include="Areas\Login\Views\LogIn\Login.cshtml" />
-    <None Include="Properties\PublishProfiles\Azure.pubxml" />
-    <None Include="Properties\PublishProfiles\SDNWebApps.pubxml" />
+    <Content Include="Areas\Login\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Login\Views\Home\Delete.cshtml" />
+    <Content Include="Areas\Login\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Login\Views\Home\Edit.cshtml" />
+    <Content Include="Areas\Login\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Login\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Logs\Views\web.config" />
+    <Content Include="Areas\Logs\Views\Home\Create.cshtml" />
+    <Content Include="Areas\Logs\Views\Home\Delete.cshtml" />
+    <Content Include="Areas\Logs\Views\Home\Details.cshtml" />
+    <Content Include="Areas\Logs\Views\Home\Edit.cshtml" />
+    <Content Include="Areas\Logs\Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\SDNWebApps - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\A\Items.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -397,6 +410,7 @@
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.simple-dtpicker.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -447,7 +461,6 @@
     <Content Include="Content\Main.css.map">
       <DependentUpon>Main.css</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\tasks.js" />
     <Content Include="Scripts\items.js" />
     <Content Include="Scripts\store.js" />
@@ -482,6 +495,8 @@
     <Folder Include="Areas\Gas\Views\Shared\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
+    <Folder Include="Areas\Logs\Models\" />
+    <Folder Include="Areas\Logs\Views\Shared\" />
     <Folder Include="Areas\WeightTracking\Models\" />
     <Folder Include="Areas\WeightTracking\Views\Shared\" />
     <Folder Include="Content\themes\base\minified\images\" />

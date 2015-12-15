@@ -85,8 +85,11 @@
     <div style="padding-top: 10px;padding-left: 10px">
         <span style="width: 150px;text-align: left;padding-right: 5px">
             <input type="submit" value="Update" />
-        </span> - @Html.ActionLink("Delete", "Delete", new { id = Model.Index })
-    </div>
+        </span> @if (Request.Cookies["LoggedIn"] != null)
+                {
+                    <span> - @Html.ActionLink("Delete", "Delete", new {id = Model.Index})</span>
+                }
+</div>
 }
 <br/>
 <br/>

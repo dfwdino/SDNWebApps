@@ -128,7 +128,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             GasNote gasNote = db.GasNotes.Find(id);
-            db.GasNotes.Remove(gasNote);
+            //db.GasNotes.Remove(gasNote);
+            gasNote.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

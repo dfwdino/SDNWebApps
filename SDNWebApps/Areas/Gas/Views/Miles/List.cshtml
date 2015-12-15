@@ -72,7 +72,9 @@
                     }
                 }
                 <td style="width: 50px;text-align: center">@(fillup.Station == null ? "" : fillup.Station.StationName)</td>
-                <td> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </td>
+                <td> @if (Request.Cookies["LoggedIn"] != null)
+                {
+                    <span> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </span>}</td>
             </tr>
 
 

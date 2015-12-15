@@ -1,0 +1,89 @@
+﻿@model IEnumerable<SDNWebApps.Views.Logging>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ControllerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActionParameters)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AbsoluteUri)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.IPAddress)*@
+                <a href="http://www.ipaddresslocation.org/ip-address-locator.php?lookup=@item.IPAddress" target="blank">@item.IPAddress</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ControllerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActionName)
+            </td>
+            <td>
+                @if (item.ActionParameters != null)
+                {
+                    if (item.ActionParameters.IndexOf("id,", StringComparison.CurrentCultureIgnoreCase) > 0)
+                     {
+                         @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new {id = item.ActionParameters.Substring(5, item.ActionParameters.Length - 6)}, null)
+                     }
+                     else if (item.ActionParameters.IndexOf("ShowSummary,", StringComparison.CurrentCultureIgnoreCase) > 0)
+                     {
+                         @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new {ShowSummary = item.ActionParameters.Substring("ShowSummary, ".Length, item.ActionParameters.Length - ("ShowSummary, ".Length + 1)).Trim()}, null)
+                     }
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.ActionParameters)
+                }
+            </td>
+
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.AbsoluteUri)*@
+                @if (item.AbsoluteUri != null)
+                {
+                    <a href="@item.AbsoluteUri" target="blank">@item.AbsoluteUri</a>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

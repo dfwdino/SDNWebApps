@@ -3,6 +3,9 @@
     HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -18,19 +21,25 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-    <li>@Html.ActionLink("Grocery", "Index", "Home", new { area = "GroceryList" }, new { @class = "MenuBar" }) </li>
-    <li>@Html.ActionLink("Gas", "List", "Person", new { area = "Gas" }, new { @class = "MenuBar" }) </li>
-    <li>@Html.ActionLink("Tasks", "Index", "Home", new { area = "Tasks" }, new { @class = "MenuBar" })</li>
-    <li>@Html.ActionLink("Baby", "Index", "DoneThings", new { area = "Baby" }, new { @class = "MenuBar" })</li>
+                <li>@Html.ActionLink("Grocery", "Index", "Home", new {area = "GroceryList"}, new {@class = "MenuBar"}) </li>
+                <li class="divider"></li>
+                <li>@Html.ActionLink("Gas", "List", "Person", new {area = "Gas"}, new {@class = "MenuBar"}) </li>
+                <li class="divider"></li>
+                <li>@Html.ActionLink("Tasks", "Index", "Home", new {area = "Tasks"}, new {@class = "MenuBar"})</li>
+                <li class="divider"></li>
+                <li>@Html.ActionLink("Baby", "Index", "DoneThings", new {area = "Baby"}, new {@class = "MenuBar"})</li>
+                <li class="divider"></li>
     @if (Request.Cookies["LoggedIn"] == null)
     {
-                 
-        <li>@Html.ActionLink("Login", "Login", "LogIn", new { area = "Login" }, new { @class = "MenuBar" })</li>
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Login", "Login", "Home", new { area = "Login" }, new { @class = "MenuBar" })</li>
+        </ul>
     }
     else
     {
         string @myid = Request.Cookies["SDNID"].Value;
-        <li>@Html.ActionLink("Change Info", "Edit", "LogIn", new { area = "Login", id = @myid }, new { @class = "MenuBar" })</li>
+        <li>@Html.ActionLink("Change Info", "Edit", "LogIn", new {area = "Login", id = @myid}, new {@class = "MenuBar"})</li>
+        <li>@Html.ActionLink("Logs", "Index", "Home", new { area = "Logs", id = @myid }, new { @class = "MenuBar" })</li>
         <li>@Html.ActionLink("Weight", "Index", "Wt", new { area = "WeightTracking" }, new { @class = "MenuBar" })</li>
         <li><a style="link: white;" class="MenuBar" href="http://dfwdino.dyndns.org/events" target="_blank">Events</a></li>
         @*<li>@Html.ActionLink("Dreams", "Index", "Dreams", new { area = "Dreams" }, new { @class = "MenuBar" })</li>*@

@@ -13,7 +13,7 @@ using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Login.Controllers
 {
-    public class LogInController : Controller
+    public class HomeController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();
 

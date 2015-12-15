@@ -12,21 +12,15 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Auto
+    public partial class Logging
     {
-        public Auto()
-        {
-            this.Gallons = new HashSet<Gallon>();
-            this.GasNotes = new HashSet<GasNote>();
-        }
-    
         public int ID { get; set; }
-        public int WhosCar { get; set; }
-        public string AutoName { get; set; }
-        public Nullable<bool> Delete { get; set; }
-    
-        public virtual ICollection<Gallon> Gallons { get; set; }
-        public virtual Person Person { get; set; }
-        public virtual ICollection<GasNote> GasNotes { get; set; }
+        public System.DateTime Date { get; set; }
+        public string IPAddress { get; set; }
+        public string ControllerName { get; set; }
+        public string ActionName { get; set; }
+        public string ActionParameters { get; set; }
+        public string AbsoluteUri { get; set; }
+        public string Notes { get; set; }
     }
 }

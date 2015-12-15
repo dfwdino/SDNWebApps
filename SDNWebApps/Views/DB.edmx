@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SDNAppsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActionCategory">
           <Key>
             <PropertyRef Name="Index" />
@@ -66,6 +66,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WhosCar" Type="int" Nullable="false" />
           <Property Name="AutoName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delete" Type="bit" />
         </EntityType>
         <EntityType Name="Gallons">
           <Key>
@@ -81,6 +82,7 @@
           <Property Name="TankFilled" Type="bit" Nullable="false" />
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="StationID" Type="int" />
+          <Property Name="Delete" Type="bit" />
         </EntityType>
         <EntityType Name="GasNotes">
           <Key>
@@ -105,6 +107,7 @@
           <Property Name="Username" Type="nvarchar" MaxLength="25" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="SaltHash" Type="nvarchar" MaxLength="50" />
+          <Property Name="Delete" Type="bit" />
         </EntityType>
         <EntityType Name="Stations">
           <Key>
@@ -138,6 +141,19 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StoreName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logging">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="20" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActionParameters" Type="nvarchar(max)" />
+          <Property Name="AbsoluteUri" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -353,6 +369,7 @@
           <EntitySet Name="Stations" EntityType="Self.Stations" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
+          <EntitySet Name="Logging" EntityType="Self.Logging" Schema="Logging" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
           <EntitySet Name="Size" EntityType="Self.Size" Schema="weighttracking" store:Type="Tables" />
           <EntitySet Name="Weight" EntityType="Self.Weight" Schema="weighttracking" store:Type="Tables" />
@@ -489,6 +506,7 @@
             <End Role="Auto" EntitySet="Autos" />
             <End Role="GasNote" EntitySet="GasNotes" />
           </AssociationSet>
+          <EntitySet Name="Loggings" EntityType="SDNAppsModel.Logging" />
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -500,6 +518,7 @@
           <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Auto" ToRole="Gallon" />
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Auto" ToRole="Person" />
           <NavigationProperty Name="GasNotes" Relationship="SDNAppsModel.FK_GasNotes_Autos" FromRole="Auto" ToRole="GasNote" />
+          <Property Name="Delete" Type="Boolean" />
           </EntityType>
         <EntityType Name="Gallon">
           <Key>
@@ -517,6 +536,7 @@
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StationID" Type="Int32" />
           <NavigationProperty Name="Station" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Gallon" ToRole="Station" />
+          <Property Name="Delete" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Gallons_Autos">
           <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
@@ -578,6 +598,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SaltHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sizes" Relationship="SDNAppsModel.FK_Size_People" FromRole="Person" ToRole="Size" />
+          <Property Name="Delete" Type="Boolean" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -874,6 +895,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Logging">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActionParameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AbsoluteUri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -883,6 +917,7 @@
           <EntitySetMapping Name="Autos">
             <EntityTypeMapping TypeName="SDNAppsModel.Auto">
               <MappingFragment StoreEntitySet="Autos">
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="AutoName" ColumnName="AutoName" />
                 <ScalarProperty Name="WhosCar" ColumnName="WhosCar" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -892,6 +927,7 @@
           <EntitySetMapping Name="Gallons">
             <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
               <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="StationID" ColumnName="StationID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
@@ -931,6 +967,7 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="SDNAppsModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="SaltHash" ColumnName="SaltHash" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1074,6 +1111,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Loggings">
+            <EntityTypeMapping TypeName="SDNAppsModel.Logging">
+              <MappingFragment StoreEntitySet="Logging">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="AbsoluteUri" ColumnName="AbsoluteUri" />
+                <ScalarProperty Name="ActionParameters" ColumnName="ActionParameters" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1091,7 +1142,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

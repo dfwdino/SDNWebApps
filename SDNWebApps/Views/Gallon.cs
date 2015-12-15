@@ -24,6 +24,7 @@ namespace SDNWebApps.Views
         public bool TankFilled { get; set; }
         public string Notes { get; set; }
         public Nullable<int> StationID { get; set; }
+        public Nullable<bool> Delete { get; set; }
     
         public virtual Auto Auto { get; set; }
         public virtual Station Station { get; set; }

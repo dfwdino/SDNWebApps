@@ -6,6 +6,7 @@
     ViewBag.Title = "Action List";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     ViewBag.Header = "Action List";
+    HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
 <p>
@@ -31,9 +32,12 @@
             @Html.DisplayFor(modelItem => item.ActionCategory.Category)
         </td>
         <td style="padding-left: 5px">
-            @Html.ActionLink("Update", "Edit", new { id=item.index }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.index })
-        </td>
+            @Html.ActionLink("Update", "Edit", new { id = item.index })
+            @if (Request.Cookies["LoggedIn"] != null)
+            {<span>
+                | @Html.ActionLink("Delete", "Delete", new { id = item.index })</span>
+                }
+</td>
     </tr>
 }
 

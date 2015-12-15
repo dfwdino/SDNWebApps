@@ -3,6 +3,7 @@
 @using System.Web.Mvc.Html
 @using Microsoft.Ajax.Utilities
 @using SDNWebApps.Views
+@using System.Web.Optimization
 @model SDNWebApps.Areas.Baby.Models.DoneThings.AddViewModel
 
 @{
@@ -25,7 +26,25 @@
     }
 </style>
 
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery.simple-dtpicker.js"></script>
+<link href="~/Content/jquery.simple-dtpicker.css" rel="stylesheet" />
 <script>
+    
+    function GetCurrentDateTime(field) {
+        var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+    }
+
+    function addRow() {
+
+        $("#actionCopy").clone().find("input").each(function () {
+            $(this).val('');
+        }).end().appendTo("#actions");
+
+    }
+
     $(document).ready(function () { $("#LNotes").click(function () { $("#TANotes").toggle(); }); });
     
     var la = document.getElementById("Latitude");
@@ -35,14 +54,21 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
         }
-        //else {
-        //    alert("Geolocation is not supported by this browser.");
-        //}
+        
     }
     function showPosition(position) {
         document.getElementById("Latitude").value = position.coords.latitude;
         document.getElementById("Longitude").value = position.coords.longitude;
     }
+
+    //$(function () {
+    //    $('#StartTime').appendDtpicker({
+    //        "minuteInterval": 15,
+    //        'dateFormat': 'MM/DD/YYYY hh:mm'
+    //    });
+    //});
+
+   
 
 </script>
 
@@ -62,7 +88,7 @@
                         @Html.LabelFor(m => m.Actions)
                         @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
                         @Html.Label("Amount")
-                        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 25px" })  @Html.DropDownListFor(x => POS, LiquidTypes)
+                        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 35px" })  @Html.DropDownListFor(x => POS, LiquidTypes)
                     </div>
                 </div>
                 <br />
@@ -70,7 +96,7 @@
                 <br />
                 <br />
                 @Html.Label("Start")
-                @Html.TextBoxFor(m => m.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
+               @Html.TextBoxFor(m => Model.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
 
                 @Html.Label("End")
                 @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
@@ -78,7 +104,7 @@
                 <div style="width: 150px; display: inline-block;">
                     @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
 
-                    <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "15" })</div> <br />
+                    <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "25" })</div> <br />
                 </div>
 
             </div>
@@ -90,18 +116,5 @@
 
 </body>
 
-<script type="text/javascript">
 
-        function GetCurrentDateTime(field) {
-            var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
-        }
-
-        function addRow() {
-
-            $("#actionCopy").clone().find("input").each(function () {
-                $(this).val('');
-            }).end().appendTo("#actions");
-
-        }
-    </script>
 

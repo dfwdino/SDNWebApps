@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
 <h2>Index</h2>
@@ -24,7 +25,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
@@ -36,9 +38,11 @@
         @Html.DisplayFor(modelItem => item.LiquidSize1.Type)
     </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteConfirmed", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+            @if (Request.Cookies["LoggedIn"] != null)
+            {<span> | @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.Id })</span>}
         </td>
+
     </tr>
 }
 

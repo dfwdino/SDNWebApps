@@ -27,6 +27,7 @@ namespace SDNWebApps.Views
         public string Username { get; set; }
         public string Password { get; set; }
         public string SaltHash { get; set; }
+        public Nullable<bool> Delete { get; set; }
     
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }

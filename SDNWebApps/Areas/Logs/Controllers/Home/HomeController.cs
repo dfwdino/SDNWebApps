@@ -8,120 +8,109 @@ using System.Web;
 using System.Web.Mvc;
 using SDNWebApps.Views;
 
-namespace SDNWebApps.Areas.Gas.Controllers
+namespace SDNWebApps.Areas.Logs
 {
-    public class StationsController : Controller
+    public class HomeController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();
 
-        // GET: Gas/Stations
+        // GET: Logs/Home
         public ActionResult Index()
         {
-            var stations = db.Stations;
-            return View(stations.ToList());
+            return View(db.Loggings.OrderByDescending(m => m.ID).ToList());
         }
 
-        // GET: Gas/Stations/Details/5
+        // GET: Logs/Home/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = db.Stations.Find(id);
-            if (station == null)
+            Logging logging = db.Loggings.Find(id);
+            if (logging == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(logging);
         }
 
-        // GET: Gas/Stations/Create
+        // GET: Logs/Home/Create
         public ActionResult Create()
         {
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
-            ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
             return View();
         }
 
-        // POST: Gas/Stations/Create
+        // POST: Logs/Home/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StationID,StationName,CreatedOn,UpdatedOn,IPAddress,Broswer,Deleted")] Station station)
+        public ActionResult Create([Bind(Include = "ID,Date,IPAddress,ControllerName,ActionName,ActionParameters,AbsoluteUri,Notes")] Logging logging)
         {
             if (ModelState.IsValid)
             {
-                station.CreatedOn = DateTime.Now;
-                db.Stations.Add(station);
+                db.Loggings.Add(logging);
                 db.SaveChanges();
-                return RedirectToAction("List","Person");
+                return RedirectToAction("Index");
             }
 
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            return View(station);
+            return View(logging);
         }
 
-        // GET: Gas/Stations/Edit/5
+        // GET: Logs/Home/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = db.Stations.Find(id);
-            if (station == null)
+            Logging logging = db.Loggings.Find(id);
+            if (logging == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            return View(station);
+            return View(logging);
         }
 
-        // POST: Gas/Stations/Edit/5
+        // POST: Logs/Home/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StationID,StationName,CreatedOn,UpdatedOn,IPAddress,Broswer,Deleted")] Station station)
+        public ActionResult Edit([Bind(Include = "ID,Date,IPAddress,ControllerName,ActionName,ActionParameters,AbsoluteUri,Notes")] Logging logging)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(station).State = EntityState.Modified;
+                db.Entry(logging).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
-            return View(station);
+            return View(logging);
         }
 
-        // GET: Gas/Stations/Delete/5
+        // GET: Logs/Home/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Station station = db.Stations.Find(id);
-            if (station == null)
+            Logging logging = db.Loggings.Find(id);
+            if (logging == null)
             {
                 return HttpNotFound();
             }
-            return View(station);
+            return View(logging);
         }
 
-        // POST: Gas/Stations/Delete/5
+        // POST: Logs/Home/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Station station = db.Stations.Find(id);
-            //db.Stations.Remove(station);
-            station.Deleted = true;
+            Logging logging = db.Loggings.Find(id);
+            db.Loggings.Remove(logging);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
