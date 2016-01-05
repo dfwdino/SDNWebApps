@@ -22,6 +22,9 @@ namespace SDNWebApps.Views
         public int Id { get; set; }
         public string Type { get; set; }
         public bool Deleted { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual LiquidSize LiquidSize1 { get; set; }
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }

@@ -23,6 +23,9 @@ namespace SDNWebApps.Views
         public string Title { get; set; }
         public bool Delete { get; set; }
         public Nullable<System.Guid> CategoryID { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }
         public virtual ActionCategory ActionCategory { get; set; }

@@ -21,6 +21,9 @@ namespace SDNWebApps.Views
         public bool DidMeditation { get; set; }
         public bool Deleted { get; set; }
         public string Links { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual Person Person1 { get; set; }
     }

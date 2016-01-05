@@ -23,6 +23,9 @@ namespace SDNWebApps.Views
         public string Amount { get; set; }
         public Nullable<System.DateTime> LastGotten { get; set; }
         public string ImageLocation { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual Store Store { get; set; }
     }

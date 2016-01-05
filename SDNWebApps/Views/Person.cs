@@ -28,6 +28,9 @@ namespace SDNWebApps.Views
         public string Password { get; set; }
         public string SaltHash { get; set; }
         public Nullable<bool> Delete { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }

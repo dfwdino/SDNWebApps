@@ -12,6 +12,9 @@
           <Property Name="Index" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Actions">
           <Key>
@@ -21,6 +24,9 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Delete" Type="bit" Nullable="false" />
           <Property Name="CategoryID" Type="uniqueidentifier" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="LiquidSize">
           <Key>
@@ -29,6 +35,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
@@ -58,6 +67,9 @@
           <Property Name="DidMeditation" Type="bit" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="Links" Type="nvarchar(max)" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Autos">
           <Key>
@@ -67,6 +79,9 @@
           <Property Name="WhosCar" Type="int" Nullable="false" />
           <Property Name="AutoName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Delete" Type="bit" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Gallons">
           <Key>
@@ -83,6 +98,9 @@
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="StationID" Type="int" />
           <Property Name="Delete" Type="bit" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="GasNotes">
           <Key>
@@ -108,6 +126,9 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="SaltHash" Type="nvarchar" MaxLength="50" />
           <Property Name="Delete" Type="bit" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Stations">
           <Key>
@@ -134,6 +155,9 @@
           <Property Name="Amount" Type="nvarchar" MaxLength="50" />
           <Property Name="LastGotten" Type="date" />
           <Property Name="ImageLocation" Type="nvarchar(max)" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Stores">
           <Key>
@@ -141,6 +165,10 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StoreName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Deleted" Type="bit" />
         </EntityType>
         <EntityType Name="Logging">
           <Key>
@@ -164,6 +192,10 @@
           <Property Name="DueDate" Type="date" />
           <Property Name="Done" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Deleted" Type="bit" />
         </EntityType>
         <EntityType Name="Size">
           <Key>
@@ -519,6 +551,9 @@
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Auto" ToRole="Person" />
           <NavigationProperty Name="GasNotes" Relationship="SDNAppsModel.FK_GasNotes_Autos" FromRole="Auto" ToRole="GasNote" />
           <Property Name="Delete" Type="Boolean" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="Gallon">
           <Key>
@@ -537,6 +572,9 @@
           <Property Name="StationID" Type="Int32" />
           <NavigationProperty Name="Station" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Gallon" ToRole="Station" />
           <Property Name="Delete" Type="Boolean" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Gallons_Autos">
           <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
@@ -564,6 +602,9 @@
           <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastGotten" Type="DateTime" Precision="0" />
           <Property Name="ImageLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -572,6 +613,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StoreName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Items" Relationship="SDNAppsModel.FK_Items_Stores" FromRole="Store" ToRole="Item" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Items_Stores">
           <End Type="SDNAppsModel.Store" Role="Store" Multiplicity="0..1" />
@@ -599,6 +644,9 @@
           <Property Name="SaltHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sizes" Relationship="SDNAppsModel.FK_Size_People" FromRole="Person" ToRole="Size" />
           <Property Name="Delete" Type="Boolean" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -610,6 +658,10 @@
           <Property Name="Done" Type="Boolean" Nullable="false" />
           <Property Name="PersonID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Tasks_People1" FromRole="Task" ToRole="Person" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Autos_People">
           <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
@@ -645,6 +697,9 @@
           <Property Name="Delete" Type="Boolean" Nullable="false" />
           <Property Name="CategoryID" Type="Guid" />
           <NavigationProperty Name="ActionCategory" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="Actions" ToRole="ActionCategory" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
@@ -689,6 +744,9 @@
           <Property Name="DidMeditation" Type="Boolean" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="Links" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Dreams_People">
           <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="0..1" />
@@ -722,6 +780,9 @@
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Actions" Relationship="SDNAppsModel.FK_Actions_ActionCategory" FromRole="ActionCategory" ToRole="Actions" />
           <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Actions_ActionCategory">
           <End Type="SDNAppsModel.ActionCategory" Role="ActionCategory" Multiplicity="0..1" />
@@ -744,6 +805,9 @@
           <NavigationProperty Name="LiquidSize1" Relationship="SDNAppsModel.FK_LiquidSize_LiquidSize" FromRole="LiquidSize1" ToRole="LiquidSize" />
           <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_LiquidSize" FromRole="LiquidSize" ToRole="ThingsDone" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_LiquidSize_LiquidSize">
           <End Type="SDNAppsModel.LiquidSize" Role="LiquidSize" Multiplicity="1" />
@@ -917,6 +981,9 @@
           <EntitySetMapping Name="Autos">
             <EntityTypeMapping TypeName="SDNAppsModel.Auto">
               <MappingFragment StoreEntitySet="Autos">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="AutoName" ColumnName="AutoName" />
                 <ScalarProperty Name="WhosCar" ColumnName="WhosCar" />
@@ -927,6 +994,9 @@
           <EntitySetMapping Name="Gallons">
             <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
               <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="StationID" ColumnName="StationID" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
@@ -944,6 +1014,9 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="SDNAppsModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="ImageLocation" ColumnName="ImageLocation" />
                 <ScalarProperty Name="LastGotten" ColumnName="LastGotten" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
@@ -959,6 +1032,10 @@
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="SDNAppsModel.Store">
               <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="StoreName" ColumnName="StoreName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -967,6 +1044,9 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="SDNAppsModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="SaltHash" ColumnName="SaltHash" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -979,6 +1059,10 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="SDNAppsModel.Task">
               <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="Done" ColumnName="Done" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
@@ -990,6 +1074,9 @@
           <EntitySetMapping Name="Actions1">
             <EntityTypeMapping TypeName="SDNAppsModel.Actions">
               <MappingFragment StoreEntitySet="Actions">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -1018,6 +1105,9 @@
           <EntitySetMapping Name="Dreams">
             <EntityTypeMapping TypeName="SDNAppsModel.Dream">
               <MappingFragment StoreEntitySet="Dreams">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Links" ColumnName="Links" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="DidMeditation" ColumnName="DidMeditation" />
@@ -1031,6 +1121,9 @@
           <EntitySetMapping Name="ActionCategories">
             <EntityTypeMapping TypeName="SDNAppsModel.ActionCategory">
               <MappingFragment StoreEntitySet="ActionCategory">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Index" ColumnName="Index" />
@@ -1040,6 +1133,9 @@
           <EntitySetMapping Name="LiquidSizes">
             <EntityTypeMapping TypeName="SDNAppsModel.LiquidSize">
               <MappingFragment StoreEntitySet="LiquidSize">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

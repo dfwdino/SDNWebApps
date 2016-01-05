@@ -22,6 +22,9 @@ namespace SDNWebApps.Views
         public System.Guid Index { get; set; }
         public string Category { get; set; }
         public bool Delete { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual ICollection<Actions> Actions { get; set; }
     }

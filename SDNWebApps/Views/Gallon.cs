@@ -25,6 +25,9 @@ namespace SDNWebApps.Views
         public string Notes { get; set; }
         public Nullable<int> StationID { get; set; }
         public Nullable<bool> Delete { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual Auto Auto { get; set; }
         public virtual Station Station { get; set; }

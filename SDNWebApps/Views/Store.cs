@@ -21,6 +21,10 @@ namespace SDNWebApps.Views
     
         public int ID { get; set; }
         public string StoreName { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public Nullable<bool> Deleted { get; set; }
     
         public virtual ICollection<Item> Items { get; set; }
     }

@@ -24,6 +24,9 @@ namespace SDNWebApps.Views
         public int WhosCar { get; set; }
         public string AutoName { get; set; }
         public Nullable<bool> Delete { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
     
         public virtual ICollection<Gallon> Gallons { get; set; }
         public virtual Person Person { get; set; }

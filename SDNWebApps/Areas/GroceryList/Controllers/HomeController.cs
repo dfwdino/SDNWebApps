@@ -22,6 +22,14 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             return Json(results, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult List(string term)
+        {
+            
+            
+
+            return Json(ae.Items.Where(m => m.Name.Contains(term)).Select(m => new { value = m.Name, m.ID }).OrderBy(m => m.value).DistinctBy(m => m.value), JsonRequestBehavior.AllowGet); 
+        }
+
         public ActionResult Aindex()
         {
             return View();

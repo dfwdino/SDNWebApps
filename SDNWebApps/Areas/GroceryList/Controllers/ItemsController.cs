@@ -99,23 +99,29 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
         [HttpPost]
         public ActionResult AddItem(HttpPostedFileBase uploadFile, ItemsViewModel itemsViewModel)
         {
-            
-            var newItem = sdnApps.Items.FirstOrDefault(m => m.Name == "");
+
+            var newItem = sdnApps.Items.FirstOrDefault(m => m.Name == itemsViewModel.Name);
 
             if (newItem == null)
-                newItem = new Item { Name = itemsViewModel.Name, Price = Convert.ToDecimal(itemsViewModel.Price),
-                    StoreID = itemsViewModel.SelectedItemId, Have = false, Amount = itemsViewModel.Amount};
+            {
+                newItem = new Item
+                {
+                    Name = itemsViewModel.Name,
+                    Price = Convert.ToDecimal(itemsViewModel.Price),
+                    StoreID = itemsViewModel.SelectedItemId,
+                    Have = false,
+                    Amount = itemsViewModel.Amount
+                };
+            
+                if (uploadFile != null && uploadFile.ContentLength > 0)
+                {
+                    newItem.Image = new byte[uploadFile.ContentLength];
+                    uploadFile.InputStream.Read(newItem.Image, 0, uploadFile.ContentLength);
+                }
+            
+            }
             else
                 newItem.Have = false;
-
-
-            if (uploadFile != null && uploadFile.ContentLength > 0)
-            {
-                newItem.Image = new byte[uploadFile.ContentLength];
-                uploadFile.InputStream.Read(newItem.Image, 0, uploadFile.ContentLength);
-            }
-
-            newItem.Amount = itemsViewModel.Amount;
 
             sdnApps.Items.Add(newItem);
             sdnApps.SaveChanges();
