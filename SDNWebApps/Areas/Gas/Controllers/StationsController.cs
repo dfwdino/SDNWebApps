@@ -38,11 +38,48 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
         // GET: Gas/Stations/Create
         public ActionResult Create()
-        {
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
+        {   
             ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
             return View();
         }
+
+        [HttpGet]
+        public PartialViewResult PopUpCreate()
+        {
+            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
+            return PartialView();
+        }
+
+        // POST: Gas/Stations/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        public ActionResult PopUpCreate([Bind(Include = "StationID,StationName,CreatedOn,UpdatedOn,IPAddress,Broswer,Deleted")] Station station)
+        {
+          if (ModelState.IsValid)
+            {
+                station.CreatedOn = DateTime.Now;
+                db.Stations.Add(station);
+                db.SaveChanges();
+                return PartialView(); 
+                
+                //return Json("pelase");
+            }
+
+            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
+            //return PartialView(); // View(station);
+            return Json("why");
+        }
+
+        [HttpGet]
+        public virtual JsonResult GetStations()
+        {
+            var AllStations = Json(db.Stations.Select(m => new {ID = m.StationID, value = m.StationName}),
+                JsonRequestBehavior.AllowGet);
+
+            return AllStations;
+        }
+
 
         // POST: Gas/Stations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -58,8 +95,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 db.SaveChanges();
                 return RedirectToAction("List","Person");
             }
-
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
+            
             ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName", station.StationID);
             return View(station);
         }

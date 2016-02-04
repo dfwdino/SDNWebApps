@@ -11,54 +11,134 @@
         padding-bottom: 10px;
     }
 </style>
+
+<link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel='stylesheet' />
+
+<script>
+
+
+    function LoadInfo() {
+
+        $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {
+            //alert(data);
+           
+            var select = document.getElementById("SelectedStation");
+            var length = select.options.length;
+
+            while (document.getElementById("SelectedStation").options.length > 0) {
+                select = document.getElementById("SelectedStation");
+                length = select.options.length;
+
+                for (i = 0; i < length; i++) {
+                    select.options[i] = null;
+                }
+            }
+           
+
+            $('#SelectedStation').append($('<option/>').attr("value", '').text("Where Did You Go?"));
+            //alert(document.getElementById("SelectedStation").options.length);
+
+            $.each(data, function (i, option) {
+                $('#SelectedStation').append($('<option/>').attr("value", option.ID).text(option.value));
+            });
+
+            //alert('goodbye2');
+            });
+    }
+
+    $(document).ready(function() {
+        $("#addmore").click(function(event) {
+
+            @*$("#dialog").load('@Url.Action("PopUpCreate", "Stations")', function (responseText, textStatus, XMLHttpRequest) {
+            if (textStatus == "error") {
+                alert("Error");
+            } else {
+                $(this).dialog({
+                    width: 800,
+                    hight: 400,
+                    //title: 'please select an employee',
+                    modal: true });
+            }
+        });*@
+
+            $("#dialog").dialog({
+                //width: 200,
+                auto:true,
+                //resizable: true,
+                //draggable: true,
+                title: "New Stations",
+                model: true,
+                cache: false,
+                closeText: 'X',
+                //closeOnEscape: true,
+                open: function (event, ui) {
+                    $(this).parent().appendTo($("form:first"));
+                    //Load the Partial View Here using Controller and Action
+                    $("#dialog").load('@Url.Action("PopUpCreate", "Stations")');
+                },
+                close: function() {
+                     LoadInfo();
+                }
+            });
+
+
+        });
+
+        });
+
+
+</script>
+
+
 <div style="padding-left: 5px">
     @Html.ActionLink("View Miles", "List", "Miles", new { ID = Model.AutoID }, null)
 
-
+    
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(m => m.AutoID)<br />
 
         <div>
             @Html.LabelFor(m => m.TotalPrice)
-        @Html.TextBoxFor(m => m.TotalPrice)
-    </div>
+            @Html.TextBoxFor(m => m.TotalPrice)
+        </div>
 
         <div>
             @Html.LabelFor(m => m.TotalGallons)
-        @Html.TextBoxFor(m => m.TotalGallons)
-    </div>
+            @Html.TextBoxFor(m => m.TotalGallons)
+        </div>
 
 
         <div>
             @Html.LabelFor(m => m.TotalMiles)
-        @Html.TextBoxFor(m => m.TotalMiles)
-    </div>
+            @Html.TextBoxFor(m => m.TotalMiles)
+        </div>
 
         <div>
             @Html.LabelFor(m => m.Stations)
-        @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) @Html.ActionLink("Add new Station","Create","Stations")
-    </div>
+            @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
+            @*@Html.ActionLink("Add new Station", "Create", "Stations")*@
 
+       
+        </div>
+        
+        @*<div>
+                    @Html.LabelFor(m => m.GasDate)
+                @Html.TextBoxFor(m => m.GasDate)
+            </div>
 
-        <div>
-            @Html.LabelFor(m => m.GasDate)
-        @Html.TextBoxFor(m => m.GasDate)
-    </div>
+                <div>
+                    @Html.LabelFor(m => m.DrivenMiles)
+                @Html.TextBoxFor(m => m.DrivenMiles)
+            </div>
 
-        <div>
-            @Html.LabelFor(m => m.DrivenMiles)
-        @Html.TextBoxFor(m => m.DrivenMiles)
-    </div>
-
-
-
-
-        @*<div>@Html.LabelFor(m => m.TankFilled)
-            @Html.CheckBoxFor(m => m.TankFilled)</div>*@
+        <div>@Html.LabelFor(m => m.TankFilled)
+        @Html.CheckBoxFor(m => m.TankFilled)</div>*@
         <br />
 
-        <input type="submit" value="Add" />
+        <input type="submit" value="Add"/>
+
+      
     }
 </div>
 @Styles.Render("~/Content/css")
@@ -67,10 +147,16 @@
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/jqueryval")
 
+<div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
+
+</div>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
         $('#GasDate').datepicker();
     });
+
+
+
 </script>

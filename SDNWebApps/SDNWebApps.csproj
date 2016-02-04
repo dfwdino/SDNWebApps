@@ -288,6 +288,7 @@
     <Content Include="Areas\Baby\Views\LiquidSizes\Details.cshtml" />
     <Content Include="Areas\Baby\Views\LiquidSizes\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\LiquidSizes\Index.cshtml" />
+    <Content Include="Areas\Gas\Views\Stations\PopUpCreate.cshtml" />
     <None Include="Areas\GroceryList\Views\Home\AIndex.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

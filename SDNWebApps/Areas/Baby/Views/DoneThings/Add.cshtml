@@ -11,10 +11,24 @@
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     int POS = 3;
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
-        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
+        new SelectListItem {Value = SqlFunctions.StringConvert((double) m.index).Trim(), Text = m.Title}).ToList();
+
+    DateTime mindate = DateTime.Now.AddDays(-3).Date;
+
+    List<System.Web.Mvc.SelectListItem> topfive = new SDNAppsEntities().ThingsDones.Where(m => m.StartTime > mindate).GroupBy(m => m.Actions).Select(n => new {title = n.Key.Title, index = n.Key.index, count = n.Count()})
+.OrderByDescending(m => m.count).Take(5).Select(m =>new SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.title }).OrderBy(m => m.Text).ToList();
+
+    ListToUse.Insert(0, new SelectListItem { Text = "----Top 5----" });
+
+    for (int i = 0; i <= topfive.Count - 1; i++)
+    {
+        ListToUse.Insert(i+1,topfive[i]);
+    }
+
+    ListToUse.Insert(topfive.Count, new SelectListItem { Text = "-------------------" });
 
     List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
-        new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type, Selected = (m.Id == 3) }).ToList();
+new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type, Selected = (m.Id == 3) }).ToList();
 }
 
 <style>
