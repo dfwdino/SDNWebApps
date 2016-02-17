@@ -39,6 +39,32 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="Reminders">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="RemeberType" Type="int" Nullable="false" />
+          <Property Name="Every" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReminderTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
             <PropertyRef Name="index" />
@@ -328,6 +354,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reminders_Actions">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="Reminders" Type="Self.Reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Reminders">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reminders_ReminderTypes">
+          <End Role="ReminderTypes" Type="Self.ReminderTypes" Multiplicity="1" />
+          <End Role="Reminders" Type="Self.Reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReminderTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reminders">
+              <PropertyRef Name="RemeberType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Size_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="Size" Type="Self.Size" Multiplicity="*" />
@@ -392,6 +442,8 @@
           <EntitySet Name="ActionCategory" EntityType="Self.ActionCategory" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="LiquidSize" EntityType="Self.LiquidSize" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
@@ -436,6 +488,14 @@
           <AssociationSet Name="FK_LiquidSize_LiquidSize" Association="Self.FK_LiquidSize_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSize" />
             <End Role="LiquidSize1" EntitySet="LiquidSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reminders_Actions" Association="Self.FK_Reminders_Actions">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="Reminders" EntitySet="Reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reminders_ReminderTypes" Association="Self.FK_Reminders_ReminderTypes">
+            <End Role="ReminderTypes" EntitySet="ReminderTypes" />
+            <End Role="Reminders" EntitySet="Reminders" />
           </AssociationSet>
           <AssociationSet Name="FK_Size_People" Association="Self.FK_Size_People">
             <End Role="People" EntitySet="People" />
@@ -539,6 +599,16 @@
             <End Role="GasNote" EntitySet="GasNotes" />
           </AssociationSet>
           <EntitySet Name="Loggings" EntityType="SDNAppsModel.Logging" />
+          <EntitySet Name="Reminders" EntityType="SDNAppsModel.Reminder" />
+          <EntitySet Name="ReminderTypes" EntityType="SDNAppsModel.ReminderType" />
+          <AssociationSet Name="FK_Reminders_Actions" Association="SDNAppsModel.FK_Reminders_Actions">
+            <End Role="Actions" EntitySet="Actions1" />
+            <End Role="Reminder" EntitySet="Reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reminders_ReminderTypes" Association="SDNAppsModel.FK_Reminders_ReminderTypes">
+            <End Role="ReminderType" EntitySet="ReminderTypes" />
+            <End Role="Reminder" EntitySet="Reminders" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -700,6 +770,7 @@
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reminders" Relationship="SDNAppsModel.FK_Reminders_Actions" FromRole="Actions" ToRole="Reminder" />
         </EntityType>
         <EntityType Name="ThingsDone">
           <Key>
@@ -972,6 +1043,59 @@
           <Property Name="AbsoluteUri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Reminder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="RemeberType" Type="Int32" Nullable="false" />
+          <Property Name="Every" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Action" Relationship="SDNAppsModel.FK_Reminders_Actions" FromRole="Reminder" ToRole="Actions" />
+          <NavigationProperty Name="ReminderType" Relationship="SDNAppsModel.FK_Reminders_ReminderTypes" FromRole="Reminder" ToRole="ReminderType" />
+        </EntityType>
+        <EntityType Name="ReminderType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reminders" Relationship="SDNAppsModel.FK_Reminders_ReminderTypes" FromRole="ReminderType" ToRole="Reminder" />
+        </EntityType>
+        <Association Name="FK_Reminders_Actions">
+          <End Type="SDNAppsModel.Actions" Role="Actions" Multiplicity="1" />
+          <End Type="SDNAppsModel.Reminder" Role="Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reminders_ReminderTypes">
+          <End Type="SDNAppsModel.ReminderType" Role="ReminderType" Multiplicity="1" />
+          <End Type="SDNAppsModel.Reminder" Role="Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReminderType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="RemeberType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1217,6 +1341,34 @@
                 <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reminders">
+            <EntityTypeMapping TypeName="SDNAppsModel.Reminder">
+              <MappingFragment StoreEntitySet="Reminders">
+                <ScalarProperty Name="Every" ColumnName="Every" />
+                <ScalarProperty Name="RemeberType" ColumnName="RemeberType" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReminderTypes">
+            <EntityTypeMapping TypeName="SDNAppsModel.ReminderType">
+              <MappingFragment StoreEntitySet="ReminderTypes">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

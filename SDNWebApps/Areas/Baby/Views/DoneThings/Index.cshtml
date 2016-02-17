@@ -1,5 +1,6 @@
 ﻿
 @using System
+@using System.Data.Entity.SqlServer
 @using System.Globalization
 @using System.Runtime.InteropServices
 @using System.Web.Mvc.Html
@@ -8,9 +9,24 @@
 @using SDNWebApps.Areas.Baby.Models.DoneThings
 @using SDNWebApps.Views
 @using System.Web.Mvc.Html
+@using Microsoft.Ajax.Utilities
 @model List<SDNWebApps.Areas.Baby.Models.DoneThings.ListViewModel>
 
+@functions {
+
+    public class AmountGroup
+    {
+        public DateTime ItemDate;
+        public string Name;
+        public string LiquidSize;
+        public double? TotalAmount;
+
+    }
+}
+
 @{
+
+
     ViewBag.Title = "Freddy's Daily Break Down";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     string color = string.Empty;
@@ -26,6 +42,47 @@
     SDNAppsEntities ae = new SDNAppsEntities();
     HttpCookieCollection SDNWebApps = Request.Cookies;
 
+
+    List<Reminder> Reminders = ae.Reminders.Where(m => m.Deleted == false).ToList();
+
+    var GroupAmounting = Model.GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
+
+
+    List<AmountGroup> AmountGrouping = GroupAmounting.Select(amount => new AmountGroup() {ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
+
+
+    List<string> TimeToDoItems = new List<string>();
+
+    foreach (var reminder in Reminders)
+    {
+        if (reminder.ReminderType.Type.Equals("Day"))
+        {
+            var NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date == DateTime.Now.Date).Select(m => m.Actions.Title).Count();
+            if (NumberItemsFound == 0)
+            {
+                TimeToDoItems.Add(item: reminder.Action.Title);
+            }
+        }
+        else if (reminder.ReminderType.Type.Equals("Hour"))
+        {
+
+            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date == DateTime.Now.Date).OrderByDescending(m => m.StartTime).FirstOrDefault();
+
+            if (NumberItemsFound == null)
+            {
+                TimeToDoItems.Add(item: reminder.Action.Title);
+            }
+            else if ((DateTime.Now - NumberItemsFound.StartTime).Hours >= reminder.Every)
+            {
+                TimeToDoItems.Add(item: reminder.Action.Title);
+            }
+
+        }
+
+
+
+    }
 }
 
 @Styles.Render("~/Content/css")
@@ -34,7 +91,12 @@
 
 
 <table style="border-collapse: collapse">
-
+    <div><span style="font-size: large;color: red">Need To Do: </span>
+   @foreach (var timetodoitems in TimeToDoItems)
+   {
+       <span>@timetodoitems </span>
+   }
+    </div>
     @foreach (ListViewModel thing in Model)
     {
         switch (colorCounter)
@@ -52,10 +114,11 @@
 
 
 
-        //I think this is why my last day is call jacked up
+        //I tink this is why my last day is call jacked up
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
-            @displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz,totalML)
+            //@displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz,totalML)
+            @displaySummary(AmountGrouping.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
 
             totalMilkOz = 0;
             totalFoodOz = 0;
@@ -161,17 +224,18 @@
         _LastDate = @thing.StartTime.Date.ToString();
 
     }
-    @displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz, totalML)
+    @*@displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz, totalML)*@
+    @displaySummary(AmountGrouping.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
 
 </table>
 
 
 
-@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz,double totalML)
+@*@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz,double totalML)
 {
         <tr style="border-top: 1px solid black !important">
         <td style="text-align: center;font:bold">Sleep Total<br/>@sleeptime</td>
-        @*<td style="text-align: center;font:bold"></td>*@
+        @*<td style="text-align: center;font:bold"></td>
             <td style="text-align: left;font:bold">
                 Milk: @totaloz <br/>
                 Food: @totalFoodOz
@@ -184,5 +248,32 @@
                 <span style="padding-left: 10px">Meds: @totalML</span> 
             </td>
         <td></td>
+    </tr>
+}*@
+
+@helper displaySummary(List<AmountGroup> AmountGrouping)
+{
+    <tr style="border-top: 1px solid black !important">
+        @{ int i = 0; }
+    <tr>
+    @foreach (var groupitem in AmountGrouping)
+    {
+        if (i == 2)
+        {
+            i = 0;
+        <tr style="height: 10px"></tr>
+
+        }
+                <td colspan="2">
+                    @groupitem.Name  @groupitem.TotalAmount - @groupitem.LiquidSize
+                </td>
+
+                {
+                    i = i + 1;
+                }
+
+
+            }
+    </tr>
     </tr>
 }

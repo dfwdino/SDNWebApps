@@ -36,6 +36,10 @@
         <EntityTypeShape EntityType="SDNAppsModel.GasNote" Width="1.5" PointX="5.875" PointY="1.5" />
         <AssociationConnector Association="SDNAppsModel.FK_GasNotes_Autos" />
         <EntityTypeShape EntityType="SDNAppsModel.Logging" Width="1.5" PointX="6.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.Reminder" Width="1.5" PointX="17" PointY="0.875" />
+        <EntityTypeShape EntityType="SDNAppsModel.ReminderType" Width="1.5" PointX="14.75" PointY="9.375" />
+        <AssociationConnector Association="SDNAppsModel.FK_Reminders_Actions" />
+        <AssociationConnector Association="SDNAppsModel.FK_Reminders_ReminderTypes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

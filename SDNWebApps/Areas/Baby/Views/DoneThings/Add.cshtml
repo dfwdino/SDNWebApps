@@ -25,7 +25,7 @@
         ListToUse.Insert(i+1,topfive[i]);
     }
 
-    ListToUse.Insert(topfive.Count, new SelectListItem { Text = "-------------------" });
+    ListToUse.Insert(topfive.Count+1, new SelectListItem { Text = "-------------------" });
 
     List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
 new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type, Selected = (m.Id == 3) }).ToList();

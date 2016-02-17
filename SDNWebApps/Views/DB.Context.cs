@@ -41,5 +41,7 @@ namespace SDNWebApps.Views
         public DbSet<Station> Stations { get; set; }
         public DbSet<GasNote> GasNotes { get; set; }
         public DbSet<Logging> Loggings { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
+        public DbSet<ReminderType> ReminderTypes { get; set; }
     }
 }

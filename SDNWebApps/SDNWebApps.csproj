@@ -166,6 +166,8 @@
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
     <Compile Include="Areas\Baby\Controllers\HomeController.cs" />
     <Compile Include="Areas\Baby\Controllers\LiquidSizesController.cs" />
+    <Compile Include="Areas\Baby\Controllers\RemindersController.cs" />
+    <Compile Include="Areas\Baby\Controllers\ReminderTypesController.cs" />
     <Compile Include="Areas\Baby\Models\Actions\BabyActions.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\AddViewModel.cs" />
     <Compile Include="Areas\Baby\Models\DoneThings\EditViewModel.cs" />
@@ -263,6 +265,12 @@
     <Compile Include="Views\Person.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\Reminder.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReminderType.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Size.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -289,6 +297,16 @@
     <Content Include="Areas\Baby\Views\LiquidSizes\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\LiquidSizes\Index.cshtml" />
     <Content Include="Areas\Gas\Views\Stations\PopUpCreate.cshtml" />
+    <Content Include="Areas\Baby\Views\ReminderTypes\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\ReminderTypes\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\ReminderTypes\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\ReminderTypes\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\ReminderTypes\Index.cshtml" />
+    <Content Include="Areas\Baby\Views\Reminders\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\Reminders\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\Reminders\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\Reminders\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\Reminders\Index.cshtml" />
     <None Include="Areas\GroceryList\Views\Home\AIndex.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
