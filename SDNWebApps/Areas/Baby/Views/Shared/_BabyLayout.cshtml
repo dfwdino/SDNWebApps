@@ -3,6 +3,47 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="/Content/default.css">
+<script type="text/javascript">
+
+    var timeout = 500;
+    var closetimer = 0;
+    var ddmenuitem = 0;
+
+    // open hidden layer
+    function mopen(id) {
+        // cancel close timer
+        mcancelclosetime();
+
+        // close old layer
+        if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+
+        // get new layer and show it
+        ddmenuitem = document.getElementById(id);
+        ddmenuitem.style.visibility = 'visible';
+
+    }
+    // close showed layer
+    function mclose() {
+        if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+    }
+
+    // go close timer
+    function mclosetime() {
+        closetimer = window.setTimeout(mclose, timeout);
+    }
+
+    // cancel close timer
+    function mcancelclosetime() {
+        if (closetimer) {
+            window.clearTimeout(closetimer);
+            closetimer = null;
+        }
+    }
+
+    // close layer when click-out
+    document.onclick = mclose;
+</script>
 
 
 <div style="padding-bottom: 8px;padding-left: 5px;">
@@ -26,6 +67,45 @@
         @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })
 </div>
 
-<br />
+<br/>
+@*<ul id="sddm">
+    <li>
+        <a href="#"
+           onmouseover="mopen('m1')"
+           onmouseout="mclosetime()">Amount Size</a>
+        <div id="m1"
+             onmouseover="mcancelclosetime()"
+             onmouseout="mclosetime()">
+            @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
+            @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
+        </div>
+    </li>
+    <li>
+        <a href="#"
+           onmouseover="mopen('m2')"
+           onmouseout="mclosetime()">Action Items:</a>
+        <div id="m2"
+             onmouseover="mcancelclosetime()"
+             onmouseout="mclosetime()">
+            @Html.ActionLink("Add", "Add", "Actions", null, new { @style = "padding-right: 8px;" })
+            @Html.ActionLink("List", "Index", "Actions", null, new { @style = "padding-right: 8px;" })
+        </div>
+    </li>
+
+    <li>
+        <a href="#"
+           onmouseover="mopen('m3')"
+           onmouseout="mclosetime()">Things done:</a>
+        <div id="m3"
+             onmouseover="mcancelclosetime()"
+             onmouseout="mclosetime()">
+           @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
+        @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
+        @Html.ActionLink("View All", "Index", "DoneThings", new { @style = "padding-right: 8px;", viewall = true }, null)
+        @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })
+        </div>
+    </li>
+</ul>
+<div style="clear:both"></div>*@
 
 @RenderBody()

@@ -296,6 +296,8 @@
     <Content Include="Areas\Baby\Views\LiquidSizes\Details.cshtml" />
     <Content Include="Areas\Baby\Views\LiquidSizes\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\LiquidSizes\Index.cshtml" />
+    <Content Include="Content\default.css" />
+    <Content Include="test.html" />
     <Content Include="Areas\Gas\Views\Stations\PopUpCreate.cshtml" />
     <Content Include="Areas\Baby\Views\ReminderTypes\Create.cshtml" />
     <Content Include="Areas\Baby\Views\ReminderTypes\Delete.cshtml" />

@@ -1,78 +1,91 @@
-﻿@model List<SDNWebApps.Areas.Baby.Models.DoneThings.SummaryModel2>
+﻿@using System.Runtime.Remoting.Messaging
+@using SDNWebApps.Areas.Baby.Models.DoneThings
+@using SDNWebApps.Views
 
-@{
-     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
-    string LastDate = "";
-    string Color = "lightblue";
+@functions {
+
+    //make an outside view/class
+    public class AmountGroup
+    {
+        public DateTime ItemDate;
+        public string Name;
+        public string LiquidSize;
+        public double? TotalAmount;
+
+    }
 }
 
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")
+@{
+    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    int colorCounter = 0;
+    string color = string.Empty;
+    SDNAppsEntities ae = new SDNAppsEntities();
+
+    List<ThingsDone> thingsDones = ae.ThingsDones.OrderByDescending(m => m.index).Take(50).ToList();
+    if (thingsDones == null)
+    {
+        <span>Did not file things done!!!! WTF</span>
+        throw new Exception("Did not find things done!!! WTF");
+        
+    }
+    var DayTotals = thingsDones.Where(m => m.EndTime == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
+   .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
+
+    var TimeTotals = thingsDones.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime)p.EndTime - p.StartTime).Minutes), mliquidsize = "Mins" }).ToList();
+
+    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup() { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal }).ToList();
+
+    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup() { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal }));
+
+    DateTime _lastDateTime = new DateTime();
+
+}
 
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>SummaryPage</title>
-    </head>
+<head>
+    <title>SummaryPage</title>
+</head>
 <body>
-    <div>
-        <table>
-        <tr>
-            <td>Action</td>
-            <td># Times</td>
-            <td>Amount<BR/>Time</td>
-        </tr>
-         @foreach (var sum in Model)
+
+    <table>
+        @foreach (var groupitem in DaySummarys.OrderByDescending(m => m.ItemDate))
         {
-            if (LastDate.Length > 0)
+            switch (colorCounter)
             {
-                if (LastDate != sum.ItemDate.Value.ToString("d"))
-                {
-                    <tr>
-                        <td colspan="3"><br/></td>
-                    </tr>
-            if (Color.Equals("lightblue"))
-            {
-                Color = "yellow";
+                case 0:
+                    color = "lightblue";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightcoral";
+                    colorCounter = 0;
+                    break;
+
             }
-            else
+
+            if (_lastDateTime.Date != groupitem.ItemDate.Date)
             {
-                Color = "lightblue";
+                <td colspan="3"><h2>@groupitem.ItemDate.ToShortDateString()</h2></td>
+                <tr style="height: 5px"></tr>
+                <tr>
+                    <td>Item</td>
+                    <td>Total</td>
+                    <td>Type</td>
+                </tr>
             }
-        }
-    }
 
-
-
-        if (!LastDate.Equals(sum.ItemDate.Value.ToString("d")))
-        {
-            <tr><td colspan="3" style="font-size: large; font-weight: bold">@sum.ItemDate.Value.ToString("D")</td></tr>
-            <td colspan="3"><br/></td>
-        }
-        <tr style="background-color:@Color">
-                <td>@sum.Title</td>
-                <td style="text-align: center">@sum.action</td>
-                @if (sum.OZ > 59)
-                {
-                    string totaltime = (sum.OZ / 60).ToString().PadRight(5,' ').Substring(0,5);
-                    <td style="text-align: center">@totaltime hours</td>
-                }
-                else
-                {
-                     <td style="text-align: center">@sum.OZ</td>
-                }
-
+            <tr style="background-color: @color;">
+                <td>@groupitem.Name</td>
+                <td>@groupitem.TotalAmount</td>
+                <td>@groupitem.LiquidSize</td>
             </tr>
 
-            LastDate = sum.ItemDate.Value.ToString("d");
-
-
-
-
+            { _lastDateTime = groupitem.ItemDate; }
         }
-        </table>
-    </div>
+
+    </table>
 </body>
 </html>

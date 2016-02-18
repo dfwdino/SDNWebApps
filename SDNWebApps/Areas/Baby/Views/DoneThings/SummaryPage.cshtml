@@ -1,9 +1,42 @@
 ﻿@using SDNWebApps.Areas.Baby.Models.DoneThings
+@using SDNWebApps.Views
 
 @model List<SummaryModel>
 
+
+@functions {
+
+    //make an outside view/class
+    public class AmountGroup
+    {
+        public DateTime ItemDate;
+        public string Name;
+        public string LiquidSize;
+        public double? TotalAmount;
+
+    }
+}
+
 @{
     Layout = null;
+    int colorCounter = 0;
+    string color = string.Empty;
+    SDNAppsEntities ae = new SDNAppsEntities();
+
+    List<ThingsDone> thingsDones = ae.ThingsDones.ToList();
+
+    var DayTotals = thingsDones.Where(m => m.EndTime == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
+   .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
+
+    var TimeTotals = thingsDones.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime)p.EndTime - p.StartTime).Minutes), mliquidsize = "Mins" }).ToList();
+
+    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup() { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal }).ToList();
+
+    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup() { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal }));
+
+    DateTime _lastDateTime = new DateTime();
+
 }
 
 <!DOCTYPE html>
@@ -13,19 +46,43 @@
         <title>SummaryPage</title>
     </head>
     <body>
-        <div>
-            <div>
-                <span style="width: 85px;display: inline-block;font-weight: bold">Date</span>
-                <span style="width: 5px;display: inline-block;font-weight: bold">OZ</span>
-            </div>
 
-            @foreach (var sum in Model)
+    <table>
+        @foreach (var groupitem in DaySummarys.OrderByDescending(m => m.ItemDate))
+        {
+            switch (colorCounter)
             {
-                <div>
-                    <span style="width: 85px;display: inline-block">@sum.ItemDate.ToShortDateString() -</span>
-                    <span style="width: 20px;display: inline-block;text-align: center">@sum.OZ</span>
-                </div>
+                case 0:
+                    color = "lightblue";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightcoral";
+                    colorCounter = 0;
+                    break;
+
             }
-        </div>
+
+            if (_lastDateTime.Date != groupitem.ItemDate.Date)
+            {
+                <td colspan="3"><h2>@groupitem.ItemDate.ToShortDateString()</h2></td>
+                <tr style="height: 5px"></tr>
+                <tr>
+                    <td>Item</td>
+                    <td>Total</td>
+                    <td>Type</td>
+                </tr>
+            }
+
+            <tr style="background-color: @color;">
+                <td>@groupitem.Name</td>
+                <td>@groupitem.TotalAmount</td>
+                <td>@groupitem.LiquidSize</td>
+            </tr>
+
+            {_lastDateTime = groupitem.ItemDate;}
+        }
+
+    </table>
     </body>
 </html>

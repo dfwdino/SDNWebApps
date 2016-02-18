@@ -14,6 +14,7 @@
 
 @functions {
 
+    //make an outside view/class
     public class AmountGroup
     {
         public DateTime ItemDate;
@@ -31,25 +32,26 @@
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     string color = string.Empty;
     string _LastDate = string.Empty;
-    double totalMilkOz = 0;
-    double totalFoodOz = 0;
-    double totalPumpedOz = 0;
-    double totalTeaspoons = 0;
-    double totalML = 0;
-    TimeSpan SleepTime = new TimeSpan();
+    //TimeSpan SleepTime = new TimeSpan();
     int colorCounter = 0;
 
     SDNAppsEntities ae = new SDNAppsEntities();
     HttpCookieCollection SDNWebApps = Request.Cookies;
 
-
+    //Clean this up
     List<Reminder> Reminders = ae.Reminders.Where(m => m.Deleted == false).ToList();
 
-    var GroupAmounting = Model.GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
+    var DayTotals = Model.Where(m => m.EndTime == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
             .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
 
+    var TimeTotals = Model.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime) p.EndTime-p.StartTime).Minutes), mliquidsize = "Mins"}).ToList();
 
-    List<AmountGroup> AmountGrouping = GroupAmounting.Select(amount => new AmountGroup() {ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
+
+
+    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup() {ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
+
+    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup() {ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
 
 
     List<string> TimeToDoItems = new List<string>();
@@ -89,14 +91,21 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
 
+@if (!TimeToDoItems.Count.Equals(0))
+{
+    <div>
+        <span style="font-size: large; color: red">Need To Do: </span>
+
+        @foreach (var timetodoitems in TimeToDoItems)
+        {
+            <span>@timetodoitems </span>
+        }
+    </div>
+}
 
 <table style="border-collapse: collapse">
-    <div><span style="font-size: large;color: red">Need To Do: </span>
-   @foreach (var timetodoitems in TimeToDoItems)
-   {
-       <span>@timetodoitems </span>
-   }
-    </div>
+
+
     @foreach (ListViewModel thing in Model)
     {
         switch (colorCounter)
@@ -117,15 +126,7 @@
         //I tink this is why my last day is call jacked up
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
-            //@displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz,totalML)
-            @displaySummary(AmountGrouping.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
-
-            totalMilkOz = 0;
-            totalFoodOz = 0;
-            totalPumpedOz = 0;
-            totalTeaspoons = 0;
-            SleepTime = new TimeSpan();
-            totalML = 0;
+            @displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
         }
 
 
@@ -181,75 +182,14 @@
             </td>
         </tr>
 
-
-        if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Food").Category)
-        {
-            if (thing.Actions.Title.IndexOf("Bottle Feed",StringComparison.CurrentCultureIgnoreCase) >=0 )
-            {
-                totalMilkOz += (double)thing.OZ;
-            }
-            else if (thing.LiquidSize.Type == "OZ")
-            {
-                totalFoodOz += (double)thing.OZ;
-            }
-            else if (thing.LiquidSize.Type.ToLower() == "teaspoon")
-            {
-                totalTeaspoons += (double)thing.OZ;
-            }
-
-        }
-
-        //else if (thing.Actions.ActionCategory.Category == ae.ActionCategories.First(m => m.Category == "Pump").Category)
-        else if (thing.Actions.Title.IndexOf("Pump", System.StringComparison.CurrentCultureIgnoreCase) >= 0)
-        {
-            totalPumpedOz += (double)thing.OZ;
-        }
-
-        else if ((thing.Actions.Title.IndexOf("Sleep", System.StringComparison.CurrentCultureIgnoreCase) >= 0) &&
-          thing.EndTime != null)
-        {
-            SleepTime = SleepTime.Add((TimeSpan)(thing.EndTime - thing.StartTime));
-        }
-
-        else if (thing.Actions.ActionCategory.Category == (ae.ActionCategories.FirstOrDefault(m => m.Category == "Medicine") ==null ? "" : ae.ActionCategories.First(m => m.Category == "Medicine").Category))
-        {
-            if (thing.OZ != null && thing.LiquidSize.Type.Equals("ML",StringComparison.CurrentCultureIgnoreCase))
-            {
-                totalML += (double) thing.OZ;
-            }
-        }
-
-
-
         _LastDate = @thing.StartTime.Date.ToString();
 
     }
-    @*@displaySummary(SleepTime, totalMilkOz, totalPumpedOz, totalTeaspoons, totalFoodOz, totalML)*@
-    @displaySummary(AmountGrouping.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
+
+    @displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
 
 </table>
 
-
-
-@*@helper displaySummary(TimeSpan sleeptime,double totaloz, double totalpump, double totalteaspoons,double totalFoodOz,double totalML)
-{
-        <tr style="border-top: 1px solid black !important">
-        <td style="text-align: center;font:bold">Sleep Total<br/>@sleeptime</td>
-        @*<td style="text-align: center;font:bold"></td>
-            <td style="text-align: left;font:bold">
-                Milk: @totaloz <br/>
-                Food: @totalFoodOz
-            </td>
-            <td style="text-align: center;font:bold">
-                Pump: @totalpump
-            </td>
-            <td style="text-align: left;" colspan=" 2">
-                <span style="padding-left: 10px">Teaspoons: @totalteaspoons</span> <br/>
-                <span style="padding-left: 10px">Meds: @totalML</span> 
-            </td>
-        <td></td>
-    </tr>
-}*@
 
 @helper displaySummary(List<AmountGroup> AmountGrouping)
 {
