@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
         // GET: Baby/Reminders
         public ActionResult Index()
         {
-            var reminders = db.Reminders.Include(r => r.Action).Include(r => r.ReminderType);
+            var reminders = db.Reminders.Where(m => m.Deleted == false).Include(r => r.Action).Include(r => r.ReminderType);
             return View(reminders.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
         // GET: Baby/Reminders/Create
         public ActionResult Create()
         {
-            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete==false), "index", "Title");
+            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete==false).OrderBy(m=>m.Title), "index", "Title");
             ViewBag.RemeberType = new SelectList(db.ReminderTypes.Where(m => m.Deleted == false), "ID", "Type");
             return View();
         }
@@ -58,7 +58,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete == false), "index", "Title", reminder.ActionID);
+            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title), "index", "Title", reminder.ActionID);
             ViewBag.RemeberType = new SelectList(db.ReminderTypes.Where(m => m.Deleted == false), "ID", "Type", reminder.RemeberType);
             return View(reminder);
         }
@@ -75,7 +75,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ActionID = new SelectList(db.Actions1, "index", "Title", reminder.ActionID);
+            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title), "index", "Title", reminder.ActionID);
             ViewBag.RemeberType = new SelectList(db.ReminderTypes, "ID", "Type", reminder.RemeberType);
             return View(reminder);
         }
@@ -93,7 +93,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ActionID = new SelectList(db.Actions1, "index", "Title", reminder.ActionID);
+            ViewBag.ActionID = new SelectList(db.Actions1.Where(m => m.Delete==false).OrderBy(m => m.Title), "index", "Title", reminder.ActionID);
             ViewBag.RemeberType = new SelectList(db.ReminderTypes, "ID", "Type", reminder.RemeberType);
             return View(reminder);
         }
@@ -119,7 +119,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Reminder reminder = db.Reminders.Find(id);
-            db.Reminders.Remove(reminder);
+            //db.Reminders.Remove(reminder);
+            reminder.Deleted = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

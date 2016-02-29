@@ -25,13 +25,16 @@
 
     List<ThingsDone> thingsDones = ae.ThingsDones.ToList();
 
+    //need to move this to the control and create a new view
     var DayTotals = thingsDones.Where(m => m.EndTime == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
    .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
 
     var TimeTotals = thingsDones.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
             .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime)p.EndTime - p.StartTime).Minutes), mliquidsize = "Mins" }).ToList();
 
-    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup() { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal }).ToList();
+    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup()
+    {
+        ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
 
     DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup() { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal }));
 

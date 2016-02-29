@@ -49,9 +49,11 @@
 
 
 
-    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup() {ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
+    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup()
+    { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
 
-    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup() {ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
+    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup()
+        { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
 
 
     List<string> TimeToDoItems = new List<string>();
@@ -60,7 +62,7 @@
     {
         if (reminder.ReminderType.Type.Equals("Day"))
         {
-            var NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date == DateTime.Now.Date).Select(m => m.Actions.Title).Count();
+            var NumberItemsFound = Model.Count(m => m.Actions.index == reminder.ActionID &&  m.StartTime.Date.ToShortDateString() == DateTime.Now.Date.ToShortDateString());
             if (NumberItemsFound == 0)
             {
                 TimeToDoItems.Add(item: reminder.Action.Title);
@@ -69,7 +71,7 @@
         else if (reminder.ReminderType.Type.Equals("Hour"))
         {
 
-            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date == DateTime.Now.Date).OrderByDescending(m => m.StartTime).FirstOrDefault();
+            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date.ToShortDateString() == DateTime.Now.Date.ToShortDateString()).OrderByDescending(m => m.StartTime).FirstOrDefault();
 
             if (NumberItemsFound == null)
             {

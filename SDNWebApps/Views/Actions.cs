@@ -31,5 +31,10 @@ namespace SDNWebApps.Views
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }
         public virtual ActionCategory ActionCategory { get; set; }
         public virtual ICollection<Reminder> Reminders { get; set; }
+
+        public static implicit operator Actions(List<Actions> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

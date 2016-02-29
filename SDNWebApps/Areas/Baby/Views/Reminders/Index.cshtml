@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SDNWebApps.Views.Reminder>
+﻿@using System.Data.Entity.Core.Objects
+@model IEnumerable<SDNWebApps.Views.Reminder>
 
 @{
     ViewBag.Title = "Index";
@@ -33,12 +34,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Every)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Action.Title)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.ReminderType.Type)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -57,20 +58,15 @@
             @Html.DisplayFor(modelItem => item.Latitude)
         </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @item.StartDate.ToShortDateString()
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Every)
+            @Html.DisplayFor(modelItem => item.Action.Title) Every @Html.DisplayFor(modelItem => item.Every) @Html.DisplayFor(modelItem => item.ReminderType.Type)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Action.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReminderType.Type)
-        </td>
+      
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

@@ -265,7 +265,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             var Actions = form["Action"].Split(',');
             var LiquidTypes = form["POS"].Split(','); //Fucken MS bad coding, this value is "LiquidType"
-            var OZs = form["OZ"].Split(',');
+            var OZs = form["OZ"].Replace(" ","").Split(',');
 
             int fenLinqAction = Convert.ToInt16(Actions[0].Trim());
             DateTime againfenLinqStartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
