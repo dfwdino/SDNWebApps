@@ -17,6 +17,7 @@ namespace SDNWebApps.Views
         public Store()
         {
             this.Items = new HashSet<Item>();
+            this.PriceHistories = new HashSet<PriceHistory>();
         }
     
         public int ID { get; set; }
@@ -27,5 +28,6 @@ namespace SDNWebApps.Views
         public Nullable<bool> Deleted { get; set; }
     
         public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<PriceHistory> PriceHistories { get; set; }
     }
 }

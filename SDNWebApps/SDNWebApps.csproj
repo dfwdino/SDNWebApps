@@ -265,6 +265,9 @@
     <Compile Include="Views\Person.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\PriceHistory.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reminder.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

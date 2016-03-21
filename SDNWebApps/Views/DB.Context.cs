@@ -43,5 +43,6 @@ namespace SDNWebApps.Views
         public DbSet<Logging> Loggings { get; set; }
         public DbSet<Reminder> Reminders { get; set; }
         public DbSet<ReminderType> ReminderTypes { get; set; }
+        public DbSet<PriceHistory> PriceHistories { get; set; }
     }
 }

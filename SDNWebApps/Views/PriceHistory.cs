@@ -12,27 +12,18 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class PriceHistory
     {
-        public Item()
-        {
-            this.PriceHistories = new HashSet<PriceHistory>();
-        }
-    
         public int ID { get; set; }
-        public Nullable<int> StoreID { get; set; }
-        public string Name { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public bool Have { get; set; }
-        public byte[] Image { get; set; }
-        public string Amount { get; set; }
-        public Nullable<System.DateTime> LastGotten { get; set; }
-        public string ImageLocation { get; set; }
+        public int StoreID { get; set; }
+        public decimal Price { get; set; }
+        public System.DateTime Date { get; set; }
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public int ItemID { get; set; }
     
         public virtual Store Store { get; set; }
-        public virtual ICollection<PriceHistory> PriceHistories { get; set; }
+        public virtual Item Item { get; set; }
     }
 }

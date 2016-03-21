@@ -40,6 +40,9 @@
         <EntityTypeShape EntityType="SDNAppsModel.ReminderType" Width="1.5" PointX="14.75" PointY="9.375" />
         <AssociationConnector Association="SDNAppsModel.FK_Reminders_Actions" />
         <AssociationConnector Association="SDNAppsModel.FK_Reminders_ReminderTypes" />
+        <EntityTypeShape EntityType="SDNAppsModel.PriceHistory" Width="1.5" PointX="9.75" PointY="5.875" />
+        <AssociationConnector Association="SDNAppsModel.FK_Grocery_PriceHistory_Stores" />
+        <AssociationConnector Association="SDNAppsModel.FK_PriceHistory_Items" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

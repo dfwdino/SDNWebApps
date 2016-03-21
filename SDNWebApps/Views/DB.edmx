@@ -185,6 +185,19 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="PriceHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StoreID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="Stores">
           <Key>
             <PropertyRef Name="ID" />
@@ -330,6 +343,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Grocery_PriceHistory_Stores">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
+          <End Role="PriceHistory" Type="Self.PriceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceHistory">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Items_Stores">
           <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
           <End Role="Items" Type="Self.Items" Multiplicity="*" />
@@ -351,6 +376,18 @@
             </Principal>
             <Dependent Role="LiquidSize1">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceHistory_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="PriceHistory" Type="Self.PriceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceHistory">
+              <PropertyRef Name="ItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -452,6 +489,7 @@
           <EntitySet Name="People" EntityType="Self.People" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Stations" EntityType="Self.Stations" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
+          <EntitySet Name="PriceHistory" EntityType="Self.PriceHistory" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Logging" EntityType="Self.Logging" Schema="Logging" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
@@ -481,6 +519,10 @@
             <End Role="Autos" EntitySet="Autos" />
             <End Role="GasNotes" EntitySet="GasNotes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Grocery_PriceHistory_Stores" Association="Self.FK_Grocery_PriceHistory_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="PriceHistory" EntitySet="PriceHistory" />
+          </AssociationSet>
           <AssociationSet Name="FK_Items_Stores" Association="Self.FK_Items_Stores">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Items" EntitySet="Items" />
@@ -488,6 +530,10 @@
           <AssociationSet Name="FK_LiquidSize_LiquidSize" Association="Self.FK_LiquidSize_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSize" />
             <End Role="LiquidSize1" EntitySet="LiquidSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceHistory_Items" Association="Self.FK_PriceHistory_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="PriceHistory" EntitySet="PriceHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_Reminders_Actions" Association="Self.FK_Reminders_Actions">
             <End Role="Actions" EntitySet="Actions" />
@@ -609,6 +655,15 @@
             <End Role="ReminderType" EntitySet="ReminderTypes" />
             <End Role="Reminder" EntitySet="Reminders" />
           </AssociationSet>
+          <EntitySet Name="PriceHistories" EntityType="SDNAppsModel.PriceHistory" />
+          <AssociationSet Name="FK_Grocery_PriceHistory_Stores" Association="SDNAppsModel.FK_Grocery_PriceHistory_Stores">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="PriceHistory" EntitySet="PriceHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceHistory_Items" Association="SDNAppsModel.FK_PriceHistory_Items">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="PriceHistory" EntitySet="PriceHistories" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -675,6 +730,7 @@
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PriceHistories" Relationship="SDNAppsModel.FK_PriceHistory_Items" FromRole="Item" ToRole="PriceHistory" />
         </EntityType>
         <EntityType Name="Store">
           <Key>
@@ -687,6 +743,7 @@
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" />
+          <NavigationProperty Name="PriceHistories" Relationship="SDNAppsModel.FK_Grocery_PriceHistory_Stores" FromRole="Store" ToRole="PriceHistory" />
         </EntityType>
         <Association Name="FK_Items_Stores">
           <End Type="SDNAppsModel.Store" Role="Store" Multiplicity="0..1" />
@@ -1096,6 +1153,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PriceHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Store" Relationship="SDNAppsModel.FK_Grocery_PriceHistory_Stores" FromRole="PriceHistory" ToRole="Store" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="SDNAppsModel.FK_PriceHistory_Items" FromRole="PriceHistory" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Grocery_PriceHistory_Stores">
+          <End Type="SDNAppsModel.Store" Role="Store" Multiplicity="1" />
+          <End Type="SDNAppsModel.PriceHistory" Role="PriceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceHistory">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceHistory_Items">
+          <End Type="SDNAppsModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="SDNAppsModel.PriceHistory" Role="PriceHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceHistory">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1369,6 +1465,20 @@
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceHistories">
+            <EntityTypeMapping TypeName="SDNAppsModel.PriceHistory">
+              <MappingFragment StoreEntitySet="PriceHistory">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

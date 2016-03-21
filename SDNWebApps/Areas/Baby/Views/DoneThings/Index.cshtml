@@ -32,28 +32,32 @@
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     string color = string.Empty;
     string _LastDate = string.Empty;
-    //TimeSpan SleepTime = new TimeSpan();
     int colorCounter = 0;
 
     SDNAppsEntities ae = new SDNAppsEntities();
-    HttpCookieCollection SDNWebApps = Request.Cookies;
+    //HttpCookieCollection SDNWebApps = Request.Cookies;
 
     //Clean this up
     List<Reminder> Reminders = ae.Reminders.Where(m => m.Deleted == false).ToList();
 
-    var DayTotals = Model.Where(m => m.EndTime == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
+    var DayTotals = Model.Where(m => m.EndTime == null && m.OZ != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
             .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
 
     var TimeTotals = Model.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
-            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime) p.EndTime-p.StartTime).Minutes), mliquidsize = "Mins"}).ToList();
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime) p.EndTime-p.StartTime).TotalMinutes), mliquidsize = "Mins"}).ToList();
 
+    var ZeroAmount = Model.Where(m => m.EndTime == null && m.OZ == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
+            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Count(), mliquidsize = "Times" }).ToList();
 
 
     List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup()
     { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
 
     DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup()
-        { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
+    { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
+
+    DaySummarys.AddRange(ZeroAmount.Select(groupamount => new AmountGroup()
+    { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal }));
 
 
     List<string> TimeToDoItems = new List<string>();
@@ -62,7 +66,9 @@
     {
         if (reminder.ReminderType.Type.Equals("Day"))
         {
-            var NumberItemsFound = Model.Count(m => m.Actions.index == reminder.ActionID &&  m.StartTime.Date.ToShortDateString() == DateTime.Now.Date.ToShortDateString());
+            var NumberItemsFound = Model.Count(m => m.Actions.index == reminder.ActionID
+            &&  m.StartTime.Date.ToShortDateString() == TimeZoneInfo.ConvertTime(DateTime.Now.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).ToShortDateString());
+
             if (NumberItemsFound == 0)
             {
                 TimeToDoItems.Add(item: reminder.Action.Title);
@@ -71,7 +77,8 @@
         else if (reminder.ReminderType.Type.Equals("Hour"))
         {
 
-            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID && m.StartTime.Date.ToShortDateString() == DateTime.Now.Date.ToShortDateString()).OrderByDescending(m => m.StartTime).FirstOrDefault();
+            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID
+                && m.StartTime.Date.ToShortDateString() == TimeZoneInfo.ConvertTime(DateTime.Now.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).ToShortDateString()).OrderByDescending(m => m.StartTime).FirstOrDefault();
 
             if (NumberItemsFound == null)
             {
@@ -143,8 +150,8 @@
             <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToString("D")</h3></td></tr>
             <tr style="border-bottom: 1px solid black !important">
                 <td style="width: 100px;text-align: center">Item Done </td>
-                <td style="text-align: center;width: 75px">Start Time</td>
-                <td style="text-align: center;width: 75px">End Time</td>
+                <td style="text-align: center;width: 75px">Start</td>
+                <td style="text-align: center;width: 75px">End</td>
                 <td style="text-align: center">Amount</td>
                 @*<td style="text-align: center">Mood</td>*@
                 <td style="text-align: center">Notes</td>
@@ -206,16 +213,26 @@
         <tr style="height: 10px"></tr>
 
         }
-                <td colspan="2">
-                    @groupitem.Name  @groupitem.TotalAmount - @groupitem.LiquidSize
-                </td>
-
-                {
-                    i = i + 1;
-                }
-
-
+        <td colspan="2">
+            @groupitem.Name 
+            @if (@groupitem.Name.Equals("Sleep",StringComparison.CurrentCultureIgnoreCase))
+            {
+                @Convert.ToInt16(groupitem.TotalAmount);
             }
+            else
+            {
+                @groupitem.TotalAmount
+            }
+            - @groupitem.LiquidSize
+
+        </td>
+
+        {
+            i = i + 1;
+        }
+
+
+    }
     </tr>
     </tr>
 }

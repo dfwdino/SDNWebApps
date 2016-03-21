@@ -6,106 +6,72 @@
 <link rel="stylesheet" type="text/css" href="/Content/default.css">
 <script type="text/javascript">
 
-    var timeout = 500;
-    var closetimer = 0;
-    var ddmenuitem = 0;
+    $(document).ready(function () { $("#lActionItems").click(function(){ $("#lsActionItems").toggle(); }); });
+    $(document).ready(function () { $("#lAmountSize").click(function () { $("#lsAmountSize").toggle(); }); });
+    $(document).ready(function () { $("#lDoneThings").click(function () { $("#lsDoneThings").toggle(); }); });
 
-    // open hidden layer
-    function mopen(id) {
-        // cancel close timer
-        mcancelclosetime();
-
-        // close old layer
-        if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-
-        // get new layer and show it
-        ddmenuitem = document.getElementById(id);
-        ddmenuitem.style.visibility = 'visible';
-
-    }
-    // close showed layer
-    function mclose() {
-        if (ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-    }
-
-    // go close timer
-    function mclosetime() {
-        closetimer = window.setTimeout(mclose, timeout);
-    }
-
-    // cancel close timer
-    function mcancelclosetime() {
-        if (closetimer) {
-            window.clearTimeout(closetimer);
-            closetimer = null;
-        }
-    }
-
-    // close layer when click-out
-    document.onclick = mclose;
 </script>
 
 
-<div style="padding-bottom: 8px;padding-left: 5px;">
+<table>
+    <tr>
+        <td style="width: 110px; text-align: center;vertical-align:top">
+            <div id="lActionItems">Action Items<br />
+                <div id="lsActionItems" style="display: none">
+                    @Html.ActionLink("Add", "Add", "Actions", null, null)<br/>
+                    @Html.ActionLink("List", "Index", "Actions", null, null)
+                </div>
+            </div>
+        </td>
+        <td style="width: 110px; text-align: center;vertical-align:top">
+            <div id="lAmountSize">Amount Size<br />
+                <div id="lsAmountSize" style="display: none">
+                    @Html.ActionLink("Add", "Create", "LiquidSizes", null, null)<br />
+                    @Html.ActionLink("List", "Index", "LiquidSizes", null, null)
+                </div>
+            </div>
+        </td>
+        <td style="width: 90px; text-align: center;vertical-align:top">
+            <div id="lDoneThings">Items<br /></div>
+                @Html.ActionLink("Add", "Add", "DoneThings", null, null)<br />
+                <div id="lsDoneThings" style="display: none">
+                    @Html.ActionLink("Summary", "Index", "DoneThings", null, null)<br />
+                    @Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true }, null)<br />
+                    @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)
+                </div>
+        </div>
+    </td>
+    </tr>
+</table>
+
+
+
+@*<div style="padding-bottom: 8px;padding-left: 5px;">
     <div id="ActionItems" style="padding-bottom: 5px;">
-        <span style="padding-right: 8px">Action Items:</span> 
-        @Html.ActionLink("Add", "Add", "Actions", null, new { @style = "padding-right: 8px;" })
-        @Html.ActionLink("List", "Index", "Actions", null, new { @style = "padding-right: 8px;" }) <br />
+        <span style="padding-right: 8px" id="lActionItems">Action Items:</span> 
+        <span id="lsActionItems" style="display: none">
+            @Html.ActionLink("Add", "Add", "Actions", null, new { @style = "padding-right: 8px;" })
+            @Html.ActionLink("List", "Index", "Actions", null, new { @style = "padding-right: 8px;" }) <br />
+        </span>
     </div>
     
     <div id="AmountSize">
-        <span>Amount Sizes:</span>
-            @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
-            @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })<br />
+        <span id="lAmountSize">Amount Sizes:</span><span id="lsAmountSize" style="display: none">
+    @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
+    @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })<br />
+</span>
 </div>
     </div>
 <div style="padding-bottom: 8px;padding-left: 5px">
-    <span style="padding-right: 8px">Done Things:</span>
+    <span style="padding-right: 8px" id="lDoneThings">Done Things:</span>
         @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
+    <span id="lsDoneThings" style="display: none">
         @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
         @Html.ActionLink("View All", "Index", "DoneThings", new { @style = "padding-right: 8px;", viewall = true }, null)
         @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })
-</div>
+    </span>
+</div>*@
 
 <br/>
-@*<ul id="sddm">
-    <li>
-        <a href="#"
-           onmouseover="mopen('m1')"
-           onmouseout="mclosetime()">Amount Size</a>
-        <div id="m1"
-             onmouseover="mcancelclosetime()"
-             onmouseout="mclosetime()">
-            @Html.ActionLink("Add", "Create", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
-            @Html.ActionLink("List", "Index", "LiquidSizes", null, new { @style = "padding-right: 8px;" })
-        </div>
-    </li>
-    <li>
-        <a href="#"
-           onmouseover="mopen('m2')"
-           onmouseout="mclosetime()">Action Items:</a>
-        <div id="m2"
-             onmouseover="mcancelclosetime()"
-             onmouseout="mclosetime()">
-            @Html.ActionLink("Add", "Add", "Actions", null, new { @style = "padding-right: 8px;" })
-            @Html.ActionLink("List", "Index", "Actions", null, new { @style = "padding-right: 8px;" })
-        </div>
-    </li>
-
-    <li>
-        <a href="#"
-           onmouseover="mopen('m3')"
-           onmouseout="mclosetime()">Things done:</a>
-        <div id="m3"
-             onmouseover="mcancelclosetime()"
-             onmouseout="mclosetime()">
-           @Html.ActionLink("Add", "Add", "DoneThings", null, new { @style = "padding-right: 8px;" })
-        @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @style = "padding-right: 8px;" })
-        @Html.ActionLink("View All", "Index", "DoneThings", new { @style = "padding-right: 8px;", viewall = true }, null)
-        @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, new { @style = "padding-left: 15px;" })
-        </div>
-    </li>
-</ul>
-<div style="clear:both"></div>*@
 
 @RenderBody()
