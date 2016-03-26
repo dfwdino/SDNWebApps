@@ -46,7 +46,6 @@ namespace SDNWebApps.Areas.Gas.Controllers
         [HttpGet]
         public PartialViewResult PopUpCreate()
         {
-            //ViewBag.StationID = new SelectList(db.Stations, "StationID", "StationName");
             return PartialView();
         }
 

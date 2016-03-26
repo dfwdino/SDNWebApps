@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+
 @model SDNWebApps.Areas.Gas.Models.Miles.AddViewModel
 
 @{
@@ -13,14 +14,14 @@
 </style>
 
 <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel='stylesheet' />
-
+@Scripts.Render("~/bundles/GPS")
 <script>
 
+    $.ajaxSetup({ cache: false });
 
     function LoadInfo() {
 
         $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {
-            //alert(data);
            
             var select = document.getElementById("SelectedStation");
             var length = select.options.length;
@@ -36,30 +37,17 @@
            
 
             $('#SelectedStation').append($('<option/>').attr("value", '').text("Where Did You Go?"));
-            //alert(document.getElementById("SelectedStation").options.length);
-
+          
             $.each(data, function (i, option) {
                 $('#SelectedStation').append($('<option/>').attr("value", option.ID).text(option.value));
             });
 
-            //alert('goodbye2');
+          
             });
     }
 
     $(document).ready(function() {
         $("#addmore").click(function(event) {
-
-            @*$("#dialog").load('@Url.Action("PopUpCreate", "Stations")', function (responseText, textStatus, XMLHttpRequest) {
-            if (textStatus == "error") {
-                alert("Error");
-            } else {
-                $(this).dialog({
-                    width: 800,
-                    hight: 400,
-                    //title: 'please select an employee',
-                    modal: true });
-            }
-        });*@
 
             $("#dialog").dialog({
                 //width: 200,
@@ -84,8 +72,10 @@
 
         });
 
-        });
+});
 
+   
+      
 
 </script>
 
@@ -93,7 +83,9 @@
 <div style="padding-left: 5px">
     @Html.ActionLink("View Miles", "List", "Miles", new { ID = Model.AutoID }, null)
 
-    
+    @Html.HiddenFor(m => m.Latitude)
+    @Html.HiddenFor(m => m.Longitude)
+
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(m => m.AutoID)<br />
@@ -148,7 +140,7 @@
 @Scripts.Render("~/bundles/jqueryval")
 
 <div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
-
+    
 </div>
 
 

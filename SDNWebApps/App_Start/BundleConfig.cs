@@ -16,10 +16,10 @@ namespace SDNWebApps
 #endif
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/jquery-ui-{version}.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -51,16 +51,14 @@ namespace SDNWebApps
                         "~/Content/themes/base/jquery.ui.theme.css"));
             
             bundles.Add(new StyleBundle("~/Scripts/jquery-ui-1114custom/").Include(
-                //"~/Scripts/jquery-ui-1114custom/jquery-ui.css",
                 "~/Scripts/jquery-ui-1114custom/jquery-ui.min.css",
-                //"~/Scripts/jquery-ui-1114custom/jquery-ui.structure.css",
                 "~/Scripts/jquery-ui-1114custom/jquery-ui.structure.min.css",
-                //"~/Scripts/jquery-ui-1114custom/jquery-ui.theme.css",
                 "~/Scripts/jquery-ui-1114custom/jquery-ui.theme.min.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/GPS").Include("~/Scripts/GPS.js"));
 
 
 

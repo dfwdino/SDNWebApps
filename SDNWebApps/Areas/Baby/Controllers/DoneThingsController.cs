@@ -37,6 +37,12 @@ namespace SDNWebApps.Areas.Baby.Controllers
             return View(smList);
         }
 
+        public JsonResult List(string term)
+        {
+
+            return Json(_se.Actions1.Where(m => m.Title.Contains(term)).Select(m => new { value = m.Title, m.index }).OrderBy(m => m.value).DistinctBy(m => m.value), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult SummaryPage2()
         {
             DateTime backDate = DateTime.Now.AddDays(-3);
@@ -261,11 +267,17 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public ActionResult Add(AddViewModel addViewModel,FormCollection form)
         {
 
+            List<Actions> tempActions = null;
             
 
             var Actions = form["Action"].Split(',');
             var LiquidTypes = form["POS"].Split(','); //Fucken MS bad coding, this value is "LiquidType"
             var OZs = form["OZ"].Replace(" ","").Split(',');
+
+
+            //if (Actions.Count() > 1)
+            //    tempActions = _se.Actions1.Where(m => m.Delete == false).ToList();
+            
 
             int fenLinqAction = Convert.ToInt16(Actions[0].Trim());
             DateTime againfenLinqStartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
@@ -283,7 +295,17 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 {
                     td = new ThingsDone();
 
-                    td.Action = Convert.ToInt16(Actions[i]);
+                    //if (Actions.Count() > 1)
+                    //{
+                    //    td.Action = tempActions.First(m => m.Title.Equals(Actions[i])).index;
+                    //}
+                    //else
+                    //{
+                    //    td.Action =_se.Actions1.First(m => m.Title.Equals(Actions[0])).index;
+                    //}
+
+                    td.Action = Convert.ToInt16(Actions[0]);
+
                     td.StartTime = againfenLinqStartTime;
 
                     if (addViewModel.EndTime != null)

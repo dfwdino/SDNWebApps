@@ -33,11 +33,6 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             GasDate =      gallon.GasDate;
             TankFilled =   gallon.TankFilled;
 
-          
-
-       
-
-
         }
 
         public int SelectedStation { get; set; }
@@ -57,6 +52,9 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public bool TankFilled { get; set; }
 
        public SelectList Stations { get; set; }
+
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
 
 
     }

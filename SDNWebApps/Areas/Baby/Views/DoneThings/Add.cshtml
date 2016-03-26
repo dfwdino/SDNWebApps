@@ -43,8 +43,18 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/GPS")
 <script src="~/Scripts/jquery.simple-dtpicker.js"></script>
-<link href="~/Content/jquery.simple-dtpicker.css" rel="stylesheet" />
+<link href="~/Content/jquery.simple-dtpicker.css" rel="stylesheet"/>
+
+<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.structure.min.css" rel="stylesheet" />
+<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.theme.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+
+<script src="~/Scripts/jquery-ui-1114custom/jquery-ui.min.js"></script>
+
+
 <script>
     
     function GetCurrentDateTime(field) {
@@ -60,75 +70,61 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
     }
 
     $(document).ready(function () { $("#LNotes").click(function () { $("#TANotes").toggle(); }); });
-    
-    var la = document.getElementById("Latitude");
-    var lo = document.getElementById("Longitude");
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        }
-        
-    }
-    function showPosition(position) {
-        document.getElementById("Latitude").value = position.coords.latitude;
-        document.getElementById("Longitude").value = position.coords.longitude;
-    }
-
-    //$(function () {
-    //    $('#StartTime').appendDtpicker({
-    //        "minuteInterval": 15,
-    //        'dateFormat': 'MM/DD/YYYY hh:mm'
-    //    });
-    //});
-
-   
 
 </script>
 
 <body onload="getLocation()" style="padding-left: 5px">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary()
-        //Need to change the layout... Add span or div
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    //Need to change the layout... Add span or div
 
-            @Html.HiddenFor(m => m.Latitude)
-            @Html.HiddenFor(m => m.Longitude)
+    @Html.HiddenFor(m => m.Latitude)
+    @Html.HiddenFor(m => m.Longitude)
 
-            <div>
-                <div id="actions">
-                    <div id="actionCopy">
-                        @Html.ValidationMessageFor(m => m.Actions)
-                        @Html.LabelFor(m => m.Actions)
-                        @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br />
-                        @Html.Label("Amount")
-                        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 45px" })  @Html.DropDownListFor(x => POS, LiquidTypes)
-                    </div>
-                </div>
-                <br />
-                <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
-                <br />
-                <br />
-                @Html.Label("Start")
-               @Html.TextBoxFor(m => Model.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
-
-                @Html.Label("End")
-                @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
-
-                <div style="width: 150px; display: inline-block;">
-                    @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
-
-                    <div id="TANotes" style="display: none;padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "25" })</div> <br />
-                </div>
-
+    <div>
+        <div id="actions">
+            <div id="actionCopy">
+                @Html.ValidationMessageFor(m => m.Actions)
+                @Html.LabelFor(m => m.Actions)
+                @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br/>
+                @*@Html.TextBoxFor(x => x.Action)@Html.Hidden("ActionNumber")<br /><br/>*@
+                @Html.Label("Amount")
+                @Html.TextBoxFor(m => m.OZ, new {@style = "width: 45px"}) @Html.DropDownListFor(x => POS, LiquidTypes)
             </div>
-            <br />
-            <input type="submit" value="Add" />
-            <br />
-            <br />
-    }
+        </div>
+        <br/>
+        <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
+        <br/>
+        <br/>
+        @Html.Label("Start")
+        @Html.TextBoxFor(m => Model.StartTime, new {@length = "40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br/>
+
+        @Html.Label("End")
+        @Html.TextBoxFor(m => m.EndTime, new {@length = "40"}) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br/>
+
+        <div style="width: 150px; display: inline-block;">
+            @Html.LabelFor(m => m.Notes, new {id = "LNotes", style = "color: blue;text-decoration: underline"})
+
+            <div id="TANotes" style="display: none; padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new {cols = "25"})</div> <br/>
+        </div>
+
+    </div>
+    <br/>
+    <input type="submit" value="Add"/>
+    <br/>
+    <br/>
+}
 
 </body>
+    
+<script type="text/javascript">
+
+    $(function() {
+        $("#Action").autocomplete({ source: '@Url.Action("List", "DoneThings")', minLength: 2 });
+
+    });
+</script>
 
 
 

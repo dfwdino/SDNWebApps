@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         }
 
         [Required(ErrorMessage = "Need to pick an action item.")]
-        public int Action { get; set; }
+        public string Action { get; set; }
         [Display(Name = "Action")]
         public SDNWebApps.Views.Actions Actions {get;set;}
 
