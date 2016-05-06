@@ -12,24 +12,20 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class ThingsDone
+    public partial class BabyName
     {
-        public int index { get; set; }
-        public int Action { get; set; }
-        public System.DateTime StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public BabyName()
+        {
+            this.ThingsDones = new HashSet<ThingsDone>();
+        }
+    
+        public int ID { get; set; }
+        public string BabyName1 { get; set; }
         public bool Delete { get; set; }
-        public Nullable<double> OZ { get; set; }
-        public string Mood { get; set; }
-        public string Notes { get; set; }
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-        public Nullable<int> LiquidSizeID { get; set; }
-        public Nullable<int> BabyNameID { get; set; }
     
-        public virtual Actions Actions { get; set; }
-        public virtual LiquidSize LiquidSize { get; set; }
-        public virtual BabyName BabyName { get; set; }
+        public virtual ICollection<ThingsDone> ThingsDones { get; set; }
     }
 }

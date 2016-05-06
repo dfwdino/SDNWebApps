@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
+using System.Web.Mvc;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Baby.Models.DoneThings
@@ -14,6 +16,12 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
             EndTime = string.Empty;
             Mood = string.Empty;
             OZ = null;
+
+            SDNAppsEntities saEntities = new SDNAppsEntities();
+
+            KidNames = new SelectList(saEntities.BabyNames,"ID", "BabyName1");
+            
+
         }
 
         [Required(ErrorMessage = "Need to pick an action item.")]
@@ -35,6 +43,11 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+
+        [Display(Name="Kid Name")]
+        public SelectList KidNames { get; set; }
+
+        //public int SelectedKidID { get; set; }
 
     }
         

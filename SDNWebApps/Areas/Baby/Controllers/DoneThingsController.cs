@@ -273,6 +273,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             var Actions = form["Action"].Split(',');
             var LiquidTypes = form["POS"].Split(','); //Fucken MS bad coding, this value is "LiquidType"
             var OZs = form["OZ"].Replace(" ","").Split(',');
+            var babynames = form["KidName"].Split(',');
 
 
             //if (Actions.Count() > 1)
@@ -281,6 +282,11 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             int fenLinqAction = Convert.ToInt16(Actions[0].Trim());
             DateTime againfenLinqStartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
+
+            if(!addViewModel.EndTime.IsNullOrWhiteSpace())
+            if (FixFuckenDate(addViewModel.StartTime) > FixFuckenDate(addViewModel.EndTime))
+                addViewModel.EndTime = null;
+
 
             var doubleEntry = _se.ThingsDones.FirstOrDefault(m => m.Action == fenLinqAction && m.StartTime == againfenLinqStartTime);
 
@@ -295,16 +301,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 {
                     td = new ThingsDone();
 
-                    //if (Actions.Count() > 1)
-                    //{
-                    //    td.Action = tempActions.First(m => m.Title.Equals(Actions[i])).index;
-                    //}
-                    //else
-                    //{
-                    //    td.Action =_se.Actions1.First(m => m.Title.Equals(Actions[0])).index;
-                    //}
+                    td.Action = Convert.ToInt16(Actions[i]);
 
-                    td.Action = Convert.ToInt16(Actions[0]);
+                    td.BabyNameID = Convert.ToInt16(babynames[0]);
 
                     td.StartTime = againfenLinqStartTime;
 
@@ -328,42 +327,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
                     _se.ThingsDones.Add(td);
                 }
-
-
-
-                ////is there a better way to do this????
-                //string action = _se.Actions1.First(m => m.index == addViewModel.Action).Title;
-                //ThingsDone td = new ThingsDone();
-
-                //td.Action = addViewModel.Action;
-                //td.StartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
-
-                //if (addViewModel.EndTime!=null)
-                //    td.EndTime = Convert.ToDateTime(FixFuckenDate(addViewModel.EndTime));
-
-                //td.OZ = addViewModel.OZ;
-
-                //td.Mood = addViewModel.Mood;
-                //td.Notes = addViewModel.Notes;
-                //td.LiquidSizeID = addViewModel.LiquidType;
-
-
-                //_se.ThingsDones.Add(td);
-                _se.SaveChanges();
-
-                //is there a better way to do this????
-                //No longer doing this with the new way
-                //string action = _se.Actions1.First(m => m.index == addViewModel.Action).Title;
-
-                //if (action.IndexOf("Feed") >= 0 || action.IndexOf("BF") >= 0)
-                //{
-                //    return RedirectToAction("Edit", "DoneThings", new { id = td.index });
-                //}
-                //else
-                //{
-                //    return RedirectToAction("Index", "DoneThings", new { id = td.index });
-                //}
             }
+
+            _se.SaveChanges();
             return RedirectToAction("Index", "DoneThings");
 
         }

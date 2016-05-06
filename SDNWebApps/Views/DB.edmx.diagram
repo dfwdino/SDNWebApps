@@ -43,6 +43,8 @@
         <EntityTypeShape EntityType="SDNAppsModel.PriceHistory" Width="1.5" PointX="9.75" PointY="5.875" />
         <AssociationConnector Association="SDNAppsModel.FK_Grocery_PriceHistory_Stores" />
         <AssociationConnector Association="SDNAppsModel.FK_PriceHistory_Items" />
+        <EntityTypeShape EntityType="SDNAppsModel.BabyName" Width="1.5" PointX="5.375" PointY="11" />
+        <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_BabyNames" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

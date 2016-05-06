@@ -4,6 +4,14 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*@Scripts.Render("~/bundles/jquery")*@
+@*@Scripts.Render("~/bundles/bootstrap")*@
+@Styles.Render("~/Content/css")
+@*@Scripts.Render("~/bundles/modernizr")*@
+@Scripts.Render("~/bundles/GPS")
+
 <div>
     <br />
     @Html.ActionLink("All Dreams", "Index")
@@ -14,7 +22,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(m => m.Latitude)
+    @Html.HiddenFor(m => m.Longitude)
     <div style="padding-left: 30px" class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -28,7 +37,7 @@
         <div class="form-group">
             <label>Dreams:</label><br />
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Dream1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Dream1, new { htmlAttributes = new { @class = "form-control", @rows = "6" } })
                 @Html.ValidationMessageFor(model => model.Dream1, "", new { @class = "text-danger" })
                 <br /><br />
             </div>

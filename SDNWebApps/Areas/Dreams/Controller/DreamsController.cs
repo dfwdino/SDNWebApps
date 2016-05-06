@@ -48,7 +48,7 @@ namespace SDNWebApps.Areas.Dreams.Controller
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,Dream1,Person,DidMeditation,Links")] Dream dream)
+        public ActionResult Create([Bind(Include = "ID,Date,Dream1,Person,DidMeditation,Links,Longitude,Latitude")] Dream dream)
         {
             //if (ModelState.IsValid)
             //{

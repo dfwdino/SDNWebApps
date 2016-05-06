@@ -28,6 +28,17 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="BabyNames">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BabyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="LiquidSize">
           <Key>
             <PropertyRef Name="Id" />
@@ -81,6 +92,7 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
           <Property Name="LiquidSizeID" Type="int" />
+          <Property Name="BabyNameID" Type="int" />
         </EntityType>
         <EntityType Name="Dreams">
           <Key>
@@ -451,6 +463,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ThingsDone_BabyNames">
+          <End Role="BabyNames" Type="Self.BabyNames" Multiplicity="0..1" />
+          <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BabyNames">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="BabyNameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ThingsDone_LiquidSize">
           <End Role="LiquidSize" Type="Self.LiquidSize" Multiplicity="0..1" />
           <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
@@ -478,6 +502,7 @@
         <EntityContainer Name="SDNAppsModelStoreContainer">
           <EntitySet Name="ActionCategory" EntityType="Self.ActionCategory" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="BabyNames" EntityType="Self.BabyNames" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="LiquidSize" EntityType="Self.LiquidSize" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
@@ -554,6 +579,10 @@
           <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
             <End Role="People" EntitySet="People" />
             <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThingsDone_BabyNames" Association="Self.FK_ThingsDone_BabyNames">
+            <End Role="BabyNames" EntitySet="BabyNames" />
+            <End Role="ThingsDone" EntitySet="ThingsDone" />
           </AssociationSet>
           <AssociationSet Name="FK_ThingsDone_LiquidSize" Association="Self.FK_ThingsDone_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSize" />
@@ -663,6 +692,11 @@
           <AssociationSet Name="FK_PriceHistory_Items" Association="SDNAppsModel.FK_PriceHistory_Items">
             <End Role="Item" EntitySet="Items" />
             <End Role="PriceHistory" EntitySet="PriceHistories" />
+          </AssociationSet>
+          <EntitySet Name="BabyNames" EntityType="SDNAppsModel.BabyName" />
+          <AssociationSet Name="FK_ThingsDone_BabyNames" Association="SDNAppsModel.FK_ThingsDone_BabyNames">
+            <End Role="BabyName" EntitySet="BabyNames" />
+            <End Role="ThingsDone" EntitySet="ThingsDones" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
@@ -847,6 +881,8 @@
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="LiquidSizeID" Type="Int32" />
           <NavigationProperty Name="LiquidSize" Relationship="SDNAppsModel.FK_ThingsDone_LiquidSize" FromRole="ThingsDone" ToRole="LiquidSize" />
+          <Property Name="BabyNameID" Type="Int32" />
+          <NavigationProperty Name="BabyName" Relationship="SDNAppsModel.FK_ThingsDone_BabyNames" FromRole="ThingsDone" ToRole="BabyName" />
         </EntityType>
         <Association Name="FK_ThingsDone_Baby_Item">
           <End Type="SDNAppsModel.Actions" Role="Action" Multiplicity="1" />
@@ -1192,6 +1228,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BabyName">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BabyName1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_BabyNames" FromRole="BabyName" ToRole="ThingsDone" />
+        </EntityType>
+        <Association Name="FK_ThingsDone_BabyNames">
+          <End Type="SDNAppsModel.BabyName" Role="BabyName" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.ThingsDone" Role="ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BabyName">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="BabyNameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1307,6 +1367,7 @@
           <EntitySetMapping Name="ThingsDones">
             <EntityTypeMapping TypeName="SDNAppsModel.ThingsDone">
               <MappingFragment StoreEntitySet="ThingsDone">
+                <ScalarProperty Name="BabyNameID" ColumnName="BabyNameID" />
                 <ScalarProperty Name="LiquidSizeID" ColumnName="LiquidSizeID" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
@@ -1479,6 +1540,18 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BabyNames">
+            <EntityTypeMapping TypeName="SDNAppsModel.BabyName">
+              <MappingFragment StoreEntitySet="BabyNames">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="BabyName1" ColumnName="BabyName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

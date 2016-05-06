@@ -39,11 +39,10 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
         text-align: right;
     }
 </style>
-
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/GPS")
+@Styles.Render("~/Content/css")
 <script src="~/Scripts/jquery.simple-dtpicker.js"></script>
 <link href="~/Content/jquery.simple-dtpicker.css" rel="stylesheet"/>
 
@@ -88,6 +87,9 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
                 @Html.ValidationMessageFor(m => m.Actions)
                 @Html.LabelFor(m => m.Actions)
                 @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br/>
+                @*@Html.LabelFor(m => m.KidNames)*@
+                @*@Html.DropDownListFor(x => Model.KidNames, Model.KidNames)<br />*@
+                @Html.Hidden("KidName",1)
                 @*@Html.TextBoxFor(x => x.Action)@Html.Hidden("ActionNumber")<br /><br/>*@
                 @Html.Label("Amount")
                 @Html.TextBoxFor(m => m.OZ, new {@style = "width: 45px"}) @Html.DropDownListFor(x => POS, LiquidTypes)
@@ -102,6 +104,8 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
 
         @Html.Label("End")
         @Html.TextBoxFor(m => m.EndTime, new {@length = "40"}) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br/>
+
+        
 
         <div style="width: 150px; display: inline-block;">
             @Html.LabelFor(m => m.Notes, new {id = "LNotes", style = "color: blue;text-decoration: underline"})

@@ -24,7 +24,8 @@ legend {
 }
 
 textarea {
-    min-height: 75px;
+    min-height: 125px;
+    min-width: 300px;
 }
 
 .editor-label {

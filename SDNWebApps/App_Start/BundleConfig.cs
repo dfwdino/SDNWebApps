@@ -8,12 +8,12 @@ namespace SDNWebApps
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            #if DEBUG
+//            #if DEBUG
 
-        BundleTable.EnableOptimizations = false;
-#else
-        BundleTable.EnableOptimizations = true;
-#endif
+//        BundleTable.EnableOptimizations = false;
+//#else
+//        BundleTable.EnableOptimizations = true;
+//#endif
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.min.js"));
