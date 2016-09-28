@@ -46,6 +46,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 
         [Display(Name="Kid Name")]
         public SelectList KidNames { get; set; }
+        public int KidName { get; set; }
 
         //public int SelectedKidID { get; set; }
 

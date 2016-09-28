@@ -119,7 +119,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 {
                     EndTime = thingsDone.EndTime, Item = thingsDone.index,Index = thingsDone.index, Notes = thingsDone.Notes,
                     Actions = thingsDone.Actions,StartTime = thingsDone.StartTime,OZ = thingsDone.OZ,Mood = thingsDone.Mood,
-                    LiquidSize = thingsDone.LiquidSize, Longitude = thingsDone.Longitude, Latitude = thingsDone.Latitude
+                    LiquidSize = thingsDone.LiquidSize, Longitude = thingsDone.Longitude, Latitude = thingsDone.Latitude,
+                    Kid = thingsDone.BabyName.BabyName1
+                    
 
                 });
             }
@@ -213,6 +215,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             editAddViewModel.Mood = thing.Mood;
             editAddViewModel.Notes = thing.Notes;
             editAddViewModel.LiquidType = thing.LiquidSizeID;
+            editAddViewModel.Kid = thing.BabyName.BabyName1;
 
 
             return View(editAddViewModel);

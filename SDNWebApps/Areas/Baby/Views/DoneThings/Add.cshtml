@@ -87,9 +87,9 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
                 @Html.ValidationMessageFor(m => m.Actions)
                 @Html.LabelFor(m => m.Actions)
                 @Html.DropDownListFor(x => x.Action, ListToUse, "Select Action")<br/>
-                @*@Html.LabelFor(m => m.KidNames)*@
-                @*@Html.DropDownListFor(x => Model.KidNames, Model.KidNames)<br />*@
-                @Html.Hidden("KidName",1)
+                @Html.LabelFor(m => m.KidNames)
+                @Html.DropDownListFor(x => Model.KidName, Model.KidNames)<br />
+                @*@Html.Hidden("KidName",1)*@
                 @*@Html.TextBoxFor(x => x.Action)@Html.Hidden("ActionNumber")<br /><br/>*@
                 @Html.Label("Amount")
                 @Html.TextBoxFor(m => m.OZ, new {@style = "width: 45px"}) @Html.DropDownListFor(x => POS, LiquidTypes)

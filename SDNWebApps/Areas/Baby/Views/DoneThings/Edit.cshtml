@@ -13,8 +13,12 @@
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false) .OrderBy(m => m.Title).Select(m =>
         new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.index).Trim(), Text = m.Title }).ToList();
 
+    List<System.Web.Mvc.SelectListItem> BabyNames = new SDNAppsEntities().BabyNames.OrderBy(m => m.BabyName1).Select(m =>
+       new System.Web.Mvc.SelectListItem { Value = m.ID.ToString(), Text = m.BabyName1 }).ToList();
+
+
     List<System.Web.Mvc.SelectListItem> LiquidTypes = new SDNAppsEntities().LiquidSizes.Where(m => m.Deleted == false).OrderBy(m => m.Type).Select(m =>
-        new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
+new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Text = m.Type }).ToList();
 
     var ShowNotesDispaly = Model.Notes == null ? "display: none;" : "";
     var ShowMoodDispaly = Model.Mood == null ? "display: none;" : "";
@@ -49,7 +53,11 @@
     //Need to change the layout
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.Action)
-        @Html.DropDownListFor(x => x.Action, ListToUse, Model.Actions.Title)<br />
+        @Html.DropDownListFor(x => x.Action, ListToUse, Model.Actions.Title)<br/>
+    </div>
+    <div style="padding-bottom: 5px">
+        @Html.LabelFor(m => m.Kid)
+        @Html.DropDownListFor(x => x.Kid, BabyNames, Model.BabyName.BabyName1)<br />
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.StartTime)

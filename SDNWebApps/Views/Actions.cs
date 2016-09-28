@@ -27,7 +27,7 @@ namespace SDNWebApps.Views
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-    
+        
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }
         public virtual ActionCategory ActionCategory { get; set; }
         public virtual ICollection<Reminder> Reminders { get; set; }

@@ -33,6 +33,8 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public string Kid { get; set; }
+        
 
     }
 }

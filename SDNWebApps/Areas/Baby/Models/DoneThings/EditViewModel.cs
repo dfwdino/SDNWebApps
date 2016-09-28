@@ -24,6 +24,9 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public string Mood { get; set; }
         public string Notes { get; set; }
         public int? LiquidType { get; set; }
+        public string Kid { get; set; }
+        public SDNWebApps.Views.BabyName BabyName { get; set; }
+    }
 
     }
         
