@@ -170,7 +170,7 @@
 
         <tr style="padding-bottom: 8px; background-color: @color;">
             <td> @Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new {id = @thing.Index}) </td>
-            <td style="text-align: center; border-left: 1px solid black !important">@thing.Kid</td>
+            <td style="text-align: center; border-left: 1px solid black !important">@Html.ActionLink(@thing.Kid,"Index",new {babyname = @thing.Kid})</td>
             <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
             <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
             <td style="text-align: center; border-left: 1px solid black !important">
@@ -219,6 +219,7 @@
      }
 
     ///TODO: Fix the spacing issue.  Might have to remove the tables.
+    <br/>
     <a id="showhide" onclick="toggleTable(@AmountGrouping[0].ItemDate.ToFileTimeUtc());">Show summary</a>
     <br/>
 <table id="@AmountGrouping[0].ItemDate.ToFileTimeUtc()" style="display: none">

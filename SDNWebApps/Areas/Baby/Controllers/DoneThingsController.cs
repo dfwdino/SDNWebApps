@@ -89,24 +89,26 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
 
 
-        public ActionResult Index(bool viewall = false)
+        public ActionResult Index(bool viewall = false,string babyname = "")
         {
             List<Views.ThingsDone> things =  new List<ThingsDone>();
+            
+            //Why is it not showing any data for the last day??? Where is my logic wrong???
+            DateTime mindate = DateTime.Now.AddDays(-3).Date;
 
-            if(viewall)
+
+            if (viewall)
                 things = _se.ThingsDones.OrderByDescending(m => m.StartTime).Where(m => m.Delete == false).Select(m => m).ToList();
-                //things = _se.ThingsDones.OrderBy(m => m.Actions.Title).ThenByDescending(m => m.StartTime)
-                //    .Where(m => m.Delete == false).Select(m => m).ToList();
+            //things = _se.ThingsDones.OrderBy(m => m.Actions.Title).ThenByDescending(m => m.StartTime)
+            //    .Where(m => m.Delete == false).Select(m => m).ToList();
+            else if (babyname.Length > 0)
+            {
+                things = _se.ThingsDones.Where(m => m.BabyName.BabyName1.Equals(babyname) && m.Delete == false && m.StartTime > mindate).ToList();
+            }
             else
             {
-                //Why is it not showing any data for the last day??? Where is my logic wrong???
-                DateTime mindate = DateTime.Now.AddDays(-3).Date;
+                things = _se.ThingsDones.OrderByDescending(m => m.StartTime).Where(m => m.Delete == false && m.StartTime > mindate).Select(m => m).ToList();
 
-                things = _se.ThingsDones.OrderByDescending(m => m.StartTime).Where(m => m.Delete == false 
-                            && m.StartTime > mindate).Select(m => m).ToList();
-
-                //things = _se.ThingsDones.OrderByDescending(m => DbFunctions.TruncateTime(m.StartTime)).ThenBy(m => m.Actions.index).ThenByDescending(m => m.StartTime)
-                //            .Where(m => m.Delete == false).Select(m => m).ToList();
             }
 
 
