@@ -27,7 +27,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         [Required(ErrorMessage = "Need to pick an action item.")]
         public string Action { get; set; }
         [Display(Name = "Action")]
-        public SDNWebApps.Views.Actions Actions {get;set;}
+        public Views.Actions Actions {get;set;}
 
         [Required(ErrorMessage = "Need to pick an start time.")]
         [Display(Name = "Start Time")]
@@ -44,7 +44,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public string Latitude { get; set; }
         public string Longitude { get; set; }
 
-        [Display(Name="Kid Name")]
+        [Display(Name="Kid")]
         public SelectList KidNames { get; set; }
         public int KidName { get; set; }
 

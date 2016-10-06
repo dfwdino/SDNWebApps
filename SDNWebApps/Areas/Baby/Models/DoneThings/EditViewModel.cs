@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Baby.Models.DoneThings
 {
@@ -7,7 +9,9 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
     {
         public EditViewModel()
         {
-            
+            SDNAppsEntities saEntities = new SDNAppsEntities();
+            BabyName = new BabyName();
+            KidNames = new SelectList(saEntities.BabyNames, "ID", "BabyName1");
         }
 
         
@@ -24,11 +28,14 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public string Mood { get; set; }
         public string Notes { get; set; }
         public int? LiquidType { get; set; }
-        public string Kid { get; set; }
-        public SDNWebApps.Views.BabyName BabyName { get; set; }
+        public int Kid { get; set; }
+        public BabyName BabyName { get; set; }
+
+        [Display(Name = "Kid")]
+        public SelectList KidNames { get; set; }
     }
 
-    }
+    
         
     
 }

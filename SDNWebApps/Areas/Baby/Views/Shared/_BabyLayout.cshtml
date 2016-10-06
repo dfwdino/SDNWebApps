@@ -9,6 +9,7 @@
     $(document).ready(function () { $("#lActionItems").click(function(){ $("#lsActionItems").toggle(); }); });
     $(document).ready(function () { $("#lAmountSize").click(function () { $("#lsAmountSize").toggle(); }); });
     $(document).ready(function () { $("#lDoneThings").click(function () { $("#lsDoneThings").toggle(); }); });
+    $(document).ready(function () { $("#lBabyName").click(function () { $("#lsBabyName").toggle(); }); });
 
 </script>
 
@@ -31,16 +32,24 @@
                 </div>
             </div>
         </td>
-        <td style="width: 90px; text-align: center;vertical-align:top">
-            <div id="lDoneThings">Items<br /></div>
-                @Html.ActionLink("Add", "Add", "DoneThings", null, null)<br />
-                <div id="lsDoneThings" style="display: none">
-                    @Html.ActionLink("Summary", "Index", "DoneThings", null, null)<br />
-                    @Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true }, null)<br />
-                    @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)
+        <td style="width: 90px; text-align: center; vertical-align: top">
+            <div id="lDoneThings">Items<br/>
+            </div>
+            @Html.ActionLink("Add", "Add", "DoneThings", null, null)<br/>
+            <div id="lsDoneThings" style="display: none">
+                @Html.ActionLink("Summary", "Index", "DoneThings", null, null)<br/>
+                @Html.ActionLink("View All", "Index", "DoneThings", new {viewall = true}, null)<br/>
+                @Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)
+            </div>
+        </td>
+        <td style="width: 110px; text-align: center;vertical-align:top">
+            <div id="lBabyName">Baby's<br />
+                <div id="lsBabyName" style="display: none">
+                    @Html.ActionLink("Add", "Create", "BabyNames", null, null)<br />
+                    @Html.ActionLink("List", "Index", "BabyNames", null, null)
                 </div>
-        </div>
-    </td>
+            </div>
+        </td>
     </tr>
 </table>
 

@@ -110,7 +110,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             BabyName babyName = db.BabyNames.Find(id);
-            db.BabyNames.Remove(babyName);
+            babyName.Delete = true;
+            //db.BabyNames.Remove(babyName);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

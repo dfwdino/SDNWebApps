@@ -215,7 +215,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             editAddViewModel.Mood = thing.Mood;
             editAddViewModel.Notes = thing.Notes;
             editAddViewModel.LiquidType = thing.LiquidSizeID;
-            editAddViewModel.Kid = thing.BabyName.BabyName1;
+            editAddViewModel.Kid = thing.BabyNameID.Value;
 
 
             return View(editAddViewModel);
@@ -251,6 +251,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             td.Mood = editViewModel.Mood;
             td.Notes = editViewModel.Notes;
             td.LiquidSizeID = editViewModel.LiquidType;
+            td.BabyNameID = editViewModel.Kid;
 
             _se.SaveChanges();
 
@@ -306,7 +307,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
                     td.Action = Convert.ToInt16(Actions[i]);
 
-                    td.BabyNameID = Convert.ToInt16(babynames[0]);
+                    td.BabyNameID = Convert.ToInt16(babynames[i]);
 
                     td.StartTime = againfenLinqStartTime;
 
