@@ -103,7 +103,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
             //    .Where(m => m.Delete == false).Select(m => m).ToList();
             else if (babyname.Length > 0)
             {
-                things = _se.ThingsDones.Where(m => m.BabyName.BabyName1.Equals(babyname) && m.Delete == false && m.StartTime > mindate).ToList();
+                things = _se.ThingsDones.Where(m => m.BabyName.BabyName1.Equals(babyname) && m.Delete == false && m.StartTime > mindate).OrderByDescending(m => m.StartTime).ToList();
             }
             else
             {

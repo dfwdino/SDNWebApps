@@ -112,18 +112,20 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
                     Have = false,
                     Amount = itemsViewModel.Amount
                 };
-            
-                if (uploadFile != null && uploadFile.ContentLength > 0)
-                {
-                    newItem.Image = new byte[uploadFile.ContentLength];
-                    uploadFile.InputStream.Read(newItem.Image, 0, uploadFile.ContentLength);
-                }
-            
+
+                //if (uploadFile != null && uploadFile.ContentLength > 0)
+                //{
+                //    newItem.Image = new byte[uploadFile.ContentLength];
+                //    uploadFile.InputStream.Read(newItem.Image, 0, uploadFile.ContentLength);
+                //}
+
+                sdnApps.Items.Add(newItem);
+
             }
             else
                 newItem.Have = false;
-
-            sdnApps.Items.Add(newItem);
+            
+            
             sdnApps.SaveChanges();
             ViewBag.Title = "Got Item";
             return RedirectToAction("AddItem", new { item = itemsViewModel.Name });

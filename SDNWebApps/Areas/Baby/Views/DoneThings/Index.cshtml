@@ -238,7 +238,7 @@
                     @groupitem.Name
                     @if (@groupitem.Name.Equals("Sleep", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        @Convert.ToInt16(groupitem.TotalAmount)
+                        @Convert.ToInt32(groupitem.TotalAmount);
                         ;
                     }
                     else

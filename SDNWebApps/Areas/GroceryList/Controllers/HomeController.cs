@@ -33,7 +33,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             return View();
         }
 
-        public ActionResult Index(bool showAll=false,int? storeID = null)
+        public ActionResult Index(bool showAll=false,bool sortbydate=false,int? storeID = null)
         {
             IQueryable<Item> gitems = ae.Items;
             Item item = new Item();
@@ -53,7 +53,10 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             if (storeID != null)
                 gitems = ae.Items.Where(m => m.StoreID == storeID && m.Have == showAll);
 
-            itemsVM.Items = gitems.OrderBy(m => m.Name).ToList();
+            if (sortbydate)
+                itemsVM.Items = gitems.OrderByDescending(m => m.LastGotten).ToList();
+            else
+                itemsVM.Items = gitems.OrderBy(m => m.Name).ToList();
 
 
             foreach (var tempitem in itemsVM.Items)

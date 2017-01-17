@@ -74,9 +74,9 @@
                 {
                     <span style="padding-left: 5px;padding-right: 5px">
                         @if (item.LastGotten != null)
-                    {
-                        @item.LastGotten.Value.ToShortDateString()
-                    }
+                        {
+                            @Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true}, null)
+                        }
                 </span>
 
                     <span style="text-align: right" width="100px">
