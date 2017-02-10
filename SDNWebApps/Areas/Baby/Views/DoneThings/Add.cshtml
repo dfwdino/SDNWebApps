@@ -92,7 +92,7 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
                 @*@Html.Hidden("KidName",1)*@
                 @*@Html.TextBoxFor(x => x.Action)@Html.Hidden("ActionNumber")<br /><br/>*@
                 @Html.Label("Amount")
-                @Html.TextBoxFor(m => m.OZ, new {@style = "width: 45px"}) @Html.DropDownListFor(x => POS, LiquidTypes)
+                @Html.TextBoxFor(m => m.OZ, new {@style = "width: 45px", @type = "number"}) @Html.DropDownListFor(x => POS, LiquidTypes)
             </div>
         </div>
         <br/>
@@ -100,10 +100,10 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
         <br/>
         <br/>
         @Html.Label("Start")
-        @Html.TextBoxFor(m => Model.StartTime, new {@length = "40"}) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br/>
+        @Html.TextBoxFor(m => Model.StartTime, new {@length = "40", @type = "number" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br/>
 
         @Html.Label("End")
-        @Html.TextBoxFor(m => m.EndTime, new {@length = "40"}) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br/>
+        @Html.TextBoxFor(m => m.EndTime, new {@length = "40", @type = "number" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br/>
 
         
 

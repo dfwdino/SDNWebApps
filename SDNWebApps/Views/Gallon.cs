@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace SDNWebApps.Views
 {
     using System;
@@ -16,8 +18,12 @@ namespace SDNWebApps.Views
     {
         public int ID { get; set; }
         public int AutoID { get; set; }
+
+        [RegularExpression("([1-9][0-9]*)")]
         public int TotalMiles { get; set; }
+        [RegularExpression("([1-9][0-9]*)")]
         public int DrivenMiles { get; set; }
+        [RegularExpression("([1-9][0-9]*)")]
         public double TotalGallons { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public Nullable<System.DateTime> GasDate { get; set; }

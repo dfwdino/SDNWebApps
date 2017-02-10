@@ -33,10 +33,10 @@
 {<div>
      @Html.HiddenFor(m => m.ID)
      @Html.LabelFor(m => m.Name) @Html.TextBoxFor(m => m.Name)<br />
-     @Html.LabelFor(m => m.Price)
+     @Html.LabelFor(m => m.Price,new { @type = "number" })
      @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
      @Html.LabelFor(m => m.Amount)
-     @Html.TextBoxFor(m => m.Amount)<br />
+     @Html.TextBoxFor(m => m.Amount,new { @type = "number" })<br />
      <label>Store</label>
      @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store",null)<br /><br />
      

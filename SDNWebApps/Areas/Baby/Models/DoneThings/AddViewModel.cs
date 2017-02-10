@@ -31,9 +31,13 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
 
         [Required(ErrorMessage = "Need to pick an start time.")]
         [Display(Name = "Start Time")]
-        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string StartTime { get; set; }
+
         [Display(Name = "End Time")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public string EndTime { get; set; }
         public float? OZ { get; set; }
         public string Mood { get; set; }
@@ -48,8 +52,7 @@ namespace SDNWebApps.Areas.Baby.Models.DoneThings
         public SelectList KidNames { get; set; }
         public int KidName { get; set; }
 
-        //public int SelectedKidID { get; set; }
-
+        
     }
         
     

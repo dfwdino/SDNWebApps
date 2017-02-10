@@ -92,40 +92,27 @@
 
         <div>
             @Html.LabelFor(m => m.TotalPrice)
-            @Html.TextBoxFor(m => m.TotalPrice)
+            @Html.TextBoxFor(m => m.TotalPrice,new { @type = "number" })
         </div>
 
         <div>
             @Html.LabelFor(m => m.TotalGallons)
-            @Html.TextBoxFor(m => m.TotalGallons)
+            @Html.TextBoxFor(m => m.TotalGallons, new { @type = "number" })
         </div>
 
 
         <div>
             @Html.LabelFor(m => m.TotalMiles)
-            @Html.TextBoxFor(m => m.TotalMiles)
+            @Html.TextBoxFor(m => m.TotalMiles, new { @type = "number" })
         </div>
 
         <div>
             @Html.LabelFor(m => m.Stations)
             @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
-            @*@Html.ActionLink("Add new Station", "Create", "Stations")*@
-
+  
        
         </div>
-        
-        @*<div>
-                    @Html.LabelFor(m => m.GasDate)
-                @Html.TextBoxFor(m => m.GasDate)
-            </div>
-
-                <div>
-                    @Html.LabelFor(m => m.DrivenMiles)
-                @Html.TextBoxFor(m => m.DrivenMiles)
-            </div>
-
-        <div>@Html.LabelFor(m => m.TankFilled)
-        @Html.CheckBoxFor(m => m.TankFilled)</div>*@
+  
         <br />
 
         <input type="submit" value="Add"/>
