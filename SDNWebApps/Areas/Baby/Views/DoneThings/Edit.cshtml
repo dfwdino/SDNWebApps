@@ -62,18 +62,18 @@ new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.StartTime)
-        @Html.TextBoxFor(m => m.StartTime,new {@type = "number" })<br />
+        @Html.TextBoxFor(m => m.StartTime)<br />
 
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.EndTime)
-        @Html.TextBoxFor(m => m.EndTime, new { @type = "number" }) <a onclick="GetCurrentDateTime()">Current Time</a>
+        @Html.TextBoxFor(m => m.EndTime) <a onclick="GetCurrentDateTime()">Current Time</a>
         <br />
 
     </div>
     <div>
         @Html.Label("Amount")
-        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 45px",@type = "number" })
+        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 45px",@type = "number", @step = "0.01" })
         @Html.DropDownListFor(x => x.LiquidType, LiquidTypes, Model.LiquidType)<br />
     </div>
     @*<div style="display: inline-block;width: 175px">
