@@ -42,7 +42,8 @@
 
         <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Price)
-        @Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
+            @*@Html.TextBoxFor(m => m.Price, new {@type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString()})<br/>*@
+            @Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
     </div>
         <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Amount)
