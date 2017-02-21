@@ -31,8 +31,11 @@ namespace SDNWebApps.Views
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+      
     
         public virtual Store Store { get; set; }
         public virtual ICollection<PriceHistory> PriceHistories { get; set; }
+        public virtual ItemSize ItemSize { get; set; }
+        public Nullable<int> ItemSizeID { get; set; }
     }
 }

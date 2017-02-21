@@ -12,24 +12,20 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class Actions
+    public partial class ItemSize
     {
-        public Actions()
+        public ItemSize()
         {
-            this.ThingsDones = new HashSet<ThingsDone>();
-            this.Reminders = new HashSet<Reminder>();
+            this.Items = new HashSet<Item>();
         }
     
-        public int index { get; set; }
-        public string Title { get; set; }
-        public bool Delete { get; set; }
-        public Nullable<System.Guid> CategoryID { get; set; }
+        public int Id { get; set; }
+        public string Size { get; set; }
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
     
-        public virtual ICollection<ThingsDone> ThingsDones { get; set; }
-        public virtual ActionCategory ActionCategory { get; set; }
-        public virtual ICollection<Reminder> Reminders { get; set; }
+        public virtual ICollection<Item> Items { get; set; }
     }
 }

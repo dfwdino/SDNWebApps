@@ -58,6 +58,10 @@
                 {
                     <span></span>
                 }
+                <span>
+                    @if(@item.ItemSize != null) { 
+                        @item.ItemSize.Size}
+                </span> 
                 @if (item.StoreID != null)
                 {
 
@@ -79,6 +83,7 @@
                         }
                 </span>
 
+
                     <span style="text-align: right" width="100px">
                         @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
                         <a href="#" id=@item.ID class="delete-link">Delete</a>
@@ -90,7 +95,7 @@
                     }*@
 
             </div>
-
+           
             <br />
         }
 

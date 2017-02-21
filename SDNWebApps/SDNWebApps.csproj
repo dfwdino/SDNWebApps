@@ -198,6 +198,7 @@
     <Compile Include="Areas\Baby\Controllers\ActionCategoriesController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\HomeController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\ItemsController.cs" />
+    <Compile Include="Areas\GroceryList\Controllers\ItemSizesController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\StroesController.cs" />
     <Compile Include="Areas\GroceryList\GroceryListAreaRegistration.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ViewItemsVM.cs" />
@@ -262,6 +263,9 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Item.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemSize.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\LiquidSize.cs">
@@ -450,6 +454,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\GroceryList\Views\ItemSizes\Create.cshtml" />
+    <Content Include="Areas\GroceryList\Views\ItemSizes\Delete.cshtml" />
+    <Content Include="Areas\GroceryList\Views\ItemSizes\Details.cshtml" />
+    <Content Include="Areas\GroceryList\Views\ItemSizes\Edit.cshtml" />
+    <Content Include="Areas\GroceryList\Views\ItemSizes\Index.cshtml" />
     <None Include="Properties\PublishProfiles\SDNWebApps - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="jQueryExtensions.dll" />

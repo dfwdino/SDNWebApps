@@ -37,7 +37,10 @@ namespace SDNWebApps.Areas.GroceryList.Models.Home
         public Image Image { get; set; }
 
         public List<System.Web.Mvc.SelectListItem> ListToUse { get; set; }
-       
+
+        public virtual ItemSize ItemSize { get; set; }
+        public Nullable<int> ItemSizeID { get; set; }
+
 
 
 

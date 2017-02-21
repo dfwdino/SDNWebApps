@@ -36,14 +36,15 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
         [HttpPost]
         public ActionResult EditItem(ItemsViewModel ivm)
         {
-
+            ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size");
             var gotItem = sdnApps.Items.First(m => m.ID == ivm.ID);
 
             gotItem.Amount = ivm.Amount;
             gotItem.Name = ivm.Name;
             gotItem.Price = (decimal?) ivm.Price;
             gotItem.StoreID = ivm.SelectedItemId;
-            gotItem.Have = false;            
+            gotItem.Have = false;
+            gotItem.ItemSizeID = ivm.ItemSizeID;            
 
             sdnApps.SaveChanges();
 
@@ -69,7 +70,16 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             ivm.Store = gotItem.Store;
             ivm.SelectedItemId = gotItem.StoreID;
             ivm.ID = gotItem.ID;
-            
+            //ivm.ItemSizeID = gotItem.ItemSizeID;
+            //ivm.ItemSize = gotItem.ItemSize;
+
+            //if (gotItem.ItemSizeID != null)
+                ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size", gotItem.ItemSizeID);
+            //else
+            //{
+            //    SelectListItem sli = new SelectListItem() {Text = "---Select Type---",Selected = true};
+            //    ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size",sli);
+            //}
 
             //if (gotItem.Image != null)
             //{
@@ -86,12 +96,16 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
     {
         var newItem = new Models.Home.ItemsViewModel();
 
-        if (!item.IsNullOrWhiteSpace())
+            ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size");
+
+            if (!item.IsNullOrWhiteSpace())
             ViewBag.Item = item + " was added.";
 
         newItem.ListToUse =
             new SDNAppsEntities().Stores.OrderBy(m => m.StoreName).Select(m =>
                 new SelectListItem { Value = SqlFunctions.StringConvert((double)m.ID).Trim(), Text = m.StoreName }).ToList();
+
+
 
         return View(newItem);
     }
