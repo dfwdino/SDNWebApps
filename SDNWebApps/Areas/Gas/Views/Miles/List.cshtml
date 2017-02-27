@@ -11,80 +11,72 @@
     double MilesDriven = 0;
     double LastTotalMiles = 0;
     int colorCounter = 0;
-    string color = string.Empty;
+    
 }
 
 <br />
 <br />
-@Html.ActionLink("List Auto","List","Auto",new {id = Model.PersonID},new {@style="padding-right: 10px;padding-left: 5px;"})
-@Html.ActionLink("Add","Add","Miles",new {id = Model.autoID},new {@style="padding-right: 10px"})
-@Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall=true }, new {@style="padding-right: 10px;"})
+@Html.ActionLink("List Auto", "List", "Auto", new { id = Model.PersonID }, new { @style = "padding-right: 10px;padding-left: 5px;" })
+@Html.ActionLink("Add", "Add", "Miles", new { id = Model.autoID }, new { @style = "padding-right: 10px" })
+@Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall = true }, new { @style = "padding-right: 10px;" })
 <br />
 <br />
 
-<!--TODO: Make CSS file-->
-<table id="AutoList" style="border-style:none;border-collapse: collapse">
-    <tr style="text-align:center; border-bottom: 1px solid black !important">
-        <td style="width: 75px">Total<br/>Miles</td>
-        <td style="width: 50px">@Html.Label("Price")</td>
-        <td style="width: 50px">LTM</td>
-        <td style="width: 50px">@Html.Label("MGP")</td>
-    </tr>
 
-    @{
-        foreach (var fillup in Model.Gallons)
-        {
+<div class="row panel-heading" style="font-weight:bold">
+    <div class="col-xs-2" style="text-align: center">Store</div>
+    <div class="col-xs-2">Total<br/> Miles</div>
+    <div class="col-xs-2">Price</div>
+    <div class="col-xs-2">LTM</div>
+    <div class="col-xs-2">MPG</div>
+    <div class="col-xs-2"></div>
+</div>
 
-            switch (colorCounter)
-            {
-                case 0:
-                    color = "lightblue";
-                    colorCounter = 1;
-                    break;
-                case 1:
-                    color = "lightcoral";
-                    colorCounter = 0;
-                    break;
-
-            }
-
-
-            <tr style="background-color: @color;">
-                <td style="width: 65px">@fillup.TotalMiles.ToString("##,####")</td>
-                <td style="width: 45px">@fillup.TotalPrice.Value.ToString("C")</td>
-                @{
-                    if (LastTotalMiles.Equals(0))
-                    {
-                        <td style="text-align: center">-</td>
-                        <td style="text-align: center">-</td>
-                        LastTotalMiles = fillup.TotalMiles;
-                    }
-
-                    else
-                    {
-                        MilesDriven = fillup.TotalMiles - LastTotalMiles;
-                        MilePerTank = MilesDriven / fillup.TotalGallons;
-
-
-                        <td style="text-align: center">@MilesDriven</td>
-                        <td style="width: 45px;text-align: center" >@MilePerTank.ToString("N")</td>
-                        LastTotalMiles = fillup.TotalMiles;
-                    }
-                }
-                <td style="width: 50px;text-align: center">@(fillup.Station == null ? "" : fillup.Station.StationName)</td>
-                <td> @if (Request.Cookies["LoggedIn"] != null)
+@{
+    foreach (var fillup in Model.Gallons)
+    {
+        <div class="row">
+            <div class="col-xs-2" style="text-align: center">@(fillup.Station == null ? "" : fillup.Station.StationName)</div>
+            <div class="col-xs-2">@fillup.TotalMiles.ToString("##,####")</div>
+            <div class="col-xs-2">@fillup.TotalPrice.Value.ToString("C")</div>
+            @{
+                if (LastTotalMiles.Equals(0))
                 {
-                    <span> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </span>}</td>
-            </tr>
+                    <div class="col-xs-2">--</div>
+                    <div class="col-xs-2">--</div>
+                    LastTotalMiles = fillup.TotalMiles;
+                }
+
+                else
+                {
+                    MilesDriven = fillup.TotalMiles - LastTotalMiles;
+                    MilePerTank = MilesDriven/fillup.TotalGallons;
 
 
+                    <div class="col-xs-2">@MilesDriven</div>
+                    <div class="col-xs-2">@MilePerTank.ToString("N")</div>
+                    LastTotalMiles = fillup.TotalMiles;
+                }
+            }
+            <div class="col-xs-2">
+                @if (Request.Cookies["LoggedIn"] != null)
+                {
+                    <span> @Html.ActionLink("Delete", "DeleteRow", new {milesID = fillup.ID}) </span>}
+            </div>
+        </div>
+                }
+}
 
-        }
-    }
-</table>
 
 @Styles.Render("~/Content/css")
 @Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/jqueryval")
+
+@Scripts.Render("~/bundles/bootstrap")
+
+<script>
+    $('.row:nth-of-type(2n+1)').css("background-color", "Linen");
+    $('.row:nth-of-type(2n)').css("background-color", "White");
+</script>
