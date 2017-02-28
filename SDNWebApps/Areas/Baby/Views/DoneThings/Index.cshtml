@@ -36,7 +36,7 @@
 @{
 
 
-    ViewBag.Title = "Freddy's Daily Break Down";
+    ViewBag.Title = "Kid's Daily Break Down";
     Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     string color = string.Empty;
     string _LastDate = string.Empty;
@@ -141,7 +141,7 @@
         if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
         {
             @:</table>
-            @displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
+            @*@displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())*@
             @:<table style="border-collapse: collapse; padding-bottom: 10px;">
         }
 
@@ -206,9 +206,9 @@
 
 </table>
 
-<table>
+@*<table>
      @displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
-</table>
+</table>*@
 
 
 @helper displaySummary(List<AmountGroup> AmountGrouping)
@@ -222,6 +222,7 @@
     <br/>
     <a id="showhide" onclick="toggleTable(@AmountGrouping[0].ItemDate.ToFileTimeUtc());">Show summary</a>
     <br/>
+    <br />
 <table id="@AmountGrouping[0].ItemDate.ToFileTimeUtc()" style="display: none">
     <tr style="border-top: 1px solid black !important">
         @{ int i = 0; }
@@ -238,12 +239,12 @@
                     @groupitem.Name
                     @if (@groupitem.Name.Equals("Sleep", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        @Convert.ToInt32(groupitem.TotalAmount);
-                        ;
+                        @Convert.ToDecimal(groupitem.TotalAmount).ToString("F");
+                        
                     }
                     else
                     {
-                        @groupitem.TotalAmount
+                        @Convert.ToDecimal(@groupitem.TotalAmount).ToString("F").Replace(".00","");
                     }
                     - @groupitem.LiquidSize
 
