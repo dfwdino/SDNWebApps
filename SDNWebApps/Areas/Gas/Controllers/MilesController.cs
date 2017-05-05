@@ -30,7 +30,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
                    .Take(5).OrderBy(m => m.TotalMiles).ToList());
             }
 
-
+            
             lmvModel.PersonID = ae.Autos.First(m => m.ID == id).Person.ID.ToString();
             lmvModel.autoID = id;
             lmvModel.AutoName = ae.Autos.First(m => m.ID == id).AutoName;
@@ -48,6 +48,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
             lmvModel.TotalGallons = null;
             lmvModel.TotalMiles = null;
             lmvModel.DrivenMiles = null;
+            lmvModel.GasDate = DateTime.Now;
             
             
 

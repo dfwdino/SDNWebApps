@@ -13,7 +13,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             Gallons = gallons;
         }
 
-
+      
         public int ID { get; set; }
 
         public  int autoID { get; set; }

@@ -13,14 +13,6 @@
 	padding: .2em .2em 0;
 	display: none;
 }
-
-.ui-widget-content {
-	/*border: 1px solid #aaaaaa*//*{borderColorContent}*/;
-	
-	background: #d9d4d4 none;
-	
-	color: #222222/*{fcContent}*/;
-}
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
 	padding: .2em 0;

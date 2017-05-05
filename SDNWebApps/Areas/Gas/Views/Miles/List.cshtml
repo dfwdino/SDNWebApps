@@ -24,6 +24,7 @@
 
 
 <div class="row panel-heading" style="font-weight:bold">
+    <div class="col-xs-2" style="text-align: center">Date</div>
     <div class="col-xs-2" style="text-align: center">Store</div>
     <div class="col-xs-2">Total<br/> Miles</div>
     <div class="col-xs-2">Price</div>
@@ -36,6 +37,7 @@
     foreach (var fillup in Model.Gallons)
     {
         <div class="row">
+            <div class="col-xs-2" style="text-align: center">@fillup.GasDate.Value.ToShortDateString()</div>
             <div class="col-xs-2" style="text-align: center">@(fillup.Station == null ? "" : fillup.Station.StationName)</div>
             <div class="col-xs-2">@fillup.TotalMiles.ToString("##,####")</div>
             <div class="col-xs-2">@fillup.TotalPrice.Value.ToString("C")</div>
