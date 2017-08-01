@@ -1,12 +1,15 @@
-﻿@using System.Web.Mvc.Html
-@model SDNWebApps.Areas.Gas.Models.Auto.AddViewModel
+﻿@model SDNWebApps.Areas.Gas.Models.Auto.AddViewModel
+
+@using System.Web.Mvc.Html
+@using System.Web.Optimization
+
 
 @{
     ViewBag.Title = "Add for " + Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Add</h2>
+<h2>Add</h2>
 
 @using (Html.BeginForm())
 {
