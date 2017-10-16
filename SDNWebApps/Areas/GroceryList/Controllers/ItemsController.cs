@@ -30,6 +30,13 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             gotItem.Have = haveItem;
             sdnApps.SaveChanges();
 
+            //Use this if it breaks
+            //return new JsonNetResult(new
+            //{
+            //    success = false,
+            //    error = ex.Message
+            //});
+
             return Json("Record deleted successfully!");
         }
 

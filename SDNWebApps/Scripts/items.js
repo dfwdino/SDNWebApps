@@ -38,6 +38,21 @@ function OnGotClick(e) {
     else {
         hasItem = false;
     }
+    //USE THIS!!!!
+    //$("#EnableSubscription").change(function () {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '@Url.Action("EnableSubscription")',
+    //        data: { enable: $("#EnableSubscription").is(':checked') },
+    //        success: function (response) {
+    //            if (response.success) {
+    //                toastr.success("Subscriptions has been updated", "@Resources.Common.Success");
+    //            } else {
+    //                toastr.error("Error message " + response.error);
+    //            }
+    //        }
+    //    });
+    //});
 
     $.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
           function (result) // success
