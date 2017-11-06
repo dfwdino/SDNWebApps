@@ -11,7 +11,7 @@ function OnDeleteItemClick(e)
     var rowdel = document.getElementById('FullItem{' + e.target.id + '}');
     rowdel.parentNode.removeChild(rowdel);
 
-    $.post("/GroceryList/Items/DeleteItem", { itemID: e.target.id },
+    $.post("/SDNWebApps/GroceryList/Items/DeleteItem", { itemID: e.target.id },
           function (result) // success
           {
               alert('success');
@@ -38,33 +38,23 @@ function OnGotClick(e) {
     else {
         hasItem = false;
     }
-    //USE THIS!!!!
-    //$("#EnableSubscription").change(function () {
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '@Url.Action("EnableSubscription")',
-    //        data: { enable: $("#EnableSubscription").is(':checked') },
-    //        success: function (response) {
-    //            if (response.success) {
-    //                toastr.success("Subscriptions has been updated", "@Resources.Common.Success");
-    //            } else {
-    //                toastr.error("Error message " + response.error);
-    //            }
-    //        }
-    //    });
+
+    //$.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem }, function (data) {
+    //    //do whatever with the response
+
     //});
 
-    $.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
-          function (result) // success
-          {
-              alert('tea');
-          },
-          function (msg) // error
-          {
-              alert('Error');
-          }
-         );
-    return false; // for the button
+    $.post("/SDNWebApps/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
+        function (result) // success
+        {
+            alert('tea');
+        },
+        function (msg) // error
+        {
+            alert('Error');
+        }
+    );
+    //return false; // for the button
 }
 
 function OnAddItemClick(e) {

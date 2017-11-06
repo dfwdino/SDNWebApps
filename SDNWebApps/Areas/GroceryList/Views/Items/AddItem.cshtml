@@ -39,22 +39,23 @@
         @Html.TextBoxFor(m => m.Name)<br/>
        
         </div>
-
+        <br />
         <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Price)
             @Html.TextBoxFor(m => m.Price, new {@type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString()})<br/>
             @*@Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />*@
     </div>
+    <br />
         <div class="ItemsAddForm">
         @Html.LabelFor(m => m.Amount)
         @Html.TextBoxFor(m => m.Amount,new { @type = "number" })<br />
     </div>
-
+    <br />
     <div class="ItemsAddForm">
         <label>Type</label>
         @Html.DropDownList("ItemSizeID",null,"---Select---")
     </div>
-
+    <br />
 
     <div class="ItemsAddForm">
         <label>Store</label>
@@ -64,7 +65,7 @@
     @*<div class="ItemsAddForm">
         <input type="file" id="uploadFile" name="uploadFile" />
     </div>*@
-
+    <br />
     <div class="ItemsAddForm">
         <input id="submitbutton" type="submit" value="Add" />
     </div>

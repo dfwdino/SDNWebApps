@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Web.Mvc.Html
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,32 +10,21 @@
    </head>
 
 <body>
-    @RenderPage("~/Views/Shared/MainMenuBar.cshtml")
+    @*@RenderPage("~/Views/Shared/MainMenuBar.cshtml")*@
+    @RenderPage("~/Areas/GroceryList/Views/Home/Shared/GroceryMainMenuBar.cshtml")
 
-<div style="padding-left: 4px">
-    <div style="padding-bottom: 5px">
-        <label id="HeaderLablel">Store:</label>
-        @Html.ActionLink("Add", "AddStore", "Stores", null, new { @class = "headerItems" })
-        @Html.ActionLink("All", "Stores", "Stores", null, new { @class = "headerItems", style = "padding-left: 7px" })
-    </div>
-  <div>
-        <label id="HeaderLablel">Items:</label>
-        @Html.ActionLink("Add", "AddItem", "Items", null, new { @class = "headerItems" })
-        @Html.ActionLink("All", "Index", "Home", new { showAll = true }, new { @class = "headerItems", style = "padding-left: 7px" })
-        @Html.ActionLink("Need", "Index", "Home", null, new { @class = "headerItems", style = "padding-left: 7px" })
-        @Html.ActionLink("Item Size", "Create", "ItemSizes", null, new { @class = "headerItems", style = "padding-left: 7px" })
-    </div>
-</div>
-
+<br/><br /><br />
     @RenderBody()
-
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @Scripts.Render("~/bundles/modernizr")
-    @*@RenderSection("scripts", required: false)*@
+    
     @Styles.Render("~/Content/grocery")
     @Styles.Render("~/Content/css")
 
-
+    <!-- jQuery UI CSS File -->
+    <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <!-- jQuery Reference -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- jQuery UI Reference -->
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
 
 
 </body>

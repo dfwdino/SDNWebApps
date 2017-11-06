@@ -103,7 +103,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
     {
         var newItem = new Models.Home.ItemsViewModel();
 
-            ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size");
+            ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes.OrderBy(m => m.Size), "Id", "Size");
 
             if (!item.IsNullOrWhiteSpace())
             ViewBag.Item = item + " was added.";
