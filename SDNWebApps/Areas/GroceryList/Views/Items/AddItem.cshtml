@@ -25,12 +25,9 @@
     }
 </style>
 
-<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.min.css" rel="stylesheet" />
-<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.structure.min.css" rel="stylesheet" />
-<link href="~/Scripts/jquery-ui-1114custom/jquery-ui.theme.min.css" rel="stylesheet"/>
-<script src="~/Scripts/jquery-2.1.4.js"></script>
-
-<script src="~/Scripts/jquery-ui-1114custom/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -70,10 +67,8 @@
         <input id="submitbutton" type="submit" value="Add" />
     </div>
 }
-@*@Scripts.Render("~/bundles/jquery")*@
 @Scripts.Render("~/bundles/grocery")
-@*@Styles.Render("~/Scripts/jquery-ui-1114custom/")*@
-@*@Styles.Render("~/Content/grocery.css")*@
+
 
 
 <script type="text/javascript">

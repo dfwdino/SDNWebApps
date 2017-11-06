@@ -12,16 +12,20 @@ function OnDeleteItemClick(e)
     rowdel.parentNode.removeChild(rowdel);
 
     $.post("/SDNWebApps/GroceryList/Items/DeleteItem", { itemID: e.target.id },
-          function (result) // success
-          {
-              alert('success');
-          },
-          function (result) // error
-          {
-              alert('error');
-          }
-         );
-    return false; // for the button
+        function (data) {//do whatever with the response
+        });
+
+    //$.post("/SDNWebApps/GroceryList/Items/DeleteItem", { itemID: e.target.id },
+    //      function (result) // success
+    //      {
+    //          alert('success');
+    //      },
+    //      function (result) // error
+    //      {
+    //          alert('error');
+    //      }
+    //     );
+    //return false; // for the button
 }
 
 function OnGotClick(e) {
@@ -39,21 +43,20 @@ function OnGotClick(e) {
         hasItem = false;
     }
 
-    //$.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem }, function (data) {
-    //    //do whatever with the response
+    $.post("/SDNWebApps/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem }, function (data) {
+        //do whatever with the response
 
-    //});
-
-    $.post("/SDNWebApps/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
-        function (result) // success
-        {
-            alert('tea');
-        },
-        function (msg) // error
-        {
-            alert('Error');
-        }
-    );
+    });
+//$.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
+//        function (result) // success
+//        {
+//            alert('tea');
+//        },
+//        function (msg) // error
+//        {
+//            alert('Error');
+//        }
+//    );
     //return false; // for the button
 }
 
@@ -66,7 +69,7 @@ function OnAddItemClick(e) {
     if (storeid.length == 0)
         storeid = 3;
 
-    $.post("/GroceryList/Items/AddItem", { name: name, price: price, StoreID: storeid, uploadFile: image },
+    $.post("/SDNWebApps/GroceryList/Items/AddItem", { name: name, price: price, StoreID: storeid, uploadFile: image },
           function (data) { });
     document.getElementById('ItemAdded').innerHTML = name + " was added.";
     document.getElementById('Name').value = "";
