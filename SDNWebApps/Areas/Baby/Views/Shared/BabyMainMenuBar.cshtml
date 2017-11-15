@@ -1,0 +1,61 @@
+﻿@using Microsoft.Ajax.Utilities
+@{
+    HttpCookieCollection SDNWebApps = Request.Cookies;
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="~/" class="navbar-brand">SDN Apps</a>
+            @Html.ActionLink("Add Entry", "Add", "DoneThings", null, new {@class="navbar-brand" })
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Action Items<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Add", "Add", "Actions", null, null)</li>
+                        <li>@Html.ActionLink("List", "Index", "Actions", null, null)</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Amount Size<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Add", "Create", "LiquidSizes", null, null)</li>
+                        <li>@Html.ActionLink("List", "Index", "LiquidSizes", null, null)</li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Summary", "Index", "DoneThings", null, null)</li>
+                        <li>@Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true }, null)</li>
+                        <li>@Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)</li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Baby's<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Add", "Create", "BabyNames", null, null)</li>
+                        <li>@Html.ActionLink("List", "Index", "BabyNames", null, null)</li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

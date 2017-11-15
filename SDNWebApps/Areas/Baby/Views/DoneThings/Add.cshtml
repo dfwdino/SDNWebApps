@@ -10,7 +10,7 @@
 
 @{
     ViewBag.Title = "Add";
-    Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
+    Layout = "~/Areas/Baby/Views/Shared/_Layout.cshtml";
     int POS = 3;
     List<System.Web.Mvc.SelectListItem> ListToUse = new SDNAppsEntities().Actions1.Where(m => m.Delete == false).OrderBy(m => m.Title).Select(m =>
         new SelectListItem {Value = SqlFunctions.StringConvert((double) m.index).Trim(), Text = m.Title}).ToList();
