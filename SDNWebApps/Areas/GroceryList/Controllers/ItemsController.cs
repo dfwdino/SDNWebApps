@@ -46,6 +46,19 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size");
             var gotItem = sdnApps.Items.First(m => m.ID == ivm.ID);
 
+
+            if (ivm.Price != null && ivm.SelectedItemId != null)
+            {
+                PriceHistory ph = new PriceHistory();
+
+                ph.Date = DateTime.Now;
+                ph.StoreID = (int)ivm.SelectedItemId;
+                ph.ItemID = ivm.ID;
+                ph.Price = Convert.ToDecimal(ivm.Price);
+
+                sdnApps.PriceHistories.Add(ph);
+            }
+
             gotItem.Amount = ivm.Amount;
             gotItem.Name = ivm.Name;
             gotItem.Price = (decimal?) ivm.Price;
@@ -79,6 +92,8 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             ivm.ID = gotItem.ID;
             //ivm.ItemSizeID = gotItem.ItemSizeID;
             //ivm.ItemSize = gotItem.ItemSize;
+
+            ivm.Prices = sdnApps.PriceHistories.Where(m => m.ItemID == itemID).OrderByDescending(m => m.Date).ToList();
 
             //if (gotItem.ItemSizeID != null)
                 ViewBag.ItemSizeID = new SelectList(sdnApps.ItemSizes, "Id", "Size", gotItem.ItemSizeID);

@@ -48,6 +48,12 @@
 
  </div>
 
+ foreach (var item in Model.Prices)
+ {
+    <div>@item.Store.StoreName - @item.Price.ToString("C") @item.Date.ToShortDateString()</div> <br/>
+ }
+
+
     <p><input id="submitbutton" type="submit" value="update" /></p>
 }
 @Scripts.Render("~/bundles/jquery")

@@ -45,6 +45,7 @@
                 @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
                     {
                     <span style="width: 10px"> - @item.Amount</span>
+                    
                 }
                 else
                 {
@@ -53,6 +54,7 @@
                 @if (item.Price > 0)
                 {
                     <span style="width: 10px"> - $@item.Price</span>
+                    <span><a href="#" onclick="editProduct(@item.ID)">Price List</a></span>
                 }
                 else
                 {
@@ -67,7 +69,9 @@
 
                     if (!item.StoreID.Equals(3))
                     {
-                        <span style="width:90px"> - @Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null) </span>
+                        <span style="width:90px"> - @Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null) 
+                            
+                        </span>
                     }
                 }
                 @*else
@@ -103,4 +107,46 @@
 
 </div>
 
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalWrapper">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/Scripts/items.js"></script>
+
+<script>
+    $(function () {
+        $('.editModal').modal();
+    });
+
+    function editProduct(productId) {
+        $.ajax({
+            url: '@Url.Action("PriceHistoryItem","PriceHistories")/' + productId, // The method name + paramater
+            success: function (data) {
+                $('#myModal').modal('show')
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //console.log("data is " + data)
+            }
+        });
+    }
+
+</script>

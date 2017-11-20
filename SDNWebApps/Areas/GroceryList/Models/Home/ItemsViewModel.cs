@@ -41,6 +41,8 @@ namespace SDNWebApps.Areas.GroceryList.Models.Home
         public virtual ItemSize ItemSize { get; set; }
         public Nullable<int> ItemSizeID { get; set; }
 
+        public List<PriceHistory> Prices { get; set; }
+
 
 
 

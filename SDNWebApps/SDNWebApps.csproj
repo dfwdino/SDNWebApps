@@ -197,6 +197,7 @@
     <Compile Include="Areas\GroceryList\Controllers\HomeController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\ItemsController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\ItemSizesController.cs" />
+    <Compile Include="Areas\GroceryList\Controllers\PriceHistoriesController.cs" />
     <Compile Include="Areas\GroceryList\Controllers\StroesController.cs" />
     <Compile Include="Areas\GroceryList\GroceryListAreaRegistration.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ViewItemsVM.cs" />
@@ -450,6 +451,7 @@
     <Content Include="Areas\GroceryList\Views\Home\Shared\GroceryMainMenuBar.cshtml" />
     <Content Include="Areas\Baby\Views\Shared\BabyMainMenuBar.cshtml" />
     <Content Include="Areas\Baby\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GroceryList\Views\PriceHistories\PriceHistoryItem.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />

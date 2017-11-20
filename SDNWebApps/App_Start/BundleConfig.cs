@@ -71,9 +71,9 @@ namespace SDNWebApps
             bundles.Add(new ScriptBundle("~/bundles/task").Include(
                         "~/Scripts/tasks.js"));
 
-            //bundles.Add(new StyleBundle("~/Content/grocery").Include("~/Content/grocery.css"));
+            bundles.Add(new StyleBundle("~/Content/grocery").Include("~/Content/grocery.css"));
 
-            //bundles.Add(new StyleBundle("~/Content/main").Include("~/Content/main.css"));
+            bundles.Add(new StyleBundle("~/Content/main").Include("~/Content/main.css"));
 
 
             #endregion

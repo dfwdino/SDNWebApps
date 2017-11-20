@@ -1,0 +1,9 @@
+﻿@model List<SDNWebApps.Views.PriceHistory>
+
+@foreach (var item in Model)
+{
+    <div>
+        <p>@item.Store.StoreName @item.Price.ToString("C") @item.Date.ToShortDateString()</p>
+    </div>
+}
+
