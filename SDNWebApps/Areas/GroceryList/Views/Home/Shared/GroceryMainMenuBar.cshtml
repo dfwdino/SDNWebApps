@@ -3,10 +3,10 @@
     HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
 <nav class="navbar navbar-inverse">
@@ -18,11 +18,12 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="~/" class="navbar-brand">SDN Apps</a>
+            @Html.ActionLink("Need List", "Index", "Home", null,new {@class = "navbar-brand" })
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 @*<li class="active"><a href="#">Home</a></li>*@
-
+               
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Store<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -49,7 +50,6 @@
 
 
 <style>
-    .navbar{
-        margin-bottom: 0px !important;
-    }
+
 </style>
+

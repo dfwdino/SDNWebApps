@@ -39,7 +39,7 @@
             }
 
             <div style="display:block;background-color: @color;width:@divWidth;padding-bottom: 5px;padding-top: 5px" id="FullItem{@item.ID}">
-                <span class="got-link" id=@item.ID style="width:200px">
+                <span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID style="width:200px">
                     @item.Name
                 </span>
                 @if (!string.IsNullOrEmpty(item.Amount) && !item.Amount.Equals("0"))
@@ -135,7 +135,7 @@
 
 <script>
     $(function () {
-        $('.editModal').modal();
+        $('.editModal').modal().show();
     });
 
     function editProduct(productId) {

@@ -43,21 +43,12 @@ function OnGotClick(e) {
         hasItem = false;
     }
 
-    $.post("/SDNWebApps/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem }, function (data) {
-        //do whatever with the response
+    var url = $(this).data('request-url');
+    $.post(url, { itemID: itemID, haveItem: hasItem }, function (data) {
+
 
     });
-//$.post("/GroceryList/Items/GotItem", { itemID: itemID, haveItem: hasItem },
-//        function (result) // success
-//        {
-//            alert('tea');
-//        },
-//        function (msg) // error
-//        {
-//            alert('Error');
-//        }
-//    );
-    //return false; // for the button
+
 }
 
 function OnAddItemClick(e) {
@@ -68,7 +59,7 @@ function OnAddItemClick(e) {
 
     if (storeid.length == 0)
         storeid = 3;
-
+    var url = $(this).data('request-url');
     $.post("/SDNWebApps/GroceryList/Items/AddItem", { name: name, price: price, StoreID: storeid, uploadFile: image },
           function (data) { });
     document.getElementById('ItemAdded').innerHTML = name + " was added.";
