@@ -40,7 +40,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public JsonResult List(string term)
         {
 
-            return Json(_se.Actions1.Where(m => m.Title.Contains(term)).Select(m => new { value = m.Title, m.index }).OrderBy(m => m.value).DistinctBy(m => m.value), JsonRequestBehavior.AllowGet);
+            return Json(_se.Actions1.Where(m => m.Title.Contains(term) && m.Delete == false)
+                    .Select(m => new { value = m.Title, m.index }).OrderBy(m => m.value).DistinctBy(m => m.value), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SummaryPage2()
@@ -290,9 +291,9 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             //if (Actions.Count() > 1)
             //    tempActions = _se.Actions1.Where(m => m.Delete == false).ToList();
-            
 
-            int fenLinqAction = Convert.ToInt16(Actions[0].Trim());
+            string firstaction = Actions[0];
+            int fenLinqAction = _se.Actions1.FirstOrDefault(m => m.Title == firstaction).index;
             DateTime againfenLinqStartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
 
             if(!addViewModel.EndTime.IsNullOrWhiteSpace())
@@ -313,7 +314,10 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 {
                     td = new ThingsDone();
 
-                    td.Action = Convert.ToInt16(Actions[i]);
+                    string currentactionname = Actions[i];
+                    
+
+                    td.Action = _se.Actions1.FirstOrDefault(m => m.Title == currentactionname).index;
 
                     td.BabyNameID = Convert.ToInt16(babynames[i]);
 
