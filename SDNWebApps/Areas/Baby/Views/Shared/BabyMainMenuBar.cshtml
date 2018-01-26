@@ -16,8 +16,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="~/" class="navbar-brand">SDN Apps</a>
-            @Html.ActionLink("Add Entry", "Add", "DoneThings", null, new {@class="navbar-brand" })
+            <div>
+                <a href="~/" class="navbar-brand">SDN Apps</a>
+                @Html.ActionLink("Add Entry", "Add", "DoneThings", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @class = "navbar-brand" })
+            </div>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -38,14 +41,14 @@
                     </ul>
                 </li>
                 
-                <li class="dropdown">
+                @*<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Summary", "Index", "DoneThings", null, null)</li>
                         <li>@Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true }, null)</li>
                         <li>@Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)</li>
                     </ul>
-                </li>
+                </li>*@
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Baby's<span class="caret"></span></a>
@@ -59,3 +62,9 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .navbar-brand {
+        font-size: 15px !important;
+    }
+</style>

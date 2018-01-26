@@ -67,7 +67,7 @@ new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m
     </div>
     <div style="padding-bottom: 5px">
         @Html.LabelFor(m => m.EndTime)
-        @Html.TextBoxFor(m => m.EndTime) <a onclick="GetCurrentDateTime()">Current Time</a>
+        @Html.TextBoxFor(m => m.EndTime) <a onclick="GetCurrentDateTime()">Get Time</a>
         <br />
 
     </div>
@@ -86,7 +86,7 @@ new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m
 <div style="display: inline-block;width: 175px">
     @Html.LabelFor(m => m.Notes,new{id="LNotes",style="color: blue;text-decoration: underline"})
     <div id="TANotes" style="@ShowNotesDispaly padding-left: 5px">
-        @Html.TextAreaFor(m => m.Notes, new { cols = "25" })
+        @Html.TextAreaFor(m => m.Notes)
     </div>
     <br />
 
@@ -110,3 +110,11 @@ new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m
         var value = document.getElementById('EndTime').value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
     }
 </script>
+
+<style>
+    textarea {
+        width: 300px;
+        height: 100px;
+        margin-left:5px;
+    }
+</style>

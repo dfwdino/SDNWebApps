@@ -5,7 +5,7 @@
 
 @{
     int colorCounter = 0;
-    string divWidth = Model.ShowAll != true ? "300px" : "400px";
+    string divWidth = Model.ShowAll != true ? "100%" : "100%";
     string color = string.Empty;
 }
 
@@ -15,8 +15,8 @@
     {
         foreach (var item in Model.Items)
         {
-            MemoryStream stream;
-            FileContentResult test = null;
+            //MemoryStream stream;
+            //FileContentResult test = null;
 
             //if (item.Image != null)
             //{
@@ -53,7 +53,7 @@
                 }
                 @if (item.Price > 0)
                 {
-                    <span style="width: 10px"> - $@item.Price</span>
+                    <span style="width: 10px"> - @item.Price.Value.ToString("C")</span>
                     <span><a href="#" onclick="editProduct(@item.ID)">Price List</a></span>
                 }
                 else
@@ -74,10 +74,6 @@
                         </span>
                     }
                 }
-                @*else
-                    {
-                        <span></span>
-                    }*@
                 @if (Model.ShowAll)
                 {
                     <span style="padding-left: 5px;padding-right: 5px">
@@ -114,7 +110,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Price History</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

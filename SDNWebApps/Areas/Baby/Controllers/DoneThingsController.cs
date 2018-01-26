@@ -190,7 +190,13 @@ namespace SDNWebApps.Areas.Baby.Controllers
 
             return View(_things);
         }
-        
+
+        public ActionResult GetNotes(int id)
+        {
+            return View(_se.ThingsDones.FirstOrDefault(m => m.index == id));
+        }
+
+
         [HttpGet]
         public ActionResult Edit(int id)
         {

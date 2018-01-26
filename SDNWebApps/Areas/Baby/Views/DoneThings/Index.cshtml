@@ -1,5 +1,4 @@
-﻿
-@using System
+﻿@using System
 @using System.Data.Entity.SqlServer
 @using System.Globalization
 @using System.Runtime.InteropServices
@@ -12,252 +11,170 @@
 @using Microsoft.Ajax.Utilities
 @model List<SDNWebApps.Areas.Baby.Models.DoneThings.ListViewModel>
 
-@functions {
-
-    //make an outside view/class
-    public class AmountGroup
-    {
-        public DateTime ItemDate;
-        public string Name;
-        public string LiquidSize;
-        public double? TotalAmount;
-
-    }
-}
-
-<script>
-    function toggleTable(id) {
-        var lTable = document.getElementById(id);
-        lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
-    }
-</script>
-
-
 @{
-
-
     ViewBag.Title = "Kid's Daily Break Down";
-    //Layout = "~/Areas/Baby/Views/Shared/_BabyLayout.cshtml";
     Layout = "~/Areas/Baby/Views/Shared/_Layout.cshtml";
     string color = string.Empty;
     string _LastDate = string.Empty;
     int colorCounter = 0;
-
-    SDNAppsEntities ae = new SDNAppsEntities();
-    //HttpCookieCollection SDNWebApps = Request.Cookies;
-
-    //Clean this up
-    List<Reminder> Reminders = ae.Reminders.Where(m => m.Deleted == false).ToList();
-
-    var DayTotals = Model.Where(m => m.EndTime == null && m.OZ != null && m.Actions.Title != "Temp").GroupBy(m => new { m.StartTime.Date, m.Actions.Title, m.LiquidSize.Type })
-            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => p.OZ), mliquidsize = group.Key.Type }).ToList();
-
-    var TimeTotals = Model.Where(m => m.EndTime != null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
-            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Sum(p => ((DateTime) p.EndTime-p.StartTime).TotalMinutes), mliquidsize = "Mins"}).ToList();
-
-    var ZeroAmount = Model.Where(m => m.EndTime == null && m.OZ == null).GroupBy(m => new { m.StartTime.Date, m.Actions.Title })
-            .Select(group => new { mdate = group.Key.Date, mitem = group.Key.Title, mtotal = group.Count(), mliquidsize = "Times" }).ToList();
-
-
-    List<AmountGroup> DaySummarys = DayTotals.Select(amount => new AmountGroup()
-    { ItemDate = amount.mdate, LiquidSize = amount.mliquidsize, Name = amount.mitem, TotalAmount = amount.mtotal}).ToList();
-
-    DaySummarys.AddRange(TimeTotals.Select(groupamount => new AmountGroup()
-    { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal}));
-
-    DaySummarys.AddRange(ZeroAmount.Select(groupamount => new AmountGroup()
-    { ItemDate = groupamount.mdate, LiquidSize = groupamount.mliquidsize, Name = groupamount.mitem, TotalAmount = groupamount.mtotal }));
-
-
-    List<string> TimeToDoItems = new List<string>();
-
-    foreach (var reminder in Reminders)
-    {
-        if (reminder.ReminderType.Type.Equals("Day"))
-        {
-            var NumberItemsFound = Model.Count(m => m.Actions.index == reminder.ActionID
-            &&  m.StartTime.Date.ToShortDateString() == TimeZoneInfo.ConvertTime(DateTime.Now.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).ToShortDateString());
-
-            if (NumberItemsFound == 0)
-            {
-                TimeToDoItems.Add(item: reminder.Action.Title);
-            }
-        }
-        else if (reminder.ReminderType.Type.Equals("Hour"))
-        {
-
-            ListViewModel NumberItemsFound = Model.Where(m => m.Actions.index == reminder.ActionID
-                && m.StartTime.Date.ToShortDateString() == TimeZoneInfo.ConvertTime(DateTime.Now.Date, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time")).ToShortDateString()).OrderByDescending(m => m.StartTime).FirstOrDefault();
-
-            if (NumberItemsFound == null)
-            {
-                TimeToDoItems.Add(item: reminder.Action.Title);
-            }
-            else if ((DateTime.Now - NumberItemsFound.StartTime).Hours >= reminder.Every)
-            {
-                TimeToDoItems.Add(item: reminder.Action.Title);
-            }
-
-        }
-
-
-
-    }
 }
-
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/items.js"></script>
 
-@if (!TimeToDoItems.Count.Equals(0))
+@foreach (ListViewModel thing in Model)
 {
-    <div>
-        <span style="font-size: large; color: red">Need To Do: </span>
-
-        @foreach (var timetodoitems in TimeToDoItems)
-        {
-            <span>@timetodoitems </span>
-        }
-    </div>
-}
-
-<table style="border-collapse: collapse;padding-bottom: 10px">
-
-
-    @foreach (ListViewModel thing in Model)
+    switch (colorCounter)
     {
-        switch (colorCounter)
-        {
-            case 0:
-                color = "lightblue";
-                colorCounter = 1;
-                break;
-            case 1:
-                color = "lightcoral";
-                colorCounter = 0;
-                break;
-        }
-        
-        //I tink this is why my last day is call jacked up
-        if (_LastDate != string.Empty && _LastDate != @thing.StartTime.Date.ToString())
-        {
-            @:</table>
-            @*@displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())*@
-            @:<table style="border-collapse: collapse; padding-bottom: 10px;">
-        }
-
-
-        if (_LastDate != string.Empty)
-        {
-            @:</div>
-        }
-
-        if (_LastDate != @thing.StartTime.Date.ToString())
-        {
-
-            <tr><td colspan="5"><h3 style="text-align: center" onclick="">@thing.StartTime.ToString("D")</h3></td></tr>
-            <tr style="border-bottom: 1px solid black !important">
-                <td style="width: 100px; text-align: center">Item Done </td>
-                <td style="width: 100px;text-align: center">Kid </td>
-                <td style="text-align: center;width: 75px">Start</td>
-                <td style="text-align: center;width: 75px">End</td>
-                <td style="text-align: center">Amount</td>
-                @*<td style="text-align: center">Mood</td>*@
-                <td style="text-align: center">Notes</td>
-
-            </tr>
-
-        }
-
-        <tr style="padding-bottom: 8px; background-color: @color;">
-            <td> @Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new {id = @thing.Index}) </td>
-            <td style="text-align: center; border-left: 1px solid black !important">@Html.ActionLink(@thing.Kid,"Index",new {babyname = @thing.Kid})</td>
-            <td style="text-align: center; border-left: 1px solid black !important">@thing.StartTime.ToLongTimeString()</td>
-            <td style="text-align: center; border-left: 1px solid black !important">@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
-            <td style="text-align: center; border-left: 1px solid black !important">
-                @if (@thing.StartTime != null && @thing.EndTime != null)
-                {
-                    @thing.EndTime.Value.Subtract(@thing.StartTime).ToString().Substring(0, 5);
-                }
-                else
-                {
-                    <span> @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString()) @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")</span>
-                }
-            </td>
-
-
-            <td style="text-align: center; border-left: 1px solid black !important">
-                @(@thing.Notes)
-
-                @if (Request.Cookies["LoggedIn"] != null)
-                {
-                    if (thing.Longitude != null)
-                    {
-
-                        <br /><a href="http://maps.google.com/maps?z=18&q=@thing.Latitude.Trim(),@thing.Longitude.Trim()" target='_blank'>Map</a>
-
-                    }
-                }
-            </td>
-        </tr>
-
-        _LastDate = @thing.StartTime.Date.ToString();
-
+        case 0:
+            color = "lightblue";
+            colorCounter = 1;
+            break;
+        case 1:
+            color = "lightcoral";
+            colorCounter = 0;
+            break;
     }
 
-</table>
 
-@*<table>
-     @displaySummary(DaySummarys.Where(m => m.ItemDate.Date == _LastDate.AsDateTime().Date).ToList())
-</table>*@
+    if (_LastDate != @thing.StartTime.Date.ToString())
+    {
+        <div class="row">
+            <div class='col-auto headerDate'>@thing.StartTime.ToString("D")</div>
+        </div>
+        <table align="center" style="width:375px;border-bottom-color:black;border-bottom:solid;">
+            <tr>
+                <col width="80">
+                <col width="40">
+                <col width="90">
+                <col width="90">
+                <col width="70">
+                <td class="header">Item</td>
+                <td class="header">Kid</td>
+                <td class="header">Start</td>
+                <td class="header">Stop</td>
+                <td class="header">Amount</td>
+            </tr>
+        </table>
+    }
 
-
-@helper displaySummary(List<AmountGroup> AmountGrouping)
-{
-    if (@AmountGrouping.Count.Equals(0))
-     {
-         return;
-     }
-
-    ///TODO: Fix the spacing issue.  Might have to remove the tables.
-    <br/>
-    <a id="showhide" onclick="toggleTable(@AmountGrouping[0].ItemDate.ToFileTimeUtc());">Show summary</a>
-    <br/>
-    <br />
-<table id="@AmountGrouping[0].ItemDate.ToFileTimeUtc()" style="display: none">
-    <tr style="border-top: 1px solid black !important">
-        @{ int i = 0; }
-        <tr>
-            @foreach (var groupitem in AmountGrouping)
+        <table align="center" style="width:375px">
+            <col width="80">
+            <col width="50">
+            <col width="90">
+            <col width="90">
+            <col width="70">
+            <tr style="background-color: @color;">
+                <td>@Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new { id = @thing.Index })</td>
+                <td>@Html.ActionLink(@thing.Kid, "Index", new { babyname = @thing.Kid })</td>
+                <td>@thing.StartTime.ToLongTimeString()</td>
+                <td>@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
+                <td>
+                    @if (@thing.StartTime != null && @thing.EndTime != null)
             {
-                if (i == 2)
-                {
-                    i = 0;
-                    <tr style="height: 10px"></tr>
-
-                }
-                <td colspan="2">
-                    @groupitem.Name
-                    @if (@groupitem.Name.Equals("Sleep", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        @Convert.ToDecimal(groupitem.TotalAmount).ToString("F");
-                        
-                    }
-                    else
-                    {
-                        @Convert.ToDecimal(@groupitem.TotalAmount).ToString("F").Replace(".00","");
-                    }
-                    - @groupitem.LiquidSize
-
-                </td>
-
-                {
-                    i = i + 1;
-                }
-
-
-            }
-        </tr>
-    </tr>
-</table>
+                @thing.EndTime.Value.Subtract(@thing.StartTime).ToString().Substring(0, 5);
+    }
+    else
+    {
+        <span> @(@thing.OZ == 0 ? "-" : @thing.OZ.ToString()) @(thing.LiquidSize != null ? @thing.LiquidSize.Type : "")</span>
 }
+                </td>
+            </tr> @if (thing.Notes != null)
+    {
+        <tr style="border-top:1px solid;border-top-color:gray; background-color: @color;">
+            <td colspan="5">
+
+                @*<a href="#" onclick="editProduct('@thing.Notes')">Notes:@thing.Notes</a>*@
+                <b>Notes: </b>@thing.Notes
+
+
+                @if (Request.Cookies["LoggedIn"] != null)
+        {
+            if (thing.Longitude != null)
+            {<a href="http://maps.google.com/maps?z=18&q=@thing.Latitude.Trim(),@thing.Longitude.Trim()" target='_blank'>Map</a>}
+}
+
+            </td>
+        </tr>}
+        </table>
+        <div style="margin-top:5px"></div>
+    _LastDate = @thing.StartTime.Date.ToString();
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Notes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalWrapper">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+    <script>
+    $(function () {
+        $('.editModal').modal().show();
+    });
+
+   function editProduct(productId) {
+       // $.ajax({
+       //     //url: return success, // The method name + paramater
+       //     success: function (data) {
+       //         $('#myModal').modal('show')
+       //         $('#modalWrapper').html(productId); // This should be an empty div where you can inject your new html (the partial view)
+       //         //console.log("data is " + data)
+       //     }
+       //});
+        alert(productId);
+       
+
+        }
+        
+        @*function editProduct(productId) {
+        $.ajax({
+            url: '@Url.Action("GetNotes", "DoneThings")/' + productId, // The method name + paramater
+            success: function (data) {
+                $('#myModal').modal('show')
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //console.log("data is " + data)
+            }
+        });
+    }*@
+
+
+    </script>
+
+<style>
+    .header {
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    .headerDate {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: 23px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    TD {
+        text-align: center;
+    }
+</style>

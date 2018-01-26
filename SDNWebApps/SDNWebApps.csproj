@@ -452,6 +452,9 @@
     <Content Include="Areas\Baby\Views\Shared\BabyMainMenuBar.cshtml" />
     <Content Include="Areas\Baby\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\GroceryList\Views\PriceHistories\PriceHistoryItem.cshtml" />
+    <Content Include="Areas\Baby\Views\DoneThings\Index.cshtml" />
+    <Content Include="Areas\Baby\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Baby\Views\DoneThings\GetNotes.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -506,7 +509,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Areas\Baby\Views\DoneThings\Index.cshtml" />
+    <Content Include="Areas\Baby\Views\DoneThings\Index-old.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\Add.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\Actions\Add.cshtml" />
