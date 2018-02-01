@@ -68,8 +68,8 @@
             <tr style="background-color: @color;">
                 <td>@Html.ActionLink(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(@thing.Actions.Title), "Edit", new { id = @thing.Index })</td>
                 <td>@Html.ActionLink(@thing.Kid, "Index", new { babyname = @thing.Kid })</td>
-                <td>@thing.StartTime.ToLongTimeString()</td>
-                <td>@(@thing.EndTime != null ? @thing.EndTime.Value.ToLongTimeString() : "-")</td>
+                <td>@thing.StartTime.ToString("hh:mm tt")</td>
+                <td>@(@thing.EndTime != null ? @thing.EndTime.Value.ToString("hh:mm tt") : "-")</td>
                 <td>
                     @if (@thing.StartTime != null && @thing.EndTime != null)
             {
