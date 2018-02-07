@@ -48,10 +48,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
             lmvModel.TotalGallons = null;
             lmvModel.TotalMiles = null;
             lmvModel.DrivenMiles = null;
-            lmvModel.GasDate = DateTime.Now;
+            //lmvModel.GasDate = DateTime.Now;
             
-            
-
             return View(lmvModel);
         }
 

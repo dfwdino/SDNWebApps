@@ -11,10 +11,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
     public class AddViewModel
     {
         SDNAppsEntities se = new SDNAppsEntities();
-        public AddViewModel()
-        {
-           
-        }
+        public AddViewModel() { }
 
         public AddViewModel(int autoID)
         {
@@ -46,8 +43,12 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public int? DrivenMiles { get; set; }
         [DisplayName("Total Price")]
         public decimal? TotalPrice  { get; set; }
+
+        [DataType(DataType.DateTime), Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Gas Date")]
         public DateTime? GasDate  { get; set; }
+        
         [DisplayName("Tank Filled")]
         public bool TankFilled { get; set; }
 
