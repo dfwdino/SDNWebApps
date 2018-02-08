@@ -27,7 +27,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             TotalGallons = gallon.TotalGallons;
             DrivenMiles  = gallon.DrivenMiles;
             TotalPrice =   gallon.TotalPrice;
-            GasDate =      gallon.GasDate;
+            GasDate =      gallon.GasDate.ToString();
             TankFilled =   gallon.TankFilled;
 
         }
@@ -47,7 +47,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         [DataType(DataType.DateTime), Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Gas Date")]
-        public DateTime? GasDate  { get; set; }
+        public string GasDate  { get; set; }
         
         [DisplayName("Tank Filled")]
         public bool TankFilled { get; set; }

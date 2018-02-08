@@ -12,6 +12,8 @@
 
     $.ajaxSetup({ cache: false });
 
+   
+
     function LoadInfo() {
 
         $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {
@@ -61,9 +63,14 @@
                      LoadInfo();
                 }
             });
-
-
+            
         });
+
+        document.getElementById("GasDate").value = new Date().toLocaleDateString("en-US");
+        //$("#GasDate").value = "12/12/1978";
+        //console.log('whote');
+
+
 
 });
 
@@ -85,7 +92,7 @@
 
         <div>
             @Html.LabelFor(m => m.GasDate)
-            @Html.TextBoxFor(m => m.GasDate, new { @type = "Date" })
+            @Html.TextBoxFor(m => m.GasDate, new { })
         </div>
 
         <div>
@@ -138,10 +145,10 @@
 
 <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel='stylesheet' />
 @Scripts.Render("~/bundles/GPS")
-<script type="text/javascript">
+@*<script type="text/javascript">
     //$(function () {
     //    $("#GasDate").datepicker();
     //});
 
 
-</script>
+</script>*@

@@ -56,11 +56,11 @@ namespace SDNWebApps.Areas.Gas.Controllers
         [HttpPost]
         public ActionResult Add(AddViewModel addviewmodel)
         {
-            
+
             Gallon gallon = new Gallon
             {
                 AutoID = addviewmodel.AutoID,
-                TotalMiles = (int) (addviewmodel.TotalMiles ?? 0),
+                TotalMiles = (int)(addviewmodel.TotalMiles ?? 0),
                 TotalGallons = addviewmodel.TotalGallons ?? 0,
                 DrivenMiles = addviewmodel.DrivenMiles ?? 0,
                 TotalPrice = addviewmodel.TotalPrice,
@@ -68,11 +68,17 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 StationID = addviewmodel.SelectedStation,
                 Latitude = addviewmodel.Latitude,
                 Longitude = addviewmodel.Longitude
-                
-                
+
+
             };
 
-            gallon.GasDate = addviewmodel.GasDate.HasValue ? addviewmodel.GasDate : DateTime.Now;
+            if (addviewmodel.GasDate != null)
+            {
+                DateTime dt;
+                DateTime.TryParse(addviewmodel.GasDate, out dt);
+                gallon.GasDate = dt;
+            }else{ gallon.GasDate = DateTime.Now; }
+            
 
             ae.Gallons.Add(gallon);
             int NumberOfChanges = ae.SaveChanges();
