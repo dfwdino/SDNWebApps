@@ -77,9 +77,9 @@
             <tr ng-repeat="e in JSONGallonsView | orderBy:sortType:sortReverse | filter:searchDate">
                 <td>{{ e.GasDate | date :  "MM/dd/yyyy"  }}</td>
                 <td>{{ e.Store }}</td>
-                <td>{{ e.TotalMiles }}</td>
-                <td>{{ e.TotalPrice }}</td>
-                <td>{{ e.TotalGallons }}</td>
+                <td>{{ e.TotalMiles | number }}</td>
+                <td>${{ e.TotalPrice | number: '2'}}</td>
+                <td>{{ e.TotalGallons | number: '3'}}</td>
                 <td>{{ e.DrivenMiles | number: 0 }}</td>
                 <td>{{ e.MPG | number: 0 }}</td>
             </tr>
@@ -106,6 +106,9 @@
     .navbar-inverse {
         background-color: black;
         border-color: red;
+    }
+    td{
+        text-align:center;
     }
 </style>
 
