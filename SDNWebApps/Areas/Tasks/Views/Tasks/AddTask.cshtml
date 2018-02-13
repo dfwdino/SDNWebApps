@@ -12,44 +12,46 @@
     label {
         width: 60px;
     }
+
     ui-datepicker .ui-widget-content {
-    background: #999;
+        background: #999;
     }
 </style>
 
-<br/>
-@Html.ActionLink("All Tasks","Index","Home",null,new{@style="padding-left: 5px;"})
-<br/>
+<br />
+@Html.ActionLink("All Tasks", "Index", "Home", null, new { @style = "padding-left: 5px;" })
+<br />
 <br />
 
-@using (Html.BeginForm("AddTask","Tasks", FormMethod.Post,new {@style="padding-left: 8px"}))
+@using (Html.BeginForm("AddTask", "Tasks", FormMethod.Post, new { @style = "padding-left: 8px" }))
 {<div>
-     <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.Title)
-         @Html.TextBoxFor(m => m.Title)
-     </div>
-     <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.DueDate)
-         @Html.TextBoxFor(m => m.DueDate)
-     </div>
-     <div style="padding-bottom: 5px;padding-top: 5px">
-         @Html.LabelFor(m => m.PersonID)
-         @Html.DropDownListFor(m => m.PersonID, new SelectList(Model.Persons, "ID", "PersonName", Model.Persons))
-     </div>
+        <div style="padding-bottom: 5px;padding-top: 5px">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+        <div style="padding-bottom: 5px;padding-top: 5px">
+            @Html.LabelFor(m => m.DueDate)
+            @Html.TextBoxFor(m => m.DueDate)
+        </div>
+        <div style="padding-bottom: 5px;padding-top: 5px">
+            @Html.LabelFor(m => m.PersonID)
+            @Html.DropDownListFor(m => m.PersonID, new SelectList(Model.Persons, "ID", "PersonName", Model.Persons))
+        </div>
 
 
-         </div>
-<br />
+    </div>
+    <br />
     @*<p><a href="#" class="add-link">Add</a></p>*@
-    <p><input value="Add" type="submit"/> </p>
+    <p><input value="Add" type="submit" /> </p>
 }
 
 <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
-@Styles.Render("~/Content/css")
-@Styles.Render("~/Content/themes/base/css")
+@*@Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")*@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/jqueryval")
+
 
 
 

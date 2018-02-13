@@ -1,27 +1,28 @@
-﻿@model List<SDNWebApps.Views.Task>
+﻿@using System.Web.Mvc.Html
+@using System.Web.Optimization
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Header = "Tasks";
-}
+@model List<SDNWebApps.Views.Task>
 
+    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewBag.Header = "Tasks";
+    }
 
-@Html.ActionLink("Add", "AddTask", "Tasks",null,new {style="padding-left: 5px;padding-right: 10px;"})
+               <div style="padding-left: 10px;padding-top:60px">
+                   @Html.ActionLink("Add", "AddTask", "Tasks", null, new { style = "padding-left: 5px;padding-right: 10px;" })
 
-@if (ViewBag.Title.Equals("All"))
-{
-    @Html.ActionLink("Undone", "Index", "Home")
+                   @if (ViewBag.Title.Equals("All"))
+    {
+               @Html.ActionLink("Undone", "Index", "Home")
 }
 else
 {
-    @Html.ActionLink("All", "Index", "Home", new { showAll = "true" },null)
+               @Html.ActionLink("All", "Index", "Home", new { showAll = "true" }, null)
 
 }
 
 
-@Html.Partial("ListTasks", Model)
+                   @Html.Partial("ListTasks", Model)
+               </div>
 
-
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@Scripts.Render("~/bundles/jquery")
+    

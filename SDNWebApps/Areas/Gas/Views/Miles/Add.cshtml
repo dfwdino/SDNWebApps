@@ -5,7 +5,7 @@
 
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <script>
@@ -79,9 +79,9 @@
 
 </script>
 
-
+<div style="padding-top:60px"></div>
 <div style="padding-left: 5px">
-    @Html.ActionLink("View Miles", "List", "Miles", new { ID = Model.AutoID }, null)
+    @Html.ActionLink("View Miles", "JSONList", "Miles", new { ID = Model.AutoID }, null)
 
     @Html.HiddenFor(m => m.Latitude)
     @Html.HiddenFor(m => m.Longitude)
@@ -125,11 +125,11 @@
       
     }
 </div>
-@Styles.Render("~/Content/css")
+@*@Styles.Render("~/Content/css")
 @Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")*@
 
 <div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
     

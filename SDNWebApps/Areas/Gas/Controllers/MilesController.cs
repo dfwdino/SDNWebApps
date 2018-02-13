@@ -13,20 +13,44 @@ namespace SDNWebApps.Areas.Gas.Controllers
     {
         SDNAppsEntities ae = new SDNAppsEntities();
 
-        public ActionResult List(int id, bool viewall = false)
+        public ActionResult JSONList(int id, bool viewall = false)
+        {   
+            List<Gallon> gallons = ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles).Take(20).ToList();
+            List<JSONGallonsView> jgv = new List<JSONGallonsView>();
+
+            decimal lastmiles = 0;
+
+            foreach (var item in gallons.OrderBy(m => m.TotalMiles))
+            {
+                JSONGallonsView gv = new JSONGallonsView();
+
+                gv.GasDate = item.GasDate;
+                gv.TotalGallons = item.TotalGallons;
+                gv.TotalMiles = item.TotalMiles;
+                gv.TotalPrice = item.TotalPrice;
+                gv.Store = item.Station.StationName;
+                gv.DrivenMiles = lastmiles.Equals(0) ? 0 : (int)(item.TotalMiles - lastmiles);
+                gv.MPG = lastmiles.Equals(0) ? 0 : ((item.TotalMiles - lastmiles) / (decimal)gv.TotalGallons);
+
+                lastmiles = gv.TotalMiles;
+                jgv.Add(gv);
+            }
+
+
+            return View(jgv);
+        }
+
+            public ActionResult List(int id, bool viewall = false)
         {
             ListViewModel lmvModel;
 
             if (viewall)
             {
-                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles).ToList());
+                lmvModel = new ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles).ToList());
             }
             else
             {
-                //DateTime backdate = DateTime.Now.AddMonths(-1);
-                //lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id && m.GasDate > DbFunctions.TruncateTime(backdate))
-                //   .OrderBy(m => m.TotalMiles).ToList()); 
-                lmvModel = new Models.Miles.ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles)
+                lmvModel = new ListViewModel(ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles)
                    .Take(5).OrderBy(m => m.TotalMiles).ToList());
             }
 
@@ -48,7 +72,6 @@ namespace SDNWebApps.Areas.Gas.Controllers
             lmvModel.TotalGallons = null;
             lmvModel.TotalMiles = null;
             lmvModel.DrivenMiles = null;
-            //lmvModel.GasDate = DateTime.Now;
             
             return View(lmvModel);
         }
@@ -82,12 +105,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
             ae.Gallons.Add(gallon);
             int NumberOfChanges = ae.SaveChanges();
-            
-            ///TODO: Why is this here?
-            //List<Gallon> test = ae.Gallons.Where(m => m.AutoID == addviewmodel.AutoID).ToList();
-
-            //ListViewModel lvm = new ListViewModel(test);
-
+           
             return RedirectToAction("List",new { id= addviewmodel.AutoID, viewall = false});
         }
 
@@ -95,9 +113,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         {
 
             var removeGallons = ae.Gallons.First(m => m.ID == milesID);
-
-
-            //ae.Gallons.Remove(removeGallons);
+            
             removeGallons.Delete = true;
             ae.SaveChanges();
 

@@ -20,7 +20,7 @@
               <tr>
                   <td style="border-style: solid; border-width: 1px;width: 75px;text-align: center">@Html.Label(item.AutoName)</td>
                   <td style="border-style: solid; border-width: 1px;width: 50px;text-align: center">@Html.ActionLink("Add","Add","Miles",new {id = item.ID},null) </td>
-                  <td style="border-style: solid; border-width: 1px;width: 75px;text-align: center">@Html.ActionLink("View Miles","List","Miles", new {id = item.ID},null)</td>
+                  <td style="border-style: solid; border-width: 1px;width: 75px;text-align: center">@Html.ActionLink("View Miles","JSONList","Miles", new {id = item.ID},null)</td>
                   <td style="border-style: solid; border-width: 1px;width: 75px;text-align: center">@Html.ActionLink("Add Notes", "Create", "GasNotes", new { id = item.ID }, null)</td>
                   <td style="border-style: solid; border-width: 1px;width: 75px;text-align: center">@Html.ActionLink("View Notes", "Index", "GasNotes", new { id = item.ID }, null)</td>
               </tr>
@@ -34,8 +34,8 @@
     @Html.ActionLink("Add Auto","Add","Auto",new {id = Model.Person.ID},null)
 </div>
 
-@Styles.Render("~/Content/css")
+@*@Styles.Render("~/Content/css")
 @Styles.Render("~/Content/themes/base/css")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryui")
-@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryval")*@
