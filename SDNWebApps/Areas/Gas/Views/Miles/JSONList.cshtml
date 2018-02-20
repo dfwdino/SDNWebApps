@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SDNWebApps.Areas.Gas.Models.Miles.JSONGallonsView>
 
 @{
-    ViewBag.Title = "JSONList";
+    ViewBag.Title = "Miles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,12 +17,11 @@
     </form>
 
     <table class="table table-bordered table-striped">
-
         <thead>
             <tr>
                 <td>
                     <a href="#" ng-click="sortType = 'GasDate'; sortReverse = !sortReverse">
-                        Gas Date
+                        Date
                         <span ng-show="sortType == 'GasDate' && !sortReverse" class="fa fa-caret-down"></span>
                         <span ng-show="sortType == 'GasDate' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
@@ -51,7 +50,7 @@
                 </td>
                 <td>
                     <a href="#" ng-click="sortType = 'TotalGallons'; sortReverse = !sortReverse">
-                        Total Gallons
+                        Gallons
                         <span ng-show="sortType == 'TotalGallons' && !sortReverse" class="fa fa-caret-down"></span>
                         <span ng-show="sortType == 'TotalGallons' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
@@ -74,14 +73,14 @@
         </thead>
 
         <tbody>
-            <tr ng-repeat="e in JSONGallonsView | orderBy:sortType:sortReverse | filter:searchDate">
-                <td>{{ e.GasDate | date :  "MM/dd/yyyy"  }}</td>
-                <td>{{ e.Store }}</td>
-                <td>{{ e.TotalMiles | number }}</td>
-                <td>${{ e.TotalPrice | number: '2'}}</td>
-                <td>{{ e.TotalGallons | number: '3'}}</td>
-                <td>{{ e.DrivenMiles | number: 0 }}</td>
-                <td>{{ e.MPG | number: 0 }}</td>
+            <tr ng-repeat="g in Gallons | orderBy:sortType:sortReverse | filter:searchDate">
+                <td>{{ g.GasDate | date :  "MM/dd/yyyy"  }}</td>
+                <td>{{ g.Store }}</td>
+                <td>{{ g.TotalMiles | number }}</td>
+                <td>{{ g.TotalPrice | currency}}</td>
+                <td>{{ g.TotalGallons | number: '3'}}</td>
+                <td>{{ g.DrivenMiles | number: 0 }}</td>
+                <td>{{ g.MPG | number: 0 }}</td>
             </tr>
         </tbody>
 
