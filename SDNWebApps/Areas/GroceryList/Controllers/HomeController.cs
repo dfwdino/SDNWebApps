@@ -52,7 +52,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
             }
 
             if (storeID != null)
-                gitems = ae.Items.Where(m => m.StoreID == storeID && m.Have == showAll);
+                gitems = ae.Items.OrderBy(m => m.Name).Where(m => m.StoreID == storeID && m.Have == showAll);
 
             if (sortbydate)
                 itemsVM.Items = gitems.OrderByDescending(m => m.LastGotten).ToList();

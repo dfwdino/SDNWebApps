@@ -106,7 +106,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
             ae.Gallons.Add(gallon);
             int NumberOfChanges = ae.SaveChanges();
            
-            return RedirectToAction("List",new { id= addviewmodel.AutoID, viewall = false});
+            return RedirectToAction("JSONList", new { id= addviewmodel.AutoID, viewall = false});
         }
 
         public ActionResult DeleteRow(int milesID)
@@ -118,7 +118,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
             ae.SaveChanges();
 
 
-            return RedirectToAction("List", new {id = removeGallons.AutoID});
+            return RedirectToAction("JSONList", new {id = removeGallons.AutoID});
         }
 
     }

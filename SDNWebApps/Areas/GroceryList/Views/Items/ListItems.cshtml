@@ -14,7 +14,7 @@
     @using (Html.BeginForm())
     {
 
-        <table align="center" style="width:375px;border-bottom-color:black;border-bottom:solid;">
+        <table align="center" style="width:350px;border-bottom-color:black;border-bottom:solid;">
             <tr>
                 <td class="header" width="150">Item</td>
                 <td class="header" width="50">Store</td>
@@ -40,10 +40,10 @@
                     break;
 
             }
-
-            <table align="center" style="width:375px;border-bottom-color:black;border-bottom:solid;" id="FullItem{@item.ID}">
+            <div style="padding-bottom:10px"></div>
+            <table align="center" style="width:350px; border-color:black;border:solid;" id="FullItem{@item.ID}">
                 <tr style="background-color: @color;">
-                    <td width="150"><span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>@item.Name @(@item.Amount != null ? @item.Amount : "")</span></td>
+                    <td width="150"><span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>@item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize== null ? "" : item.ItemSize.Size)</span></td>
                     <td width="50" style="text-align:center">
                         @if (item?.StoreID != 3 && item.StoreID != null)
                         {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
@@ -84,7 +84,7 @@
 
 
 <div class="modal fade" id="myModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Price History</h5>
@@ -128,7 +128,8 @@
     .header{
         text-align:center;
         font-weight:bold;
-        color:lightyellow
-
+        
     }
+
+
 </style>

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SDNDB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{c4c0e6c6-868f-42d1-86af-886d484d17eb}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SDNDB</RootNamespace>
+    <AssemblyName>SDNDB</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Events\" />
+    <Folder Include="Events\Tables\" />
+    <Folder Include="Baby\" />
+    <Folder Include="Baby\Tables\" />
+    <Folder Include="Gas\" />
+    <Folder Include="Gas\Tables\" />
+    <Folder Include="Dreams\" />
+    <Folder Include="Dreams\Tables\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Task\" />
+    <Folder Include="Task\Tables\" />
+    <Folder Include="weighttracking\" />
+    <Folder Include="weighttracking\Tables\" />
+    <Folder Include="Grocery\" />
+    <Folder Include="Grocery\Tables\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Logging\Tables\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Events\Tables\PositionsDid.sql" />
+    <Build Include="Events\Tables\ProtectionType.sql" />
+    <Build Include="Events\Tables\Owners.sql" />
+    <Build Include="Events\Tables\People.sql" />
+    <Build Include="Events\Tables\BiologicalSexualOrientation.sql" />
+    <Build Include="Events\Tables\CumLocation.sql" />
+    <Build Include="Events\Tables\Locations.sql" />
+    <Build Include="Baby\Tables\ReminderTypes.sql" />
+    <Build Include="Gas\Tables\Gallons.sql" />
+    <Build Include="Baby\Tables\LiquidSize.sql" />
+    <Build Include="Dreams\Tables\Dreams.sql" />
+    <Build Include="Baby\Tables\Actions.sql" />
+    <Build Include="dbo\Tables\AutomaticThoughts.sql" />
+    <Build Include="Events\Tables\LizNightlyQuestions.sql" />
+    <Build Include="Baby\Tables\Reminders.sql" />
+    <Build Include="Events\Tables\ActionType.sql" />
+    <Build Include="Task\Tables\Tasks.sql" />
+    <Build Include="Gas\Tables\People.sql" />
+    <Build Include="weighttracking\Tables\Weight.sql" />
+    <Build Include="weighttracking\Tables\Size.sql" />
+    <Build Include="Events\Tables\EventActions.sql" />
+    <Build Include="Grocery\Tables\PriceHistory.sql" />
+    <Build Include="Events\Tables\EventPeople.sql" />
+    <Build Include="Gas\Tables\Autos.sql" />
+    <Build Include="Events\Tables\EventLocation.sql" />
+    <Build Include="Events\Tables\Logging.sql" />
+    <Build Include="Events\Tables\Reports.sql" />
+    <Build Include="Events\Tables\Comments.sql" />
+    <Build Include="Baby\Tables\ThingsDone.sql" />
+    <Build Include="Grocery\Tables\ItemSize.sql" />
+    <Build Include="Logging\Tables\Logging.sql" />
+    <Build Include="Baby\Tables\ActionCategory.sql" />
+    <Build Include="Baby\Tables\BabyNames.sql" />
+    <Build Include="Events\Tables\Positions.sql" />
+    <Build Include="Gas\Tables\Stations.sql" />
+    <Build Include="Grocery\Tables\Stores.sql" />
+    <Build Include="Grocery\Tables\Items.sql" />
+    <Build Include="Gas\Tables\GasNotes.sql" />
+    <Build Include="Events\Tables\WhoWhatTo.sql" />
+    <Build Include="Events\Tables\PeopleSTICheck.sql" />
+    <Build Include="Events\Tables\Events.sql" />
+    <Build Include="Security\SDNWebApp.sql" />
+    <Build Include="Security\SDNWebApp_1.sql" />
+    <Build Include="Security\NT AUTHORITY_IUSR.sql" />
+    <Build Include="Security\NT AUTHORITY_IUSR_1.sql" />
+    <Build Include="Security\NT AUTHORITY_NETWORK SERVICE.sql" />
+    <Build Include="Security\NT AUTHORITY_NETWORK SERVICE_1.sql" />
+    <Build Include="Security\NT AUTHORITY_SYSTEM.sql" />
+    <Build Include="Security\NT AUTHORITY_SYSTEM_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Security\Baby.sql" />
+    <Build Include="Security\Dreams.sql" />
+    <Build Include="Security\Events.sql" />
+    <Build Include="Security\Gas.sql" />
+    <Build Include="Security\Grocery.sql" />
+    <Build Include="Security\Logging.sql" />
+    <Build Include="Security\Task.sql" />
+    <Build Include="Security\weighttracking.sql" />
+    <Build Include="Security\Permissions.sql" />
+  </ItemGroup>
+</Project>
