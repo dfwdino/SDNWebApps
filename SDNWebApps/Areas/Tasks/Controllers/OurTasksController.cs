@@ -13,15 +13,14 @@ using ModelState = System.Web.Http.ModelBinding.ModelState;
 
 namespace SDNWebApps.Areas.Tasks.Controllers
 {
-    public class TasksController : Controller
+    public class OurTasksController : Controller
     {
         SDNAppsEntities sdnApps = new SDNAppsEntities();
 
         [HttpPost]
-        [WebMethod]
-        public JsonResult GotTask(int taskID)
+        public JsonResult GotTask(int id)
         {
-            var gotItem = sdnApps.Tasks.First(m => m.ID == taskID);
+            var gotItem = sdnApps.Tasks.First(m => m.ID == id);
 
             gotItem.Done = !gotItem.Done;
 

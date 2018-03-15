@@ -208,7 +208,7 @@
     <Compile Include="Areas\Photos\Models\ViewPhoto.cs" />
     <Compile Include="Areas\Photos\PhotosAreaRegistration.cs" />
     <Compile Include="Areas\Tasks\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Tasks\Controllers\TasksController.cs" />
+    <Compile Include="Areas\Tasks\Controllers\OurTasksController.cs" />
     <Compile Include="Areas\Tasks\Models\EditTask.cs" />
     <Compile Include="Areas\Tasks\Models\Task.cs" />
     <Compile Include="Areas\Tasks\TasksAreaRegistration.cs" />
@@ -564,7 +564,7 @@
     <Content Include="Areas\Baby\Views\ActionCategories\Index.cshtml" />
     <Content Include="Areas\Photos\Views\Photo\ViewPhoto.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\SummaryPage.cshtml" />
-    <Content Include="Areas\Tasks\Views\Tasks\EditTask.cshtml" />
+    <Content Include="Areas\Tasks\Views\OurTasks\EditTask.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\SummaryPage2.cshtml" />
     <Content Include="Areas\WeightTracking\Views\web.config" />
     <Content Include="Areas\WeightTracking\Views\WT\Create.cshtml" />
@@ -649,7 +649,7 @@
     <Content Include="Areas\Tasks\Views\Web.config" />
     <Content Include="Areas\Tasks\Views\Home\Index.cshtml" />
     <Content Include="Areas\Tasks\Views\Home\ListTasks.cshtml" />
-    <Content Include="Areas\Tasks\Views\Tasks\AddTask.cshtml" />
+    <Content Include="Areas\Tasks\Views\OurTasks\AddTask.cshtml" />
     <Content Include="Areas\Tasks\Views\Shared\_TasksLayout.cshtml" />
     <Content Include="Content\grocery.scss" />
     <Content Include="Content\grocery.css.map">

@@ -23,7 +23,7 @@ namespace SDNWebApps.Areas.Tasks.Controllers
 
             if (userid!=null)
             {
-                gtasks = gtasks.Where(m => m.PersonID.Equals(userid)).OrderBy(m => m.DueDate);
+                gtasks = gtasks.Where(m => m.PersonID == userid);
             }
 
 
@@ -34,11 +34,11 @@ namespace SDNWebApps.Areas.Tasks.Controllers
             }
             else
             {
-                gtasks = gtasks.Where(m => m.Done == showAll).OrderBy(m => m.DueDate);
+                gtasks = gtasks.Where(m => m.Done == showAll);
                 ViewBag.Title = "Tasks To-Do";
             }
 
-            return View(gtasks.ToList());
+            return View(gtasks.OrderBy(m => m.DueDate).ToList());
         }
 
     }

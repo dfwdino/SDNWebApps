@@ -11,7 +11,7 @@ function OnDeleteClick(e)
     var rowdel = document.getElementById('FullItem{' + e.target.id + '}');
     rowdel.parentNode.removeChild(rowdel);
 
-    $.post("/Tasks/Tasks/DeleteItem", { taskID: e.target.id },
+    $.post("/Tasks/OurTasks/DeleteItem", { taskID: e.target.id },
           function (result) // success
           {
               alert('success');
@@ -27,12 +27,10 @@ function OnDeleteClick(e)
 function OnGotClick(e) {
 
     var done = true;
-    var itemID = e.target.parentElement.id;
-
-    //var id = 'FullItem{' + itemID + '}';
+    var itemID = event.currentTarget.id;
 
     var div = document.getElementById('FullItem{' + itemID + '}');
-    //div.innerHTML = "";
+
     div.parentNode.removeChild(div);
 
 
@@ -43,29 +41,8 @@ function OnGotClick(e) {
         hasItem = false;
     }
 
-
-    //var done;
-    //var taskID = e.target.parentElement.id;
-    //document.getElementById('FullItem{' + taskID + '}').innerHTML = "";
-
-    ////need a find a better way
-    //if (window.location.href.indexOf('showAll=True') < 0)
-    //    done = true;
-    //else {
-    //    done = false;
-    //}
-
-    var test = $.post("/Tasks/Tasks/GotTask", { taskID: itemID},
-          function (result) // success
-          {
-              alert(result);
-          },
-
-          function (result) // error
-          {
-              alert(result);
-          }
-         );
+    $.post("/Tasks/OurTasks/GotTask/", { id: itemID }, function (data) { });
+  
     return false; // for the button
 }
 

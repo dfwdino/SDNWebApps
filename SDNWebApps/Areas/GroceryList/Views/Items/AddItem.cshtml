@@ -21,14 +21,18 @@
         text-align: left;
     }
     form {
-        padding-left: 8px;
+        padding-left: 15px;
     }
+
+   #context{
+       
+   }
 </style>
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-
+<div id="context">
 @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
         <div>
@@ -67,6 +71,8 @@
         <input id="submitbutton" type="submit" value="Add" />
     </div>
 }
+
+    </div>
 @Scripts.Render("~/bundles/grocery")
 
 

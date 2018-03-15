@@ -42,7 +42,7 @@
     foreach (var task in Model)
     {
         <div id="FullItem{@task.ID}" style="width: 600px;padding-bottom: 15px">
-            <a href="#" id=@task.ID class="got-link TaskItem">@Html.LabelForModel(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title))</a>
+            <a id=@task.ID class="got-link TaskItem">@Html.LabelForModel(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(task.Title))</a>
            @*@if (task.Done)
             {//Need to fix if statement
                 <a href="#" id=@task.ID class="delete-link">Delete</a>
