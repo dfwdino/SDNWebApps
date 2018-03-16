@@ -41,7 +41,7 @@ function OnGotClick(e) {
         hasItem = false;
     }
 
-    $.post("/Tasks/OurTasks/GotTask/", { id: itemID }, function (data) { });
+    $.post("/SDNWebApps/Tasks/OurTasks/GotTask/", { id: itemID }, function (data) { });
   
     return false; // for the button
 }

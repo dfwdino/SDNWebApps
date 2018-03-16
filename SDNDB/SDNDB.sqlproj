@@ -140,4 +140,7 @@
     <Build Include="Security\weighttracking.sql" />
     <Build Include="Security\Permissions.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlSchemaCompare1.scmp" />
+  </ItemGroup>
 </Project>
