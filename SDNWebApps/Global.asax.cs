@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using SDNWebApps.Areas;
+using SDNWebApps.Infrastructure;
 
 namespace SDNWebApps
 {
@@ -29,6 +30,7 @@ namespace SDNWebApps
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new PageViewLoggingAttribute());
+            //filters.Add(new AccessAttribute());
         }
     }
 }

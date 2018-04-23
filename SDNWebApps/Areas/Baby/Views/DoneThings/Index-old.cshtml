@@ -120,7 +120,7 @@
                 @*<a onclick="javascript: editProduct('@thing.Notes');"> @(@thing.Notes != null ? @thing.Notes.Substring(0, 10) + "..." : @thing.Notes)</a>*@
                 @thing.Notes
 
-@if(Request.Cookies["LoggedIn"] != null)
+@if(Request.Cookies["SDNWebApps"] != null)
                 {
             if (thing.Longitude != null)
             {

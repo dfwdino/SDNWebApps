@@ -15,10 +15,12 @@ using SDNWebApps.Areas.Baby.Models.DoneThings;
 using SDNWebApps.Views;
 using System.Data.Entity;
 using System.Data.SqlClient;
-
+using SDNWebApps.Infrastructure;
 
 namespace SDNWebApps.Areas.Baby.Controllers
 {
+
+    [Access]
     public class DoneThingsController : Controller
     {
         
@@ -129,19 +131,20 @@ namespace SDNWebApps.Areas.Baby.Controllers
                 });
             }
 
-            if (Request.Cookies["LoggedIn"] != null)
-            {
-                HttpCookie myCookie = new HttpCookie("LoggedIn");
-                myCookie.Expires = DateTime.Now.AddDays(1d);
+            
+            //if (Request.Cookies["SDNWebApps"] != null)
+            //{
+            //    HttpCookie myCookie = new HttpCookie("LoggedIn");
+            //    myCookie.Expires = DateTime.Now.AddDays(1d);
 
-                Response.Cookies.Add(myCookie);
+            //    Response.Cookies.Add(myCookie);
 
 
-                HttpCookie idCookie = new HttpCookie("SDNID");
-                idCookie.Expires = DateTime.Now.AddDays(1d);
+            //    HttpCookie idCookie = new HttpCookie("SDNID");
+            //    idCookie.Expires = DateTime.Now.AddDays(1d);
 
-                Response.Cookies.Add(idCookie);
-            }
+            //    Response.Cookies.Add(idCookie);
+            //}
 
 
 

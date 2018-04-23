@@ -217,6 +217,7 @@
     <Compile Include="Areas\WeightTracking\WeightTrackingAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Infrastructure\Access.cs" />
     <Compile Include="Views\ActionCategory.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>

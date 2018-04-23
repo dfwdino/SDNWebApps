@@ -162,7 +162,8 @@
           <Property Name="PersonName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="25" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="SaltHash" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sait" Type="nchar" MaxLength="10" />
+          <Property Name="Hash" Type="nvarchar" MaxLength="50" />
           <Property Name="Delete" Type="bit" />
           <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
@@ -403,18 +404,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LiquidSize_LiquidSize">
-          <End Role="LiquidSize" Type="Self.LiquidSize" Multiplicity="1" />
-          <End Role="LiquidSize1" Type="Self.LiquidSize" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="LiquidSize">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LiquidSize1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PriceHistory_Items">
           <End Role="Items" Type="Self.Items" Multiplicity="1" />
           <End Role="PriceHistory" Type="Self.PriceHistory" Multiplicity="*" />
@@ -463,18 +452,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Stations_Stations">
-          <End Role="Stations" Type="Self.Stations" Multiplicity="1" />
-          <End Role="Stations1" Type="Self.Stations" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Stations">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="Stations1">
-              <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tasks_People1">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
@@ -484,6 +461,18 @@
             </Principal>
             <Dependent Role="Tasks">
               <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ThingsDone_Actions">
+          <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
+          <End Role="ThingsDone" Type="Self.ThingsDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Actions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="ThingsDone">
+              <PropertyRef Name="Action" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,10 +570,6 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Items" EntitySet="Items" />
           </AssociationSet>
-          <AssociationSet Name="FK_LiquidSize_LiquidSize" Association="Self.FK_LiquidSize_LiquidSize">
-            <End Role="LiquidSize" EntitySet="LiquidSize" />
-            <End Role="LiquidSize1" EntitySet="LiquidSize" />
-          </AssociationSet>
           <AssociationSet Name="FK_PriceHistory_Items" Association="Self.FK_PriceHistory_Items">
             <End Role="Items" EntitySet="Items" />
             <End Role="PriceHistory" EntitySet="PriceHistory" />
@@ -601,13 +586,13 @@
             <End Role="People" EntitySet="People" />
             <End Role="Size" EntitySet="Size" />
           </AssociationSet>
-          <AssociationSet Name="FK_Stations_Stations" Association="Self.FK_Stations_Stations">
-            <End Role="Stations" EntitySet="Stations" />
-            <End Role="Stations1" EntitySet="Stations" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
             <End Role="People" EntitySet="People" />
             <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThingsDone_Actions" Association="Self.FK_ThingsDone_Actions">
+            <End Role="Actions" EntitySet="Actions" />
+            <End Role="ThingsDone" EntitySet="ThingsDone" />
           </AssociationSet>
           <AssociationSet Name="FK_ThingsDone_BabyNames" Association="Self.FK_ThingsDone_BabyNames">
             <End Role="BabyNames" EntitySet="BabyNames" />
@@ -692,10 +677,6 @@
           <AssociationSet Name="FK_Gallons_Stations" Association="SDNAppsModel.FK_Gallons_Stations">
             <End Role="Station" EntitySet="Stations" />
             <End Role="Gallon" EntitySet="Gallons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stations_Stations" Association="SDNAppsModel.FK_Stations_Stations">
-            <End Role="Station" EntitySet="Stations" />
-            <End Role="Station1" EntitySet="Stations" />
           </AssociationSet>
           <EntitySet Name="GasNotes" EntityType="SDNAppsModel.GasNote" />
           <AssociationSet Name="FK_GasNotes_Autos" Association="SDNAppsModel.FK_GasNotes_Autos">
@@ -838,12 +819,13 @@
           <NavigationProperty Name="Dreams" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Person" ToRole="Dream" />
           <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SaltHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Sizes" Relationship="SDNAppsModel.FK_Size_People" FromRole="Person" ToRole="Size" />
           <Property Name="Delete" Type="Boolean" />
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Sait" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Hash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1107,7 +1089,7 @@
           <Property Name="Broswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Station" ToRole="Gallon" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_Gallons_Stations">
           <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="0..1" />
           <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
@@ -1116,18 +1098,6 @@
               <PropertyRef Name="StationID" />
             </Principal>
             <Dependent Role="Gallon">
-              <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stations_Stations">
-          <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="1" />
-          <End Type="SDNAppsModel.Station" Role="Station1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="Station1">
               <PropertyRef Name="StationID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1385,11 +1355,12 @@
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="SDNAppsModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Sait" ColumnName="Sait" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
-                <ScalarProperty Name="SaltHash" ColumnName="SaltHash" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="PersonName" ColumnName="PersonName" />

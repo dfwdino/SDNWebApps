@@ -32,18 +32,26 @@ namespace SDNWebApps.Areas.Login.Controllers
 
             if (val)
             {
+
+                HttpCookie siteCookie = new HttpCookie("SDNWebApps");
+
+                siteCookie.Values.Add("LoggedIn", person.Username);
+                siteCookie.Values.Add("SDNID", loginPerson.ID.ToString());
+                siteCookie.Expires = DateTime.Now.Date.AddDays(1);
+                this.ControllerContext.HttpContext.Response.Cookies.Add(siteCookie);
+
                 //HttpCookieCollection SDNWebApps = Request.Cookies;
 
-                HttpCookie myCookie = new HttpCookie("LoggedIn",person.Username);
-                HttpCookie idCookie = new HttpCookie("SDNID", loginPerson.ID.ToString());
+                //HttpCookie myCookie = new HttpCookie("LoggedIn",person.Username);
+                //HttpCookie idCookie = new HttpCookie("SDNID", loginPerson.ID.ToString());
 
-                myCookie.Expires = DateTime.Now.AddDays(1);
+                //myCookie.Expires = DateTime.Now.AddDays(1);
 
-                Response.Cookies.Add(myCookie);
+                //Response.Cookies.Add(myCookie);
 
-                idCookie.Expires = DateTime.Now.AddDays(1);
+                //idCookie.Expires = DateTime.Now.AddDays(1);
 
-                Response.Cookies.Add(idCookie);
+                //Response.Cookies.Add(idCookie);
 
 
                 return RedirectToAction("Index", "DoneThings", new { area = "Baby" });

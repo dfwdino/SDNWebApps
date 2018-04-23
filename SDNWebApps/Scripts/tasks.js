@@ -41,6 +41,8 @@ function OnGotClick(e) {
         hasItem = false;
     }
 
+    
+
     $.post("/SDNWebApps/Tasks/OurTasks/GotTask/", { id: itemID }, function (data) { });
   
     return false; // for the button

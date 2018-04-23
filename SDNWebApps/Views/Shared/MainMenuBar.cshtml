@@ -30,13 +30,13 @@
                 <li>@Html.ActionLink("Kid's", "Index", "DoneThings", new { area = "Baby" }, new { @class = "MenuBar" })</li>
                 <li class="divider"></li>
                 <ul class="nav navbar-nav navbar-right">
-                    @if (Request.Cookies["LoggedIn"] == null)
+                    @if (Request.Cookies["SDNWebApps"] == null)
                     {
                         <li>@Html.ActionLink("Login", "Login", "Home", new { area = "Login" }, new { @class = "MenuBar" })</li>
                     }
                     else
                     {
-                        string @myid = Request.Cookies["SDNID"].Value;
+                        string @myid = Request.Cookies["SDNWebApps"].Values["SDNID"];
                         <li>@Html.ActionLink("Change Info", "Edit", "Home", new { area = "Login", id = @myid }, new { @class = "MenuBar" })</li>
                         <li>@Html.ActionLink("Logs", "Index", "Home", new { area = "Logs", id = @myid }, new { @class = "MenuBar" })</li>
                         <li>@Html.ActionLink("Weight", "Index", "Wt", new { area = "WeightTracking" }, new { @class = "MenuBar" })</li>

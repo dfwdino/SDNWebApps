@@ -94,7 +94,7 @@ new System.Web.Mvc.SelectListItem { Value = SqlFunctions.StringConvert((double)m
     <div style="padding-top: 10px;padding-left: 10px">
         <span style="width: 150px;text-align: left;padding-right: 5px">
             <input type="submit" value="Update" />
-        </span> @if (Request.Cookies["LoggedIn"] != null)
+        </span> @if (Request.Cookies["SDNWebApps"] != null)
                 {
                     <span> - @Html.ActionLink("Delete", "Delete", new {id = Model.Index})</span>
                 }

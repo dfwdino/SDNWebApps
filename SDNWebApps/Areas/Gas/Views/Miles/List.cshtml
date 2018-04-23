@@ -61,7 +61,7 @@
                 }
             }
             <div class="col-xs-2">
-                @if (Request.Cookies["LoggedIn"] != null)
+                @if (Request.Cookies["SDNWebApps"] != null)
                 {
                     <span> @Html.ActionLink("Delete", "DeleteRow", new { milesID = fillup.ID }) </span>}
             </div>

@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Logs
         // GET: Logs/Home
         public ActionResult Index()
         {
-            return View(db.Loggings.OrderByDescending(m => m.ID).ToList());
+            return View(db.Loggings.Where(m => m.IPAddress != "::1").OrderByDescending(m => m.Date).Take(100).ToList());
         }
 
         // GET: Logs/Home/Details/5

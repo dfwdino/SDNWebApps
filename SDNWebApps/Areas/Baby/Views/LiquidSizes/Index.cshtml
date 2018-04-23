@@ -39,7 +39,7 @@
     </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            @if (Request.Cookies["LoggedIn"] != null)
+            @if (Request.Cookies["SDNWebApps"] != null)
             {<span> | @Html.ActionLink("Delete", "DeleteConfirmed", new { id = item.Id })</span>}
         </td>
 

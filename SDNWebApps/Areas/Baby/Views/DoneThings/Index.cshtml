@@ -89,7 +89,7 @@
                 <b>Notes: </b>@thing.Notes
 
 
-                @if (Request.Cookies["LoggedIn"] != null)
+                @if (Request.Cookies["SDNWebApps"] != null)
         {
             if (thing.Longitude != null)
             {<a href="http://maps.google.com/maps?z=18&q=@thing.Latitude.Trim(),@thing.Longitude.Trim()" target='_blank'>Map</a>}

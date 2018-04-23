@@ -8,33 +8,41 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IPAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ControllerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActionName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActionParameters)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AbsoluteUri)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
+<div style="margin-top:50px;"></div>
+
+
+
+
+<table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IPAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ControllerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionParameters)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AbsoluteUri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+    <tbody>
+        @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -52,29 +60,29 @@
             </td>
             <td>
                 @if (item.ActionParameters != null)
+            {
+                if (item.ActionParameters.IndexOf("id,", StringComparison.CurrentCultureIgnoreCase) > 0)
                 {
-                    if (item.ActionParameters.IndexOf("id,", StringComparison.CurrentCultureIgnoreCase) > 0)
-                     {
-                         @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new {id = item.ActionParameters.Substring(5, item.ActionParameters.Length - 6)}, null)
-                     }
-                     else if (item.ActionParameters.IndexOf("ShowSummary,", StringComparison.CurrentCultureIgnoreCase) > 0)
-                     {
-                         @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new {ShowSummary = item.ActionParameters.Substring("ShowSummary, ".Length, item.ActionParameters.Length - ("ShowSummary, ".Length + 1)).Trim()}, null)
-                     }
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.ActionParameters)
-                }
+                    @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new { id = item.ActionParameters.Substring(5, item.ActionParameters.Length - 6) }, null)
+            }
+            else if (item.ActionParameters.IndexOf("ShowSummary,", StringComparison.CurrentCultureIgnoreCase) > 0)
+            {
+                @Html.ActionLink(item.ActionParameters, item.ActionName, item.ControllerName, new { ShowSummary = item.ActionParameters.Substring("ShowSummary, ".Length, item.ActionParameters.Length - ("ShowSummary, ".Length + 1)).Trim() }, null)
+        }
+    }
+    else
+    {
+        @Html.DisplayFor(modelItem => item.ActionParameters)
+}
             </td>
 
 
             <td>
                 @*@Html.DisplayFor(modelItem => item.AbsoluteUri)*@
                 @if (item.AbsoluteUri != null)
-                {
-                    <a href="@item.AbsoluteUri" target="blank">@item.AbsoluteUri</a>
-                }
+            {
+                <a href="@item.AbsoluteUri" target="blank">@item.AbsoluteUri</a>
+        }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
@@ -84,6 +92,17 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ID })
             </td>
         </tr>
-    }
-
+}
+    </tbody>
 </table>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

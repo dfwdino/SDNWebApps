@@ -32,7 +32,6 @@
         <AssociationConnector Association="SDNAppsModel.FK_Weight_Size" />
         <EntityTypeShape EntityType="SDNAppsModel.Station" Width="1.5" PointX="7.5" PointY="3.25" />
         <AssociationConnector Association="SDNAppsModel.FK_Gallons_Stations" />
-        <AssociationConnector Association="SDNAppsModel.FK_Stations_Stations" />
         <EntityTypeShape EntityType="SDNAppsModel.GasNote" Width="1.5" PointX="5.875" PointY="1.5" />
         <AssociationConnector Association="SDNAppsModel.FK_GasNotes_Autos" />
         <EntityTypeShape EntityType="SDNAppsModel.Logging" Width="1.5" PointX="6.375" PointY="6.75" />
