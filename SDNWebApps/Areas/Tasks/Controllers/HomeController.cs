@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Tasks.Controllers
 {
+    [Access]
     public class HomeController : Controller
     {
         //

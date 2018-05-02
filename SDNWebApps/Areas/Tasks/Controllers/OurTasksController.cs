@@ -8,11 +8,13 @@ using System.Web.Mvc;
 using System.Web.Services;
 using System.Web.UI.WebControls;
 using SDNWebApps.Areas.Tasks.Models;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 using ModelState = System.Web.Http.ModelBinding.ModelState;
 
 namespace SDNWebApps.Areas.Tasks.Controllers
 {
+    [Access]
     public class OurTasksController : Controller
     {
         SDNAppsEntities sdnApps = new SDNAppsEntities();

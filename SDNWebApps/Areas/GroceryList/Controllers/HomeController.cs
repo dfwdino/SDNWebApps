@@ -6,10 +6,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using SDNWebApps.Areas.GroceryList.Models.Home;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.GroceryList.Controllers
 {
+    [Access]
     public class HomeController : Controller
     {
         SDNAppsEntities ae = new SDNAppsEntities();

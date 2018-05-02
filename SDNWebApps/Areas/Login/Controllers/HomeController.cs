@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Management;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Login.Controllers
@@ -28,6 +29,15 @@ namespace SDNWebApps.Areas.Login.Controllers
         {
             Person loginPerson = db.People.First(m => m.Username == person.Username);
 
+            Logging myLogging = new Logging();
+
+            myLogging.Date = TimeZoneInfo.ConvertTime(HttpContext.Timestamp, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
+
+            myLogging.Notes = $"Trying to logging username {person.Username} and password is {person.Password}";
+
+            db.Loggings.Add(myLogging);
+            db.SaveChanges();
+
             bool val = EncryptionUtilities.IsPasswordValid(person.Password, loginPerson.Password);
 
             if (val)
@@ -39,19 +49,6 @@ namespace SDNWebApps.Areas.Login.Controllers
                 siteCookie.Values.Add("SDNID", loginPerson.ID.ToString());
                 siteCookie.Expires = DateTime.Now.Date.AddDays(1);
                 this.ControllerContext.HttpContext.Response.Cookies.Add(siteCookie);
-
-                //HttpCookieCollection SDNWebApps = Request.Cookies;
-
-                //HttpCookie myCookie = new HttpCookie("LoggedIn",person.Username);
-                //HttpCookie idCookie = new HttpCookie("SDNID", loginPerson.ID.ToString());
-
-                //myCookie.Expires = DateTime.Now.AddDays(1);
-
-                //Response.Cookies.Add(myCookie);
-
-                //idCookie.Expires = DateTime.Now.AddDays(1);
-
-                //Response.Cookies.Add(idCookie);
 
 
                 return RedirectToAction("Index", "DoneThings", new { area = "Baby" });
@@ -66,25 +63,18 @@ namespace SDNWebApps.Areas.Login.Controllers
             return View();
         }
 
-        // GET: Login/LogIn
+        [Access]
         public ActionResult Index()
         {
             return View(db.People.ToList());
         }
 
         public ActionResult LogOut()
-        {
-            //HttpCookieCollection SDNWebApps = Request.Cookies;
-            HttpCookie myCookie = new HttpCookie("LoggedIn");
+        {   
+            HttpCookie myCookie = new HttpCookie("SDNWebApps");
             myCookie.Expires = DateTime.Now.AddDays(-1d);
            
             Response.Cookies.Add(myCookie);
-
-
-            HttpCookie idCookie = new HttpCookie("SDNID");
-            idCookie.Expires = DateTime.Now.AddDays(-1d);
-
-            Response.Cookies.Add(idCookie);
 
             return RedirectToAction("Index","DoneThings",new {area = "Baby"});
         }
@@ -115,10 +105,13 @@ namespace SDNWebApps.Areas.Login.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PersonName,Username,Password,SaltHash")] Person person)
+        public ActionResult Create(Person person)
         {
             if (ModelState.IsValid)
             {
+
+                person.Password = EncryptionUtilities.CreatePasswordSalt(person.Password);
+
                 db.People.Add(person);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -147,7 +140,7 @@ namespace SDNWebApps.Areas.Login.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,PersonName,Username,Password,SaltHash")] Person person)
+        public ActionResult Edit(Person person)
         {
             if (ModelState.IsValid)
             {

@@ -5,10 +5,13 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using SDNWebApps.Areas.Gas.Models.Miles;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
+using SDNWebApps.Infrastructure;
 
 namespace SDNWebApps.Areas.Gas.Controllers
 {
+    [Access]
     public class MilesController : Controller
     {
         SDNAppsEntities ae = new SDNAppsEntities();

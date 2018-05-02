@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SDNWebApps.Areas.Gas.Models.Auto;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
+
 
 namespace SDNWebApps.Areas.Gas.Controllers
 {
+    [Access]
     public class AutoController : Controller
     {
         SDNAppsEntities _se = new SDNAppsEntities();

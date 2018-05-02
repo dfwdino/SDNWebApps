@@ -5,10 +5,12 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Baby.Controllers
 {
+    [Access]
     public class ActionsController : Controller
     {
         // GET: Baby/Actions

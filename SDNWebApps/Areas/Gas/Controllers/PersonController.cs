@@ -5,9 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using SDNWebApps.Areas.Gas.Models.Person;
 using SDNWebApps.Views;
+using SDNWebApps.Infrastructure;
 
 namespace SDNWebApps.Areas.Gas.Controllers
 {
+    [Access]
     public class PersonController : Controller
     {
         //
@@ -17,7 +19,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         {
             SDNAppsEntities se = new SDNAppsEntities();
 
-            ListViewModel person =new ListViewModel(se.People.ToList());
+            ListViewModel person =new ListViewModel(se.People.Where(m => m.Delete == null).ToList());
 
             return View(person);
         }

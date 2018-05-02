@@ -11,10 +11,12 @@ using System.Web.Routing;
 using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
 using SDNWebApps.Areas.GroceryList.Models.Home;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.GroceryList.Controllers
 {
+    [Access]
     public class ItemsController : Controller
     {
         SDNAppsEntities sdnApps = new SDNAppsEntities();

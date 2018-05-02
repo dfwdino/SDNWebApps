@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Baby.Controllers
 {
+    [Access]
     public class RemindersController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();

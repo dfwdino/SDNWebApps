@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SDNWebApps.Views;
+using SDNWebApps.Infrastructure;
 
 namespace SDNWebApps.Areas.Gas.Controllers
 {
+    [Access]
     public class StationsController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();

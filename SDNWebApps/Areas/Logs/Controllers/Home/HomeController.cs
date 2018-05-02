@@ -46,7 +46,7 @@ namespace SDNWebApps.Areas.Logs
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,IPAddress,ControllerName,ActionName,ActionParameters,AbsoluteUri,Notes")] Logging logging)
+        public ActionResult Create(Logging logging)
         {
             if (ModelState.IsValid)
             {

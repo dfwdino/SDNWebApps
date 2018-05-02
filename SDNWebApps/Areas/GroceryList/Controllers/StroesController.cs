@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.GroceryList.Controllers
 {
+    [Access]
     public class StoresController : Controller
     {
         SDNAppsEntities sdnApps = new SDNAppsEntities();

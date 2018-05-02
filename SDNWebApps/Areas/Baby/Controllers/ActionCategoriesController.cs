@@ -3,10 +3,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
 
 namespace SDNWebApps.Areas.Baby.Controllers
 {
+    [Access]
     public class ActionCategoriesController : Controller
     {
         private SDNAppsEntities db = new SDNAppsEntities();
