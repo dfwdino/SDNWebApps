@@ -7,49 +7,68 @@
     HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("Home", "Index", null, null, new { @class = "navbar-brand" })
 
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Request.Cookies["SDNWebApps"] == null)
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "Home", new { area = "Login" }, new { @class = "MenuBar" })</li>
-                    }
-                    else
-                    {
-                        string @myid = Request.Cookies["SDNWebApps"].Values["SDNID"];
-                        <li>@Html.ActionLink("Grocery", "Index", "Home", new { area = "GroceryList" }, new { @class = "MenuBar" }) </li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Gas", "List", "Person", new { area = "Gas" }, new { @class = "MenuBar" }) </li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Tasks", "Index", "Home", new { area = "Tasks" }, new { @class = "MenuBar" })</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Kid's", "Index", "DoneThings", new { area = "Baby" }, new { @class = "MenuBar" })</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Change Info", "Edit", "Home", new { area = "Login", id = @myid }, new { @class = "MenuBar" })</li>
-                        <li>@Html.ActionLink("Logs", "Index", "Home", new { area = "Logs", id = @myid }, new { @class = "MenuBar" })</li>
-                        <li>@Html.ActionLink("Weight", "Index", "Wt", new { area = "WeightTracking" }, new { @class = "MenuBar" })</li>
-                        @*<li><a style="link: white;" class="MenuBar" href='http://dfwdino.dyndns.org/events' target="_blank">Events</a></li>*@
-                        @*<li>@Html.ActionLink("Dreams", "Index", "Dreams", new { area = "Dreams" }, new { @class = "MenuBar" })</li>*@
+@if (Request.Cookies["SDNWebApps"] != null)
+{ }
 
-                        <li>@Html.ActionLink("Log Out", "LogOut", "Home", new { area = "Login" }, new { @class = "MenuBar" })</li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            @*<li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+        </li>*@
+            @if (Request.Cookies["SDNWebApps"] != null)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Grocery
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Add Store", "AddStore", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("All Stores", "Stores", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item", showAll = true })
+                        @Html.ActionLink("Add Items", "AddItem", "Items", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Show All Items", "Index", "Home", new { Area = "GroceryList" }, new { showAll = true, @class = "dropdown-item" })
+                        @Html.ActionLink("Need List", "Index", "Home", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Add Size", "Create", "ItemSizes", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Kid's
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Add Entry", "Add", "DoneThings", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Summary", "Index", "DoneThings", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Add Liquid Size", "Create", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("List Liquid Size", "Index", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Add Action", "Add", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("List Action", "Index", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Gas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Add Gas", "List", "Person", new { area = "Gas" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+
+            }
 
 
-                    }
-                </ul>
-            </ul>
 
-        </div>
+
+
+        </ul>
     </div>
-</div>
+</nav>
+

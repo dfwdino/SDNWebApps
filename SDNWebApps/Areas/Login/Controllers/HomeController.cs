@@ -51,7 +51,9 @@ namespace SDNWebApps.Areas.Login.Controllers
                 this.ControllerContext.HttpContext.Response.Cookies.Add(siteCookie);
 
 
-                return RedirectToAction("Index", "DoneThings", new { area = "Baby" });
+                return RedirectToAction("Index", "Default", new { area = ""});
+                //return Redirect(Request.UrlReferrer.ToString());
+
             }
             else
             {

@@ -1,70 +1,33 @@
-﻿@using Microsoft.Ajax.Utilities
-@{
-    HttpCookieCollection SDNWebApps = Request.Cookies;
-}
+﻿<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    @Html.ActionLink("Add Entry", "Add", "DoneThings", null, new { @class = "navbar-brand" })
+    @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @class = "navbar-brand" })
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Action Items
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @Html.ActionLink("Add Liquid Size", "Create", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("List Liquid Size", "Index", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                </div>
+            </li>
 
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <div>
-                <a href="~/" class="navbar-brand">SDN Apps</a>
-                @Html.ActionLink("Add Entry", "Add", "DoneThings", null, new { @class = "navbar-brand" })
-                @Html.ActionLink("Summary", "Index", "DoneThings", null, new { @class = "navbar-brand" })
-            </div>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Action Items<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Add", "Add", "Actions", null, null)</li>
-                        <li>@Html.ActionLink("List", "Index", "Actions", null, null)</li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Amount Size<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Add", "Create", "LiquidSizes", null, null)</li>
-                        <li>@Html.ActionLink("List", "Index", "LiquidSizes", null, null)</li>
-                    </ul>
-                </li>
-                
-                @*<li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Summary", "Index", "DoneThings", null, null)</li>
-                        <li>@Html.ActionLink("View All", "Index", "DoneThings", new { viewall = true }, null)</li>
-                        <li>@Html.ActionLink("Summary2", "SummaryPage2", "DoneThings", null, null)</li>
-                    </ul>
-                </li>*@
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Baby's<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Add", "Create", "BabyNames", null, null)</li>
-                        <li>@Html.ActionLink("List", "Index", "BabyNames", null, null)</li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Amount Size
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @Html.ActionLink("Add Action", "Add", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("List Action", "Index", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
-
-<style>
-    .navbar-brand {
-        font-size: 15px !important;
-    }
-</style>
