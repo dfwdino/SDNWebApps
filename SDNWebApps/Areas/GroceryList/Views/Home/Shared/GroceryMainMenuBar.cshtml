@@ -3,46 +3,52 @@
     HttpCookieCollection SDNWebApps = Request.Cookies;
 }
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    @Html.ActionLink("Need List", "Index", "Home", null, new { @class = "navbar-brand" })
+    @Html.ActionLink("Add Items", "AddItem", "Items", null, new { @class = "navbar-brand" })
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            @*<li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>*@
+            @if (Request.Cookies["SDNWebApps"] != null)
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Store
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Add Store", "AddStore", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("All Stores", "Stores", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item", showAll = true })
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="~/" class="navbar-brand">SDN Apps</a>
-            @Html.ActionLink("Need List", "Index", "Home", null, new { @class = "navbar-brand" })
-            @Html.ActionLink("Add Items", "AddItem", "Items", null, new { @class = "navbar-brand" })
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                
-               
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Store<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Add Store", "AddStore", "Stores", null, null)</li>
-                        <li>@Html.ActionLink("All Stores", "Stores", "Stores", new { showAll = true }, null)</li>
-                    </ul>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Add Items", "AddItem", "Items", null,null)</li>
-                        <li>@Html.ActionLink("Show All Items", "Index", "Home", new { showAll = true }, null)</li>
-                        <li>@Html.ActionLink("Need List", "Index", "Home", null, null)</li>
-                        <li>@Html.ActionLink("Add Size", "Create", "ItemSizes", null, null)</li>
-                    </ul>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Item's
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Add Items", "AddItem", "Items", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Show All Items", "Index", "Home", new { Area = "GroceryList" }, new { showAll = true, @class = "dropdown-item" })
+                        @Html.ActionLink("Need List", "Index", "Home", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Add Size", "Create", "ItemSizes", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
+
+                    </div>
                 </li>
-            </ul>
-        </div>
+
+            }
+
+
+
+
+
+        </ul>
     </div>
 </nav>
 
