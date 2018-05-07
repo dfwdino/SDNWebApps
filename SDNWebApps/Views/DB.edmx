@@ -94,6 +94,40 @@
           <Property Name="LiquidSizeID" Type="int" />
           <Property Name="BabyNameID" Type="int" />
         </EntityType>
+        <EntityType Name="AccessPages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessPage" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Disactive" Type="bit" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AutomaticThoughts">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HappenTime" Type="datetime" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="Situation" Type="nvarchar(max)" />
+          <Property Name="EmotionsRating" Type="int" />
+          <Property Name="AutomaticThought" Type="nvarchar(max)" />
+          <Property Name="AutomaticThoughtRating" Type="int" />
+          <Property Name="RationalResponThought" Type="nvarchar(max)" />
+          <Property Name="RationalResponRating" Type="int" />
+          <Property Name="OurcomeThought" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BlockedIPAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IPAddress" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Dreams">
           <Key>
             <PropertyRef Name="ID" />
@@ -296,6 +330,18 @@
           <Property Name="Broswer" Type="nvarchar" MaxLength="250" />
           <Property Name="StatusDate" Type="date" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AccessPages_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="AccessPages" Type="Self.AccessPages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessPages">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Actions_ActionCategory">
           <End Role="ActionCategory" Type="Self.ActionCategory" Multiplicity="0..1" />
           <End Role="Actions" Type="Self.Actions" Multiplicity="*" />
@@ -520,6 +566,8 @@
           <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="AccessPages" EntityType="Self.AccessPages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutomaticThoughts" EntityType="Self.AutomaticThoughts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
@@ -534,6 +582,16 @@
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
           <EntitySet Name="Size" EntityType="Self.Size" Schema="weighttracking" store:Type="Tables" />
           <EntitySet Name="Weight" EntityType="Self.Weight" Schema="weighttracking" store:Type="Tables" />
+          <EntitySet Name="BlockedIPAddress" EntityType="Self.BlockedIPAddress" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BlockedIPAddress].[ID] AS [ID], 
+    [BlockedIPAddress].[IPAddress] AS [IPAddress]
+    FROM [dbo].[BlockedIPAddress] AS [BlockedIPAddress]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AccessPages_People" Association="Self.FK_AccessPages_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="AccessPages" EntitySet="AccessPages" />
+          </AssociationSet>
           <AssociationSet Name="FK_Actions_ActionCategory" Association="Self.FK_Actions_ActionCategory">
             <End Role="ActionCategory" EntitySet="ActionCategory" />
             <End Role="Actions" EntitySet="Actions" />
@@ -713,6 +771,13 @@
             <End Role="ItemSize" EntitySet="ItemSizes" />
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
+          <EntitySet Name="AccessPages" EntityType="SDNAppsModel.AccessPage" />
+          <EntitySet Name="AutomaticThoughts" EntityType="SDNAppsModel.AutomaticThought" />
+          <EntitySet Name="BlockedIPAddresses" EntityType="SDNAppsModel.BlockedIPAddress" />
+          <AssociationSet Name="FK_AccessPages_People" Association="SDNAppsModel.FK_AccessPages_People">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AccessPage" EntitySet="AccessPages" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -826,6 +891,7 @@
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Sait" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Hash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AccessPages" Relationship="SDNAppsModel.FK_AccessPages_People" FromRole="Person" ToRole="AccessPage" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1282,6 +1348,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AccessPage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessPage1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Disactive" Type="Boolean" Nullable="false" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_AccessPages_People" FromRole="AccessPage" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="AutomaticThought">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HappenTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="Situation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmotionsRating" Type="Int32" />
+          <Property Name="AutomaticThought1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AutomaticThoughtRating" Type="Int32" />
+          <Property Name="RationalResponThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RationalResponRating" Type="Int32" />
+          <Property Name="OurcomeThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BlockedIPAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IPAddress" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_AccessPages_People">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="SDNAppsModel.AccessPage" Role="AccessPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessPage">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1597,6 +1708,40 @@
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
                 <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessPages">
+            <EntityTypeMapping TypeName="SDNAppsModel.AccessPage">
+              <MappingFragment StoreEntitySet="AccessPages">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Disactive" ColumnName="Disactive" />
+                <ScalarProperty Name="AccessPage1" ColumnName="AccessPage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutomaticThoughts">
+            <EntityTypeMapping TypeName="SDNAppsModel.AutomaticThought">
+              <MappingFragment StoreEntitySet="AutomaticThoughts">
+                <ScalarProperty Name="OurcomeThought" ColumnName="OurcomeThought" />
+                <ScalarProperty Name="RationalResponRating" ColumnName="RationalResponRating" />
+                <ScalarProperty Name="RationalResponThought" ColumnName="RationalResponThought" />
+                <ScalarProperty Name="AutomaticThoughtRating" ColumnName="AutomaticThoughtRating" />
+                <ScalarProperty Name="AutomaticThought1" ColumnName="AutomaticThought" />
+                <ScalarProperty Name="EmotionsRating" ColumnName="EmotionsRating" />
+                <ScalarProperty Name="Situation" ColumnName="Situation" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="HappenTime" ColumnName="HappenTime" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlockedIPAddresses">
+            <EntityTypeMapping TypeName="SDNAppsModel.BlockedIPAddress">
+              <MappingFragment StoreEntitySet="BlockedIPAddress">
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

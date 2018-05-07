@@ -218,6 +218,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Infrastructure\Access.cs" />
+    <Compile Include="Views\AccessPage.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\ActionCategory.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -227,7 +230,13 @@
     <Compile Include="Views\Auto.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\AutomaticThought.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\BabyName.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlockedIPAddress.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\DB.Context.cs">

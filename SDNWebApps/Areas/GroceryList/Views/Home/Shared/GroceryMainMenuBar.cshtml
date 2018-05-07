@@ -24,7 +24,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         @Html.ActionLink("Add Store", "AddStore", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("All Stores", "Stores", "Stores", new { Area = "GroceryList" }, new { @class = "dropdown-item", showAll = true })
+                        @Html.ActionLink("All Stores", "Stores", "Stores", new { showAll = true, Area = "GroceryList" }, new { @class = "dropdown-item"})
 
                     </div>
                 </li>
@@ -35,7 +35,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         @Html.ActionLink("Add Items", "AddItem", "Items", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Show All Items", "Index", "Home", new { Area = "GroceryList" }, new { showAll = true, @class = "dropdown-item" })
+                        @Html.ActionLink("Show All Items", "Index", "Home", new { showAll = true, Area = "GroceryList" }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Need List", "Index", "Home", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Add Size", "Create", "ItemSizes", new { Area = "GroceryList" }, new { @class = "dropdown-item" })
 

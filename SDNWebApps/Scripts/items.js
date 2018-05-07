@@ -44,7 +44,7 @@ function OnGotClick(e) {
     }
 
     var url = $(this).data('request-url');
-    console.log(url);
+    //console.log(url);
     $.post(url, { itemID: itemID, haveItem: hasItem }, function (data) {
 
 

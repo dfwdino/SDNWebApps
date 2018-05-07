@@ -43,32 +43,36 @@
             <div style="padding-bottom:10px"></div>
             <table align="center" style="width:350px; border-color:black;border:solid;" id="FullItem{@item.ID}">
                 <tr style="background-color: @color;">
-                    <td width="150"><span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>@item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize== null ? "" : item.ItemSize.Size)</span></td>
+                    <td width="150"><span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>@item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size)</span></td>
                     <td width="50" style="text-align:center">
                         @if (item?.StoreID != 3 && item.StoreID != null)
                         {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
                     </td>
-                    <td width="50" style="text-align:center">@if (item.Price > 0)
-                    {
-                        <span>@String.Format("{0:C}", @item.Price)
-                        <br/>
-                        <a href="#" onclick="editProduct(@item.ID)">Price List</a></span>
-                                    } </td>
-                   
+                    <td width="50" style="text-align:center">
+                        @if (item.Price > 0)
+                        {
+                            <span>
+                                @String.Format("{0:C}", @item.Price)
+                                <br />
+                                <a href="#" onclick="editProduct(@item.ID)">Price List</a>
+                            </span>
+                        }
+                    </td>
+
                     @if (Model.ShowAll)
                     {
                         <td width="50">
                             @if (item.LastGotten != null)
                             {
                                 @Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true }, null)
-                                <br/>
+                                <br />
                                 @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
                                 <a href="#" id=@item.ID class="delete-link">Delete</a>
 
 
                             }
 
-                        </td>   }
+                        </td>}
                 </tr>
             </table>
 
@@ -104,6 +108,14 @@
     </div>
 </div>
 
+
+
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>*@
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="~/Scripts/items.js"></script>
 
 <script>
@@ -125,11 +137,9 @@
 </script>
 
 <style>
-    .header{
-        text-align:center;
-        font-weight:bold;
-        
+    .header {
+        text-align: center;
+        font-weight: bold;
     }
-
-
 </style>
+

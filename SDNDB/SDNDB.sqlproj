@@ -140,6 +140,7 @@
     <Build Include="Security\weighttracking.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\BlockedIPAddress.sql" />
+    <Build Include="dbo\Tables\AccessPages.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare1.scmp" />

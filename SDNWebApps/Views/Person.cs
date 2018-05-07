@@ -20,6 +20,7 @@ namespace SDNWebApps.Views
             this.Tasks = new HashSet<Task>();
             this.Dreams = new HashSet<Dream>();
             this.Sizes = new HashSet<Size>();
+            this.AccessPages = new HashSet<AccessPage>();
         }
     
         public int ID { get; set; }
@@ -37,5 +38,6 @@ namespace SDNWebApps.Views
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Dream> Dreams { get; set; }
         public virtual ICollection<Size> Sizes { get; set; }
+        public virtual ICollection<AccessPage> AccessPages { get; set; }
     }
 }

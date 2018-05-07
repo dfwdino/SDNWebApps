@@ -46,5 +46,8 @@ namespace SDNWebApps.Views
         public DbSet<PriceHistory> PriceHistories { get; set; }
         public DbSet<BabyName> BabyNames { get; set; }
         public DbSet<ItemSize> ItemSizes { get; set; }
+        public DbSet<AccessPage> AccessPages { get; set; }
+        public DbSet<AutomaticThought> AutomaticThoughts { get; set; }
+        public DbSet<BlockedIPAddress> BlockedIPAddresses { get; set; }
     }
 }
