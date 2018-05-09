@@ -20,67 +20,69 @@
         width: 60px;
         text-align: left;
     }
+
     form {
         padding-left: 15px;
     }
 
-   #context{
-       
-   }
+    #context {
+    }
 </style>
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+
 <div id="context">
-@using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+    @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
         <div>
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name)<br/>
-       
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)<br />
+
         </div>
         <br />
         <div class="ItemsAddForm">
-        @Html.LabelFor(m => m.Price)
-            @Html.TextBoxFor(m => m.Price, new {@type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString()})<br/>
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
             @*@Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />*@
-    </div>
-    <br />
+        </div>
+        <br />
         <div class="ItemsAddForm">
-        @Html.LabelFor(m => m.Amount)
-        @Html.TextBoxFor(m => m.Amount,new { @type = "number" })<br />
-    </div>
-    <br />
-    <div class="ItemsAddForm">
-        <label>Type</label>
-        @Html.DropDownList("ItemSizeID",null,"---Select---")
-    </div>
-    <br />
+            @Html.LabelFor(m => m.Amount)
+            @Html.TextBoxFor(m => m.Amount, new { @type = "number" })<br />
+        </div>
+        <br />
+        <div class="ItemsAddForm">
+            <label>Type</label>
+            @Html.DropDownList("ItemSizeID", null, "---Select---")
+        </div>
+        <br />
 
-    <div class="ItemsAddForm">
-        <label>Store</label>
-        @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
-    </div>
+        <div class="ItemsAddForm">
+            <label>Store</label>
+            @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
+        </div>
 
-    @*<div class="ItemsAddForm">
-        <input type="file" id="uploadFile" name="uploadFile" />
-    </div>*@
-    <br />
-    <div class="ItemsAddForm">
-        <input id="submitbutton" type="submit" value="Add" />
-    </div>
-}
+        @*<div class="ItemsAddForm">
+                <input type="file" id="uploadFile" name="uploadFile" />
+            </div>*@
+        <br />
+        <div class="ItemsAddForm">
+            <input id="submitbutton" type="submit" value="Add" />
+        </div>
+    }
 
-    </div>
+</div>
+
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+
 @Scripts.Render("~/bundles/grocery")
-
 
 
 <script type="text/javascript">
 
     $(function () {
         $("#Name").autocomplete({ source: '@Url.Action("List", "Home")', minLength: 3 });
-     
+
     });
 </script>
