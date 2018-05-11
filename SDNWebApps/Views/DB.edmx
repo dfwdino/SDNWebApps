@@ -202,6 +202,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Stations">
           <Key>
@@ -331,6 +332,18 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="StatusDate" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_AccessPages_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="AccessPages" Type="Self.AccessPages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessPages">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessPages_People1">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="AccessPages" Type="Self.AccessPages" Multiplicity="*" />
           <ReferentialConstraint>
@@ -592,6 +605,10 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="People" EntitySet="People" />
             <End Role="AccessPages" EntitySet="AccessPages" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccessPages_People1" Association="Self.FK_AccessPages_People1">
+            <End Role="People" EntitySet="People" />
+            <End Role="AccessPages" EntitySet="AccessPages" />
+          </AssociationSet>
           <AssociationSet Name="FK_Actions_ActionCategory" Association="Self.FK_Actions_ActionCategory">
             <End Role="ActionCategory" EntitySet="ActionCategory" />
             <End Role="Actions" EntitySet="Actions" />
@@ -703,20 +720,12 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="Person" EntitySet="People" />
             <End Role="Dream" EntitySet="Dreams" />
           </AssociationSet>
-          <AssociationSet Name="FK_Actions_Actions" Association="SDNAppsModel.FK_Actions_Actions">
-            <End Role="Actions" EntitySet="Actions1" />
-            <End Role="Actions1" EntitySet="Actions1" />
-          </AssociationSet>
           <EntitySet Name="ActionCategories" EntityType="SDNAppsModel.ActionCategory" />
           <AssociationSet Name="FK_Actions_ActionCategory" Association="SDNAppsModel.FK_Actions_ActionCategory">
             <End Role="ActionCategory" EntitySet="ActionCategories" />
             <End Role="Actions" EntitySet="Actions1" />
           </AssociationSet>
           <EntitySet Name="LiquidSizes" EntityType="SDNAppsModel.LiquidSize" />
-          <AssociationSet Name="FK_LiquidSize_LiquidSize" Association="SDNAppsModel.FK_LiquidSize_LiquidSize">
-            <End Role="LiquidSize" EntitySet="LiquidSizes" />
-            <End Role="LiquidSize1" EntitySet="LiquidSizes" />
-          </AssociationSet>
           <AssociationSet Name="FK_ThingsDone_LiquidSize" Association="SDNAppsModel.FK_ThingsDone_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSizes" />
             <End Role="ThingsDone" EntitySet="ThingsDones" />
@@ -892,6 +901,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Sait" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Hash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AccessPages" Relationship="SDNAppsModel.FK_AccessPages_People" FromRole="Person" ToRole="AccessPage" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1008,18 +1018,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Actions_Actions">
-          <End Type="SDNAppsModel.Actions" Role="Actions" Multiplicity="1" />
-          <End Type="SDNAppsModel.Actions" Role="Actions1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Actions">
-              <PropertyRef Name="index" />
-            </Principal>
-            <Dependent Role="Actions1">
-              <PropertyRef Name="index" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ActionCategory">
           <Key>
             <PropertyRef Name="Index" />
@@ -1050,25 +1048,12 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LiquidSize1" Relationship="SDNAppsModel.FK_LiquidSize_LiquidSize" FromRole="LiquidSize1" ToRole="LiquidSize" />
           <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_LiquidSize" FromRole="LiquidSize" ToRole="ThingsDone" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_LiquidSize_LiquidSize">
-          <End Type="SDNAppsModel.LiquidSize" Role="LiquidSize" Multiplicity="1" />
-          <End Type="SDNAppsModel.LiquidSize" Role="LiquidSize1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="LiquidSize">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LiquidSize1">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ThingsDone_LiquidSize">
           <End Type="SDNAppsModel.LiquidSize" Role="LiquidSize" Multiplicity="0..1" />
           <End Type="SDNAppsModel.ThingsDone" Role="ThingsDone" Multiplicity="*" />
@@ -1466,6 +1451,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="SDNAppsModel.Person">
               <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Hash" ColumnName="Hash" />
                 <ScalarProperty Name="Sait" ColumnName="Sait" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />

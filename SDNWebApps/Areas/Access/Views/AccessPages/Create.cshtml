@@ -1,0 +1,72 @@
+﻿@model SDNWebApps.Views.AccessPage
+
+@{
+    Layout = "~/Areas/Access/Views/Shared/_Layout.cshtml";
+    int NumberOfEntries = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h4>AccessPage</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.AccessPage1, "Page", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AccessPage1", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        @foreach (SelectListItem item in ViewBag.AccessPage1)
+        {
+
+            <label for="Acces[0][@NumberOfEntries]">
+                <input type="checkbox" value="@item.Value" name="Model[@item.Value].SelectedAction" id="Acces[0][@NumberOfEntries]" />@item.Value
+            </label>
+            
+
+            @*<label for="Acts[@item.ID][@NumberOfEntries]">
+                <input style="margin-left:5px" type="checkbox" name="EventDetails[@NumberOfEntries].SelectedAction"
+                       id="Acts[@item.ID][@NumberOfEntries]" value="@item.ID" />
+                @item.Name
+            </label>*@
+
+            NumberOfEntries = NumberOfEntries + 1;
+        }
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonID, "User", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PersonID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PersonID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

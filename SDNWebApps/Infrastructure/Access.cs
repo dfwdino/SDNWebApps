@@ -14,8 +14,10 @@ namespace SDNWebApps.Infrastructure
             base.OnActionExecuting(filterContext);
 
             var url = HttpContext.Current.Request.Url.ToString();
+            var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 
             HttpCookie cookie = HttpContext.Current.Request.Cookies["SDNWebApps"];
+         
 
             if ((cookie == null))
             {
@@ -25,6 +27,17 @@ namespace SDNWebApps.Infrastructure
                     action = "Login",
                     area = "Login"
                 }));
+            }
+            else{
+                 var accesspages = cookie.Values["PageAccess"];
+                bool IsAdmin =  Convert.ToBoolean(cookie.Values["IsAdmin"]);
+
+                if (!accesspages.Contains(controller) && !IsAdmin)
+                {
+                    throw new Exception("Dont have access to this page.");
+                }
+                
+               
             }
 
         }

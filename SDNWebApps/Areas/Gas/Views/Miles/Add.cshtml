@@ -5,6 +5,76 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div style="margin-top:10px"></div>
+<div class="container">
+    @Html.ActionLink("View Miles", "JSONList", "Miles", new { ID = Model.AutoID }, null)
+
+    @Html.HiddenFor(m => m.Latitude)
+    @Html.HiddenFor(m => m.Longitude)
+
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.AutoID)<br />
+
+        <div>
+            @Html.LabelFor(m => m.GasDate)
+            @Html.TextBoxFor(m => m.GasDate, null, new { @value = DateTime.Now })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.TotalPrice)
+            @Html.TextBoxFor(m => m.TotalPrice, new { @step = "0.01" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.TotalGallons)
+            @Html.TextBoxFor(m => m.TotalGallons, new { @step = "0.01" })
+        </div>
+
+
+        <div>
+            @Html.LabelFor(m => m.TotalMiles)
+            @Html.TextBoxFor(m => m.TotalMiles, new { @type = "number", @step = "0.01" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Stations)
+            @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
+
+
+        </div>
+
+        <br />
+
+        <input type="submit" value="Add" />
+
+
+    }
+</div>
+
+
+<div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
+
+</div>
+
+<style>
+    label {
+        display: inline-block;
+        width: 90px;
+        padding-bottom: 10px;
+    }
+</style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+@Scripts.Render("~/bundles/GPS")
+
 <script>
 
     $.ajaxSetup({ cache: false });
@@ -76,68 +146,6 @@
 
 </script>
 
-<div style="padding-top:60px"></div>
-<div style="padding-left: 5px">
-    @Html.ActionLink("View Miles", "JSONList", "Miles", new { ID = Model.AutoID }, null)
-
-    @Html.HiddenFor(m => m.Latitude)
-    @Html.HiddenFor(m => m.Longitude)
-
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(m => m.AutoID)<br />
-
-        <div>
-            @Html.LabelFor(m => m.GasDate)
-            @Html.TextBoxFor(m => m.GasDate, new { })
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.TotalPrice)
-            @Html.TextBoxFor(m => m.TotalPrice, new { @type = "number", @step = "0.01" })
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.TotalGallons)
-            @Html.TextBoxFor(m => m.TotalGallons, new { @type = "number", @step = "0.001" })
-        </div>
-
-
-        <div>
-            @Html.LabelFor(m => m.TotalMiles)
-            @Html.TextBoxFor(m => m.TotalMiles, new { @type = "number", @step = "0.01" })
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.Stations)
-            @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
-
-
-        </div>
-
-        <br />
-
-        <input type="submit" value="Add" />
-
-
-    }
-</div>
-
-
-<div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
-
-</div>
-
-<style>
-    label {
-        display: inline-block;
-        width: 90px;
-        padding-bottom: 10px;
-    }
-</style>
-
-
-@Scripts.Render("~/bundles/GPS")
 @*<script type="text/javascript">
         //$(function () {
         //    $("#GasDate").datepicker();

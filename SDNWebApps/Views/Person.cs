@@ -33,6 +33,7 @@ namespace SDNWebApps.Views
         public string Latitude { get; set; }
         public string Sait { get; set; }
         public string Hash { get; set; }
+        public string Role { get; set; }
     
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }

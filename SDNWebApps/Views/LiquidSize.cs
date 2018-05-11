@@ -26,7 +26,6 @@ namespace SDNWebApps.Views
         public string Longitude { get; set; }
         public string Latitude { get; set; }
     
-        public virtual LiquidSize LiquidSize1 { get; set; }
         public virtual ICollection<ThingsDone> ThingsDones { get; set; }
     }
 }

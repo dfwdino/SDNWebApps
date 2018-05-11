@@ -44,9 +44,17 @@ namespace SDNWebApps.Areas.Login.Controllers
             {
 
                 HttpCookie siteCookie = new HttpCookie("SDNWebApps");
+                var accesspages = db.AccessPages.Where(m => m.PersonID == loginPerson.ID).Select(m => m.AccessPage1);
+                bool IsAdmin = loginPerson.Role == "Admin";
+
 
                 siteCookie.Values.Add("LoggedIn", person.Username);
                 siteCookie.Values.Add("SDNID", loginPerson.ID.ToString());
+                siteCookie.Values.Add("IsAdmin", IsAdmin.ToString());
+                siteCookie.Values.Add("PageAccess", string.Join(",", accesspages.ToArray()));
+
+
+
                 siteCookie.Expires = DateTime.Now.Date.AddDays(1);
                 this.ControllerContext.HttpContext.Response.Cookies.Add(siteCookie);
 
