@@ -5,12 +5,14 @@
 }
 
 
+<div class="container">
 
+    @using (Html.BeginForm())
+    {
+        @Html.LabelFor(m => m.Personname)
+        @Html.TextBoxFor(m => m.Personname)<br />
 
-@using (Html.BeginForm())
-{   
-    @Html.LabelFor(m => m.Personname) 
-    @Html.TextBoxFor(m => m.Personname)<br />
+        <input type="submit" value="Add" />
+    }
 
-<input type="submit" value="Add" />
-}
+</div>

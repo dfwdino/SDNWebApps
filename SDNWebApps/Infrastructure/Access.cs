@@ -28,16 +28,17 @@ namespace SDNWebApps.Infrastructure
                     area = "Login"
                 }));
             }
-            else{
-                 var accesspages = cookie.Values["PageAccess"];
-                bool IsAdmin =  Convert.ToBoolean(cookie.Values["IsAdmin"]);
+            else
+            {
+                var accesspages = cookie.Values["PageAccess"];
+                bool IsAdmin = Convert.ToBoolean(cookie.Values["IsAdmin"]);
 
                 if (!accesspages.Contains(controller) && !IsAdmin)
                 {
                     throw new Exception("Dont have access to this page.");
                 }
-                
-               
+
+
             }
 
         }

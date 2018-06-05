@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using SDNWebApps.Views;
@@ -62,11 +63,20 @@ namespace SDNWebApps.Areas.Access.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AccessPage accessPage)
         {
-            return View(accessPage);
-
+            
             if (ModelState.IsValid)
             {
-                db.AccessPages.Add(accessPage);
+                foreach (string item in accessPage.SelectedAction)
+                {
+                    AccessPage ap = new AccessPage();
+
+                    ap.PersonID = accessPage.PersonID;
+                    ap.AccessPage1 = item;
+                    ap.Disactive = false;
+                    
+                    db.AccessPages.Add(ap);
+                }
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
