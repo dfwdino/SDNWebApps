@@ -49,6 +49,8 @@
                     </div>
                 </li>
 
+                var IsAdmin =  Convert.ToBoolean(Request.Cookies["SDNWebApps"].Values["IsAdmin"]);
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Gas
@@ -57,6 +59,19 @@
                         @Html.ActionLink("Add Gas", "List", "Person", new { area = "Gas" }, new { @class = "dropdown-item" })
                     </div>
                 </li>
+
+
+                if(IsAdmin){
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        @Html.ActionLink("Logs", "Index", "Home", new { area = "Logs" }, new { @class = "dropdown-item" })
+                    </div>
+                </li>
+                }
+
 
             }
 

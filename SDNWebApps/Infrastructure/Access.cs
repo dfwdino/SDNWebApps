@@ -13,14 +13,18 @@ namespace SDNWebApps.Infrastructure
         {
             base.OnActionExecuting(filterContext);
 
-            var url = HttpContext.Current.Request.Url.ToString();
-            var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+            //var url = HttpContext.Current.Request.Url.ToString();
+           
 
             HttpCookie cookie = HttpContext.Current.Request.Cookies["SDNWebApps"];
          
 
             if ((cookie == null))
             {
+
+                var session = HttpContext.Current.Session;
+                session["url"] = HttpContext.Current.Request.Url.ToString();
+
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Home",
@@ -32,6 +36,7 @@ namespace SDNWebApps.Infrastructure
             {
                 var accesspages = cookie.Values["PageAccess"];
                 bool IsAdmin = Convert.ToBoolean(cookie.Values["IsAdmin"]);
+                var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 
                 if (!accesspages.Contains(controller) && !IsAdmin)
                 {
