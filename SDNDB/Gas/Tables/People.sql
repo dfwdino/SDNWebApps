@@ -9,8 +9,11 @@
     [IPAddress]  NVARCHAR (25) NULL,
     [Longitude]  NVARCHAR (25) NULL,
     [Latitude]   NVARCHAR (25) NULL,
+    [Role]       NVARCHAR (50) NULL,
     CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
+
+
 
 
 

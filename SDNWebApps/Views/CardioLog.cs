@@ -12,15 +12,19 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessPage
+    public partial class CardioLog
     {
         public int ID { get; set; }
-        public string AccessPage1 { get; set; }
-        public bool Disactive { get; set; }
-        public int PersonID { get; set; }
-
-        public List<string> SelectedAction { get; set; }
-
+        public int CardioItemID { get; set; }
+        public decimal Time { get; set; }
+        public int CaloriesBurned { get; set; }
+        public System.DateTime WorkoutDate { get; set; }
+        public System.DateTime CreatedTime { get; set; }
+        public bool Deleted { get; set; }
+        public int CreatedBy { get; set; }
+        public Nullable<decimal> Distance { get; set; }
+    
         public virtual Person Person { get; set; }
+        public virtual CardioItem CardioItem { get; set; }
     }
 }

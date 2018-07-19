@@ -36,8 +36,6 @@ namespace SDNWebApps.Views
         public DbSet<Dream> Dreams { get; set; }
         public DbSet<ActionCategory> ActionCategories { get; set; }
         public DbSet<LiquidSize> LiquidSizes { get; set; }
-        public DbSet<Size> Sizes { get; set; }
-        public DbSet<Weight> Weights { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<GasNote> GasNotes { get; set; }
         public DbSet<Logging> Loggings { get; set; }
@@ -47,7 +45,8 @@ namespace SDNWebApps.Views
         public DbSet<BabyName> BabyNames { get; set; }
         public DbSet<ItemSize> ItemSizes { get; set; }
         public DbSet<AccessPage> AccessPages { get; set; }
-        public DbSet<AutomaticThought> AutomaticThoughts { get; set; }
         public DbSet<BlockedIPAddress> BlockedIPAddresses { get; set; }
+        public DbSet<CardioItem> CardioItems { get; set; }
+        public DbSet<CardioLog> CardioLogs { get; set; }
     }
 }

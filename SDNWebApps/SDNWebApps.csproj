@@ -214,9 +214,9 @@
     <Compile Include="Areas\Tasks\Models\EditTask.cs" />
     <Compile Include="Areas\Tasks\Models\Task.cs" />
     <Compile Include="Areas\Tasks\TasksAreaRegistration.cs" />
-    <Compile Include="Areas\WeightTracking\Controllers\WeightsController.cs" />
-    <Compile Include="Areas\WeightTracking\Controllers\WTController.cs" />
-    <Compile Include="Areas\WeightTracking\WeightTrackingAreaRegistration.cs" />
+    <Compile Include="Areas\Cardio\Controllers\CardioItemsController.cs" />
+    <Compile Include="Areas\Cardio\Controllers\CardioLogsController.cs" />
+    <Compile Include="Areas\Cardio\CardioAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Infrastructure\Access.cs" />
@@ -233,13 +233,16 @@
     <Compile Include="Views\Auto.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Views\AutomaticThought.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\BabyName.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\BlockedIPAddress.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CardioItem.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CardioLog.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\DB.Context.cs">
@@ -294,9 +297,6 @@
     <Compile Include="Views\ReminderType.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Views\Size.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\Station.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -307,9 +307,6 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\ThingsDone.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Weight.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -325,10 +322,14 @@
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\default.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -373,6 +374,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -488,6 +490,17 @@
     <Content Include="Areas\Access\Views\AccessPages\Index.cshtml" />
     <Content Include="Areas\Access\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Access\Views\Shared\AccessMainMenuBar.cshtml" />
+    <Content Include="Areas\Cardio\Views\web.config" />
+    <Content Include="Areas\Cardio\Views\CardioItems\Create.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioItems\Delete.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioItems\Details.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioItems\Edit.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioItems\Index.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioLogs\Create.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioLogs\Delete.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioLogs\Details.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioLogs\Edit.cshtml" />
+    <Content Include="Areas\Cardio\Views\CardioLogs\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
@@ -589,17 +602,6 @@
     <Content Include="Areas\Baby\Views\DoneThings\SummaryPage.cshtml" />
     <Content Include="Areas\Tasks\Views\OurTasks\EditTask.cshtml" />
     <Content Include="Areas\Baby\Views\DoneThings\SummaryPage2.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\web.config" />
-    <Content Include="Areas\WeightTracking\Views\WT\Create.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\WT\Delete.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\WT\Details.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\WT\Edit.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\WT\Index.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\Weights\Create.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\Weights\Delete.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\Weights\Details.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\Weights\Edit.cshtml" />
-    <Content Include="Areas\WeightTracking\Views\Weights\Index.cshtml" />
     <Content Include="Areas\Gas\Views\GasNotes\Create.cshtml" />
     <Content Include="Areas\Gas\Views\GasNotes\Delete.cshtml" />
     <Content Include="Areas\Gas\Views\GasNotes\Details.cshtml" />
@@ -726,13 +728,13 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Access\Models\" />
     <Folder Include="Areas\Baby\Views\Home\" />
+    <Folder Include="Areas\Cardio\Models\" />
+    <Folder Include="Areas\Cardio\Views\Shared\" />
     <Folder Include="Areas\Gas\Views\Home\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
     <Folder Include="Areas\Logs\Models\" />
     <Folder Include="Areas\Logs\Views\Shared\" />
-    <Folder Include="Areas\WeightTracking\Models\" />
-    <Folder Include="Areas\WeightTracking\Views\Shared\" />
     <Folder Include="Content\themes\base\minified\images\" />
     <Folder Include="Models\" />
   </ItemGroup>

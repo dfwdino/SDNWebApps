@@ -103,21 +103,6 @@
           <Property Name="Disactive" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="AutomaticThoughts">
-          <Key>
-            <PropertyRef Name="index" />
-          </Key>
-          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HappenTime" Type="datetime" Nullable="false" />
-          <Property Name="Delete" Type="bit" Nullable="false" />
-          <Property Name="Situation" Type="nvarchar(max)" />
-          <Property Name="EmotionsRating" Type="int" />
-          <Property Name="AutomaticThought" Type="nvarchar(max)" />
-          <Property Name="AutomaticThoughtRating" Type="int" />
-          <Property Name="RationalResponThought" Type="nvarchar(max)" />
-          <Property Name="RationalResponRating" Type="int" />
-          <Property Name="OurcomeThought" Type="nvarchar(max)" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BlockedIPAddress">
@@ -296,40 +281,27 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Deleted" Type="bit" />
         </EntityType>
-        <EntityType Name="Size">
+        <EntityType Name="CardioItems">
           <Key>
-            <PropertyRef Name="SizeID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="SizeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PeopleID" Type="int" Nullable="false" />
-          <Property Name="Wrist" Type="int" />
-          <Property Name="Chest" Type="int" />
-          <Property Name="Forearm" Type="int" />
-          <Property Name="Waist" Type="int" />
-          <Property Name="Thigh" Type="int" />
-          <Property Name="Hip" Type="int" />
-          <Property Name="Calve" Type="int" />
-          <Property Name="Bicep" Type="int" />
-          <Property Name="Neck" Type="int" />
-          <Property Name="Notes" Type="nvarchar(max)" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="IPAddress" Type="nvarchar" MaxLength="20" />
-          <Property Name="Broswer" Type="nvarchar" MaxLength="250" />
-          <Property Name="StatusDate" Type="date" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="Weight">
+        <EntityType Name="CardioLog">
           <Key>
-            <PropertyRef Name="WeightID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="WeightID" Type="int" Nullable="false" />
-          <Property Name="SizeID" Type="int" />
-          <Property Name="Pound" Type="int" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="IPAddress" Type="nvarchar" MaxLength="20" />
-          <Property Name="Broswer" Type="nvarchar" MaxLength="250" />
-          <Property Name="StatusDate" Type="date" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardioItemID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CaloriesBurned" Type="int" Nullable="false" />
+          <Property Name="WorkoutDate" Type="date" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Distance" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_AccessPages_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
@@ -376,6 +348,30 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Principal>
             <Dependent Role="Autos">
               <PropertyRef Name="WhosCar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardoLog_Items">
+          <End Role="CardioItems" Type="Self.CardioItems" Multiplicity="1" />
+          <End Role="CardioLog" Type="Self.CardioLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardioItems">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CardioLog">
+              <PropertyRef Name="CardioItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardoLog_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="CardioLog" Type="Self.CardioLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CardioLog">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -499,18 +495,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Size_People">
-          <End Role="People" Type="Self.People" Multiplicity="1" />
-          <End Role="Size" Type="Self.Size" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Size">
-              <PropertyRef Name="PeopleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tasks_People1">
           <End Role="People" Type="Self.People" Multiplicity="1" />
           <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
@@ -559,18 +543,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Weight_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
-          <End Role="Weight" Type="Self.Weight" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="Weight">
-              <PropertyRef Name="SizeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SDNAppsModelStoreContainer">
           <EntitySet Name="ActionCategory" EntityType="Self.ActionCategory" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
@@ -580,7 +552,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="AccessPages" EntityType="Self.AccessPages" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AutomaticThoughts" EntityType="Self.AutomaticThoughts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
@@ -593,8 +564,8 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Logging" EntityType="Self.Logging" Schema="Logging" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
-          <EntitySet Name="Size" EntityType="Self.Size" Schema="weighttracking" store:Type="Tables" />
-          <EntitySet Name="Weight" EntityType="Self.Weight" Schema="weighttracking" store:Type="Tables" />
+          <EntitySet Name="CardioItems" EntityType="Self.CardioItems" Schema="Weight" store:Type="Tables" />
+          <EntitySet Name="CardioLog" EntityType="Self.CardioLog" Schema="Weight" store:Type="Tables" />
           <EntitySet Name="BlockedIPAddress" EntityType="Self.BlockedIPAddress" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BlockedIPAddress].[ID] AS [ID], 
@@ -616,6 +587,14 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <AssociationSet Name="FK_Autos_People" Association="Self.FK_Autos_People">
             <End Role="People" EntitySet="People" />
             <End Role="Autos" EntitySet="Autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardoLog_Items" Association="Self.FK_CardoLog_Items">
+            <End Role="CardioItems" EntitySet="CardioItems" />
+            <End Role="CardioLog" EntitySet="CardioLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardoLog_People" Association="Self.FK_CardoLog_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="CardioLog" EntitySet="CardioLog" />
           </AssociationSet>
           <AssociationSet Name="FK_Dreams_People" Association="Self.FK_Dreams_People">
             <End Role="People" EntitySet="People" />
@@ -657,10 +636,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="ReminderTypes" EntitySet="ReminderTypes" />
             <End Role="Reminders" EntitySet="Reminders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Size_People" Association="Self.FK_Size_People">
-            <End Role="People" EntitySet="People" />
-            <End Role="Size" EntitySet="Size" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tasks_People1" Association="Self.FK_Tasks_People1">
             <End Role="People" EntitySet="People" />
             <End Role="Tasks" EntitySet="Tasks" />
@@ -676,10 +651,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <AssociationSet Name="FK_ThingsDone_LiquidSize" Association="Self.FK_ThingsDone_LiquidSize">
             <End Role="LiquidSize" EntitySet="LiquidSize" />
             <End Role="ThingsDone" EntitySet="ThingsDone" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Weight_Size" Association="Self.FK_Weight_Size">
-            <End Role="Size" EntitySet="Size" />
-            <End Role="Weight" EntitySet="Weight" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -730,16 +701,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="LiquidSize" EntitySet="LiquidSizes" />
             <End Role="ThingsDone" EntitySet="ThingsDones" />
           </AssociationSet>
-          <EntitySet Name="Sizes" EntityType="SDNAppsModel.Size" />
-          <EntitySet Name="Weights" EntityType="SDNAppsModel.Weight" />
-          <AssociationSet Name="FK_Size_People" Association="SDNAppsModel.FK_Size_People">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Size" EntitySet="Sizes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Weight_Size" Association="SDNAppsModel.FK_Weight_Size">
-            <End Role="Size" EntitySet="Sizes" />
-            <End Role="Weight" EntitySet="Weights" />
-          </AssociationSet>
           <EntitySet Name="Stations" EntityType="SDNAppsModel.Station" />
           <AssociationSet Name="FK_Gallons_Stations" Association="SDNAppsModel.FK_Gallons_Stations">
             <End Role="Station" EntitySet="Stations" />
@@ -781,11 +742,20 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="Item" EntitySet="Items" />
           </AssociationSet>
           <EntitySet Name="AccessPages" EntityType="SDNAppsModel.AccessPage" />
-          <EntitySet Name="AutomaticThoughts" EntityType="SDNAppsModel.AutomaticThought" />
           <EntitySet Name="BlockedIPAddresses" EntityType="SDNAppsModel.BlockedIPAddress" />
           <AssociationSet Name="FK_AccessPages_People" Association="SDNAppsModel.FK_AccessPages_People">
             <End Role="Person" EntitySet="People" />
             <End Role="AccessPage" EntitySet="AccessPages" />
+          </AssociationSet>
+          <EntitySet Name="CardioItems" EntityType="SDNAppsModel.CardioItem" />
+          <EntitySet Name="CardioLogs" EntityType="SDNAppsModel.CardioLog" />
+          <AssociationSet Name="FK_CardoLog_People1" Association="SDNAppsModel.FK_CardoLog_People1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="CardioLog" EntitySet="CardioLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardoLog_Items1" Association="SDNAppsModel.FK_CardoLog_Items1">
+            <End Role="CardioItem" EntitySet="CardioItems" />
+            <End Role="CardioLog" EntitySet="CardioLogs" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
@@ -893,7 +863,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <NavigationProperty Name="Dreams" Relationship="SDNAppsModel.FK_Dreams_People" FromRole="Person" ToRole="Dream" />
           <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Sizes" Relationship="SDNAppsModel.FK_Size_People" FromRole="Person" ToRole="Size" />
           <Property Name="Delete" Type="Boolean" />
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
@@ -902,6 +871,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Hash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AccessPages" Relationship="SDNAppsModel.FK_AccessPages_People" FromRole="Person" ToRole="AccessPage" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CardioLogs" Relationship="SDNAppsModel.FK_CardoLog_People1" FromRole="Person" ToRole="CardioLog" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -1063,68 +1033,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Principal>
             <Dependent Role="ThingsDone">
               <PropertyRef Name="LiquidSizeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Size">
-          <Key>
-            <PropertyRef Name="SizeID" />
-          </Key>
-          <Property Name="SizeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PeopleID" Type="Int32" Nullable="false" />
-          <Property Name="Wrist" Type="Int32" />
-          <Property Name="Chest" Type="Int32" />
-          <Property Name="Forearm" Type="Int32" />
-          <Property Name="Waist" Type="Int32" />
-          <Property Name="Thigh" Type="Int32" />
-          <Property Name="Hip" Type="Int32" />
-          <Property Name="Calve" Type="Int32" />
-          <Property Name="Bicep" Type="Int32" />
-          <Property Name="Neck" Type="Int32" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Broswer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Size_People" FromRole="Size" ToRole="Person" />
-          <NavigationProperty Name="Weights" Relationship="SDNAppsModel.FK_Weight_Size" FromRole="Size" ToRole="Weight" />
-          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="Weight">
-          <Key>
-            <PropertyRef Name="WeightID" />
-          </Key>
-          <Property Name="WeightID" Type="Int32" Nullable="false" />
-          <Property Name="SizeID" Type="Int32" />
-          <Property Name="Pound" Type="Int32" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Broswer" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Size" Relationship="SDNAppsModel.FK_Weight_Size" FromRole="Weight" ToRole="Size" />
-          <Property Name="StatusDate" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <Association Name="FK_Size_People">
-          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="SDNAppsModel.Size" Role="Size" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Size">
-              <PropertyRef Name="PeopleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Weight_Size">
-          <End Type="SDNAppsModel.Size" Role="Size" Multiplicity="0..1" />
-          <End Type="SDNAppsModel.Weight" Role="Weight" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="SizeID" />
-            </Principal>
-            <Dependent Role="Weight">
-              <PropertyRef Name="SizeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1343,21 +1251,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="PersonID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_AccessPages_People" FromRole="AccessPage" ToRole="Person" />
         </EntityType>
-        <EntityType Name="AutomaticThought">
-          <Key>
-            <PropertyRef Name="index" />
-          </Key>
-          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HappenTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Delete" Type="Boolean" Nullable="false" />
-          <Property Name="Situation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="EmotionsRating" Type="Int32" />
-          <Property Name="AutomaticThought1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AutomaticThoughtRating" Type="Int32" />
-          <Property Name="RationalResponThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RationalResponRating" Type="Int32" />
-          <Property Name="OurcomeThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="BlockedIPAddress">
           <Key>
             <PropertyRef Name="ID" />
@@ -1375,6 +1268,55 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Principal>
             <Dependent Role="AccessPage">
               <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CardioItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CardioLogs" Relationship="SDNAppsModel.FK_CardoLog_Items1" FromRole="CardioItem" ToRole="CardioLog" />
+        </EntityType>
+        <EntityType Name="CardioLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardioItemID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CaloriesBurned" Type="Int32" Nullable="false" />
+          <Property Name="WorkoutDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="Distance" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_CardoLog_People1" FromRole="CardioLog" ToRole="Person" />
+          <NavigationProperty Name="CardioItem" Relationship="SDNAppsModel.FK_CardoLog_Items1" FromRole="CardioLog" ToRole="CardioItem" />
+        </EntityType>
+        <Association Name="FK_CardoLog_People1">
+          <End Type="SDNAppsModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="SDNAppsModel.CardioLog" Role="CardioLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CardioLog">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardoLog_Items1">
+          <End Type="SDNAppsModel.CardioItem" Role="CardioItem" Multiplicity="1" />
+          <End Type="SDNAppsModel.CardioLog" Role="CardioLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardioItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CardioLog">
+              <PropertyRef Name="CardioItemID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1552,43 +1494,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sizes">
-            <EntityTypeMapping TypeName="SDNAppsModel.Size">
-              <MappingFragment StoreEntitySet="Size">
-                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
-                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Neck" ColumnName="Neck" />
-                <ScalarProperty Name="Bicep" ColumnName="Bicep" />
-                <ScalarProperty Name="Calve" ColumnName="Calve" />
-                <ScalarProperty Name="Hip" ColumnName="Hip" />
-                <ScalarProperty Name="Thigh" ColumnName="Thigh" />
-                <ScalarProperty Name="Waist" ColumnName="Waist" />
-                <ScalarProperty Name="Forearm" ColumnName="Forearm" />
-                <ScalarProperty Name="Chest" ColumnName="Chest" />
-                <ScalarProperty Name="Wrist" ColumnName="Wrist" />
-                <ScalarProperty Name="PeopleID" ColumnName="PeopleID" />
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Weights">
-            <EntityTypeMapping TypeName="SDNAppsModel.Weight">
-              <MappingFragment StoreEntitySet="Weight">
-                <ScalarProperty Name="StatusDate" ColumnName="StatusDate" />
-                <ScalarProperty Name="Broswer" ColumnName="Broswer" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Pound" ColumnName="Pound" />
-                <ScalarProperty Name="SizeID" ColumnName="SizeID" />
-                <ScalarProperty Name="WeightID" ColumnName="WeightID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Stations">
             <EntityTypeMapping TypeName="SDNAppsModel.Station">
               <MappingFragment StoreEntitySet="Stations">
@@ -1707,26 +1612,34 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AutomaticThoughts">
-            <EntityTypeMapping TypeName="SDNAppsModel.AutomaticThought">
-              <MappingFragment StoreEntitySet="AutomaticThoughts">
-                <ScalarProperty Name="OurcomeThought" ColumnName="OurcomeThought" />
-                <ScalarProperty Name="RationalResponRating" ColumnName="RationalResponRating" />
-                <ScalarProperty Name="RationalResponThought" ColumnName="RationalResponThought" />
-                <ScalarProperty Name="AutomaticThoughtRating" ColumnName="AutomaticThoughtRating" />
-                <ScalarProperty Name="AutomaticThought1" ColumnName="AutomaticThought" />
-                <ScalarProperty Name="EmotionsRating" ColumnName="EmotionsRating" />
-                <ScalarProperty Name="Situation" ColumnName="Situation" />
-                <ScalarProperty Name="Delete" ColumnName="Delete" />
-                <ScalarProperty Name="HappenTime" ColumnName="HappenTime" />
-                <ScalarProperty Name="index" ColumnName="index" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BlockedIPAddresses">
             <EntityTypeMapping TypeName="SDNAppsModel.BlockedIPAddress">
               <MappingFragment StoreEntitySet="BlockedIPAddress">
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardioItems">
+            <EntityTypeMapping TypeName="SDNAppsModel.CardioItem">
+              <MappingFragment StoreEntitySet="CardioItems">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardioLogs">
+            <EntityTypeMapping TypeName="SDNAppsModel.CardioLog">
+              <MappingFragment StoreEntitySet="CardioLog">
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="WorkoutDate" ColumnName="WorkoutDate" />
+                <ScalarProperty Name="CaloriesBurned" ColumnName="CaloriesBurned" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="CardioItemID" ColumnName="CardioItemID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

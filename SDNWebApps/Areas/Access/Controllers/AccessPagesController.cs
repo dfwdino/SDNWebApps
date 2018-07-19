@@ -73,10 +73,10 @@ namespace SDNWebApps.Areas.Access.Controllers
                     ap.PersonID = accessPage.PersonID;
                     ap.AccessPage1 = item;
                     ap.Disactive = false;
-                    
+
                     db.AccessPages.Add(ap);
                 }
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

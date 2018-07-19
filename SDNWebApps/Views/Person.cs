@@ -19,8 +19,8 @@ namespace SDNWebApps.Views
             this.Autos = new HashSet<Auto>();
             this.Tasks = new HashSet<Task>();
             this.Dreams = new HashSet<Dream>();
-            this.Sizes = new HashSet<Size>();
             this.AccessPages = new HashSet<AccessPage>();
+            this.CardioLogs = new HashSet<CardioLog>();
         }
     
         public int ID { get; set; }
@@ -38,7 +38,7 @@ namespace SDNWebApps.Views
         public virtual ICollection<Auto> Autos { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Dream> Dreams { get; set; }
-        public virtual ICollection<Size> Sizes { get; set; }
         public virtual ICollection<AccessPage> AccessPages { get; set; }
+        public virtual ICollection<CardioLog> CardioLogs { get; set; }
     }
 }

@@ -12,15 +12,17 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessPage
+    public partial class CardioItem
     {
+        public CardioItem()
+        {
+            this.CardioLogs = new HashSet<CardioLog>();
+        }
+    
         public int ID { get; set; }
-        public string AccessPage1 { get; set; }
-        public bool Disactive { get; set; }
-        public int PersonID { get; set; }
-
-        public List<string> SelectedAction { get; set; }
-
-        public virtual Person Person { get; set; }
+        public string Item { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+    
+        public virtual ICollection<CardioLog> CardioLogs { get; set; }
     }
 }

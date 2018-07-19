@@ -1,0 +1,108 @@
+﻿@model IEnumerable<SDNWebApps.Views.CardioLog>
+
+@{
+    //Need to fix for datatable
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div class="contaner">
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Time)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Calories")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkoutDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CardioItem.Item)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Name")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CaloriesBurned)
+                        </td>
+                        <td>
+                            @item.WorkoutDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CardioItem.Item)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Person.PersonName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tr>
+                <td class="bolder">Summary</td>
+            </tr>
+            <tfoot>
+                <tr>
+                    <td>
+                        <span> @(Model.Sum(m => m.Time) > 60 ? Model.Sum(m => m.Time) / 60 : Model.Sum(m => m.Time))</span>
+                    </td>
+                    <td>
+                        @Model.Sum(m => m.CaloriesBurned)
+                    </td>
+                    <td>
+                        @Model.Count()
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
+

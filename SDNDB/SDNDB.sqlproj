@@ -78,49 +78,30 @@
     <Folder Include="Logging\" />
     <Folder Include="Logging\Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="Weight\" />
+    <Folder Include="Weight\Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Events\Tables\PositionsDid.sql" />
-    <Build Include="Events\Tables\ProtectionType.sql" />
-    <Build Include="Events\Tables\Owners.sql" />
-    <Build Include="Events\Tables\People.sql" />
-    <Build Include="Events\Tables\BiologicalSexualOrientation.sql" />
-    <Build Include="Events\Tables\CumLocation.sql" />
-    <Build Include="Events\Tables\Locations.sql" />
     <Build Include="Baby\Tables\ReminderTypes.sql" />
     <Build Include="Gas\Tables\Gallons.sql" />
     <Build Include="Baby\Tables\LiquidSize.sql" />
     <Build Include="Dreams\Tables\Dreams.sql" />
     <Build Include="Baby\Tables\Actions.sql" />
     <Build Include="dbo\Tables\AutomaticThoughts.sql" />
-    <Build Include="Events\Tables\LizNightlyQuestions.sql" />
     <Build Include="Baby\Tables\Reminders.sql" />
-    <Build Include="Events\Tables\ActionType.sql" />
     <Build Include="Task\Tables\Tasks.sql" />
     <Build Include="Gas\Tables\People.sql" />
-    <Build Include="weighttracking\Tables\Weight.sql" />
-    <Build Include="weighttracking\Tables\Size.sql" />
-    <Build Include="Events\Tables\EventActions.sql" />
     <Build Include="Grocery\Tables\PriceHistory.sql" />
-    <Build Include="Events\Tables\EventPeople.sql" />
     <Build Include="Gas\Tables\Autos.sql" />
-    <Build Include="Events\Tables\EventLocation.sql" />
-    <Build Include="Events\Tables\Logging.sql" />
-    <Build Include="Events\Tables\Reports.sql" />
-    <Build Include="Events\Tables\Comments.sql" />
     <Build Include="Baby\Tables\ThingsDone.sql" />
     <Build Include="Grocery\Tables\ItemSize.sql" />
     <Build Include="Logging\Tables\Logging.sql" />
     <Build Include="Baby\Tables\ActionCategory.sql" />
     <Build Include="Baby\Tables\BabyNames.sql" />
-    <Build Include="Events\Tables\Positions.sql" />
     <Build Include="Gas\Tables\Stations.sql" />
     <Build Include="Grocery\Tables\Stores.sql" />
     <Build Include="Grocery\Tables\Items.sql" />
     <Build Include="Gas\Tables\GasNotes.sql" />
-    <Build Include="Events\Tables\WhoWhatTo.sql" />
-    <Build Include="Events\Tables\PeopleSTICheck.sql" />
-    <Build Include="Events\Tables\Events.sql" />
     <Build Include="Security\SDNWebApp.sql" />
     <Build Include="Security\SDNWebApp_1.sql" />
     <Build Include="Security\NT AUTHORITY_IUSR.sql" />
@@ -141,6 +122,9 @@
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\BlockedIPAddress.sql" />
     <Build Include="dbo\Tables\AccessPages.sql" />
+    <Build Include="Weight\Tables\CardioLog.sql" />
+    <Build Include="Weight\Tables\CardioItems.sql" />
+    <Build Include="Security\Weight.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare1.scmp" />
