@@ -131,7 +131,8 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CardioLog CardioLog = db.CardioLogs.Find(id);
-            db.CardioLogs.Remove(CardioLog);
+            CardioLog.Deleted = true;
+            //db.CardioLogs.Remove(CardioLog);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

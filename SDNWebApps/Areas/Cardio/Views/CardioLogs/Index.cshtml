@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+
+
 <!DOCTYPE html>
 
 <html>
@@ -13,10 +15,12 @@
     <title>Index</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <div class="contaner">
+    <div class="container">
+        <div style="padding-top:10px"></div>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -32,10 +36,6 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CardioItem.Item)
                     </th>
-                    <th>
-                        @Html.DisplayName("Name")
-                    </th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -43,7 +43,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Time)
+                            @Html.ActionLink(item.Time.ToString(), "Edit", new { id = item.ID })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CaloriesBurned)
@@ -54,14 +54,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CardioItem.Item)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Person.PersonName)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                        </td>
                     </tr>
                 }
             </tbody>
@@ -71,7 +63,7 @@
             <tfoot>
                 <tr>
                     <td>
-                        <span> @(Model.Sum(m => m.Time) > 60 ? Model.Sum(m => m.Time) / 60 : Model.Sum(m => m.Time))</span>
+                        <span> @(Model.Sum(m => m.Time) > 60 ? String.Format("{0:.##}", (Model.Sum(m => m.Time) / 60)) : String.Format("{0:.##}", (Model.Sum(m => m.Time))))</span>
                     </td>
                     <td>
                         @Model.Sum(m => m.CaloriesBurned)
@@ -102,7 +94,11 @@
 
 <script>
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            searching: false
+            , "order": [[3, "desc"]]
+        });
+        
     });
 </script>
 
