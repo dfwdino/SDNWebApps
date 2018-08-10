@@ -296,12 +296,22 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CardioItemID" Type="int" Nullable="false" />
           <Property Name="Time" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="CaloriesBurned" Type="int" Nullable="false" />
+          <Property Name="CaloriesBurned" Type="float" Nullable="false" />
           <Property Name="WorkoutDate" Type="date" Nullable="false" />
           <Property Name="CreatedTime" Type="datetime" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="Distance" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="WeightLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="WeightDate" Type="date" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_AccessPages_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
@@ -566,6 +576,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
           <EntitySet Name="CardioItems" EntityType="Self.CardioItems" Schema="Weight" store:Type="Tables" />
           <EntitySet Name="CardioLog" EntityType="Self.CardioLog" Schema="Weight" store:Type="Tables" />
+          <EntitySet Name="WeightLog" EntityType="Self.WeightLog" Schema="Weight" store:Type="Tables" />
           <EntitySet Name="BlockedIPAddress" EntityType="Self.BlockedIPAddress" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [BlockedIPAddress].[ID] AS [ID], 
@@ -757,6 +768,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="CardioItem" EntitySet="CardioItems" />
             <End Role="CardioLog" EntitySet="CardioLogs" />
           </AssociationSet>
+          <EntitySet Name="WeightLogs" EntityType="SDNAppsModel.WeightLog" />
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -1320,6 +1332,16 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="WeightLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="WeightDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1640,6 +1662,17 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="CaloriesBurned" ColumnName="CaloriesBurned" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="CardioItemID" ColumnName="CardioItemID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeightLogs">
+            <EntityTypeMapping TypeName="SDNAppsModel.WeightLog">
+              <MappingFragment StoreEntitySet="WeightLog">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="WeightDate" ColumnName="WeightDate" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

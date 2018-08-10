@@ -12,15 +12,12 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessPage
+    public partial class WeightLog
     {
         public int ID { get; set; }
-        public string AccessPage1 { get; set; }
-        public bool Disactive { get; set; }
         public int PersonID { get; set; }
-    
-        public List<string> SelectedAction { get; set; }
-
-        public virtual Person Person { get; set; }
+        public double Weight { get; set; }
+        public System.DateTime WeightDate { get; set; }
+        public bool Deleted { get; set; }
     }
 }

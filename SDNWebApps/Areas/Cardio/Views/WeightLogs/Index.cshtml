@@ -1,0 +1,74 @@
+﻿@model IEnumerable<SDNWebApps.Views.WeightLog>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div style="padding-top:10px;"></div>
+    <div class="container">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Weight)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("Date")
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Weight)
+                        </td>
+                        <td class="text-center">
+                            @item.WeightDate.ToShortDateString()
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.8/css/jquery.dataTables.min.css">
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            searching: false
+            , "order": [[1, "desc"]]
+        });
+
+    });
+</script>

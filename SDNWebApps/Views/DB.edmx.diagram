@@ -47,6 +47,7 @@
         <EntityTypeShape EntityType="SDNAppsModel.CardioLog" Width="1.5" PointX="17.625" PointY="11" />
         <AssociationConnector Association="SDNAppsModel.FK_CardoLog_People1" />
         <AssociationConnector Association="SDNAppsModel.FK_CardoLog_Items1" />
+        <EntityTypeShape EntityType="SDNAppsModel.WeightLog" Width="1.5" PointX="0.75" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

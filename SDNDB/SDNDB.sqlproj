@@ -125,6 +125,7 @@
     <Build Include="Weight\Tables\CardioLog.sql" />
     <Build Include="Weight\Tables\CardioItems.sql" />
     <Build Include="Security\Weight.sql" />
+    <Build Include="Weight\Tables\WeightLog.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare1.scmp" />

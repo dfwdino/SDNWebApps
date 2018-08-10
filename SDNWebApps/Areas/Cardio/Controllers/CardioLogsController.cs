@@ -26,6 +26,12 @@ namespace SDNWebApps.Areas.Cardio.Controllers
                                     .Take(50)
                                     .OrderByDescending(m => m.WorkoutDate);
 
+
+            //HelperClass helperClass = new HelperClass();
+
+            //helperClass.CopyClass<object>(CardioLogs.ToList()[0], new CardioLog());
+
+
             return View(CardioLogs.ToList());
         }
 

@@ -48,5 +48,6 @@ namespace SDNWebApps.Views
         public DbSet<BlockedIPAddress> BlockedIPAddresses { get; set; }
         public DbSet<CardioItem> CardioItems { get; set; }
         public DbSet<CardioLog> CardioLogs { get; set; }
+        public DbSet<WeightLog> WeightLogs { get; set; }
     }
 }
