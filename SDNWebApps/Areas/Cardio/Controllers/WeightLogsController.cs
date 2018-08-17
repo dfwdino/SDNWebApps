@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using SDNWebApps.Infrastructure;
 using SDNWebApps.Views;
@@ -127,5 +130,26 @@ namespace SDNWebApps.Areas.Cardio.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult CreateBarChart()
+        {
+            int userid = Convert.ToInt32(Request.Cookies["SDNWebApps"]["SDNID"]);
+
+            List<string> dt = db.WeightLogs.Where(m => m.PersonID == userid).ToList().Select(m => m.WeightDate.ToShortDateString()).ToList();
+
+
+            var myChart = new Chart(width: 600, height: 400)
+           .AddTitle("Weight")
+           .AddSeries(
+               name: "weight",
+               xValue: dt.ToArray(),
+               yValues: db.WeightLogs.Where(m => m.PersonID == userid).Select(m => m.Weight.ToString()).ToArray()).GetBytes("jpeg");
+
+            
+
+            return File(myChart, "image/bytes");
+        }
+
     }
 }

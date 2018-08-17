@@ -1,7 +1,8 @@
 ﻿@model SDNWebApps.Views.WeightLog
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <!DOCTYPE html>
@@ -12,46 +13,29 @@
     <title>Details</title>
 </head>
 <body>
-    <div>
-        <h4>WeightLog</h4>
+    <div class="container" style="padding-top:10px">
+        <h4>Weight Entry</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.PersonID)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.PersonID)
-            </dd>
-    
-            <dt>
                 @Html.DisplayNameFor(model => model.Weight)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Weight)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.WeightDate)
             </dt>
-    
+
             <dd>
-                @Html.DisplayFor(model => model.WeightDate)
+                @Model.WeightDate.ToShortDateString()
             </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Deleted)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Deleted)
-            </dd>
-    
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
         @Html.ActionLink("Back to List", "Index")
     </p>
 </body>
