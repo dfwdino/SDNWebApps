@@ -312,6 +312,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Weight" Type="float" Nullable="false" />
           <Property Name="WeightDate" Type="date" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_AccessPages_People">
           <End Role="People" Type="Self.People" Multiplicity="1" />
@@ -1341,6 +1342,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="WeightDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1669,6 +1671,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySetMapping Name="WeightLogs">
             <EntityTypeMapping TypeName="SDNAppsModel.WeightLog">
               <MappingFragment StoreEntitySet="WeightLog">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="WeightDate" ColumnName="WeightDate" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />

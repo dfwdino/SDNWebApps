@@ -53,7 +53,7 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,PersonID,Weight,WeightDate,Deleted")] WeightLog weightLog)
+        public ActionResult Create([Bind(Include = "ID,PersonID,Weight,WeightDate,Deleted,Notes")] WeightLog weightLog)
         {
             if (ModelState.IsValid)
             {   weightLog.PersonID = Convert.ToInt32(Request.Cookies["SDNWebApps"]["SDNID"]);
@@ -85,7 +85,7 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,PersonID,Weight,WeightDate,Deleted")] WeightLog weightLog)
+        public ActionResult Edit([Bind(Include = "ID,PersonID,Weight,WeightDate,Deleted,Notes")] WeightLog weightLog)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +139,7 @@ namespace SDNWebApps.Areas.Cardio.Controllers
             List<string> dt = db.WeightLogs.Where(m => m.PersonID == userid).ToList().Select(m => m.WeightDate.ToShortDateString()).ToList();
 
 
-            var myChart = new Chart(width: 600, height: 400)
+            var myChart = new Chart(width: 300, height: 200)
            .AddTitle("Weight")
            .AddSeries(
                name: "weight",

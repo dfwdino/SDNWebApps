@@ -19,5 +19,6 @@ namespace SDNWebApps.Views
         public double Weight { get; set; }
         public System.DateTime WeightDate { get; set; }
         public bool Deleted { get; set; }
+        public string Notes { get; set; }
     }
 }

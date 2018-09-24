@@ -19,8 +19,8 @@ namespace SDNWebApps.Views
         public bool Disactive { get; set; }
         public int PersonID { get; set; }
     
-        public List<string> SelectedAction { get; set; }
-
         public virtual Person Person { get; set; }
+
+        public List<string> SelectedAction { get; set; }
     }
 }

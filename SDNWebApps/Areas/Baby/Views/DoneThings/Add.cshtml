@@ -55,61 +55,66 @@ new SelectListItem { Value = SqlFunctions.StringConvert((double)m.Id).Trim(), Te
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
 <body onload="getLocation()" style="padding-left: 5px">
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary()
-        //Need to change the layout... Add span or div
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary()
+            //Need to change the layout... Add span or div
 
-        @Html.HiddenFor(m => m.Latitude)
-        @Html.HiddenFor(m => m.Longitude)
+            @Html.HiddenFor(m => m.Latitude)
+            @Html.HiddenFor(m => m.Longitude)
 
-        <div>
-            <div id="actions">
-                <div id="actionCopy">
-                    <div>
-                        @Html.ValidationMessageFor(m => m.Actions)
-                        @Html.LabelFor(m => m.Actions)
-                        @Html.TextBoxFor(m => m.Action)
-                    </div>
-                    <div>
-                        @Html.Label("Kid")
-                        @Html.DropDownListFor(x => Model.KidName, Model.KidNames)
-                    </div>
+            <div>
+                <div id="actions">
+                    <div id="actionCopy">
+                        <div>
+                            @Html.ValidationMessageFor(m => m.Actions)
+                            @Html.LabelFor(m => m.Actions)
+                            @Html.TextBoxFor(m => m.Action)
+                        </div>
+                        <div>
+                            @Html.Label("Kid")
+                            @Html.DropDownListFor(x => Model.KidName, Model.KidNames)
+                        </div>
 
-                    <div>
-                        @Html.Label("Amount")
-                        @Html.TextBoxFor(m => m.OZ, new { @style = "width: 45px", @type = "number", @step = "0.01" }) 
-                        @Html.DropDownListFor(x => POS, LiquidTypes)
+                        <div>
+                            @Html.Label("Amount")
+                            @Html.TextBoxFor(m => m.OZ, new { @style = "width: 45px", @type = "number", @step = "0.01" })
+                            @Html.DropDownListFor(x => POS, LiquidTypes)
+                        </div>
+                        <hr style="" />
                     </div>
-                    <hr style=""/>
                 </div>
-            </div>
-            <div style="margin-left:10px;margin-top:10px">
-                <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
+                <div style="margin-left:10px;margin-top:10px">
+                    <a style="margin: 10px 0;" href="javascript:addRow();">Add Other Item</a>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                    <div class="col">
+                        @Html.Label("Start")
+                        @Html.TextBoxFor(m => Model.StartTime) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a>
+                    </div>
+                </div>
+
+                @Html.Label("End")
+                @Html.TextBoxFor(m => m.EndTime, new { @length = "20" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
+
+
+
+                <div style="width: 150px; display: inline-block;">
+                    @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
+
+                    <div id="TANotes" style="display: none; padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "25" })</div> <br />
+                </div>
+
             </div>
             <br />
+            <input type="submit" value="Add" />
             <br />
-            @Html.Label("Start")
-            @Html.TextBoxFor(m => Model.StartTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('StartTime')">Get Time</a> <br />
-
-            @Html.Label("End")
-            @Html.TextBoxFor(m => m.EndTime, new { @length = "40" }) <a onclick="GetCurrentDateTime('EndTime')">Get Time</a> <br />
-
-
-
-            <div style="width: 150px; display: inline-block;">
-                @Html.LabelFor(m => m.Notes, new { id = "LNotes", style = "color: blue;text-decoration: underline" })
-
-                <div id="TANotes" style="display: none; padding-left: 5px">@Html.TextAreaFor(m => m.Notes, new { cols = "25" })</div> <br />
-            </div>
-
-        </div>
-        <br />
-        <input type="submit" value="Add" />
-        <br />
-        <br />
-    }
-
+            <br />
+        }
+    </div>
 </body>
 
 <script type="text/javascript">
