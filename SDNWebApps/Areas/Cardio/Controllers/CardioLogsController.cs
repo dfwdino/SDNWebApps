@@ -64,7 +64,7 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CardioItemID,Time,CaloriesBurned,WorkoutDate,CreatedTime,Deleted,CreatedBy")] CardioLog CardioLog)
+        public ActionResult Create([Bind(Include = "ID,CardioItemID,Time,CaloriesBurned,WorkoutDate,CreatedTime,Deleted,CreatedBy,Distance")] CardioLog CardioLog)
         {
             if (ModelState.IsValid)
             {   
@@ -103,7 +103,7 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CardioItemID,Time,CaloriesBurned,WorkoutDate,CreatedTime,Deleted,CreatedBy")] CardioLog CardioLog)
+        public ActionResult Edit([Bind(Include = "ID,CardioItemID,Time,CaloriesBurned,WorkoutDate,CreatedTime,Deleted,CreatedBy,Distance")] CardioLog CardioLog)
         {
             if (ModelState.IsValid)
             {

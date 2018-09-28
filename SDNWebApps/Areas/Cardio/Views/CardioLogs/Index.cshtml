@@ -30,6 +30,10 @@
                         @Html.DisplayName("Calories")
                     </th>
                     <th>
+                        @Html.DisplayName("Distance")
+                    </th>
+
+                    <th>
                         @Html.DisplayNameFor(model => model.WorkoutDate)
                     </th>
                     <th>
@@ -47,6 +51,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.CaloriesBurned)
                         </td>
+                        <td>@Html.DisplayFor(modelItem => item.Distance)</td>
                         <td>
                             @item.WorkoutDate.ToShortDateString()
                         </td>
@@ -66,6 +71,9 @@
                     </td>
                     <td>
                         @Model.Sum(m => m.CaloriesBurned)
+                    </td>
+                    <td>
+                        <span> @Model.Sum(m => m.Distance)</span>
                     </td>
                     <td>
                         @Model.Count()
