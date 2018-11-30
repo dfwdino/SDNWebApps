@@ -1,4 +1,4 @@
-﻿@model SDNWebApps.Areas.Gas.Models.Miles.AddViewModel
+﻿@model SDNWebApps.Views.Gallon
 @using System.Web.Mvc.Html
 
 @{
@@ -11,6 +11,7 @@
 
     @Html.HiddenFor(m => m.Latitude)
     @Html.HiddenFor(m => m.Longitude)
+    @Html.HiddenFor(m => m.ID)
 
     @using (Html.BeginForm())
     {
@@ -42,16 +43,16 @@
             @Html.EditorFor(m => m.EngineRunTime)
         </div>
 
-        <div>
+        @*<div>
             @Html.LabelFor(m => m.Stations)
             @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
 
 
-        </div>
+        </div>*@
 
         <br />
 
-        <input type="submit" value="Add" />
+        <input type="submit" value="Update" />
 
 
     }
@@ -83,22 +84,9 @@
 <script>
 
     $.ajaxSetup({ cache: false });
-    navigator.geolocation.getCurrentPosition(showPosition, positionError);
 
-    $(function () {
-        
-    })
 
-    function showPosition(position) {
-        var coordinates = position.coords;
-        $("Latitude").val(coordinates.latitude);
-        $("Longitude").val(coordinates.longitude);
-    }
 
-    function positionError(position) {
-        alert("Ooops! Error: " + position.code);
-    }
-    
     function LoadInfo() {
 
         $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {

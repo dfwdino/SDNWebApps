@@ -16,7 +16,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public Nullable<System.DateTime> GasDate { get; set; }
         public Nullable<decimal> MPG { get; set; }
         public string Store { get; set; }
-       
+        public TimeSpan? EngineRunTime { get; set; }
+
     }
 
 }

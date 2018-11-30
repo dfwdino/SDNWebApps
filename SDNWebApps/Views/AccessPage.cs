@@ -21,6 +21,7 @@ namespace SDNWebApps.Views
     
         public virtual Person Person { get; set; }
 
+
         public List<string> SelectedAction { get; set; }
     }
 }

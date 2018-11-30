@@ -18,7 +18,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
         public ActionResult JSONList(int id, bool viewall = false)
         {   
-            List<Gallon> gallons = ae.Gallons.Where(m => m.AutoID == id).OrderByDescending(m => m.TotalMiles).Take(20).ToList();
+            List<Gallon> gallons = ae.Gallons.Where(m => m.AutoID == id && m.Delete == null).OrderByDescending(m => m.TotalMiles).Take(20).ToList();
             List<JSONGallonsView> jgv = new List<JSONGallonsView>();
 
             decimal lastmiles = 0;
@@ -34,7 +34,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 gv.Store = item.Station.StationName;
                 gv.DrivenMiles = lastmiles.Equals(0) ? 0 : (int)(item.TotalMiles - lastmiles);
                 gv.MPG = lastmiles.Equals(0) ? 0 : ((item.TotalMiles - lastmiles) / (decimal)gv.TotalGallons);
-
+                gv.EngineRunTime = item.EngineRunTime;
+                gv.ID = item.ID;
                 lastmiles = gv.TotalMiles;
                 jgv.Add(gv);
             }
@@ -75,6 +76,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
             lmvModel.TotalGallons = null;
             lmvModel.TotalMiles = null;
             lmvModel.DrivenMiles = null;
+            lmvModel.EngineRunTime = string.Empty;
             
             return View(lmvModel);
         }
@@ -93,7 +95,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 TankFilled = addviewmodel.TankFilled,
                 StationID = addviewmodel.SelectedStation,
                 Latitude = addviewmodel.Latitude,
-                Longitude = addviewmodel.Longitude
+                Longitude = addviewmodel.Longitude,
+                EngineRunTime = addviewmodel.EngineRunTime != null ? TimeSpan.Parse(addviewmodel.EngineRunTime.Replace(".", ":")) : new TimeSpan()
 
 
             };
@@ -111,6 +114,38 @@ namespace SDNWebApps.Areas.Gas.Controllers
            
             return RedirectToAction("JSONList", new { id= addviewmodel.AutoID, viewall = false});
         }
+
+        public ActionResult Edit(int id)
+        {  
+            return View(ae.Gallons.Where(m => m.ID == id).First());
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Gallon addviewmodel)
+        {
+
+            Gallon gallon = ae.Gallons.Where(m => m.ID == addviewmodel.ID).First();
+
+            gallon.TotalMiles = addviewmodel.TotalMiles;
+            gallon.TotalGallons = addviewmodel.TotalGallons;
+            gallon.DrivenMiles = addviewmodel.DrivenMiles;
+            gallon.TotalPrice = addviewmodel.TotalPrice;
+            gallon.TankFilled = addviewmodel.TankFilled;
+            gallon.EngineRunTime = addviewmodel.EngineRunTime != null ? TimeSpan.Parse(addviewmodel.EngineRunTime.ToString().Replace(".", ":")) : new TimeSpan();
+
+            if (addviewmodel.GasDate != null)
+            {
+                //DateTime dt;
+                //DateTime.TryParse(addviewmodel.GasDate, out dt);
+                gallon.GasDate = addviewmodel.GasDate;
+            }
+            //else { gallon.GasDate = DateTime.Now; }
+
+            int NumberOfChanges = ae.SaveChanges();
+
+            return RedirectToAction("JSONList", new { id = addviewmodel.AutoID, viewall = false });
+        }
+
 
         public ActionResult DeleteRow(int milesID)
         {

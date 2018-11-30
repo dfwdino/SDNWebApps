@@ -3,9 +3,24 @@
 @{
     ViewBag.Title = "Miles";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Int64 TotalMilesDriven = Model.OrderByDescending(m => m.GasDate).Select(m => m.TotalMiles).First() - Model.OrderByDescending(m => m.GasDate).Select(m => m.TotalMiles).Last();
+    double TotalGallons = Model.Sum(m => m.TotalGallons);
+    double TotalMPG = TotalMilesDriven / TotalGallons;
+
 }
 
-<div style="padding-top:10px"></div>
+<div style="padding-top:20px"></div>
+
+<div class="text-center">
+    Since <b>@Model.OrderByDescending(m => m.GasDate).Select(m => m.GasDate).Last().Value.ToShortDateString()</b> you have used 
+    <b> @TotalGallons.ToString("N0")</b> gallons of gas,
+    drove <b>@TotalMilesDriven.ToString("N0")</b>
+    and your avg MPG is <b>@TotalMPG.ToString("0.00")</b>
+</div>
+
+
+<div style="padding-top:20px"></div>
 
 <div class="container" ng-app="myModule" ng-controller="myController" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
 
@@ -71,18 +86,31 @@
                         <span ng-show="sortType == 'MPG' && sortReverse" class="fa fa-caret-up"></span>
                     </a>
                 </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'EngineRunTime'; sortReverse = !sortReverse">
+                        Engine Time
+                        <span ng-show="sortType == 'EngineRunTime' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'EngineRunTime' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
             </tr>
         </thead>
 
         <tbody>
             <tr ng-repeat="g in Gallons | orderBy:sortType:sortReverse | filter:searchDate">
-                <td>{{ g.GasDate | date :  "MM/dd/yyyy"  }}</td>
+                @{
+                    var url = Url.Action("Edit", "Miles", new { id = "{{id=g.ID}}" });
+                    url = HttpUtility.UrlDecode(url);
+                }
+
+                <td><a data-ng-href="@url">{{ g.GasDate | date :  'MM/dd/yyyy' }}</a></td>
                 <td>{{ g.Store }}</td>
                 <td>{{ g.TotalMiles | number }}</td>
                 <td>{{ g.TotalPrice | currency}}</td>
                 <td>{{ g.TotalGallons | number: '3'}}</td>
                 <td>{{ g.DrivenMiles | number: 0 }}</td>
                 <td>{{ g.MPG | number: 0 }}</td>
+                <td><span ng-if="g.EngineRunTime != '00:00:00'"> {{ g.EngineRunTime }}</span></td>
             </tr>
         </tbody>
 
@@ -112,7 +140,7 @@
 </style>
 
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+@*<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
 <script src="~/Scripts/controller-test.js"></script>

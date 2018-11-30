@@ -28,6 +28,7 @@ namespace SDNWebApps.Views
         public string IPAddress { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public Nullable<System.TimeSpan> EngineRunTime { get; set; }
     
         public virtual Auto Auto { get; set; }
         public virtual Station Station { get; set; }

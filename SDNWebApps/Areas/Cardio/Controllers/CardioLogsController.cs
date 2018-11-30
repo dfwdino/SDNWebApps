@@ -20,10 +20,10 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         public ActionResult Index()
         {
             int userid = Convert.ToInt32(Request.Cookies["SDNWebApps"]["SDNID"]);
+            DateTime dt = DateTime.Now.AddDays(-60);
 
             var CardioLogs = db.CardioLogs.Include(c => c.CardioItem).Include(c => c.Person)
-                                    .Where(m => m.Deleted == false && m.CreatedBy == userid)
-                                    .Take(50)
+                                    .Where(m => m.Deleted == false && m.CreatedBy == userid && m.WorkoutDate >= dt)
                                     .OrderByDescending(m => m.WorkoutDate);
 
 

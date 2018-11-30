@@ -29,6 +29,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             TotalPrice =   gallon.TotalPrice;
             GasDate =      gallon.GasDate.ToString();
             TankFilled =   gallon.TankFilled;
+            EngineRunTime = string.Empty;
 
         }
 
@@ -56,6 +57,9 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
 
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        public string EngineRunTime { get; set; }
 
 
     }

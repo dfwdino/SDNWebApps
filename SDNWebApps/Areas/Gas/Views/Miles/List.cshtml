@@ -12,6 +12,12 @@
     double LastTotalMiles = 0;
     int colorCounter = 0;
 
+    Int64 TotalMilesDriven = Model.Gallons.Last().TotalMiles - Model.Gallons.First().TotalMiles;
+    double TotalGallons = Model.Gallons.Sum(m => m.TotalGallons);
+    double TotalMPG = TotalMilesDriven / TotalGallons;
+
+
+
 }
 
 <div style="padding-top:60px"></div>
@@ -21,6 +27,10 @@
 @Html.ActionLink("View All", "List", "Miles", new { id = Model.autoID, viewall = true }, new { @style = "padding-right: 10px;" })
 <br />
 <br />
+
+<div>
+    Total Gallons @TotalGallons since @Model.Gallons.ToList()[0].GasDate and total miles driven @TotalMilesDriven and @TotalMPG avg MPG
+</div>
 
 
 <div class="row panel-heading" style="font-weight:bold">

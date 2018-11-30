@@ -33,11 +33,11 @@
 <div id="context">
     @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div>
-            @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name)<br />
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)  <input id="submitbutton" type="submit" value="Add" />+<br />
 
-        </div>
+    </div>
         <br />
         <div class="ItemsAddForm">
             @Html.LabelFor(m => m.Price)

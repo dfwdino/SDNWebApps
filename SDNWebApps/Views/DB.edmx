@@ -158,6 +158,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="EngineRunTime" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="GasNotes">
           <Key>
@@ -806,6 +807,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="EngineRunTime" Type="Time" Precision="7" />
         </EntityType>
         <Association Name="FK_Gallons_Autos">
           <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
@@ -1366,6 +1368,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySetMapping Name="Gallons">
             <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
               <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="EngineRunTime" ColumnName="EngineRunTime" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />

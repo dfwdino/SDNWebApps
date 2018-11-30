@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
         public ActionResult List(int id)
         {
-            ListViewModel lvm = new ListViewModel(_se.Autos.Where(m => m.WhosCar == id).ToList(),
+            ListViewModel lvm = new ListViewModel(_se.Autos.Where(m => m.WhosCar == id && m.Delete == null).ToList(),
                                                     _se.People.FirstOrDefault(m => m.ID == id));
 
             

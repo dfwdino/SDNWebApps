@@ -2,6 +2,9 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TimeSpan ts = Model.Last().WeightDate - Model.First().WeightDate;
+    int days = ts.Days * -1;
+    double lost = System.Math.Abs(Model.Last().Weight - Model.First().Weight) * (-1);
 
 }
 
@@ -18,6 +21,13 @@
         <p>
             @Html.ActionLink("Create New", "Create")
         </p>
+
+        <div>
+            <p>In the last @days days you have lost @Math.Round(lost) pounds.</p>
+            <p>@days days ago weight was <b>@Model.OrderBy(m => m.WeightDate).Select(m => m.Weight).First()</b></p>
+            <p>Current weight <b>@Model.OrderByDescending(m => m.WeightDate).Select(m => m.Weight).First()</b></p>
+        </div>
+        <br/>
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -38,24 +48,18 @@
                 {
                     <tr>
                         <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.Weight)
+                            @Html.ActionLink(item.Weight.ToString(), "Details", new { id = item.ID })
                         </td>
                         <td class="text-center">
                             @item.WeightDate.ToShortDateString()
                         </td>
                         <td class="text-center">@Html.DisplayFor(modelItem => item.Notes)</td>
                         <td class="text-center">
-                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            <br />
                             @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                         </td>
 
                     </tr>
-                    @*if (item.Notes == null)
-                        {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Notes)</td>
-                        </tr>
-                        }*@
                 }
             </tbody>
         </table>

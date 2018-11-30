@@ -23,8 +23,11 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         public ActionResult Index()
         {
             int userid = Convert.ToInt32(Request.Cookies["SDNWebApps"]["SDNID"]);
+            DateTime dt = DateTime.Now.AddDays(-30);
 
-            return View(db.WeightLogs.Where(m => m.Deleted == false && m.PersonID == userid).ToList());
+
+            return View(db.WeightLogs.Where(m => m.Deleted == false && m.PersonID == userid && m.WeightDate >= dt)
+                            .OrderByDescending(m => m.WeightDate).ToList());
         }
 
         // GET: Cardio/WeightLogs/Details/5
@@ -135,16 +138,34 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         public ActionResult CreateBarChart()
         {
             int userid = Convert.ToInt32(Request.Cookies["SDNWebApps"]["SDNID"]);
+            List<string> dt = new List<string>();
+            List<string> weightLogs = new List<string>();
 
-            List<string> dt = db.WeightLogs.Where(m => m.PersonID == userid).ToList().Select(m => m.WeightDate.ToShortDateString()).ToList();
+            dt.Add(db.WeightLogs.Where(m => m.PersonID == userid).OrderBy(m => m.WeightDate)
+                            .Take(1).Select(m => m.WeightDate).First().ToShortDateString().ToString());
+
+            dt.AddRange(db.WeightLogs.Where(m => m.PersonID == userid).OrderByDescending(m => m.WeightDate)
+                                    .Take(5).ToList().Select(m => m.WeightDate.ToShortDateString()));
 
 
-            var myChart = new Chart(width: 300, height: 200)
+            weightLogs.Add(db.WeightLogs.Where(m => m.PersonID == userid)
+                                        .OrderBy(m => m.WeightDate)
+                                        .Take(1)
+                                        .Select(m => m.Weight.ToString())
+                                        .First());
+
+            weightLogs.AddRange(db.WeightLogs
+                                    .Where(m => m.PersonID == userid)
+                                    .OrderByDescending(m => m.WeightDate)
+                                    .Take(5)
+                                    .Select(m => m.Weight.ToString()));
+
+            var myChart = new Chart(width: 300, height: 300)
            .AddTitle("Weight")
            .AddSeries(
                name: "weight",
                xValue: dt.ToArray(),
-               yValues: db.WeightLogs.Where(m => m.PersonID == userid).Select(m => m.Weight.ToString()).ToArray()).GetBytes("jpeg");
+               yValues: weightLogs.ToArray()).GetBytes("jpeg");
 
             
 
