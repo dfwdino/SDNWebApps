@@ -23,9 +23,10 @@
         </p>
 
         <div>
-            <p>In the last @days days you have lost @Math.Round(lost) pounds.</p>
-            <p>@days days ago weight was <b>@Model.OrderBy(m => m.WeightDate).Select(m => m.Weight).First()</b></p>
-            <p>Current weight <b>@Model.OrderByDescending(m => m.WeightDate).Select(m => m.Weight).First()</b></p>
+            <p>In the last <b>@days</b> days you have <b>@Math.Round(lost)</b> pounds. 
+            @*@days days ago weight was <b>@Model.OrderBy(m => m.WeightDate).Select(m => m.Weight).First()</b> Current weight 
+            <b>@Model.OrderByDescending(m => m.WeightDate).Select(m => m.Weight).First()</b>*@
+            </p>
         </div>
         <br/>
         <table id="myTable" class="display">
