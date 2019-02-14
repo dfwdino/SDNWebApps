@@ -20,6 +20,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         public ActionResult Index()
         {
             var stations = db.Stations;
+            
             return View(stations.ToList());
         }
 
@@ -57,6 +58,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         [HttpPost]
         public ActionResult PopUpCreate([Bind(Include = "StationID,StationName,CreatedOn,UpdatedOn,IPAddress,Broswer,Deleted")] Station station)
         {
+
           if (ModelState.IsValid)
             {
                 station.CreatedOn = DateTime.Now;

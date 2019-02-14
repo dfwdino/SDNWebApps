@@ -1,0 +1,72 @@
+﻿@model SDNWebApps.Views.Entry
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Entry</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IssueDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IssueDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Issues)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Issues)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Planned)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Planned)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Deleted)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

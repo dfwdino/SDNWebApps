@@ -5,5 +5,5 @@ myApp.controller('myController', function ($scope) {
         $scope.sortType = 'GasDate';
         $scope.sortReverse = true;
         $scope.Gallons = Gallons;
-    }
+    };
 });

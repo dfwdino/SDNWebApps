@@ -49,5 +49,7 @@ namespace SDNWebApps.Views
         public DbSet<CardioItem> CardioItems { get; set; }
         public DbSet<CardioLog> CardioLogs { get; set; }
         public DbSet<WeightLog> WeightLogs { get; set; }
+        public DbSet<AutomaticThought> AutomaticThoughts { get; set; }
+        public DbSet<Entry> Entries { get; set; }
     }
 }

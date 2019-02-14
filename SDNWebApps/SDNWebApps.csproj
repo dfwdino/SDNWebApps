@@ -199,6 +199,8 @@
     <Compile Include="Areas\GroceryList\GroceryListAreaRegistration.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ViewItemsVM.cs" />
     <Compile Include="Areas\GroceryList\Models\Home\ItemsViewModel.cs" />
+    <Compile Include="Areas\KidsLog\Controllers\EntriesController.cs" />
+    <Compile Include="Areas\KidsLog\KidsLogAreaRegistration.cs" />
     <Compile Include="Areas\Login\Controllers\HomeController.cs" />
     <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
     <Compile Include="Areas\Logs\Controllers\Home\HomeController.cs" />
@@ -234,6 +236,9 @@
     <Compile Include="Views\Auto.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\AutomaticThought.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Views\BabyName.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -266,6 +271,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Dream.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Entry.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Gallon.cs">
@@ -511,6 +519,12 @@
     <Content Include="Areas\Cardio\Views\WeightLogs\Edit.cshtml" />
     <Content Include="Areas\Cardio\Views\WeightLogs\Index.cshtml" />
     <Content Include="Areas\Gas\Views\Miles\Edit.cshtml" />
+    <Content Include="Areas\KidsLog\Views\web.config" />
+    <Content Include="Areas\KidsLog\Views\Entries\Create.cshtml" />
+    <Content Include="Areas\KidsLog\Views\Entries\Delete.cshtml" />
+    <Content Include="Areas\KidsLog\Views\Entries\Details.cshtml" />
+    <Content Include="Areas\KidsLog\Views\Entries\Edit.cshtml" />
+    <Content Include="Areas\KidsLog\Views\Entries\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
@@ -740,6 +754,8 @@
     <Folder Include="Areas\Cardio\Models\" />
     <Folder Include="Areas\Cardio\Views\Shared\" />
     <Folder Include="Areas\Gas\Views\Home\" />
+    <Folder Include="Areas\KidsLog\Models\" />
+    <Folder Include="Areas\KidsLog\Views\Shared\" />
     <Folder Include="Areas\Login\Models\" />
     <Folder Include="Areas\Login\Views\Shared\" />
     <Folder Include="Areas\Logs\Models\" />

@@ -103,6 +103,21 @@
           <Property Name="Disactive" Type="bit" Nullable="false" />
           <Property Name="PersonID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="AutomaticThoughts">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HappenTime" Type="datetime" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="Situation" Type="nvarchar(max)" />
+          <Property Name="EmotionsRating" Type="int" />
+          <Property Name="AutomaticThought" Type="nvarchar(max)" />
+          <Property Name="AutomaticThoughtRating" Type="int" />
+          <Property Name="RationalResponThought" Type="nvarchar(max)" />
+          <Property Name="RationalResponRating" Type="int" />
+          <Property Name="OurcomeThought" Type="nvarchar(max)" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BlockedIPAddress">
@@ -254,6 +269,17 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="IssueDate" Type="date" Nullable="false" />
+          <Property Name="Issues" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Planned" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Logging">
           <Key>
@@ -564,6 +590,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="AccessPages" EntityType="Self.AccessPages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutomaticThoughts" EntityType="Self.AutomaticThoughts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dreams" EntityType="Self.Dreams" Schema="Dreams" store:Type="Tables" />
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
@@ -574,6 +601,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="ItemSize" EntityType="Self.ItemSize" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="PriceHistory" EntityType="Self.PriceHistory" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
+          <EntitySet Name="Entry" EntityType="Self.Entry" Schema="KidsLog" store:Type="Tables" />
           <EntitySet Name="Logging" EntityType="Self.Logging" Schema="Logging" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
           <EntitySet Name="CardioItems" EntityType="Self.CardioItems" Schema="Weight" store:Type="Tables" />
@@ -771,6 +799,8 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="CardioLog" EntitySet="CardioLogs" />
           </AssociationSet>
           <EntitySet Name="WeightLogs" EntityType="SDNAppsModel.WeightLog" />
+          <EntitySet Name="AutomaticThoughts" EntityType="SDNAppsModel.AutomaticThought" />
+          <EntitySet Name="Entries" EntityType="SDNAppsModel.Entry" />
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -1346,6 +1376,32 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="AutomaticThought">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HappenTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="Situation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmotionsRating" Type="Int32" />
+          <Property Name="AutomaticThought1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AutomaticThoughtRating" Type="Int32" />
+          <Property Name="RationalResponThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RationalResponRating" Type="Int32" />
+          <Property Name="OurcomeThought" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Issues" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Planned" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1679,6 +1735,34 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="WeightDate" ColumnName="WeightDate" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutomaticThoughts">
+            <EntityTypeMapping TypeName="SDNAppsModel.AutomaticThought">
+              <MappingFragment StoreEntitySet="AutomaticThoughts">
+                <ScalarProperty Name="OurcomeThought" ColumnName="OurcomeThought" />
+                <ScalarProperty Name="RationalResponRating" ColumnName="RationalResponRating" />
+                <ScalarProperty Name="RationalResponThought" ColumnName="RationalResponThought" />
+                <ScalarProperty Name="AutomaticThoughtRating" ColumnName="AutomaticThoughtRating" />
+                <ScalarProperty Name="AutomaticThought1" ColumnName="AutomaticThought" />
+                <ScalarProperty Name="EmotionsRating" ColumnName="EmotionsRating" />
+                <ScalarProperty Name="Situation" ColumnName="Situation" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="HappenTime" ColumnName="HappenTime" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entries">
+            <EntityTypeMapping TypeName="SDNAppsModel.Entry">
+              <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Planned" ColumnName="Planned" />
+                <ScalarProperty Name="Issues" ColumnName="Issues" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
