@@ -83,22 +83,32 @@
 <script>
 
     $.ajaxSetup({ cache: false });
-    navigator.geolocation.getCurrentPosition(showPosition, positionError);
-
+    
     $(function () {
-        
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        //navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
     })
 
     function showPosition(position) {
         var coordinates = position.coords;
         $("Latitude").val(coordinates.latitude);
         $("Longitude").val(coordinates.longitude);
+
+        alert(`Latitude : ${coordinates.latitude}`);
     }
 
     function positionError(position) {
-        alert("Ooops! Error: " + position.code);
+        alert("Ooops! Error: " + position.positionError);
     }
+
     
+
+
     function LoadInfo() {
 
         $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {
