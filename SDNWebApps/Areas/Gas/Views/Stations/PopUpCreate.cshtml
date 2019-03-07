@@ -4,6 +4,7 @@
 <script>
     $("#submit").click(function() {
         var name = $("#StationName").val();
+        console.log('test3');
         $.post('@Url.Action("PopUpCreate", "Stations")', { StationName: name },
             function(result) // success
             {       $('#StationName').val('');
