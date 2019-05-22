@@ -50,6 +50,32 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
         </EntityType>
+        <EntityType Name="Punshment">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BabyNameID" Type="int" />
+          <Property Name="PunshmentActions" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="LiquidSizeID" Type="int" />
+        </EntityType>
+        <EntityType Name="PunshmentActions">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Delete" Type="bit" Nullable="false" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="25" />
+          <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
+          <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
+        </EntityType>
         <EntityType Name="Reminders">
           <Key>
             <PropertyRef Name="ID" />
@@ -509,6 +535,30 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Punshment_BabyNames">
+          <End Role="BabyNames" Type="Self.BabyNames" Multiplicity="0..1" />
+          <End Role="Punshment" Type="Self.Punshment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BabyNames">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Punshment">
+              <PropertyRef Name="BabyNameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Punshment_PunshmentActions">
+          <End Role="PunshmentActions" Type="Self.PunshmentActions" Multiplicity="1" />
+          <End Role="Punshment" Type="Self.Punshment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PunshmentActions">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Punshment">
+              <PropertyRef Name="PunshmentActions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reminders_Actions">
           <End Role="Actions" Type="Self.Actions" Multiplicity="1" />
           <End Role="Reminders" Type="Self.Reminders" Multiplicity="*" />
@@ -586,6 +636,8 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="Actions" EntityType="Self.Actions" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="BabyNames" EntityType="Self.BabyNames" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="LiquidSize" EntityType="Self.LiquidSize" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="Punshment" EntityType="Self.Punshment" Schema="Baby" store:Type="Tables" />
+          <EntitySet Name="PunshmentActions" EntityType="Self.PunshmentActions" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ReminderTypes" EntityType="Self.ReminderTypes" Schema="Baby" store:Type="Tables" />
           <EntitySet Name="ThingsDone" EntityType="Self.ThingsDone" Schema="Baby" store:Type="Tables" />
@@ -668,6 +720,14 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <AssociationSet Name="FK_PriceHistory_Items" Association="Self.FK_PriceHistory_Items">
             <End Role="Items" EntitySet="Items" />
             <End Role="PriceHistory" EntitySet="PriceHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Punshment_BabyNames" Association="Self.FK_Punshment_BabyNames">
+            <End Role="BabyNames" EntitySet="BabyNames" />
+            <End Role="Punshment" EntitySet="Punshment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Punshment_PunshmentActions" Association="Self.FK_Punshment_PunshmentActions">
+            <End Role="PunshmentActions" EntitySet="PunshmentActions" />
+            <End Role="Punshment" EntitySet="Punshment" />
           </AssociationSet>
           <AssociationSet Name="FK_Reminders_Actions" Association="Self.FK_Reminders_Actions">
             <End Role="Actions" EntitySet="Actions" />
@@ -801,6 +861,16 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="WeightLogs" EntityType="SDNAppsModel.WeightLog" />
           <EntitySet Name="AutomaticThoughts" EntityType="SDNAppsModel.AutomaticThought" />
           <EntitySet Name="Entries" EntityType="SDNAppsModel.Entry" />
+          <EntitySet Name="Punshments" EntityType="SDNAppsModel.Punshment" />
+          <EntitySet Name="PunshmentActions" EntityType="SDNAppsModel.PunshmentAction" />
+          <AssociationSet Name="FK_Punshment_BabyNames" Association="SDNAppsModel.FK_Punshment_BabyNames">
+            <End Role="BabyName" EntitySet="BabyNames" />
+            <End Role="Punshment" EntitySet="Punshments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Punshment_PunshmentActions" Association="SDNAppsModel.FK_Punshment_PunshmentActions">
+            <End Role="PunshmentAction" EntitySet="PunshmentActions" />
+            <End Role="Punshment" EntitySet="Punshments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -1249,6 +1319,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ThingsDones" Relationship="SDNAppsModel.FK_ThingsDone_BabyNames" FromRole="BabyName" ToRole="ThingsDone" />
+          <NavigationProperty Name="Punshments" Relationship="SDNAppsModel.FK_Punshment_BabyNames" FromRole="BabyName" ToRole="Punshment" />
         </EntityType>
         <Association Name="FK_ThingsDone_BabyNames">
           <End Type="SDNAppsModel.BabyName" Role="BabyName" Multiplicity="0..1" />
@@ -1402,6 +1473,59 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Planned" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="Punshment">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BabyNameID" Type="Int32" />
+          <Property Name="PunshmentActions" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="LiquidSizeID" Type="Int32" />
+          <NavigationProperty Name="BabyName" Relationship="SDNAppsModel.FK_Punshment_BabyNames" FromRole="Punshment" ToRole="BabyName" />
+          <NavigationProperty Name="PunshmentAction" Relationship="SDNAppsModel.FK_Punshment_PunshmentActions" FromRole="Punshment" ToRole="PunshmentAction" />
+        </EntityType>
+        <EntityType Name="PunshmentAction">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Delete" Type="Boolean" Nullable="false" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Punshments" Relationship="SDNAppsModel.FK_Punshment_PunshmentActions" FromRole="PunshmentAction" ToRole="Punshment" />
+        </EntityType>
+        <Association Name="FK_Punshment_BabyNames">
+          <End Type="SDNAppsModel.BabyName" Role="BabyName" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Punshment" Role="Punshment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BabyName">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Punshment">
+              <PropertyRef Name="BabyNameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Punshment_PunshmentActions">
+          <End Type="SDNAppsModel.PunshmentAction" Role="PunshmentAction" Multiplicity="1" />
+          <End Type="SDNAppsModel.Punshment" Role="Punshment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PunshmentAction">
+              <PropertyRef Name="index" />
+            </Principal>
+            <Dependent Role="Punshment">
+              <PropertyRef Name="PunshmentActions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1764,6 +1888,34 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Punshments">
+            <EntityTypeMapping TypeName="SDNAppsModel.Punshment">
+              <MappingFragment StoreEntitySet="Punshment">
+                <ScalarProperty Name="LiquidSizeID" ColumnName="LiquidSizeID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="PunshmentActions" ColumnName="PunshmentActions" />
+                <ScalarProperty Name="BabyNameID" ColumnName="BabyNameID" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PunshmentActions">
+            <EntityTypeMapping TypeName="SDNAppsModel.PunshmentAction">
+              <MappingFragment StoreEntitySet="PunshmentActions">
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="index" ColumnName="index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

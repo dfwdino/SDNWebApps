@@ -192,3 +192,4 @@ ModelManifest.xml
 /.vs/SDNWebApps/v15/sqlite3/storage.ide-wal
 *.ide-shm
 /SDNDB/SDNDB.jfm
+/.vs/SDNWebApps

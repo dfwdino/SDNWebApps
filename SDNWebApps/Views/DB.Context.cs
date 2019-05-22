@@ -51,5 +51,7 @@ namespace SDNWebApps.Views
         public DbSet<WeightLog> WeightLogs { get; set; }
         public DbSet<AutomaticThought> AutomaticThoughts { get; set; }
         public DbSet<Entry> Entries { get; set; }
+        public DbSet<Punshment> Punshments { get; set; }
+        public DbSet<PunshmentAction> PunshmentActions { get; set; }
     }
 }

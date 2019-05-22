@@ -1,0 +1,149 @@
+﻿@using System.Drawing
+@using System.IO
+@using SDNWebApps.Areas.GroceryList.Models.Home
+@model  ViewItemsVM
+
+@{
+    int colorCounter = 0;
+    string divWidth = Model.ShowAll != true ? "100%" : "100%";
+    string color = string.Empty;
+}
+
+<div class="container" style="padding-bottom:25px;">
+
+    @using (Html.BeginForm())
+    {
+
+        <table align="center" style="width:350px;border-bottom-color:black;border-bottom:solid;">
+            <tr>
+                <td class="header" width="150">Item</td>
+                @*<td class="header" width="50">Store</td>*@
+                <td class="header" width="50">Price</td>
+                @if (Model.ShowAll)
+                {
+                    <td class="header" width="50"></td>
+                }
+            </tr>
+        </table>
+
+        foreach (var item in Model.Items)
+        {
+            switch (colorCounter)
+            {
+                case 0:
+                    color = "lightyellow";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightgrey";
+                    colorCounter = 0;
+                    break;
+
+            }
+            <div style="padding-bottom:10px"></div>
+            <table align="center" style="width:350px; border-color:black;border:solid;" id="FullItem{@item.ID}">
+                <tr style="background-color: @color;">
+                    <td width="150">
+                        <span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>
+                            @item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size)
+                            @if (item?.StoreID != 3 && item.StoreID != null)
+                            {
+                                <br/>
+                                {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
+                            }
+                        </span>
+                    </td>
+
+                    @*<td width="50" style="text-align:center">
+                        @if (item?.StoreID != 3 && item.StoreID != null)
+                        {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
+                    </td>*@
+                    <td width="50" style="text-align:center">
+                        @if (item.Price > 0)
+                        {
+                            <span>
+                                @String.Format("{0:C}", @item.Price)
+                                <br />
+                                <a href="#" onclick="editProduct(@item.ID)">Price List</a>
+                            </span>
+                        }
+                    </td>
+
+                    @if (Model.ShowAll)
+                    {
+                        <td width="50">
+                            @if (item.LastGotten != null)
+                            {
+                                @Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true }, null)
+                                <br />
+                                @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
+                                <a href="#" id=@item.ID class="delete-link">Delete</a>
+
+
+                            }
+
+                        </td>}
+                </tr>
+            </table>
+
+
+        }
+
+
+    }
+
+</div>
+
+
+
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Price History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalWrapper">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/items.js"></script>
+
+<script>
+    $(function () {
+        $('.editModal').modal().show();
+    });
+
+    function editProduct(productId) {
+        $.ajax({
+            url: '@Url.Action("PriceHistoryItem","PriceHistories")/' + productId, // The method name + paramater
+            success: function (data) {
+                $('#myModal').modal('show')
+                $('#modalWrapper').html(data); // This should be an empty div where you can inject your new html (the partial view)
+                //console.log("data is " + data)
+            }
+        });
+    }
+
+</script>
+
+<style>
+    .header {
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+

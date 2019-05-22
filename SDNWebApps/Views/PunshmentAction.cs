@@ -12,17 +12,20 @@ namespace SDNWebApps.Views
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessPage
+    public partial class PunshmentAction
     {
-        public int ID { get; set; }
-        public string AccessPage1 { get; set; }
-        public bool Disactive { get; set; }
-        public int PersonID { get; set; }
+        public PunshmentAction()
+        {
+            this.Punshments = new HashSet<Punshment>();
+        }
     
-        public virtual Person Person { get; set; }
-
-        public List<string> SelectedAction { get; set; }
-
+        public int index { get; set; }
+        public string Title { get; set; }
+        public bool Delete { get; set; }
+        public string IPAddress { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+    
+        public virtual ICollection<Punshment> Punshments { get; set; }
     }
-
 }

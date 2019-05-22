@@ -50,6 +50,10 @@
         <EntityTypeShape EntityType="SDNAppsModel.WeightLog" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="SDNAppsModel.AutomaticThought" Width="1.5" PointX="0.75" PointY="12.75" />
         <EntityTypeShape EntityType="SDNAppsModel.Entry" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.Punshment" Width="1.5" PointX="7.625" PointY="15.625" />
+        <EntityTypeShape EntityType="SDNAppsModel.PunshmentAction" Width="1.5" PointX="5.375" PointY="18.125" />
+        <AssociationConnector Association="SDNAppsModel.FK_Punshment_BabyNames" />
+        <AssociationConnector Association="SDNAppsModel.FK_Punshment_PunshmentActions" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

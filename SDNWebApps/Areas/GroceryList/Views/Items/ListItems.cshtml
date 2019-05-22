@@ -9,22 +9,22 @@
     string color = string.Empty;
 }
 
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<script src="~/Scripts/bootstrap.js"></script>
+
+
 <div class="container" style="padding-bottom:25px;">
 
     @using (Html.BeginForm())
     {
 
-        <table align="center" style="width:350px;border-bottom-color:black;border-bottom:solid;">
-            <tr>
-                <td class="header" width="150">Item</td>
-                <td class="header" width="50">Store</td>
-                <td class="header" width="50">Price</td>
-                @if (Model.ShowAll)
-                {
-                    <td class="header" width="50"></td>
-                }
-            </tr>
-        </table>
+        <div class="row header">
+            <div class="col-sm-8 col-md-8">Item</div>
+            <div class="col-sm-3 col-md-3" id="PriceHeader">Price</div>
+            @*<div></div>*@
+        </div>
+
 
         foreach (var item in Model.Items)
         {
@@ -40,43 +40,35 @@
                     break;
 
             }
-            <div style="padding-bottom:10px"></div>
-            <table align="center" style="width:350px; border-color:black;border:solid;" id="FullItem{@item.ID}">
-                <tr style="background-color: @color;">
-                    <td width="150"><span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>@item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size)</span></td>
-                    <td width="50" style="text-align:center">
+
+            <div class="row item" id="FullItem{@item.ID}" style="background-color: @color;border-width:1px;border-style:solid; text-align:center">
+                <div class="col-sm-8 col-md-8">
+                    <span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>
+                        @item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size)
                         @if (item?.StoreID != 3 && item.StoreID != null)
-                        {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
-                    </td>
-                    <td width="50" style="text-align:center">
+                        {
+                            <br />
+                            {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
+                    }
+                    </span>
+                </div>
+
+                <div class="col-sm-3 col-md-3">
+                    <span>
                         @if (item.Price > 0)
                         {
-                            <span>
-                                @String.Format("{0:C}", @item.Price)
-                                <br />
-                                <a href="#" onclick="editProduct(@item.ID)">Price List</a>
-                            </span>
+                            <a href="#" onclick="editProduct(@item.ID)">   @String.Format("{0:C}", @item.Price)</a>
                         }
-                    </td>
-
-                    @if (Model.ShowAll)
-                    {
-                        <td width="50">
-                            @if (item.LastGotten != null)
-                            {
-                                @Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true }, null)
-                                <br />
-                                @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
-                                <a href="#" id=@item.ID class="delete-link">Delete</a>
-
-
-                            }
-
-                        </td>}
-                </tr>
-            </table>
-
-
+                        else
+                        {
+                            <a href="#" onclick="editProduct(@item.ID)">@String.Format("{0:C}", 0.00)</a>
+                        }
+                    </span>
+                </div>
+                @*<div></div>*@
+            </div>
+        
+            <div style="margin-bottom:20px;" ></div>
         }
 
 
@@ -135,5 +127,14 @@
         text-align: center;
         font-weight: bold;
     }
+
+   @@media (max-width:579px){
+    /*#PriceHeader{
+        display:none !important;
+    }*/
+    .col-sm-8, .col-sm-3 {
+        width: 50% !important;
+    }
+   }
 </style>
 

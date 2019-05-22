@@ -1,0 +1,98 @@
+﻿@model SDNWebApps.Views.Punshment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Punshment</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Delete)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Delete)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IPAddress)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IPAddress)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Longitude)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Latitude)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LiquidSizeID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LiquidSizeID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BabyName.BabyName1)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BabyName.BabyName1)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PunshmentAction.Title)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PunshmentAction.Title)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.index }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

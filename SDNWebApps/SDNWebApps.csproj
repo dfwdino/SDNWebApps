@@ -164,6 +164,8 @@
     <Compile Include="Areas\Baby\BabyAreaRegistration.cs" />
     <Compile Include="Areas\Baby\Controllers\HomeController.cs" />
     <Compile Include="Areas\Baby\Controllers\LiquidSizesController.cs" />
+    <Compile Include="Areas\Baby\Controllers\PunshmentActionsController.cs" />
+    <Compile Include="Areas\Baby\Controllers\PunshmentsController.cs" />
     <Compile Include="Areas\Baby\Controllers\RemindersController.cs" />
     <Compile Include="Areas\Baby\Controllers\ReminderTypesController.cs" />
     <Compile Include="Areas\Baby\Models\Actions\BabyActions.cs" />
@@ -298,6 +300,12 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\PriceHistory.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Punshment.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PunshmentAction.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Reminder.cs">
@@ -491,7 +499,7 @@
     <Content Include="Areas\Gas\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Gas\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Gas\Views\Miles\JSONList.cshtml" />
-    <Content Include="Areas\GroceryList\Views\Items\ListItems.cshtml" />
+    <Content Include="Areas\GroceryList\Views\Items\ListItems-old2.cshtml" />
     <Content Include="Areas\Baby\Views\Shared\BabyMainMenuBar - old.cshtml" />
     <Content Include="Areas\GroceryList\Views\Home\Shared\GroceryMainMenuBar - old.cshtml" />
     <Content Include="Areas\Access\Views\web.config" />
@@ -525,6 +533,17 @@
     <Content Include="Areas\KidsLog\Views\Entries\Details.cshtml" />
     <Content Include="Areas\KidsLog\Views\Entries\Edit.cshtml" />
     <Content Include="Areas\KidsLog\Views\Entries\Index.cshtml" />
+    <Content Include="Areas\GroceryList\Views\Items\ListItems.cshtml" />
+    <Content Include="Areas\Baby\Views\Punshments\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\Punshments\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\Punshments\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\Punshments\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\Punshments\Index.cshtml" />
+    <Content Include="Areas\Baby\Views\PunshmentActions\Create.cshtml" />
+    <Content Include="Areas\Baby\Views\PunshmentActions\Delete.cshtml" />
+    <Content Include="Areas\Baby\Views\PunshmentActions\Details.cshtml" />
+    <Content Include="Areas\Baby\Views\PunshmentActions\Edit.cshtml" />
+    <Content Include="Areas\Baby\Views\PunshmentActions\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />

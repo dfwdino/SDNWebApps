@@ -15,6 +15,9 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     @Html.ActionLink("Add Action", "Add", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
                     @Html.ActionLink("List Action", "Index", "Actions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+
+                    @Html.ActionLink("Add Punishment Action", "Create", "PunshmentActions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("List Punishment", "Index", "Punshments", new { Area = "Baby" }, new { @class = "dropdown-item" })
                 </div>
             </li>
 
@@ -25,6 +28,16 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     @Html.ActionLink("Add Liquid Size", "Create", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
                     @Html.ActionLink("List Liquid Size", "Index", "LiquidSizes", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Punishment
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @Html.ActionLink("Add Punishment Action", "Create", "PunshmentActions", new { Area = "Baby" }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("List Punishment", "Index", "Punshments", new { Area = "Baby" }, new { @class = "dropdown-item" })
                 </div>
             </li>
         </ul>

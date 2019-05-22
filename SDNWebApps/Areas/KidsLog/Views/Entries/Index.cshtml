@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
-<body>
+<body class="container">
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -35,7 +35,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IssueDate)
+                @item.IssueDate.ToShortDateString()
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Issues)
