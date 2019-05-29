@@ -44,9 +44,11 @@
             <div class="row item" id="FullItem{@item.ID}" style="background-color: @color;border-width:1px;border-style:solid; text-align:center">
                 <div class="col-sm-8 col-md-8">
                     <span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>
-                        @item.Name @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size)
+                        @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size) @item.Name
+
                         @if (item?.StoreID != 3 && item.StoreID != null)
                         {
+                            <br />
                             <br />
                             {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
                     }
