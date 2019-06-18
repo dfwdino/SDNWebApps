@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.KidsLog.Controllers
         // GET: KidsLog/Entries
         public ActionResult Index()
         {
-            return View(db.Entries.ToList());
+            return View(db.Entries.OrderByDescending(m=>m.IssueDate).ToList());
         }
 
         // GET: KidsLog/Entries/Details/5
@@ -50,6 +50,7 @@ namespace SDNWebApps.Areas.KidsLog.Controllers
         {
             if (ModelState.IsValid)
             {
+                entry.CreatedDate = DateTime.Now;
                 db.Entries.Add(entry);
                 db.SaveChanges();
                 return RedirectToAction("Index");

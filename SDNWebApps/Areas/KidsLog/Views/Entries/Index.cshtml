@@ -26,9 +26,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Planned)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Deleted)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     
@@ -43,9 +43,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Planned)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id=item.ID }) |
