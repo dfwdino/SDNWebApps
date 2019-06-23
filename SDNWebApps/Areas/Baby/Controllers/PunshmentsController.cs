@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Baby.Controllers
         // GET: Baby/Punshments
         public ActionResult Index()
         {
-            var punshments = db.Punshments.Include(p => p.BabyName).Include(p => p.PunshmentAction);
+            var punshments = db.Punshments.Include(p => p.BabyName).Include(p => p.PunshmentAction).OrderByDescending(m => m.StartTime);
             return View(punshments.ToList());
         }
 
@@ -119,7 +119,8 @@ namespace SDNWebApps.Areas.Baby.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Punshment punshment = db.Punshments.Find(id);
-            db.Punshments.Remove(punshment);
+            punshment.Delete = true;
+            //db.Punshments.Remove(punshment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
