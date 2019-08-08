@@ -14,6 +14,9 @@
 <script src="~/Scripts/bootstrap.js"></script>
 
 
+
+
+
 <div class="container" style="padding-bottom:25px;">
 
     @using (Html.BeginForm())
@@ -46,13 +49,18 @@
                     <span class="got-link" data-request-url="@Url.Action("GotItem", "Items")" id=@item.ID>
                         @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size) @item.Name
 
-                        @if (item?.StoreID != 3 && item.StoreID != null)
+                        @if (Model.ShowAll && item.LastGotten.HasValue)
                         {
-                            <br />
-                            <br />
-                            {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
-                    }
-                    </span>
+                        <span style="margin-left:10px">@Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true }, null)</span>
+                        }
+
+                            @if (item?.StoreID != 3 && item.StoreID != null)
+                            {
+                                <br />
+                                <br />
+                                {@Html.ActionLink(item.Store.StoreName, "Index", "Home", new { showAll = Model.ShowAll, storeID = item.StoreID }, null)}
+                        }
+                        </span>
                 </div>
 
                 <div class="col-sm-3 col-md-3">
@@ -64,6 +72,14 @@
                         else
                         {
                             <a href="#" onclick="editProduct(@item.ID)">@String.Format("{0:C}", 0.00)</a>
+                        }
+                    </span>
+                    <span style="vertical-align:bottom;display:table-cell;text-align:center">
+                        @if (Model.ShowAll)
+                        {
+                            <br />
+                            @Html.ActionLink("Edit", "EditItem", "Items", new { itemID = @item.ID }, null)
+                            <a style="padding-left:5px;" href="#" id=@item.ID class="delete-link">Delete</a>
                         }
                     </span>
                 </div>

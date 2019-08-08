@@ -175,7 +175,7 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
         public JsonResult DeleteItem(int itemID)
     {
         var ditem = sdnApps.Items.First(m => m.ID == itemID);
-
+            
         sdnApps.Items.Remove(ditem);
         sdnApps.SaveChanges();
 

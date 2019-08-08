@@ -13,9 +13,6 @@ namespace SDNWebApps.Infrastructure
         {
             base.OnActionExecuting(filterContext);
 
-            //var url = HttpContext.Current.Request.Url.ToString();
-           
-
             HttpCookie cookie = HttpContext.Current.Request.Cookies["SDNWebApps"];
          
 

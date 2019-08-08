@@ -51,6 +51,7 @@ namespace SDNWebApps.Areas.KidsLog.Controllers
             if (ModelState.IsValid)
             {
                 entry.CreatedDate = DateTime.Now;
+                entry.Planned = string.IsNullOrEmpty(entry.Planned) ? "" : entry.Planned;
                 db.Entries.Add(entry);
                 db.SaveChanges();
                 return RedirectToAction("Index");
