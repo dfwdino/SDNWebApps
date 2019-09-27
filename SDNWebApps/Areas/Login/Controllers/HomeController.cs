@@ -58,12 +58,14 @@ namespace SDNWebApps.Areas.Login.Controllers
                 siteCookie.Expires = DateTime.Now.Date.AddDays(7);
                 this.ControllerContext.HttpContext.Response.Cookies.Add(siteCookie);
                 var session = HttpContext.Session;
-              
+
 
                 //return RedirectToAction("Index", "Default", new { area = ""});
 
-
-                return Redirect(session["url"].ToString());
+                if (session.Keys.Count > 0)
+                {
+                    return Redirect(session["url"].ToString());
+                }
 
             }
             else

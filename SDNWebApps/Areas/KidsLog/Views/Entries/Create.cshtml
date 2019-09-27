@@ -4,21 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body class="container">
+<div class="container" style="margin-top:25px;">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Entry</h4>
-            <hr />
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
@@ -33,8 +25,8 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Issues, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Issues,8,80, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Issues, "", new {  @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.Issues, 8, 80, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Issues, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -57,13 +49,13 @@
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
-</body>
-</html>
+    </div>
 
-<script>
-    function GetCurrentDateTime(field) {
-        var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
-    }
 
-</script>
+    <script>
+        function GetCurrentDateTime(field) {
+            var value = document.getElementById(field).value = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString();
+        }
+
+    </script>
 
