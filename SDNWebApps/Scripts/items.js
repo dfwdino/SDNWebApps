@@ -11,7 +11,7 @@ function OnDeleteItemClick(e)
     var rowdel = document.getElementById('FullItem{' + e.target.id + '}');
     rowdel.parentNode.removeChild(rowdel);
 
-    $.post("/SDNWebApps/GroceryList/Items/DeleteItem", { itemID: e.target.id },
+    $.post("/GroceryList/Items/DeleteItem", { itemID: e.target.id },
         function (data) {//do whatever with the response
         });
 

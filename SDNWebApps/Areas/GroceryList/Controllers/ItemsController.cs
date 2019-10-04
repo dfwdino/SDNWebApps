@@ -175,9 +175,19 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
         public JsonResult DeleteItem(int itemID)
     {
         var ditem = sdnApps.Items.First(m => m.ID == itemID);
-            
-        sdnApps.Items.Remove(ditem);
-        sdnApps.SaveChanges();
+
+            var pricehistor = ditem.PriceHistories.ToList();
+
+            foreach (var item in pricehistor)
+            {   
+                sdnApps.PriceHistories.Remove(item);
+            }
+
+            sdnApps.SaveChanges();
+
+            sdnApps.Items.Remove(ditem);
+
+            sdnApps.SaveChanges();
 
         return Json("Record deleted successfully!");
 
