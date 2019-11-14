@@ -20,8 +20,6 @@ namespace SDNWebApps.Areas.Gas.Controllers
             ListViewModel lvm = new ListViewModel(_se.Autos.Where(m => m.WhosCar == id && m.Delete == null).ToList(),
                                                     _se.People.FirstOrDefault(m => m.ID == id));
 
-            
-
             return View(lvm);
         }
 
@@ -45,6 +43,25 @@ namespace SDNWebApps.Areas.Gas.Controllers
             _se.SaveChanges();
 
             return RedirectToAction("List","Auto",new {id=avm.PersonID});
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(_se.Autos.First(m => m.ID == id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Auto avm)
+        {
+            Auto a = _se.Autos.First(m => m.ID == avm.ID);
+
+            a.AutoName = avm.AutoName;
+            //a.WhosCar = avm.PersonID;
+            a.Delete = avm.Delete;
+
+            _se.SaveChanges();
+
+            return RedirectToAction("List", "Auto", new { id = a.Person.ID });
         }
 
 

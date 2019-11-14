@@ -544,6 +544,7 @@
     <Content Include="Areas\Baby\Views\PunshmentActions\Details.cshtml" />
     <Content Include="Areas\Baby\Views\PunshmentActions\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\PunshmentActions\Index.cshtml" />
+    <Content Include="Areas\Gas\Views\Auto\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
