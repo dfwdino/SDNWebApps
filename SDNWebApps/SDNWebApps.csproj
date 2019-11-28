@@ -213,6 +213,8 @@
     <Compile Include="Areas\Photos\Models\Photo.cs" />
     <Compile Include="Areas\Photos\Models\ViewPhoto.cs" />
     <Compile Include="Areas\Photos\PhotosAreaRegistration.cs" />
+    <Compile Include="Areas\Relationship\Controllers\IssuesController.cs" />
+    <Compile Include="Areas\Relationship\RelationshipAreaRegistration.cs" />
     <Compile Include="Areas\Tasks\Controllers\HomeController.cs" />
     <Compile Include="Areas\Tasks\Controllers\OurTasksController.cs" />
     <Compile Include="Areas\Tasks\Models\EditTask.cs" />
@@ -282,6 +284,9 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\GasNote.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Issue.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Item.cs">
@@ -545,6 +550,12 @@
     <Content Include="Areas\Baby\Views\PunshmentActions\Edit.cshtml" />
     <Content Include="Areas\Baby\Views\PunshmentActions\Index.cshtml" />
     <Content Include="Areas\Gas\Views\Auto\Edit.cshtml" />
+    <Content Include="Areas\Relationship\Views\web.config" />
+    <Content Include="Areas\Relationship\Views\Issues\Create.cshtml" />
+    <Content Include="Areas\Relationship\Views\Issues\Delete.cshtml" />
+    <Content Include="Areas\Relationship\Views\Issues\Details.cshtml" />
+    <Content Include="Areas\Relationship\Views\Issues\Edit.cshtml" />
+    <Content Include="Areas\Relationship\Views\Issues\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />
@@ -780,6 +791,8 @@
     <Folder Include="Areas\Login\Views\Shared\" />
     <Folder Include="Areas\Logs\Models\" />
     <Folder Include="Areas\Logs\Views\Shared\" />
+    <Folder Include="Areas\Relationship\Models\" />
+    <Folder Include="Areas\Relationship\Views\Shared\" />
     <Folder Include="Content\themes\base\minified\images\" />
     <Folder Include="Models\" />
   </ItemGroup>

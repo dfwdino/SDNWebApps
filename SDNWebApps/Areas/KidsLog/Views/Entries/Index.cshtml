@@ -10,43 +10,24 @@
         @Html.ActionLink("Create New", "Create")
     </p>
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IssueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Issues)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Planned)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Deleted)
-            </th>*@
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.IssueDate.ToShortDateString()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Issues)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Planned)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-            </td>
-        </tr>
-    }
-    
+        @foreach (var item in Model)
+        {
+            @*<tr>
+                <td>
+                    @item.IssueDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>*@
+            <tr>
+                <td>
+                    <p>@Html.ActionLink(item.IssueDate.ToShortDateString(), "Edit", new { id = item.ID }) - <span style="font-weight:bolder">Issues:</span> @Html.DisplayFor(modelItem => item.Issues)</p>
+                    <p><span style="font-weight:bolder">Planned:</span> @Html.DisplayFor(modelItem => item.Planned)</p>
+                </td>
+            </tr>
+        }
+
     </table>
 </div>

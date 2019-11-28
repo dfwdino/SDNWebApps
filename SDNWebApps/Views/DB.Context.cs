@@ -53,5 +53,6 @@ namespace SDNWebApps.Views
         public DbSet<Entry> Entries { get; set; }
         public DbSet<Punshment> Punshments { get; set; }
         public DbSet<PunshmentAction> PunshmentActions { get; set; }
+        public DbSet<Issue> Issues { get; set; }
     }
 }

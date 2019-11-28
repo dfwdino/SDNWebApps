@@ -54,6 +54,7 @@
         <EntityTypeShape EntityType="SDNAppsModel.PunshmentAction" Width="1.5" PointX="5.375" PointY="18.125" />
         <AssociationConnector Association="SDNAppsModel.FK_Punshment_BabyNames" />
         <AssociationConnector Association="SDNAppsModel.FK_Punshment_PunshmentActions" />
+        <EntityTypeShape EntityType="SDNAppsModel.Issue" Width="1.5" PointX="14.375" PointY="13.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -320,6 +320,15 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="AbsoluteUri" Type="nvarchar" MaxLength="50" />
           <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Issues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="WhatHappened" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
         <EntityType Name="Tasks">
           <Key>
             <PropertyRef Name="ID" />
@@ -655,6 +664,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="Grocery" store:Type="Tables" />
           <EntitySet Name="Entry" EntityType="Self.Entry" Schema="KidsLog" store:Type="Tables" />
           <EntitySet Name="Logging" EntityType="Self.Logging" Schema="Logging" store:Type="Tables" />
+          <EntitySet Name="Issues" EntityType="Self.Issues" Schema="Relationship" store:Type="Tables" />
           <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="Task" store:Type="Tables" />
           <EntitySet Name="CardioItems" EntityType="Self.CardioItems" Schema="Weight" store:Type="Tables" />
           <EntitySet Name="CardioLog" EntityType="Self.CardioLog" Schema="Weight" store:Type="Tables" />
@@ -871,6 +881,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="PunshmentAction" EntitySet="PunshmentActions" />
             <End Role="Punshment" EntitySet="Punshments" />
           </AssociationSet>
+          <EntitySet Name="Issues" EntityType="SDNAppsModel.Issue" />
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -1526,6 +1537,15 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WhatHappened" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1916,6 +1936,16 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Issues">
+            <EntityTypeMapping TypeName="SDNAppsModel.Issue">
+              <MappingFragment StoreEntitySet="Issues">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="WhatHappened" ColumnName="WhatHappened" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
