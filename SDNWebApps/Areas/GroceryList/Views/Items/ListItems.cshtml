@@ -46,7 +46,7 @@
                         @(@item.Amount != null ? @item.Amount : "") @(item.ItemSize == null ? "" : item.ItemSize.Size) @item.Name
 
                         @if (Model.ShowAll && item.LastGotten.HasValue)
-                        {
+                        {<br/>
                         <span style="margin-left:10px">@Html.ActionLink(item.LastGotten.Value.ToShortDateString(), "Index", "Home", new { showAll = Model.ShowAll, sortbydate = true }, null)</span>
                         }
 

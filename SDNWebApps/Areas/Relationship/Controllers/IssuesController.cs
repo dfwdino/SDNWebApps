@@ -17,7 +17,7 @@ namespace SDNWebApps.Areas.Relationship.Controllers
         // GET: Relationship/Issues
         public ActionResult Index()
         {
-            return View(db.Issues.ToList());
+            return View(db.Issues.OrderByDescending(m => m.IssueDate).ToList());
         }
 
         // GET: Relationship/Issues/Details/5
