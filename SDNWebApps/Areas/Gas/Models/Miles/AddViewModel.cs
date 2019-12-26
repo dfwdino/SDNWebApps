@@ -18,6 +18,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
             AutoID = autoID;
 
             Stations = new SelectList(se.Stations.OrderBy(m => m.StationName), "StationID", "StationName", null);
+            username = se.Autos.Where(m => m.ID == autoID).Select(m => m.Person.PersonName).First();
         }
 
         public AddViewModel(Gallon gallon)
@@ -61,6 +62,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public string EngineRunTime { get; set; }
 
+        public string username { get; set; }
 
     }
 }

@@ -8,16 +8,33 @@
     double TotalGallons = Model.Sum(m => m.TotalGallons);
     double TotalMPG = TotalMilesDriven / TotalGallons;
 
+
+    DateTime Last30Days = DateTime.Now.AddDays(-30);
+    Int64 Last30DaysTotalMilesDriven = Model.Where(m => m.GasDate >= Last30Days).OrderByDescending(m => m.GasDate)
+        .Select(m => m.TotalMiles).First() - Model.Where(m => m.GasDate >= Last30Days).OrderByDescending(m => m.GasDate).Select(m => m.TotalMiles).Last();
+
+    double Last30DaysTotalGallons = Model.Where(m => m.GasDate >= Last30Days).Sum(m => m.TotalGallons);
+    double Last30DaysTotalMPG = Last30DaysTotalMilesDriven / Last30DaysTotalGallons;
+
+
 }
 
 <div class="container" style="padding-top:20px">
-    
+
     <div class="text-center">
         Since <b>@Model.OrderByDescending(m => m.GasDate).Select(m => m.GasDate).Last().Value.ToShortDateString()</b> you have used
         <b> @TotalGallons.ToString("N0")</b> gallons of gas,
         drove <b>@TotalMilesDriven.ToString("N0")</b>
-        and your avg MPG is <b>@TotalMPG.ToString("0.00")</b>
+        and your avg MPG is <b>@TotalMPG.ToString("N0")</b>
     </div>
+    <br/>
+    <div class="text-center">
+        Since <b>@Model.Where(m => m.GasDate >= Last30Days).OrderByDescending(m => m.GasDate).Select(m => m.GasDate).Last().Value.ToShortDateString()</b> you have used
+              <b> @Last30DaysTotalGallons.ToString("N0")</b> gallons of gas,
+        drove <b>@Last30DaysTotalMilesDriven.ToString("N0")</b>
+        and your avg MPG is <b>@Last30DaysTotalMPG.ToString("N0")</b>
+    </div>
+
     <div style="padding-top:20px"></div>
 
     <div ng-app="myModule" ng-controller="myController" data-ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
@@ -84,13 +101,13 @@
                             <span ng-show="sortType == 'MPG' && sortReverse" class="fa fa-caret-up"></span>
                         </a>
                     </td>
-                    <td>
-                        <a href="#" ng-click="sortType = 'EngineRunTime'; sortReverse = !sortReverse">
-                            Engine Time
-                            <span ng-show="sortType == 'EngineRunTime' && !sortReverse" class="fa fa-caret-down"></span>
-                            <span ng-show="sortType == 'EngineRunTime' && sortReverse" class="fa fa-caret-up"></span>
-                        </a>
-                    </td>
+                    @*<td>
+                            <a href="#" ng-click="sortType = 'EngineRunTime'; sortReverse = !sortReverse">
+                                Engine Time
+                                <span ng-show="sortType == 'EngineRunTime' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'EngineRunTime' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </td>*@
                 </tr>
             </thead>
 
@@ -108,7 +125,7 @@
                     <td>{{ g.TotalGallons | number: '3'}}</td>
                     <td>{{ g.DrivenMiles | number: 0 }}</td>
                     <td>{{ g.MPG | number: 0 }}</td>
-                    <td><span ng-if="g.EngineRunTime != '00:00:00'"> {{ g.EngineRunTime }}</span></td>
+                    @*<td><span ng-if="g.EngineRunTime != '00:00:00'"> {{ g.EngineRunTime }}</span></td>*@
                 </tr>
             </tbody>
 

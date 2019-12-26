@@ -22,31 +22,35 @@
         </div>
 
         <div>
+            @Html.LabelFor(m => m.Stations)
+            @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
+
+        </div>
+
+        <div>
             @Html.LabelFor(m => m.TotalPrice)
+            @if (Model.username.Equals("shane", StringComparison.CurrentCultureIgnoreCase))
+            {@Html.TextBoxFor(m => m.TotalPrice, new { @type = "number", @step = "0.01" })}
+        else
+        {
             @Html.TextBoxFor(m => m.TotalPrice, new { @step = "0.01" })
+        }
         </div>
 
         <div>
             @Html.LabelFor(m => m.TotalGallons)
-            @Html.TextBoxFor(m => m.TotalGallons, new { @step = "0.01" })
+            @if (Model.username.Equals("shane", StringComparison.CurrentCultureIgnoreCase))
+            {
+                @Html.TextBoxFor(m => m.TotalGallons, new { @type = "number", @step = "0.001" })
+            }
+            else
+            {@Html.TextBoxFor(m => m.TotalGallons, new { @step = "0.01" })
+        }
         </div>
-
 
         <div>
             @Html.LabelFor(m => m.TotalMiles)
             @Html.TextBoxFor(m => m.TotalMiles, new { @type = "number", @step = "0.01" })
-        </div>
-
-        <div>
-            @Html.Label("Engine Time")
-            @Html.EditorFor(m => m.EngineRunTime)
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.Stations)
-            @Html.DropDownListFor(n => n.SelectedStation, Model.Stations, "Where did you go?", null) <a id="addmore">Add new Station</a>
-
-
         </div>
 
         <br />
