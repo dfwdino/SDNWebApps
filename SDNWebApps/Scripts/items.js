@@ -6,27 +6,7 @@
         $('a.add-item-link').click(OnAddItemClick);
     });
 
-function OnDeleteItemClick(e)
-{
-    var rowdel = document.getElementById('FullItem{' + e.target.id + '}');
-    rowdel.parentNode.removeChild(rowdel);
 
-    $.post("/GroceryList/Items/DeleteItem", { itemID: e.target.id },
-        function (data) {//do whatever with the response
-        });
-
-    //$.post("/SDNWebApps/GroceryList/Items/DeleteItem", { itemID: e.target.id },
-    //      function (result) // success
-    //      {
-    //          alert('success');
-    //      },
-    //      function (result) // error
-    //      {
-    //          alert('error');
-    //      }
-    //     );
-    //return false; // for the button
-}
 
 function OnGotClick(e) {
 
