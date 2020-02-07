@@ -17,7 +17,20 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         {
             AutoID = autoID;
 
-            Stations = new SelectList(se.Stations.OrderBy(m => m.StationName), "StationID", "StationName", null);
+            var test = se.Gallons.Include("Stations")
+                .Where(m => m.Station.StationName.Length > 1)
+                .GroupBy(m => new { m.StationID, m.Station.StationName })
+                .Select(group =>
+                        new
+                        {
+                            StationID = group.Key,
+                            StationName = group.Key.StationName,
+                            Count = group.Count()
+                        })
+                .OrderByDescending(group => group.Count).ToList();
+
+            Stations = new SelectList(test, "StationID.StationID", "StationName", null);
+            //Stations = new SelectList(se.Stations.OrderBy(m => m.StationName), "StationID", "StationName", null);
             username = se.Autos.Where(m => m.ID == autoID).Select(m => m.Person.PersonName).First();
         }
 

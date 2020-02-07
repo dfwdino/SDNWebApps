@@ -16,35 +16,15 @@
         @Html.ActionLink("Create New", "Create")
     </p>
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IssueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WhatHappened)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th></th>
-        </tr>
+      
     
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.Label(item.IssueDate.ToShortDateString())
+                @Html.ActionLink(item.IssueDate.ToShortDateString(), "Edit", new { id = item.ID }) -  @Html.DisplayFor(modelItem => item.WhatHappened)
+                <br/>  <span style="font-weight:bolder"> Created on: </span> @Html.Label(item.CreatedOn.HasValue ? item.CreatedOn.Value.ToShortDateString() : "")
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WhatHappened)
-            </td>
-            <td>
-                @Html.Label(item.CreatedOn.HasValue ? item.CreatedOn.Value.ToShortDateString() : "")
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) 
-                @Html.ActionLink("Details", "Details", new { id=item.ID }) 
-                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-            </td>
+         
         </tr>
     }
     

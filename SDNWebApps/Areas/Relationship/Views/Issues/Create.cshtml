@@ -21,7 +21,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.IssueDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Issue Date", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.IssueDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.IssueDate, "", new { @class = "text-danger" })
@@ -29,9 +29,9 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.WhatHappened, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("What Happened", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.WhatHappened,10,60, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextAreaFor(model => model.WhatHappened,10,36, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.WhatHappened, "", new { @class = "text-danger" })
                 </div>
             </div>

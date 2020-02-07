@@ -62,6 +62,9 @@
 </div>
 
 
+
+
+
 <div id="dialog" class=".ui-dialog .ui-dialog-titlebar-close">
 
 </div>
@@ -88,37 +91,57 @@
 <script>
 
     $.ajaxSetup({ cache: false });
-    
+
     $(function () {
         var options = {
             enableHighAccuracy: true,
-            timeout: 5000,
+            timeout: 10000,
             maximumAge: 0
         };
-
-        //navigator.geolocation.getCurrentPosition(showPosition, positionError, options);
+        if (navigator && navigator.geolocation) {
+            //navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
+        }
+        else {
+            alert('Not supported');
+        }
     })
 
-    function showPosition(position) {
-        var coordinates = position.coords;
-        $("Latitude").val(coordinates.latitude);
-        $("Longitude").val(coordinates.longitude);
+    function successCallback(position) {
 
-        alert(`Latitude : ${coordinates.latitude}`);
+        $("Latitude").val(position.coords.latitude);
+        $("Longitude").val(position.coords.longitude);
+
+        alert(`Latitude : ${position.coords.latitude}`);
     }
 
-    function positionError(position) {
-        alert("Ooops! Error: " + position.positionError);
+    function errorCallback(error) {
+        alert("It didn't work");
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                alert("Permission denied");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Position unavailable");
+                break;
+            case error.TIMEOUT:
+                alert("Timeout");
+                break;
+            case error.UNKNOW_ERROR:
+                alert("Unknown error");
+                break;
+        }
+      
+
     }
 
    function LoadInfo() {
-       
+
         $.getJSON('@Url.Action("GetStations","Stations")', null, function (data) {
 
             var select = document.getElementById("SelectedStation");
             var length = select.options.length;
 
-            
+
 
             while (document.getElementById("SelectedStation").options.length > 0) {
                 select = document.getElementById("SelectedStation");
@@ -167,8 +190,7 @@
         });
 
         document.getElementById("GasDate").value = new Date().toLocaleDateString("en-US");
-        //$("#GasDate").value = "12/12/1978";
-        //console.log('whote');
+
 
 
 

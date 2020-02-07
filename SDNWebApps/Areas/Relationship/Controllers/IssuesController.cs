@@ -38,7 +38,7 @@ namespace SDNWebApps.Areas.Relationship.Controllers
         // GET: Relationship/Issues/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Views.Issue {IssueDate = DateTime.Now.Date });
         }
 
         // POST: Relationship/Issues/Create

@@ -84,6 +84,7 @@ namespace SDNWebApps.Areas.KidsLog.Controllers
         {
             if (ModelState.IsValid)
             {
+                entry.Planned = entry.Planned ?? "";
                 db.Entry(entry).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
