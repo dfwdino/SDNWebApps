@@ -296,7 +296,15 @@ namespace SDNWebApps.Areas.Baby.Controllers
             //    tempActions = _se.Actions1.Where(m => m.Delete == false).ToList();
 
             string firstaction = Actions[0];
-            int fenLinqAction = _se.Actions1.FirstOrDefault(m => m.Title == firstaction).index;
+            int? fenLinqAction = _se.Actions1.FirstOrDefault(m => m.Title == firstaction)?.index;
+
+            if(fenLinqAction == null)
+            {
+                Actions tempavm = _se.Actions1.Add(new Actions { Title = firstaction });
+                _se.SaveChanges();
+                fenLinqAction = tempavm.index;
+            }
+            
             DateTime againfenLinqStartTime = Convert.ToDateTime(FixFuckenDate(addViewModel.StartTime));
 
             if(!addViewModel.EndTime.IsNullOrWhiteSpace())
@@ -318,9 +326,17 @@ namespace SDNWebApps.Areas.Baby.Controllers
                     td = new ThingsDone();
 
                     string currentactionname = Actions[i];
-                    
 
-                    td.Action = _se.Actions1.FirstOrDefault(m => m.Title == currentactionname).index;
+                    fenLinqAction = _se.Actions1.FirstOrDefault(m => m.Title == currentactionname)?.index;
+
+                    if (fenLinqAction == null)
+                    {
+                        Actions tempavm = _se.Actions1.Add(new Actions { Title = currentactionname });
+                        _se.SaveChanges();
+                        fenLinqAction = tempavm.index;
+                    }
+
+                    td.Action = Convert.ToInt32(fenLinqAction); 
 
                     td.BabyNameID = Convert.ToInt16(babynames[i]);
 

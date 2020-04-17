@@ -7,38 +7,61 @@
     Layout = "~/Areas/Baby/Views/Shared/_Layout.cshtml";
     ViewBag.Header = "Action List";
     HttpCookieCollection SDNWebApps = Request.Cookies;
+    int colorCounter = 0;
+    string color = string.Empty;
 }
 
-<p>
-    @Html.ActionLink("Create New", "Add")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>     
-        <th>
-            @Html.DisplayNameFor(model => model.ActionCategory.Category)
-        </th>
-        <th></th>
-    </tr>
+<div style="padding-top:25px;"></div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td style="padding-bottom: 4px">
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td style="padding-bottom: 4px;">
-            @Html.DisplayFor(modelItem => item.ActionCategory.Category)
-        </td>
-        <td style="padding-left: 5px">
-            @Html.ActionLink("Update", "Edit", new { id = item.index })
-            @if (Request.Cookies["SDNWebApps"] != null)
-            {<span>
-                | @Html.ActionLink("Delete", "Delete", new { id = item.index })</span>
-                }
-</td>
-    </tr>
-}
+<div class="form-horizontal container">
 
-</table>
+    <p>
+        @Html.ActionLink("Create New", "Add")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionCategory.Category)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            switch (colorCounter)
+            {
+                case 0:
+                    color = "lightblue";
+                    colorCounter = 1;
+                    break;
+                case 1:
+                    color = "lightcoral";
+                    colorCounter = 0;
+                    break;
+            }
+
+
+            <tr style="background-color:@color;">
+                <td style="padding-bottom: 4px">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style="padding-bottom: 4px;">
+                    @Html.DisplayFor(modelItem => item.ActionCategory.Category)
+                </td>
+                <td style="padding-left: 5px">
+                    @Html.ActionLink("Update", "Edit", new { id = item.index })
+                    @if (Request.Cookies["SDNWebApps"] != null)
+                    {<span>
+                            | @Html.ActionLink("Delete", "Delete", new { id = item.index })
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

@@ -103,17 +103,19 @@ namespace SDNWebApps.Areas.Cardio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CardioItemID,Time,CaloriesBurned,WorkoutDate,CreatedTime,Deleted,CreatedBy,Distance")] CardioLog CardioLog)
+        public ActionResult Edit(CardioLog cardioLog)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(CardioLog).State = EntityState.Modified;
+            //if (ModelState.IsValid)
+            //{
+                cardioLog.Person = db.CardioLogs.Where(m => m.ID == cardioLog.ID).First().Person;
+                db.Entry(cardioLog).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            ViewBag.CardioItemID = new SelectList(db.CardioItems, "ID", "Item", CardioLog.CardioItemID);
-            ViewBag.CreatedBy = new SelectList(db.People, "ID", "PersonName", CardioLog.CreatedBy);
-            return View(CardioLog);
+            //}
+            ViewBag.CardioItemID = new SelectList(db.CardioItems, "ID", "Item", cardioLog.CardioItemID);
+            ViewBag.CreatedBy = new SelectList(db.People, "ID", "PersonName", cardioLog.CreatedBy);
+            return View(cardioLog);
         }
 
         // GET: Cardio/CardioLogs/Delete/5
