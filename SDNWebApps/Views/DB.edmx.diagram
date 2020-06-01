@@ -6,8 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="664f2b62b3084f54aea347893176ec1d" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="SDNAppsModel.Auto" Width="1.5" PointX="3.875" PointY="0.625" />
-        <EntityTypeShape EntityType="SDNAppsModel.Gallon" Width="1.5" PointX="3.75" PointY="4.875" />
-        <AssociationConnector Association="SDNAppsModel.FK_Gallons_Autos" />
         <EntityTypeShape EntityType="SDNAppsModel.Item" Width="1.5" PointX="10.875" PointY="0.5" />
         <EntityTypeShape EntityType="SDNAppsModel.Store" Width="1.5" PointX="9" PointY="0.625" />
         <AssociationConnector Association="SDNAppsModel.FK_Items_Stores" />
@@ -25,7 +23,6 @@
         <EntityTypeShape EntityType="SDNAppsModel.LiquidSize" Width="1.5" PointX="14.375" PointY="5.5" />
         <AssociationConnector Association="SDNAppsModel.FK_ThingsDone_LiquidSize" />
         <EntityTypeShape EntityType="SDNAppsModel.Station" Width="1.5" PointX="7.5" PointY="3.25" />
-        <AssociationConnector Association="SDNAppsModel.FK_Gallons_Stations" />
         <EntityTypeShape EntityType="SDNAppsModel.GasNote" Width="1.5" PointX="5.875" PointY="1.5" />
         <AssociationConnector Association="SDNAppsModel.FK_GasNotes_Autos" />
         <EntityTypeShape EntityType="SDNAppsModel.Logging" Width="1.5" PointX="6.375" PointY="6.75" />
@@ -55,6 +52,11 @@
         <AssociationConnector Association="SDNAppsModel.FK_Punshment_BabyNames" />
         <AssociationConnector Association="SDNAppsModel.FK_Punshment_PunshmentActions" />
         <EntityTypeShape EntityType="SDNAppsModel.Issue" Width="1.5" PointX="14.375" PointY="13.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.Gallon" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SDNAppsModel.GasolineType" Width="1.5" PointX="7.5" PointY="27.625" />
+        <AssociationConnector Association="SDNAppsModel.FK_Gallons_Autos" />
+        <AssociationConnector Association="SDNAppsModel.FK_Gallons_GasolineTypes" />
+        <AssociationConnector Association="SDNAppsModel.FK_Gallons_Stations" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

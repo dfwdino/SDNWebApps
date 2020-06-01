@@ -11,23 +11,27 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
-<body class="containe
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-      
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink(item.IssueDate.ToShortDateString(), "Edit", new { id = item.ID }) -  @Html.DisplayFor(modelItem => item.WhatHappened)
-                <br/>  <span style="font-weight:bolder"> Created on: </span> @Html.Label(item.CreatedOn.HasValue ? item.CreatedOn.Value.ToShortDateString() : "")
-            </td>
-         
-        </tr>
-    }
-    
-    </table>
+<body>
+    <div style="padding-top:20px"></div>
+    <div class="container">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.IssueDate.ToShortDateString(), "Edit", new { id = item.ID }) -  @Html.DisplayFor(modelItem => item.WhatHappened)
+                        <br />  <span style="font-weight:bolder"> Created on: </span> @Html.Label(item.CreatedOn.HasValue ? item.CreatedOn.Value.ToShortDateString() : "")
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
 </body>
 </html>

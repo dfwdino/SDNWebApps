@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Miles";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Gas/Views/Shared/_Layout.cshtml";
 
     Int64 TotalMilesDriven = Model.OrderByDescending(m => m.GasDate).Select(m => m.TotalMiles).First() - Model.OrderByDescending(m => m.GasDate).Select(m => m.TotalMiles).Last();
     double TotalGallons = Model.Sum(m => m.TotalGallons);
@@ -58,7 +58,7 @@
                             Date
                             <span ng-show="sortType == 'GasDate' && !sortReverse" class="fa fa-caret-down"></span>
                             <span ng-show="sortType == 'GasDate' && sortReverse" class="fa fa-caret-up"></span>
-                        </a> <br />Store
+                        </a> <br />Store 
                     </td>
                     @*<td>
                         <a href="#" ng-click="sortType = 'Store'; sortReverse = !sortReverse">
@@ -87,7 +87,7 @@
                             Gallons
                             <span ng-show="sortType == 'TotalGallons' && !sortReverse" class="fa fa-caret-down"></span>
                             <span ng-show="sortType == 'TotalGallons' && sortReverse" class="fa fa-caret-up"></span>
-                        </a>
+                        </a> <br />Gas Type
                     </td>
                     <td>
                         <a href="#" ng-click="sortType = 'DrivenMiles'; sortReverse = !sortReverse">
@@ -120,11 +120,11 @@
                         url = HttpUtility.UrlDecode(url);
                     }
 
-                    <td><span style="border-bottom:1px solid black"><a data-ng-href="@url">{{ g.GasDate | date :  'MM/dd/yyyy' }}</a></span>  {{ g.Store }}</td>
+                    <td><span style="border-bottom:1px solid black"><a data-ng-href="@url">{{ g.GasDate | date :  'MM/dd/yyyy' }}</a></span>  {{ g.Store }} </td>
                     @*<td>{{ g.Store }}</td>*@
                     <td>{{ g.TotalMiles | number }} </td>
                     <td>{{ g.TotalPrice | currency}}</td>
-                    <td>{{ g.TotalGallons | number: '3'}}</td>
+                    <td>{{ g.TotalGallons | number: '3'}} <br/>{{ g.GasType }}</td>
                     <td><span style="border-bottom:1px solid black"> {{ g.DrivenMiles | number: 0 }}</span><br /> {{ g.MPG | number: 0 }}</td>
                     @*<td>{{ g.MPG | number: 0 }}</td>*@
                     @*<td><span ng-if="g.EngineRunTime != '00:00:00'"> {{ g.EngineRunTime }}</span></td>*@

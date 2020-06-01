@@ -27,6 +27,13 @@
 
         </div>
 
+
+        <div>
+            @Html.Label("Gas Type")
+            @Html.DropDownListFor(n => n.SelectedGasType, Model.GasTypes, "Gas Type?", null)
+
+        </div>
+
         <div>
             @Html.LabelFor(m => m.TotalPrice)
             @if (Model.username.Equals("shane", StringComparison.CurrentCultureIgnoreCase))

@@ -18,7 +18,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
 
         public ActionResult JSONList(int id, bool viewall = false)
         {   
-            List<Gallon> gallons = ae.Gallons.Where(m => m.AutoID == id && m.Delete == null).OrderByDescending(m => m.TotalMiles).Take(20).ToList();
+            List<Gallon> gallons = ae.Gallons.Include("GasolineType").Where(m => m.AutoID == id && m.Delete == null).OrderByDescending(m => m.TotalMiles).Take(20).ToList();
             List<JSONGallonsView> jgv = new List<JSONGallonsView>();
 
             decimal lastmiles = 0;
@@ -36,6 +36,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 gv.MPG = lastmiles.Equals(0) ? 0 : ((item.TotalMiles - lastmiles) / (decimal)gv.TotalGallons);
                 gv.EngineRunTime = item.EngineRunTime;
                 gv.ID = item.ID;
+                gv.GasType = item.GasolineType?.TypeName;
                 lastmiles = gv.TotalMiles;
                 jgv.Add(gv);
             }
@@ -96,7 +97,8 @@ namespace SDNWebApps.Areas.Gas.Controllers
                 StationID = addviewmodel.SelectedStation,
                 Latitude = addviewmodel.Latitude,
                 Longitude = addviewmodel.Longitude,
-                EngineRunTime = addviewmodel.EngineRunTime != null ? TimeSpan.Parse(addviewmodel.EngineRunTime.Replace(".", ":")) : new TimeSpan()
+                EngineRunTime = addviewmodel.EngineRunTime != null ? TimeSpan.Parse(addviewmodel.EngineRunTime.Replace(".", ":")) : new TimeSpan(),
+                GasolineTypeID = addviewmodel.SelectedGasType
 
 
             };

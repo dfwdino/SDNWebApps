@@ -26,7 +26,6 @@ namespace SDNWebApps.Views
         }
     
         public DbSet<Auto> Autos { get; set; }
-        public DbSet<Gallon> Gallons { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Person> People { get; set; }
@@ -54,5 +53,7 @@ namespace SDNWebApps.Views
         public DbSet<Punshment> Punshments { get; set; }
         public DbSet<PunshmentAction> PunshmentActions { get; set; }
         public DbSet<Issue> Issues { get; set; }
+        public DbSet<Gallon> Gallons { get; set; }
+        public DbSet<GasolineType> GasolineTypes { get; set; }
     }
 }

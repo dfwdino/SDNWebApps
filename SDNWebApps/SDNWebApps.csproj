@@ -180,6 +180,7 @@
     <Compile Include="Areas\Dreams\DreamsAreaRegistration.cs" />
     <Compile Include="Areas\Gas\Controllers\AutoController.cs" />
     <Compile Include="Areas\Gas\Controllers\GasNotesController.cs" />
+    <Compile Include="Areas\Gas\Controllers\GasolineTypesController.cs" />
     <Compile Include="Areas\Gas\Controllers\HomeController.cs" />
     <Compile Include="Areas\Gas\Controllers\MilesController.cs" />
     <Compile Include="Areas\Gas\Controllers\PersonController.cs" />
@@ -284,6 +285,9 @@
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\GasNote.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GasolineType.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Issue.cs">
@@ -556,6 +560,11 @@
     <Content Include="Areas\Relationship\Views\Issues\Details.cshtml" />
     <Content Include="Areas\Relationship\Views\Issues\Edit.cshtml" />
     <Content Include="Areas\Relationship\Views\Issues\Index.cshtml" />
+    <Content Include="Areas\Gas\Views\GasolineTypes\Create.cshtml" />
+    <Content Include="Areas\Gas\Views\GasolineTypes\Delete.cshtml" />
+    <Content Include="Areas\Gas\Views\GasolineTypes\Details.cshtml" />
+    <Content Include="Areas\Gas\Views\GasolineTypes\Edit.cshtml" />
+    <Content Include="Areas\Gas\Views\GasolineTypes\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\esm\popper.min.js.map" />

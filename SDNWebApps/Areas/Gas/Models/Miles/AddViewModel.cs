@@ -29,7 +29,19 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
                         })
                 .OrderByDescending(group => group.Count).ToList();
 
+
+            var GasolineType = se.GasolineTypes
+                .Select(group =>
+                        new
+                        {
+                            TypeID = group.ID,
+                            TypeName = group.TypeName
+                        })
+                .OrderByDescending(group => group.TypeName).ToList();
+
+
             Stations = new SelectList(test, "StationID.StationID", "StationName", null);
+            GasTypes = new SelectList(GasolineType, "TypeID", "TypeName", null);
             //Stations = new SelectList(se.Stations.OrderBy(m => m.StationName), "StationID", "StationName", null);
             username = se.Autos.Where(m => m.ID == autoID).Select(m => m.Person.PersonName).First();
         }
@@ -48,6 +60,7 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         }
 
         public int SelectedStation { get; set; }
+        public int SelectedGasType { get; set; }
         public int AutoID { get; set; }
         //public int PersonID { get; set; }
         [DisplayName("Total Miles")]
@@ -68,6 +81,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public bool TankFilled { get; set; }
 
        public SelectList Stations { get; set; }
+        public SelectList GasTypes { get; set; }
+
 
         public string Latitude { get; set; }
         public string Longitude { get; set; }
@@ -76,6 +91,8 @@ namespace SDNWebApps.Areas.Gas.Models.Miles
         public string EngineRunTime { get; set; }
 
         public string username { get; set; }
+
+        public int GasolineTypeID { get; set; }
 
     }
 }

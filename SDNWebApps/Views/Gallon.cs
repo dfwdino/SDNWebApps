@@ -29,8 +29,10 @@ namespace SDNWebApps.Views
         public string Longitude { get; set; }
         public string Latitude { get; set; }
         public Nullable<System.TimeSpan> EngineRunTime { get; set; }
+        public Nullable<int> GasolineTypeID { get; set; }
     
         public virtual Auto Auto { get; set; }
+        public virtual GasolineType GasolineType { get; set; }
         public virtual Station Station { get; set; }
     }
 }

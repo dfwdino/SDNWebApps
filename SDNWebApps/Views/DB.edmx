@@ -200,6 +200,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Longitude" Type="nvarchar" MaxLength="25" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="25" />
           <Property Name="EngineRunTime" Type="time" Precision="7" />
+          <Property Name="GasolineTypeID" Type="int" />
         </EntityType>
         <EntityType Name="GasNotes">
           <Key>
@@ -214,6 +215,13 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Broswer" Type="nvarchar" MaxLength="100" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="NoteDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GasolineTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="People">
           <Key>
@@ -472,6 +480,18 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gallons_GasolineTypes">
+          <End Role="GasolineTypes" Type="Self.GasolineTypes" Multiplicity="0..1" />
+          <End Role="Gallons" Type="Self.Gallons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GasolineTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gallons">
+              <PropertyRef Name="GasolineTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gallons_Stations">
           <End Role="Stations" Type="Self.Stations" Multiplicity="0..1" />
           <End Role="Gallons" Type="Self.Gallons" Multiplicity="*" />
@@ -656,6 +676,7 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <EntitySet Name="Autos" EntityType="Self.Autos" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Gallons" EntityType="Self.Gallons" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="GasNotes" EntityType="Self.GasNotes" Schema="Gas" store:Type="Tables" />
+          <EntitySet Name="GasolineTypes" EntityType="Self.GasolineTypes" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Stations" EntityType="Self.Stations" Schema="Gas" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="Grocery" store:Type="Tables" />
@@ -705,6 +726,10 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           </AssociationSet>
           <AssociationSet Name="FK_Gallons_Autos" Association="Self.FK_Gallons_Autos">
             <End Role="Autos" EntitySet="Autos" />
+            <End Role="Gallons" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gallons_GasolineTypes" Association="Self.FK_Gallons_GasolineTypes">
+            <End Role="GasolineTypes" EntitySet="GasolineTypes" />
             <End Role="Gallons" EntitySet="Gallons" />
           </AssociationSet>
           <AssociationSet Name="FK_Gallons_Stations" Association="Self.FK_Gallons_Stations">
@@ -770,11 +795,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
       <Schema Namespace="SDNAppsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SDNAppsEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Autos" EntityType="SDNAppsModel.Auto" />
-          <EntitySet Name="Gallons" EntityType="SDNAppsModel.Gallon" />
-          <AssociationSet Name="FK_Gallons_Autos" Association="SDNAppsModel.FK_Gallons_Autos">
-            <End Role="Auto" EntitySet="Autos" />
-            <End Role="Gallon" EntitySet="Gallons" />
-          </AssociationSet>
           <EntitySet Name="Items" EntityType="SDNAppsModel.Item" />
           <EntitySet Name="Stores" EntityType="SDNAppsModel.Store" />
           <AssociationSet Name="FK_Items_Stores" Association="SDNAppsModel.FK_Items_Stores">
@@ -813,10 +833,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="ThingsDone" EntitySet="ThingsDones" />
           </AssociationSet>
           <EntitySet Name="Stations" EntityType="SDNAppsModel.Station" />
-          <AssociationSet Name="FK_Gallons_Stations" Association="SDNAppsModel.FK_Gallons_Stations">
-            <End Role="Station" EntitySet="Stations" />
-            <End Role="Gallon" EntitySet="Gallons" />
-          </AssociationSet>
           <EntitySet Name="GasNotes" EntityType="SDNAppsModel.GasNote" />
           <AssociationSet Name="FK_GasNotes_Autos" Association="SDNAppsModel.FK_GasNotes_Autos">
             <End Role="Auto" EntitySet="Autos" />
@@ -882,6 +898,20 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
             <End Role="Punshment" EntitySet="Punshments" />
           </AssociationSet>
           <EntitySet Name="Issues" EntityType="SDNAppsModel.Issue" />
+          <EntitySet Name="Gallons" EntityType="SDNAppsModel.Gallon" />
+          <EntitySet Name="GasolineTypes" EntityType="SDNAppsModel.GasolineType" />
+          <AssociationSet Name="FK_Gallons_Autos" Association="SDNAppsModel.FK_Gallons_Autos">
+            <End Role="Auto" EntitySet="Autos" />
+            <End Role="Gallon" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gallons_GasolineTypes" Association="SDNAppsModel.FK_Gallons_GasolineTypes">
+            <End Role="GasolineType" EntitySet="GasolineTypes" />
+            <End Role="Gallon" EntitySet="Gallons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gallons_Stations" Association="SDNAppsModel.FK_Gallons_Stations">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Gallon" EntitySet="Gallons" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Auto">
           <Key>
@@ -890,48 +920,14 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="WhosCar" Nullable="false" />
           <Property Type="String" Name="AutoName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Auto" ToRole="Gallon" />
           <NavigationProperty Name="Person" Relationship="SDNAppsModel.FK_Autos_People" FromRole="Auto" ToRole="Person" />
           <NavigationProperty Name="GasNotes" Relationship="SDNAppsModel.FK_GasNotes_Autos" FromRole="Auto" ToRole="GasNote" />
           <Property Name="Delete" Type="Boolean" />
           <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Auto" ToRole="Gallon" />
           </EntityType>
-        <EntityType Name="Gallon">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="AutoID" Nullable="false" />
-          <Property Type="Int32" Name="TotalMiles" Nullable="false" />
-          <Property Type="Int32" Name="DrivenMiles" Nullable="false" />
-          <Property Type="Double" Name="TotalGallons" Nullable="false" />
-          <Property Type="Decimal" Name="TotalPrice" Precision="19" Scale="4" />
-          <Property Type="DateTime" Name="GasDate" Precision="0" />
-          <Property Type="Boolean" Name="TankFilled" Nullable="false" />
-          <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Gallon" ToRole="Auto" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StationID" Type="Int32" />
-          <NavigationProperty Name="Station" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Gallon" ToRole="Station" />
-          <Property Name="Delete" Type="Boolean" />
-          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="EngineRunTime" Type="Time" Precision="7" />
-        </EntityType>
-        <Association Name="FK_Gallons_Autos">
-          <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
-          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Auto">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Gallon">
-              <PropertyRef Name="AutoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Item">
           <Key>
             <PropertyRef Name="ID" />
@@ -1175,18 +1171,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Station" ToRole="Gallon" />
           </EntityType>
-        <Association Name="FK_Gallons_Stations">
-          <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="0..1" />
-          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Station">
-              <PropertyRef Name="StationID" />
-            </Principal>
-            <Dependent Role="Gallon">
-              <PropertyRef Name="StationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="GasNote">
           <Key>
             <PropertyRef Name="NotesID" />
@@ -1546,6 +1530,74 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
           <Property Name="WhatHappened" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Gallon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AutoID" Type="Int32" Nullable="false" />
+          <Property Name="TotalMiles" Type="Int32" Nullable="false" />
+          <Property Name="DrivenMiles" Type="Int32" Nullable="false" />
+          <Property Name="TotalGallons" Type="Double" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GasDate" Type="DateTime" Precision="0" />
+          <Property Name="TankFilled" Type="Boolean" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StationID" Type="Int32" />
+          <Property Name="Delete" Type="Boolean" />
+          <Property Name="IPAddress" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="EngineRunTime" Type="Time" Precision="7" />
+          <Property Name="GasolineTypeID" Type="Int32" />
+          <NavigationProperty Name="Auto" Relationship="SDNAppsModel.FK_Gallons_Autos" FromRole="Gallon" ToRole="Auto" />
+          <NavigationProperty Name="GasolineType" Relationship="SDNAppsModel.FK_Gallons_GasolineTypes" FromRole="Gallon" ToRole="GasolineType" />
+          <NavigationProperty Name="Station" Relationship="SDNAppsModel.FK_Gallons_Stations" FromRole="Gallon" ToRole="Station" />
+        </EntityType>
+        <EntityType Name="GasolineType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gallons" Relationship="SDNAppsModel.FK_Gallons_GasolineTypes" FromRole="GasolineType" ToRole="Gallon" />
+        </EntityType>
+        <Association Name="FK_Gallons_Autos">
+          <End Type="SDNAppsModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gallon">
+              <PropertyRef Name="AutoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gallons_GasolineTypes">
+          <End Type="SDNAppsModel.GasolineType" Role="GasolineType" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GasolineType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Gallon">
+              <PropertyRef Name="GasolineTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gallons_Stations">
+          <End Type="SDNAppsModel.Station" Role="Station" Multiplicity="0..1" />
+          <End Type="SDNAppsModel.Gallon" Role="Gallon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="StationID" />
+            </Principal>
+            <Dependent Role="Gallon">
+              <PropertyRef Name="StationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1561,27 +1613,6 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="Delete" ColumnName="Delete" />
                 <ScalarProperty Name="AutoName" ColumnName="AutoName" />
                 <ScalarProperty Name="WhosCar" ColumnName="WhosCar" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gallons">
-            <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
-              <MappingFragment StoreEntitySet="Gallons">
-                <ScalarProperty Name="EngineRunTime" ColumnName="EngineRunTime" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="Delete" ColumnName="Delete" />
-                <ScalarProperty Name="StationID" ColumnName="StationID" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
-                <ScalarProperty Name="GasDate" ColumnName="GasDate" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="TotalGallons" ColumnName="TotalGallons" />
-                <ScalarProperty Name="DrivenMiles" ColumnName="DrivenMiles" />
-                <ScalarProperty Name="TotalMiles" ColumnName="TotalMiles" />
-                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1945,6 +1976,36 @@ warning 6002: The table/view 'SDNApps.dbo.BlockedIPAddress' does not have a prim
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="WhatHappened" ColumnName="WhatHappened" />
                 <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gallons">
+            <EntityTypeMapping TypeName="SDNAppsModel.Gallon">
+              <MappingFragment StoreEntitySet="Gallons">
+                <ScalarProperty Name="GasolineTypeID" ColumnName="GasolineTypeID" />
+                <ScalarProperty Name="EngineRunTime" ColumnName="EngineRunTime" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Delete" ColumnName="Delete" />
+                <ScalarProperty Name="StationID" ColumnName="StationID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="TankFilled" ColumnName="TankFilled" />
+                <ScalarProperty Name="GasDate" ColumnName="GasDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TotalGallons" ColumnName="TotalGallons" />
+                <ScalarProperty Name="DrivenMiles" ColumnName="DrivenMiles" />
+                <ScalarProperty Name="TotalMiles" ColumnName="TotalMiles" />
+                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GasolineTypes">
+            <EntityTypeMapping TypeName="SDNAppsModel.GasolineType">
+              <MappingFragment StoreEntitySet="GasolineTypes">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
