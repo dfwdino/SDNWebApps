@@ -161,7 +161,12 @@ namespace SDNWebApps.Areas.GroceryList.Controllers
 
             }
             else
+            {
+                newItem.Price = Convert.ToDecimal(itemsViewModel.Price);
+                newItem.StoreID = itemsViewModel.SelectedItemId;
+                newItem.Amount = itemsViewModel.Amount;
                 newItem.Have = false;
+            }
             
             
             sdnApps.SaveChanges();

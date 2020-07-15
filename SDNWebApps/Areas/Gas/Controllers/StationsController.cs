@@ -77,6 +77,7 @@ namespace SDNWebApps.Areas.Gas.Controllers
         [HttpGet]
         public virtual JsonResult GetStations()
         {
+           
             var AllStations = Json(db.Stations.Select(m => new {ID = m.StationID, value = m.StationName}),
                 JsonRequestBehavior.AllowGet);
 

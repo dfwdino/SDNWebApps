@@ -29,53 +29,53 @@
     }
 </style>
 
+<div class="container">
+    <div id="context">
 
-<div id="context">
-    
-    <p style="width:80%;color:blue;text-align:center">@ViewBag.Item</p>
-    <br/>
-    
-    @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-    <div st>
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name)  <input id="submitbutton" type="submit" value="Add" /><br />
+        <p style="width:80%;color:blue;text-align:center">@ViewBag.Item</p>
+        <br />
+
+        @using (Html.BeginForm("AddItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div st>
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name)  <input id="submitbutton" type="submit" value="Add" /><br />
+
+            </div>
+            <br />
+            <div class="ItemsAddForm">
+                @Html.LabelFor(m => m.Price)
+                @Html.TextBoxFor(m => m.Price, new { @type = "number", @step = "0.01", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
+                @*@Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />*@
+            </div>
+            <br />
+            <div class="ItemsAddForm">
+                @Html.LabelFor(m => m.Amount)
+                @Html.TextBoxFor(m => m.Amount, new { @type = "number", @step = "0.01" })<br />
+            </div>
+            <br />
+            <div class="ItemsAddForm">
+                <label>Type</label>
+                @Html.DropDownList("ItemSizeID", null, "---Select---")
+            </div>
+            <br />
+
+            <div class="ItemsAddForm">
+                <label>Store</label>
+                @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
+            </div>
+
+            @*<div class="ItemsAddForm">
+                    <input type="file" id="uploadFile" name="uploadFile" />
+                </div>*@
+            <br />
+            <div class="ItemsAddForm">
+                <input id="submitbutton" type="submit" value="Add" />
+            </div>
+        }
 
     </div>
-        <br />
-        <div class="ItemsAddForm">
-            @Html.LabelFor(m => m.Price)
-            @Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
-            @*@Html.TextBoxFor(m => m.Price, new { @type = "number", @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />*@
-        </div>
-        <br />
-        <div class="ItemsAddForm">
-            @Html.LabelFor(m => m.Amount)
-            @Html.TextBoxFor(m => m.Amount, new { @type = "number" })<br />
-        </div>
-        <br />
-        <div class="ItemsAddForm">
-            <label>Type</label>
-            @Html.DropDownList("ItemSizeID", null, "---Select---")
-        </div>
-        <br />
-
-        <div class="ItemsAddForm">
-            <label>Store</label>
-            @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
-        </div>
-
-        @*<div class="ItemsAddForm">
-                <input type="file" id="uploadFile" name="uploadFile" />
-            </div>*@
-        <br />
-        <div class="ItemsAddForm">
-            <input id="submitbutton" type="submit" value="Add" />
-        </div>
-    }
-
 </div>
-
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
 

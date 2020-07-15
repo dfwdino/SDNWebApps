@@ -26,37 +26,42 @@
     }
 </style>
 
-<div>@ViewBag.Item</div>
-<br/>
+<br />
+<div class="container">
+    <div id="context">
+        @using (Html.BeginForm("EditItem", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.ID)
+            @Html.LabelFor(m => m.Name) @Html.TextBoxFor(m => m.Name)<br />
+            @Html.LabelFor(m => m.Price, new { @type = "number" })
+            @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
+            @Html.LabelFor(m => m.Amount)
+            @*@Html.TextBoxFor(m => m.Amount, new {})<br/>*@
+            @Html.TextBoxFor(m => m.Amount, new { @type = "number" })<br />
+            @Html.LabelFor(model => model.ItemSizeID, "Type", null)
+            @Html.DropDownListFor(m => m.ItemSizeID, ViewBag.ItemSizeID as List<SelectListItem>, "Select Item", null)
+            <br />
+            @Html.LabelFor(m => m.Store)
+            @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store", null)<br /><br />
 
-@using (Html.BeginForm("EditItem","Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{<div>
-     @Html.HiddenFor(m => m.ID)
-     @Html.LabelFor(m => m.Name) @Html.TextBoxFor(m => m.Name)<br />
-     @Html.LabelFor(m => m.Price,new { @type = "number" })
-     @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price == 0.0) ? "" : Model.Price.ToString() })<br />
-     @Html.LabelFor(m => m.Amount)
-     @*@Html.TextBoxFor(m => m.Amount, new {})<br/>*@
-     @Html.TextBoxFor(m => m.Amount, new { @type = "number" })<br />
-     @Html.LabelFor(model => model.ItemSizeID, "Type", null)
-     @Html.DropDownListFor(m => m.ItemSizeID,ViewBag.ItemSizeID as List<SelectListItem>, "Select Item",null)
-     <br/>
-     <label>Store</label>
-     @Html.DropDownListFor(x => x.SelectedItemId, Model.ListToUse, "Select Store",null)<br /><br />
-     
-     @*<input type="file" id="uploadFile" name="uploadFile" />*@
-
- </div>
-
- foreach (var item in Model.Prices)
- {
-    <div>@item.Store.StoreName - @item.Price.ToString("C") @item.Date.ToShortDateString()</div> <br/>
- }
+            @*<input type="file" id="uploadFile" name="uploadFile" />*@
 
 
-    <p><input id="submitbutton" type="submit" value="update" /></p>
-}
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/grocery")
-@Styles.Render("~/Content/grocery.css")
+
+            foreach (var item in Model.Prices)
+            {
+                <div>@item.Store.StoreName - @item.Price.ToString("C") @item.Date.ToShortDateString()</div> <br />
+            }
+
+
+            <p><input id="submitbutton" type="submit" value="update" /></p>
+        }
+    </div>
+    </div>
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+    @Scripts.Render("~/bundles/grocery")
+    @Styles.Render("~/Content/grocery.css")
 
